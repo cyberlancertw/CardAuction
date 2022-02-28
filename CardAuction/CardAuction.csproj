@@ -104,8 +104,28 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\cssHomeIndex.css" />
+    <Content Include="Content\cssLogin.css" />
+    <Content Include="Content\cssRegister.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="images\site\iconArrowLeft.png" />
+    <Content Include="images\site\iconArrowRight.png" />
+    <Content Include="images\site\iconCart.jpg" />
+    <Content Include="images\site\iconMagnifier.png" />
+    <Content Include="images\site\iconMLB.png" />
+    <Content Include="images\site\iconMTG.png" />
+    <Content Include="images\site\iconNBA.png" />
+    <Content Include="images\site\iconPokemon.png" />
+    <Content Include="images\site\iconPositionFalse.png" />
+    <Content Include="images\site\iconPositionTrue.png" />
+    <Content Include="images\site\iconPwdShow.png" />
+    <Content Include="images\site\iconWebsite.png" />
+    <Content Include="images\site\iconYuGiOh.png" />
+    <Content Include="images\site\mtgesika.png" />
+    <Content Include="images\site\nbapanini.png" />
+    <Content Include="images\site\pkmcharizard.png" />
+    <Content Include="images\site\yugiohprismatic.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -164,7 +184,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="images\" />
     <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Admin\" />

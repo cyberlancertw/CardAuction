@@ -1,7 +1,111 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "首頁";
+    Layout = null;
 }
 
-<h2>Index</h2>
+<head>
+    <link rel="stylesheet" href="~/Content/cssHomeIndex.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+</head>
+<body>
+    <div id="fullPage">
+        <div id="header">
+            <a href="login.html">登入</a>
+            <a href="about.html">關於我們</a>
+            <a href="infomation.html">使用說明</a>
+            <a href="contact.html">聯絡我們</a>
+        </div>
+        <div id="nav" class="row">
+            <div id="catalog1" class="col-sm-12 col-md-3">
+                <div class="row justify-content-around">
+                    <div class="col-5"><a href="#"><img src="../images/site/iconWebsite.png" id="webIcon" /></a></div>
+                    <div class="col-2"><a href="pageBuy.html">購買</a></div>
+                    <div class="col-2"><a href="pageSell.html">出售</a></div>
+                    <div class="col-3"><a href="pageForum">討論區</a></div>
+                </div>
+            </div>
+            <div id="catalog2" class="col-sm-12 col-md-4">
+                <div class="row justify-content-around">
+                    <div class="col-2"><a href="cataPokemon.html"><img src="../../images/site/iconPokemon.png" /></a></div>
+                    <div class="col-2"><a href="cataYuGiOh.html"><img src="../images/site/iconYuGiOh.png" /></a></div>
+                    <div class="col-2"><a href="cataMTG.html"><img src="../images/site/iconMTG.png" /></a></div>
+                    <div class="col-2"><a href="cataNBA.html"><img src="../images/site/iconNBA.png" /></a></div>
+                    <div class="col-2"><a href="cataMLB.html"><img src="../images/site/iconMLB.png" /></a></div>
+                </div>
+            </div>
+            <div id="search" class="col-sm-12 col-md-5">
+                <div class="row">
+                    <div class="col-10" id="divSearch">
+                        <input type="search" id="txtSearch" placeholder="    搜尋品牌、價格、等" />
+                        <img src="../images/site/iconMagnifier.png" id="iconMag" />
+                    </div>
+                    <div class="col-2"><img src="../images/site/iconCart.jpg" id="imgCart" /></div>
+                </div>
+            </div>
+        </div>
+        <div id="adCarosel">
+            <div id="adMain">
+            </div>
+            <div id="adArrowLeft">
+                <img src="../images/site/iconArrowLeft.png" />
+            </div>
+            <div id="adArrowRight">
+                <img src="../images/site/iconArrowRight.png" />
+            </div>
+            <div id="adPosition">
+                <img src="../images/site/iconPositionFalse.png" />
+                <img src="../images/site/iconPositionFalse.png" />
+                <img src="../images/site/iconPositionFalse.png" />
+                <img src="../images/site/iconPositionFalse.png" />
+                <img src="../images/site/iconPositionTrue.png" />
+            </div>
+        </div>
+        <div id="betweenBar"></div>
+        <div id="mainContent">
+            <div id="contentInfo" class="row">
+                <div id="newArrival" class="col-6 col-md-3">
+                    <div id="arrivalText">最新商品</div>
+                    <div id="arrivalBar"></div>
+                </div>
+                <div id="checkAll" class="offset-2 col-4 offset-md-7 col-md-2">
+                    查看全部 →
+                </div>
+            </div>
+            <div id="cardList">
+                <div class="row">
+                    <div class="content1 col-sm-12 col-md-6 col-lg-3">
+                        <div class="divPicture"><img src="../images/site/pkmcharizard.png" /></div>
+                        <div class="divTitle">Charizard V 2020 Pokemon TCG Sword & Shield</div>
+                        <div class="divPrice">$1388</div>
+                        <div class="divButton"><button class="btnCheck" type="button" onclick="location.href='sale/pkmcharizard.html'">查看拍賣</button></div>
+                    </div>
+                    <div class="content2 col-sm-12 col-md-6 col-lg-3">
+                        <div class="divPicture"><img src="../images/site/nbapanini.png" /></div>
+                        <div class="divTitle">2020-21 Panini Illusions Basketball Blaster Box</div>
+                        <div class="divPrice">$4000</div>
+                        <div class="divButton"><button class="btnCheck" type="button" onclick="location.href='sale/nbapanini.html'">查看拍賣</button></div>
+                    </div>
+                    <div class="content3 col-sm-12 col-md-6 col-lg-3">
+                        <div class="divPicture"><img src="../images/site/yugiohprismatic.png" /></div>
+                        <div class="divTitle">Yu-Gi-Oh! OCG Prismatic Collection</div>
+                        <div class="divPrice">$3210</div>
+                        <div class="divButton"><button class="btnCheck" type="button" onclick="location.href='sale/yugiohprismatic.html'">查看拍賣</button></div>
+                    </div>
+                    <div class="content4 col-sm-12 col-md-6 col-lg-3">
+                        <div class="divPicture"><img src="../images/site/mtgesika.png" /></div>
+                        <div class="divTitle">Esika, God of the Tree (Foil) Magic: The Gathering TCG</div>
+                        <div class="divPrice">$640</div>
+                        <div class="divButton"><button class="btnCheck" type="button" onclick="location.href='sale/mtgesika.html'">查看拍賣</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
 
+        </div>
+    </div>
+    <!-- MVC 由 Model 提供資料 -->
+    <script src="js/jsIndex.js"></script>
+    <!-- MVC 由 Model 提供資料 -->
+</body>

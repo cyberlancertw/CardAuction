@@ -1,0 +1,176 @@
+﻿body {
+    font-family: 'Noto Sans CJK TC Medium',微軟正黑體;
+}
+
+#fullPage{
+    width: 90%;
+    margin: auto;
+}
+#header{
+    background-color: #ffffff;
+    padding: 4px;
+    text-align: right;
+    border-bottom: 3px solid #ebebeb;
+}
+#header>a{
+    text-decoration: none;
+    font-size: 18px;
+    color: #333333;
+    margin-right: 40px;
+}
+#nav{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#webIcon{
+    width: 90%;
+    margin-left: 10px;
+}
+#catalog1{
+    padding-top: 5px;
+
+}
+#catalog1 a{
+    text-decoration: none;
+    font-size: 15px;
+    color: #333333;
+}
+
+#catalog2 {
+    
+}
+#catalog2 img{
+    padding: 3px;
+    height: 33px;
+}
+
+#divSearch{
+    position: relative;
+}
+
+#iconMag{
+    position: absolute;
+    width: 25px;
+    right: 30px;
+    top: 8px;
+}
+#txtSearch{
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border: 3px solid #ebebeb;
+}
+#imgCart{
+    margin-left: 10px;
+    margin-top: 8px;
+    height: 20px;
+}
+#adCarosel{
+    position: relative;
+}
+#adMain {
+    width: 100%;
+    height: 500px;
+    background-color: #1F3444;
+}
+#adArrowLeft{
+    position: absolute;
+    top: 220px;
+    left: 25px;
+}
+#adArrowLeft>img{
+    width: 60px;
+}
+
+#adArrowRight{
+    position: absolute;
+    top: 220px;
+    right: 25px;
+}
+#adArrowRight>img{
+    width: 60px;
+}
+
+#adPosition{
+    width: 8vw;
+    position: absolute;
+    left: 46vw;
+    bottom: 20px;
+}
+
+#adPosition>img{
+    width: 1vw;
+
+}
+
+#betweenBar{
+    width: 100%;
+    height: 30px;
+    background-color: #ffffff;
+}
+#mainContent{
+    background-color: #ebebeb;
+}
+#contentInfo{
+    padding-top: 80px;
+}
+#arrivalText{
+    font-family: 'Noto Serif CJK TC Medium', 新細明體;
+    font-size: 24px;
+    text-align:right;
+}
+#arrivalBar{
+    margin-top: 5px;
+    width: 90%;
+    margin-left: 15px;
+    height: 8px;
+    background-color: #ab8f4e;
+}
+
+#checkAll{
+    font-size: 16px;
+}
+
+#cardList{
+    padding-top: 50px;
+}
+.divPicture{
+    text-align: center;
+    height: 420px;
+}
+.divPicture>img{
+    height: 400px;
+    margin-left: auto;
+}
+
+.divTitle{
+    font-size: 24px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 20px;
+    height: 100px;
+}
+
+.divPrice {
+    font-size: 38px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 20px;
+    color: #ab8f4e;
+    height: 100px;
+}
+
+.divButton{
+    margin-bottom: 120px;
+}
+.btnCheck{
+    margin-left: 20px;
+    width: 60%;
+    height: 50px;
+    border: 2px solid #1f3344;
+    
+    color: #1f3344;
+    border-radius: 2px;
+    font-size: 18px;
+}

@@ -1,0 +1,81 @@
+﻿body {
+    font-family: 'Noto Sans CJK TC Medium','微軟正黑體';
+}
+
+#iconTop {
+    padding: 15px;
+    border-bottom: 3px solid #ebebeb;
+    text-align: center;
+}
+#webIcon{
+    width: 130px;
+}
+#formLogin{
+    margin: auto;
+    text-align: center;
+    margin-top: 120px;
+}
+#txtLoginInfo{
+    font-size: 28px;
+    color: #333333;
+}
+
+#divUsr {
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+#username{
+    width: 100%;
+    height: 55px;
+    border: 2px solid #ebebeb;
+    border-radius: 5px;
+}
+#divPwd {
+    position: relative;
+    margin-top: 15px;
+}
+
+#password {
+    width: 100%;
+    height: 55px;
+    border: 2px solid #ebebeb;
+    border-radius: 5px;
+}
+#divPwd > img {
+    position: absolute;
+    top: 18px;
+    right: 16px;
+    width: 30px;
+}
+#divForget{
+    margin-top: 10px;
+    text-align: right;
+
+}
+#pwdForget{
+    text-decoration: none;
+    font-size: 14px;
+    color: #333333;
+}
+
+#divSend{
+    margin-top: 50px;
+}
+#btnSend{
+    width: 100%;
+    height: 55px;
+    color: #ffffff;
+    background-color: #ced3d9;
+    border: none;
+    border-radius: 5px;
+}
+
+#txtRegistInfo{
+    margin-top: 18px;
+
+}
+#txtRegistInfo>a {
+    text-decoration: none;
+    margin-left: 5px;
+    color: #1e3344;
+}

@@ -1,0 +1,79 @@
+﻿body {
+    font-family: 'Noto Sans CJK TC Medium','微軟正黑體';
+    font-size: 14px;
+    color: #6b6b6b;
+}
+a{
+    text-decoration: none;
+    color: #1f3444;
+}
+
+
+#fullPage{
+    padding-top: 15px;
+}
+
+#iconTop{
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #efefef;
+}
+#webIcon {
+    width: 130px;
+}
+#formRegister{
+    text-align: center;
+}
+
+#divTitle{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333333;
+    text-align: center;
+}
+[id^="div"]{
+    width: 100%;
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+#divAddress{
+    margin-left: auto;
+    margin-right: auto;
+}
+input{
+    width: 100%;
+    height: 60px;
+    border: 2px solid #ced3d8;
+    border-radius: 3px;
+}
+#divBirthday{
+    margin-bottom: 30px;
+}
+[id^="divConfirm"]{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#chkbox1{
+    
+}
+#chktext1,#chktext2{
+    text-align: left;
+}
+#chkSubscribe, #chkPrivacy{
+    height: 26px;
+}
+
+#btnSubmit{
+    width: 100%;
+    height: 50px;
+    background-color: #ced3d8;
+    color: #ffffff;
+    border: #ffffff;
+    border-radius: 3px;
+}
+
+#divLogin{
+    color: #333333;
+}
