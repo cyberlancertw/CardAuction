@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>登入</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/cssMemberLogin.css" rel="stylesheet">
+</head>
+<body>
+    <div id="fullPage">
+        <div id="iconTop">
+            <img id="webIcon" src="~/images/site/iconWebsite.png" />
+        </div>
+        <div class="row align-items-center">
+            <div id="formLogin" class="col-6 col-sm-6 col-md-4 col-lg-3">
+                <div id="txtLoginInfo">請登入您的帳戶</div>
+                <form>
+                    <div id="divUsr">
+                        <input type="text" name="username" id="username" placeholder="   帳號" />
+                    </div>
+                    <div id="divPwd">
+                        <input type="password" name="password" id="password" placeholder="   密碼" />
+                        <img src="~/images/site/iconPwdShow.png" />
+                    </div>
+                </form>
+                <div id="divForget">
+                    <a href="#" id="pwdForget">忘記密碼？</a>
+                </div>
+                <div id="divSend">
+                    <button type="button" id="btnSend">登入</button>
+                </div>
+                <div id="txtRegistInfo">
+                    沒有帳戶？@Html.ActionLink("立即建立", "Register")
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

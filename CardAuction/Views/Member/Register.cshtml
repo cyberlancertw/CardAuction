@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>註冊</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/cssMemberRegister.css" rel="stylesheet">
+</head>
+<body>
+    <div id="fullPage" class="row">
+        <div id="content" class="col-12">
+            <div id="iconTop">
+                <img id="webIcon" src="~/images/site/iconWebsite.png" />
+            </div>
+            <div class="row justify-content-center">
+                <div id="formRegister" class="col-10 col-sm-9 col-md-6 col-lg-4">
+                    <div id="divTitle">
+                        建立帳戶
+                    </div>
+                    <form action="#" method="post">
+                        <div id="divUsername">
+                            <input id="username" type="text" name="Account" placeholder="     帳號" />
+                        </div>
+                        <div id="divPwd">
+                            <input id="password" type="password" name="Password" placeholder="     密碼" />
+                        </div>
+                        <div id="divPwdCheck">
+                            <input id="passwordCheck" type="password" name="PasswordCheck" placeholder="     確認帳號" />
+                        </div>
+                        <div id="divRealname">
+                            <input id="realname" type="text" name="Name" placeholder="     姓名" />
+                        </div>
+                        <div id="divEmail">
+                            <input id="email" type="text" name="Email" placeholder="     Email" />
+                        </div>
+                        <div id="divAddress" class="row justify-content-between">
+                            <select id="seleAddr" class="col-4" name="AddressSelect"></select>
+                            <input id="address" type="text" class="col-7" name="Address" placeholder="     地址" />
+                        </div>
+                        <div id="divEmail">
+                            <input id="phone" type="tel" name="Phone" placeholder="     電話" />
+                        </div>
+                        <div id="divBirthday">
+                            <input id="birthday" type="date" name="Birthday" placeholder="     生日" />
+                        </div>
+                        <div id="divConfirm1" class="row">
+                            <div class="col-2">
+                                <input id="chkSubscribe" type="checkbox" name="Subscribe" />
+                            </div>
+                            <div id="chktext1" class="col-10">
+                                是，本人希望收到行銷相關通訊郵件。
+                            </div>
+                        </div>
+                        <div id="divConfirm2" class="row">
+                            <div class="col-2">
+                                <input id="chkPrivacy" type="checkbox" name="privacy" />
+                            </div>
+                            <div id="chktext2" class="col-10">
+                                我已閱讀並同意<a href="#">隱私政策</a>、該網站的<a href="#">條款與細項</a>以及該網站所提供的<a href="#">服務條款</a>。
+                            </div>
+                        </div>
+                        <div id="divSubmit">
+                            <input type="submit" id="btnSubmit" value="註冊" />
+                        </div>
+                        <div id="divLogin">
+                            已有帳戶？@Html.ActionLink("登入", "Login")
+                        </div>
+                    </form>
+                    @ViewBag.error
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--地址select要放入的option-->
+    <script src="~/Scripts/jsMemberRegister.js"></script>
+</body>
+</html>
