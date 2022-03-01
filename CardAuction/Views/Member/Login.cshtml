@@ -19,24 +19,26 @@
         <div class="row align-items-center">
             <div id="formLogin" class="col-6 col-sm-6 col-md-4 col-lg-3">
                 <div id="txtLoginInfo">請登入您的帳戶</div>
-                <form>
+                <form action="#" method="post">
                     <div id="divUsr">
-                        <input type="text" name="username" id="username" placeholder="   帳號" />
+                        <input type="text" name="Account" id="username" placeholder="   帳號" />
                     </div>
                     <div id="divPwd">
-                        <input type="password" name="password" id="password" placeholder="   密碼" />
+                        <input type="password" name="Password" id="password" placeholder="   密碼" />
                         <img src="~/images/site/iconPwdShow.png" />
                     </div>
+
+                    <div id="divForget">
+                        @Html.ActionLink("忘記密碼？","PasswordForget",null, new { id = "pwdForget" })
+                    </div>
+                    <span class="error">@ViewData["errorMessage"]</span>
+                    <div id="divSend">
+                        <input type="submit" id="btnSend" value="登入" />
+                    </div>
+                    <div id="txtRegistInfo">
+                        沒有帳戶？@Html.ActionLink("立即建立", "Register")
+                    </div>
                 </form>
-                <div id="divForget">
-                    <a href="#" id="pwdForget">忘記密碼？</a>
-                </div>
-                <div id="divSend">
-                    <button type="button" id="btnSend">登入</button>
-                </div>
-                <div id="txtRegistInfo">
-                    沒有帳戶？@Html.ActionLink("立即建立", "Register")
-                </div>
             </div>
         </div>
     </div>

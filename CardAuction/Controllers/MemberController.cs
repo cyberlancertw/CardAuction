@@ -33,8 +33,31 @@ namespace CardAuction.Controllers
         [HttpPost]
         public ActionResult Login(CLoginViewModel vModel)
         {
-            //
-            return View();
+            if(string.IsNullOrEmpty(vModel.Account))
+            {
+                ViewData["errorMessage"] = "帳號不得為空";
+                return View();
+            }
+            if (string.IsNullOrEmpty(vModel.Password))
+            {
+                ViewData["errorMessage"] = "密碼不得為空";
+                return View();
+            }
+            string sql = "select * from tMember where fAccount=@acc and fPassword=@pwd";
+            List<SqlParameter> paras = new List<SqlParameter>();
+            paras.Add(new SqlParameter("acc", vModel.Account));
+            paras.Add(new SqlParameter("pwd", Service.getCypher(vModel.Password)));
+            List<CMember> queryResult = CMemberFactory.QueryBy(sql, paras);
+            if(queryResult.Count > 0)
+            {
+                Session[CDictionary.SK_User] = queryResult[0];
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewData["errorMessage"] = "帳號或密碼不正確！";
+                return View();
+            }
         }
 
         [HttpGet]
@@ -73,6 +96,41 @@ namespace CardAuction.Controllers
             Service.ExecuteSql(sql, paras);
 
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public ActionResult PasswordForget()
+        {
+            // 輸入帳號
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PasswordForget(string Account)
+        {
+            if (string.IsNullOrEmpty(Account))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // 查 Email
+
+            // 送 Email
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult PasswordForget(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // 輸入驗證碼
+
+            return View();
         }
     }
 }
