@@ -15,7 +15,7 @@ namespace CardAuction.Controllers
         // GET: Member
         public ActionResult Index()
         {
-            if(Sesseion[CDictionary.SK_User] == null)
+            if(Session[CDictionary.SK_User] == null)
             {
                 return RedirectToAction("Login");
             }
@@ -92,7 +92,7 @@ namespace CardAuction.Controllers
                 return View();
             }
 
-            if (CMemberFactory.QueryByAccount(vModel.Account) != null)
+            if (CMemberFactory.QueryByAccount(vModel.Account) != 0)
             {
                 ViewData["errAcc"] = "帳號已存在";
                 return View();
@@ -161,6 +161,11 @@ namespace CardAuction.Controllers
             });
 
             return RedirectToAction("Login");
+        }
+
+        public ActionResult AccountCount(string Account)
+        {
+            return Content(CMemberFactory.QueryByAccount(Account).ToString());
         }
 
         [HttpGet]

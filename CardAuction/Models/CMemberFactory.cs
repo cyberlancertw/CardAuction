@@ -58,20 +58,21 @@ namespace CardAuction.Models
 
             return queryResult;
         }
-        public static CMember QueryByAccount(string account)
+        public static int QueryByAccount(string account)
         {
             string sql = "select * from tMember where fAccount=@acc";
             List<SqlParameter> paras = new List<SqlParameter>();
             paras.Add(new SqlParameter("acc", account));
             List<CMember> queryResult = QueryBy(sql, paras);
-            if(queryResult.Count > 0)
-            {
-                return queryResult[0];
-            }
-            else
-            {
-                return null;
-            }
+            //if(queryResult.Count > 0)
+            //{
+            //    return queryResult[0];
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+            return queryResult.Count;
 
         }
         public static CMember QueryById(int userId)
