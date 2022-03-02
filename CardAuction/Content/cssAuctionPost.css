@@ -1,0 +1,41 @@
+﻿body {
+    font-family: 'Noto Sans CJK TC Medium',微軟正黑體;
+    background-color: #f6f6f6;
+}
+
+#fullPage {
+    width: 90%;
+    margin: auto;
+}
+
+#webIcon {
+    width: 100px;
+    margin-right: 5px;
+}
+
+#header {
+    margin-top: 8px;
+    font-size: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #d2d7db;
+}
+
+#greeting {
+    text-align: right;
+    padding-right: 30px;
+}
+
+#mainBox {
+    margin-top: 5px;
+}
+
+#basicInfo {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    background-color: #ffffff;
+    border-radius: 10px 10px;
+    border: 2px solid lightgray;
+    padding: 20px;
+}

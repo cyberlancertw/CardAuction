@@ -104,6 +104,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\cssAuctionPost.css" />
     <Content Include="Content\cssHomeIndex.css" />
     <Content Include="Content\cssMemberLogin.css" />
     <Content Include="Content\cssMemberRegister.css" />
@@ -184,6 +185,7 @@
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
+    <Content Include="Views\Auction\Post.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -194,7 +196,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Auction\" />
     <Folder Include="Views\Exchange\" />
   </ItemGroup>
   <PropertyGroup>
