@@ -25,33 +25,41 @@
                     </div>
                     <form action="#" method="post">
                         <div id="divUsername">
-                            <input id="username" type="text" name="Account" placeholder="     帳號" />
-                        </div>
+                            <input id="username" type="text" name="Account" placeholder="     帳號" maxlength="20" minlength="6" required />
+                            <span class="errMsg">@ViewData["errAcc"]</span>
+                         </div>
                         <div id="divPwd">
-                            <input id="password" type="password" name="Password" placeholder="     密碼" />
+                            <input id="password" type="password" name="Password" placeholder="     密碼" minlength="8" reuired/>
+                            <span class="errMsg">@ViewData["errPwd"]</span>
                         </div>
                         <div id="divPwdCheck">
-                            <input id="passwordCheck" type="password" name="PasswordCheck" placeholder="     確認帳號" />
+                            <input id="passwordCheck" type="password" name="PasswordCheck" placeholder="     確認密碼" required />
+                            <span class="errMsg">@ViewData["errPwdCheck"]</span>
                         </div>
                         <div id="divRealname">
-                            <input id="realname" type="text" name="Name" placeholder="     姓名" />
+                            <input id="realname" type="text" name="Name" placeholder="     姓名" required />
+                            <span class="errMsg">@ViewData["errName"]</span>
                         </div>
                         <div id="divEmail">
-                            <input id="email" type="text" name="Email" placeholder="     Email" />
+                            <input id="email" type="text" name="Email" placeholder="     Email" required/>
+                            <span class="errMsg">@ViewData["errEmail"]</span>
                         </div>
                         <div id="divAddress" class="row justify-content-between">
                             <select id="seleAddr" class="col-4" name="AddressSelect"></select>
-                            <input id="address" type="text" class="col-7" name="Address" placeholder="     地址" />
+                            <input id="address" type="text" class="col-7" name="Address" placeholder="     地址" required />
+                            <span class="errMsg">@ViewData["errAddr"]</span>
                         </div>
                         <div id="divEmail">
-                            <input id="phone" type="tel" name="Phone" placeholder="     電話" />
+                            <input id="phone" type="tel" name="Phone" placeholder="     電話" required />
+                            <span class="errMsg">@ViewData["errPhone"]</span>
                         </div>
                         <div id="divBirthday">
-                            <input id="birthday" type="date" name="Birthday" placeholder="     生日" />
+                            <input id="birthday" type="date" name="Birthday" placeholder="     生日" value="1949-01-01"/>
+                            <span class="errMsg">@ViewData["errBirth"]</span>
                         </div>
                         <div id="divConfirm1" class="row">
                             <div class="col-2">
-                                <input id="chkSubscribe" type="checkbox" name="Subscribe" />
+                                <input id="chkSubscribe" type="checkbox" name="Subscribe" checked/>
                             </div>
                             <div id="chktext1" class="col-10">
                                 是，本人希望收到行銷相關通訊郵件。

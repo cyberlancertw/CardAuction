@@ -8,6 +8,24 @@ namespace CardAuction.Models
 {
     public class CMemberFactory
     {
+        public static void Create(CMember member)
+        {
+
+            string sql = "insert into tMember values(@acc,@pwd,@name,@email,@addr,@phone,@birth,@subs,@manag,@active)";
+            List<SqlParameter> paras = new List<SqlParameter>();
+            paras.Add(new SqlParameter("acc", member.Account));
+            paras.Add(new SqlParameter("pwd", Service.getCypher(member.Password)));         // 密碼做加密
+            paras.Add(new SqlParameter("name", member.Name));
+            paras.Add(new SqlParameter("email", member.Email));
+            paras.Add(new SqlParameter("addr", member.Address));
+            paras.Add(new SqlParameter("phone", member.Phone));
+            paras.Add(new SqlParameter("birth", member.Birthday));
+            paras.Add(new SqlParameter("subs", member.Subscribe));
+            paras.Add(new SqlParameter("manag", false));        // 預設不是管理員，待後台修改
+            paras.Add(new SqlParameter("active", true));        // 若加 Email 認證 feature，這裡就改 false，待validate
+            Service.ExecuteSql(sql, paras);
+
+        }
         public static List<CMember> QueryBy(string sqlStatement, List<SqlParameter> parameterList)
         {
             List<CMember> queryResult = new List<CMember>();

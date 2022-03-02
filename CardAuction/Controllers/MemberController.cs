@@ -69,31 +69,87 @@ namespace CardAuction.Controllers
         [HttpPost]
         public ActionResult Register(CRegisterViewModel vModel)
         {
-            /* 查非空
-             * 檢查account是否存在
-             * 比對兩個password
-             * 查accuount是否alphabetnumber 
-             * 查password是否含英數
-             */
-            if(CMemberFactory.QueryByAccount(vModel.Account) != null)
+            if (string.IsNullOrEmpty(vModel.Account))
             {
-                ViewBag.error = "帳號已存在";
+                ViewData["errAcc"] = "帳號不得為空";
                 return View();
             }
+            if (vModel.Account.Length < 7)
+            {
+                ViewData["errAcc"] = "帳號長度必須大於 6 個字元";
+                return View();
+            }
+            
+            // 檢查英數字 ^.[A-Za-z0-9]+$
 
-            string sql = "insert into tMember values(@acc,@pwd,@name,@email,@addr,@phone,@birth,@subs,@manag,@active)";
-            List<SqlParameter> paras = new List<SqlParameter>();
-            paras.Add(new SqlParameter("acc", vModel.Account));
-            paras.Add(new SqlParameter("pwd", Service.getCypher(vModel.Password)));         // 密碼做加密
-            paras.Add(new SqlParameter("name", vModel.Name));
-            paras.Add(new SqlParameter("email", vModel.Email));
-            paras.Add(new SqlParameter("addr", vModel.AddressSelect + vModel.Address));    // 地址選擇的和輸入的兩個組合
-            paras.Add(new SqlParameter("phone", vModel.Phone));
-            paras.Add(new SqlParameter("birth", vModel.Birthday));
-            paras.Add(new SqlParameter("subs", vModel.Subscribe));
-            paras.Add(new SqlParameter("manag", false));
-            paras.Add(new SqlParameter("active", true));        // 若加 Email 認證 feature，這裡就改 false，待validate
-            Service.ExecuteSql(sql, paras);
+            if (CMemberFactory.QueryByAccount(vModel.Account) != null)
+            {
+                ViewData["errAcc"] = "帳號已存在";
+                return View();
+            }
+            if (vModel.Password.Length < 9)
+            {
+                ViewData["errPwd"] = "密碼長度必須大於 8 個字元";
+                return View();
+            }
+            if (string.IsNullOrEmpty(vModel.Password))
+            {
+                ViewData["errPwd"] = "密碼不得為空";
+                return View();
+            }
+            if (string.IsNullOrEmpty(vModel.PasswordCheck))
+            {
+                ViewData["errPwdCheck"] = "密碼不得為空";
+                return View();
+            }
+            if (vModel.Password != vModel.PasswordCheck)
+            {
+                ViewData["errPwd"] = "密碼必須相同";
+                ViewData["errPwdCheck"] = "密碼必須相同";
+                return View();
+            }
+            if (string.IsNullOrEmpty(vModel.Name))
+            {
+                ViewData["errName"] = "姓名不得為空";
+                return View();
+            }
+            if (string.IsNullOrEmpty(vModel.Email))
+            {
+                ViewData["errEmail"] = "Email 不得為空";
+                return View();
+            }
+            if (string.IsNullOrEmpty(vModel.Address))
+            {
+                ViewData["errAddr"] = "地址不得為空";
+                return View();
+            }
+            if (string.IsNullOrEmpty(vModel.Phone))
+            {
+                ViewData["errPhone"] = "電話不得為空";
+                return View();
+            }
+            if (vModel.Birthday == null)
+            {
+                ViewData["errBirth"] = "生日不得為空";
+                return View();
+            }
+            if(vModel.Birthday.Year < 1950)
+            {
+                ViewData["errBirth"] = "生日輸入有異";
+                return View();
+            }
+            CMemberFactory.Create(new CMember()
+            {
+                Account = vModel.Account,
+                //Account = vModel.Subscribe.ToString(),
+                Password = vModel.Password,
+                Name = vModel.Name,
+                Email = vModel.Email,
+                Address = vModel.AddressSelect + vModel.Address,
+                Phone = vModel.Phone,
+                Birthday = vModel.Birthday,
+                Subscribe = vModel.Subscribe            // 不知為何永遠 false
+            });
 
             return RedirectToAction("Login");
         }

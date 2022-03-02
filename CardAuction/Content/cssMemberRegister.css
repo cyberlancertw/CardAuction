@@ -77,3 +77,6 @@ input{
 #divLogin{
     color: #333333;
 }
+span.errMsg{
+    color: red;
+}
