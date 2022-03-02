@@ -1,4 +1,4 @@
-﻿
+﻿@model Car
 @{
     Layout = null;
 }
@@ -59,7 +59,8 @@
                         </div>
                         <div id="divConfirm1" class="row">
                             <div class="col-2">
-                                <input id="chkSubscribe" type="checkbox" name="Subscribe" checked/>
+                                <input id="chkSubscribe" type="checkbox" name="Subscribe" value="true" checked />
+                                <input type="hidden" name="Subscribe" value="false" />
                             </div>
                             <div id="chktext1" class="col-10">
                                 是，本人希望收到行銷相關通訊郵件。

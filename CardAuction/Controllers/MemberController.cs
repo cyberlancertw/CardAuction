@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using CardAuction.Models;
@@ -14,6 +15,11 @@ namespace CardAuction.Controllers
         // GET: Member
         public ActionResult Index()
         {
+            if(Sesseion[CDictionary.SK_User] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
             return View();
         }
 
@@ -74,22 +80,26 @@ namespace CardAuction.Controllers
                 ViewData["errAcc"] = "帳號不得為空";
                 return View();
             }
-            if (vModel.Account.Length < 7)
+            if (vModel.Account.Length < 6)
             {
-                ViewData["errAcc"] = "帳號長度必須大於 6 個字元";
+                ViewData["errAcc"] = "帳號長度必須大於 5 個字元";
                 return View();
             }
             
-            // 檢查英數字 ^.[A-Za-z0-9]+$
+            if(!Regex.IsMatch(vModel.Account, @"^[0-9a-zA-Z@.]+$"))
+            {
+                ViewData["errAcc"] = "帳號必須由英數字或 @ . 組成";
+                return View();
+            }
 
             if (CMemberFactory.QueryByAccount(vModel.Account) != null)
             {
                 ViewData["errAcc"] = "帳號已存在";
                 return View();
             }
-            if (vModel.Password.Length < 9)
+            if (vModel.Password.Length < 8)
             {
-                ViewData["errPwd"] = "密碼長度必須大於 8 個字元";
+                ViewData["errPwd"] = "密碼長度必須大於 7 個字元";
                 return View();
             }
             if (string.IsNullOrEmpty(vModel.Password))
@@ -141,14 +151,13 @@ namespace CardAuction.Controllers
             CMemberFactory.Create(new CMember()
             {
                 Account = vModel.Account,
-                //Account = vModel.Subscribe.ToString(),
                 Password = vModel.Password,
                 Name = vModel.Name,
                 Email = vModel.Email,
                 Address = vModel.AddressSelect + vModel.Address,
                 Phone = vModel.Phone,
                 Birthday = vModel.Birthday,
-                Subscribe = vModel.Subscribe            // 不知為何永遠 false
+                Subscribe = vModel.Subscribe
             });
 
             return RedirectToAction("Login");

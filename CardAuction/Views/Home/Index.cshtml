@@ -1,4 +1,4 @@
-﻿
+﻿@using CardAuction.Models
 @{
     Layout = null;
 }
@@ -15,21 +15,32 @@
 <body>
     <div id="fullPage">
         <div id="header">
-            @Html.ActionLink("登入", "Login", "Member")
+            @{
+                CMember member = Session[CDictionary.SK_User] as CMember;
+                if (member == null)
+                {
+                    @Html.ActionLink("登入", "Login", "Member")
+                }
+                else
+                {
+                    @Html.ActionLink(member.Account, "Index", "Member")
+                }
+            }
             @Html.ActionLink("關於我們", "About")
             @Html.ActionLink("使用說明", "Information")
             @Html.ActionLink("聯絡我們", "Contact")
         </div>
         <div id="nav" class="row">
-            <div id="catalog1" class="col-sm-12 col-md-3">
+            <div id="catalog1" class="col-12 col-sm-12 col-md-4">
                 <div class="row justify-content-around">
-                    <div class="col-4"><a href="#"><img src="~/images/site/iconWebsite.png" id="webIcon" /></a></div>
-                    <div class="col-4">@Html.ActionLink("競標", "Index", "Auction")</div>
-                    <div class="col-4">@Html.ActionLink("交換", "Index", "Exchange")</div>
+                    <div class="col-6 col-sm-6 col-md-3"><a href="#"><img src="~/images/site/iconWebsite.png" id="webIcon" /></a></div>
+                    <div class="col-2 col-sm-2 col-md-3">@Html.ActionLink("購買", "List", "Auction")</div>
+                    <div class="col-2 col-sm-2 col-md-3">@Html.ActionLink("出售", "Post", "Auction")</div>
+                    <div class="col-2 col-sm-2 col-md-3">@Html.ActionLink("交換", "Index", "Exchange")</div>
 
                 </div>
             </div>
-            <div id="catalog2" class="col-sm-12 col-md-4">
+            <div id="catalog2" class="col-12 col-sm-12 col-md-4">
                 <div class="row justify-content-around">
                     <div class="col-2"><a href="cataPokemon.html"><img src="~/images/site/iconPokemon.png" /></a></div>
                     <div class="col-2"><a href="cataYuGiOh.html"><img src="~/images/site/iconYuGiOh.png" /></a></div>
@@ -38,7 +49,7 @@
                     <div class="col-2"><a href="cataMLB.html"><img src="~/images/site/iconMLB.png" /></a></div>
                 </div>
             </div>
-            <div id="search" class="col-sm-12 col-md-5">
+            <div id="search" class="col-sm-12 col-md-4">
                 <div class="row">
                     <div class="col-10" id="divSearch">
                         <input type="search" id="txtSearch" placeholder="    搜尋品牌、價格、等" />
