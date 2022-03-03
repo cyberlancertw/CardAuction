@@ -20,6 +20,8 @@ namespace CardAuction.Controllers
         {
             if(Session[CDictionary.SK_User] == null)
             {
+                Session[CDictionary.SK_RedirectToAction] = "Post";
+                Session[CDictionary.SK_RedirectToController] = "Auction";
                 return RedirectToAction("Login", "Member");
             }
             else

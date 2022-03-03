@@ -20,7 +20,7 @@ namespace CardAuction.Controllers
                 return RedirectToAction("Login");
             }
 
-            return View();
+            return View();          // Member / Index 要有 View 嗎? 取代 mypage?
         }
 
         [HttpGet]
@@ -56,8 +56,17 @@ namespace CardAuction.Controllers
             List<CMember> queryResult = CMemberFactory.QueryBy(sql, paras);
             if(queryResult.Count > 0)
             {
-                Session[CDictionary.SK_User] = queryResult[0];
-                return RedirectToAction("Index", "Home");
+                Session[CDictionary.SK_User] = queryResult[0];      // 比對得到的帳號放入 Session ，要放入完整 CMember 物件
+                                                                    // 還是只要使用者帳號名待之後查詢？
+
+                if(Session[CDictionary.SK_RedirectToAction] != null)
+                {
+                    return RedirectToAction(CDictionary.SK_RedirectToAction.ToString(), CDictionary.SK_RedirectToController.ToString());
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
@@ -160,10 +169,12 @@ namespace CardAuction.Controllers
                 Subscribe = vModel.Subscribe
             });
 
+            Session[CDictionary.SK_RedirectToAction] = "Index";
+            Session[CDictionary.SK_RedirectToController] = "Home";
             return RedirectToAction("Login");
         }
 
-        public ActionResult AccountCount(string Account)
+        public ActionResult AccountCount(string Account)            // 註冊時檢查Account是否已存在用
         {
             return Content(CMemberFactory.QueryByAccount(Account).ToString());
         }

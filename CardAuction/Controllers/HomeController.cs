@@ -11,7 +11,7 @@ namespace CardAuction.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            return View();              // 之後塞AuctionItem和ExchangeItem
         }
     }
 }
