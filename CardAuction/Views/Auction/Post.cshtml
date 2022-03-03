@@ -1,15 +1,16 @@
-﻿
+﻿@using CardAuction.Models
 @{
     Layout = null;
-}
 
+    string username = (Session[CDictionary.SK_User] as CMember).Account;
+}
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>上架</title>
-    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Content/cssAuctionPost.css" />
 </head>
 <body>
@@ -20,22 +21,163 @@
                 新增商品
             </div>
             <div class="offset-8 col-4 offset-md-6 col-md-3" id="greeting">
-                歡迎, Admin
+                歡迎, @username
             </div>
         </div>
         <div id="mainBox">
             <div id="basicInfo">
-                基本資訊
-                商品圖片
+                <div class="divTitle">
+                    基本資訊
+                </div>
+                <div class="row divContent" id="divImgSelect">
+                    <div class="contentHead col-12 col-md-3">
+                        商品圖片
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <div class="row">
+                            <div class="col-6 col-md-3">
+                                <img src="~/images/site/imgSelectFrame.png" class="imgSelect" id="imgSelect0">
+                                *商品圖片
+                                <input type="hidden" name="fPhoto0">
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <img src="~/images/site/imgSelectFrame.png" class="imgSelect" id="imgSelect1">
+                                圖片一
+                                <input type="hidden" name="fPhoto1">
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <img src="~/images/site/imgSelectFrame.png" class="imgSelect" id="imgSelect2">
+                                圖片二
+                                <input type="hidden" name="fPhoto2">
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <img src="~/images/site/imgSelectFrame.png" class="imgSelect" id="imgSelect3">
+                                圖片三
+                                <input type="hidden" name="fPhoto3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row divContent" id="divItemName">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="ItemName">*商品名稱</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <input type="text" name="fItemName" id="ItemName" maxlength="60" />
+                    </div>
+                </div>
+                <div class="row divContent" id="divItemDescription">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="ItemDescription">*商品描述</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <textarea name="fItemDescription" id="ItemDescription" maxlength="3000"></textarea>
+                    </div>
+                </div>
+                <div class="row divContent" id="divSort">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="Sort">*類別</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <input type="text" name="fSort" id="Sort" />
+                    </div>
+                </div>
             </div>
             <div id="sellDetail">
-
+                <div class="divTitle">
+                    銷售資訊
+                </div>
+                <div class="row divContent" id="divMoneyStart">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="MoneyStart">*起標價格</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <input type="number" name="fMoneyStart" id="MoneyStart" />
+                    </div>
+                </div>
+                <div class="row divContent" id="divMoneyStep">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="MoneyStep">*出價增額</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <input type="number" name="fMoneyStep" id="MoneyStep" />
+                    </div>
+                </div>
+                <div class="row divContent" id="divEndTime">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="EndTIme">*競標時間</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <div id="dateTimeContainer">
+                            <div id="endTimeDate">
+                                <input type="date" name="fEndTimeDate" id="EndTimeDate" />
+                            </div>
+                            <div id="endTimeTime">
+                                <input type="time" name="fEndTimeTime" id="EndTimeTime" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="transFee">
-
+                <div class="divTitle">
+                    運費
+                </div>
+                <div class="row divContent">
+                    <div class="contentHead col-12 col-md-3">
+                        *買家支付運費
+                    </div>
+                    <div class="content col-12 col-md-9" id="divTrans">
+                        <div class="row">
+                            <div class="col-4 col-md-4">
+                                <label class="fomr-check-label" for="chkPerson">面交</label>
+                            </div>
+                            <div class="col-4 offset-md-1 col-md-4">
+                                <input type="number" name="fTransPerson" id="txtPerson" />
+                            </div>
+                            <div class="form-check form-switch col-4 col-md-3">
+                                <input type="checkbox" class="form-check-input" id="chkPerson" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-md-4">
+                                <label class="fomr-check-label" for="chkSeven">7-11</label>
+                            </div>
+                            <div class="col-4 offset-md-1 col-md-4">
+                                <input type="number" name="fTransSeven" id="txtSeven" />
+                            </div>
+                            <div class="form-check form-switch col-4 col-md-3">
+                                <input type="checkbox" class="form-check-input" id="chkSeven" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-md-4">
+                                <label class="fomr-check-label" for="chkFami">全家</label>
+                            </div>
+                            <div class="col-4 offset-md-1 col-md-4">
+                                <input type="number" name="fTransFami" id="txtFami" />
+                            </div>
+                            <div class="form-check form-switch col-4 col-md-3">
+                                <input type="checkbox" class="form-check-input" id="chkFami" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-md-4">
+                                <label class="fomr-check-label" for="chkLogi">物流</label>
+                            </div>
+                            <div class="col-4 offset-md-1 col-md-4">
+                                <input type="number" name="fTransLogi" id="txtLogi" />
+                            </div>
+                            <div class="form-check form-switch col-4 col-md-3">
+                                <input type="checkbox" class="form-check-input" id="chkLogi" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="buttons">
-
+                <button id="btnCancel">取消</button>
+                <button id="btnPost">上架</button>
             </div>
         </div>
     </div>

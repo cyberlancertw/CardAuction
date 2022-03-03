@@ -61,7 +61,9 @@ namespace CardAuction.Controllers
 
                 if(Session[CDictionary.SK_RedirectToAction] != null)
                 {
-                    return RedirectToAction(CDictionary.SK_RedirectToAction.ToString(), CDictionary.SK_RedirectToController.ToString());
+                    string toAction = Session[CDictionary.SK_RedirectToAction].ToString();
+                    string toController = Session[CDictionary.SK_RedirectToController].ToString();
+                    return RedirectToAction(toAction, toController);
                 }
                 else
                 {
