@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Configuration;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -37,6 +41,29 @@ namespace CardAuction.Models
             }
             command.ExecuteNonQuery();
             connection.Close();
+        }
+
+        public static void SendEmail(string ToEmail, string Subject, string Message)
+        {
+            SmtpSection secObj = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+
+            using(MailMessage mailMsg = new MailMessage())
+            {
+                mailMsg.From = new MailAddress(secObj.From);
+                mailMsg.To.Add(ToEmail);
+                mailMsg.Subject = Subject;
+                mailMsg.Body = Message;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = secObj.Network.Host;
+                smtp.EnableSsl = secObj.Network.EnableSsl;
+                NetworkCredential networkCred = new NetworkCredential(secObj.Network.UserName, secObj.Network.Password);
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = networkCred;
+                smtp.Port = secObj.Network.Port;
+
+                smtp.Send(mailMsg);
+            }
         }
 
     }
