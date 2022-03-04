@@ -93,6 +93,7 @@ namespace CardAuction.Models
 
         // -------
 
+        
         public void AddFavorite(int? id)
         {
 

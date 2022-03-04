@@ -54,13 +54,13 @@ namespace CardAuction.Models
                 mailMsg.Subject = Subject;
                 mailMsg.Body = Message;
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = secObj.Network.Host;
-                smtp.EnableSsl = secObj.Network.EnableSsl;
+                SmtpClient smtp = new SmtpClient(secObj.Network.Host, secObj.Network.Port);
+                //smtp.Host = secObj.Network.Host;
+                //smtp.Port = secObj.Network.Port;
+                smtp.EnableSsl = true;  //secObj.Network.EnableSsl;
                 NetworkCredential networkCred = new NetworkCredential(secObj.Network.UserName, secObj.Network.Password);
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = networkCred;
-                smtp.Port = secObj.Network.Port;
 
                 smtp.Send(mailMsg);
             }
