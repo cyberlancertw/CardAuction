@@ -15,7 +15,7 @@ namespace CardAuction.Controllers
             return View();              // 之後塞AuctionItem和ExchangeItem
         }
 
-        public ActionResult SendTest()
+        public ActionResult MailValidate()
         {
             Service.SendEmail("cyberlancer@gmail.com", "testQQ", "test agin sorry...");
             return Content("~~");

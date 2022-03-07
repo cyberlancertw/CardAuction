@@ -171,14 +171,63 @@ namespace CardAuction.Controllers
                 Subscribe = vModel.Subscribe
             });
 
-            Session[CDictionary.SK_RedirectToAction] = "Index";
-            Session[CDictionary.SK_RedirectToController] = "Home";
-            return RedirectToAction("Login");
+
+            Session[CDictionary.SK_ValidationAccount] = vModel.Account;
+            Session[CDictionary.SK_ValidationEmail] = vModel.Email;
+
+            return RedirectToAction("EmailValidation");
+
+            //Session[CDictionary.SK_RedirectToAction] = "Index";
+            //Session[CDictionary.SK_RedirectToController] = "Home";
+            //return RedirectToAction("Login");
         }
 
         public ActionResult AccountCount(string Account)            // 註冊時檢查Account是否已存在用
         {
             return Content(CMemberFactory.QueryByAccount(Account).ToString());
+        }
+
+        [HttpGet]
+        public ActionResult EmailValidation()
+        {
+            int validateNum = Service.GetRandomNumber();
+            string validateAccount = Session[CDictionary.SK_ValidationAccount].ToString();
+            string accountMask = validateAccount.Substring(0, 3) + new string('*', validateAccount.Length - 3);
+            Session[CDictionary.SK_ValidationNumber] = validateNum;
+            string email = Session[CDictionary.SK_ValidationEmail].ToString();
+            string emailSubject = "Card.卡牌競標網站註冊驗証碼";
+            string emailContent = $"<h2>Card.卡牌競標網站，歡迎您的註冊</h2><h3>註冊帳號為：{accountMask}</h3><h3>這是您的驗證碼：{validateNum} </h3><br /><br /><h3 style=\"color: red\">若非您本人註冊，請不要理會本信件。</h3>";
+
+            Service.SendEmail(email, emailSubject, emailContent);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EmailValidation(string validationNumber)
+        {
+            int sessionNumber = (int)Session[CDictionary.SK_ValidationNumber];
+            if(sessionNumber == Convert.ToInt32(validationNumber))
+            {
+                Session[CDictionary.SK_ValidationSuccess] = true;
+                CMemberFactory.Activate(Session[CDictionary.SK_ValidationAccount].ToString());
+                return RedirectToAction("Activate");
+            }
+            else
+            {
+                ViewData["errorMsg"] = "驗証碼輸入有誤";
+                return View();
+            }
+            
+        }
+
+        public ActionResult Activate()
+        {
+            bool isSuccess = (bool)Session[CDictionary.SK_ValidationSuccess];
+            if (isSuccess)
+            {
+                return View();
+            }
+            return RedirectToAction("Login");
+            
         }
 
         [HttpGet]

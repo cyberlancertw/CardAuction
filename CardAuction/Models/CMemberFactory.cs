@@ -21,10 +21,20 @@ namespace CardAuction.Models
             paras.Add(new SqlParameter("birth", member.Birthday));
             paras.Add(new SqlParameter("subs", member.Subscribe));
             paras.Add(new SqlParameter("manag", false));        // 預設不是管理員，待後台修改
-            paras.Add(new SqlParameter("active", true));        // 若加 Email 認證 feature，這裡就改 false，待validate
+            paras.Add(new SqlParameter("active", false));       // 預設 false，經過 email 認證才改成 true
 
             Service.ExecuteSql(sql, paras);
         }
+
+        public static void Activate(string account)
+        {
+            string sqlStatement = "update tMember set fActive=@act where fAccount=@acc";
+            List<SqlParameter> paras = new List<SqlParameter>();
+            paras.Add(new SqlParameter("act", true));
+            paras.Add(new SqlParameter("acc", account));
+            Service.ExecuteSql(sqlStatement, paras);
+        }
+
         public static List<CMember> QueryBy(string sqlStatement, List<SqlParameter> parameterList)
         {
             List<CMember> queryResult = new List<CMember>();

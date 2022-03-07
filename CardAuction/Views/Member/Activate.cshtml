@@ -1,0 +1,22 @@
+﻿@using CardAuction.Models
+@{
+    Layout = null;
+    string account = Session[CDictionary.SK_ValidationAccount].ToString();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>驗証成功</title>
+</head>
+<body>
+    <div> 
+        歡迎 @account 使用 ...  
+    </div>
+    <script>
+        setTimeout(function () { location.href = '@Url.Action("Login")' }, 3000);
+    </script>
+</body>
+</html>

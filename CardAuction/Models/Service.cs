@@ -53,7 +53,7 @@ namespace CardAuction.Models
                 mailMsg.To.Add(ToEmail);
                 mailMsg.Subject = Subject;
                 mailMsg.Body = Message;
-
+                mailMsg.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient(secObj.Network.Host, secObj.Network.Port);
                 //smtp.Host = secObj.Network.Host;
                 //smtp.Port = secObj.Network.Port;
@@ -64,6 +64,18 @@ namespace CardAuction.Models
 
                 smtp.Send(mailMsg);
             }
+        }
+
+        public static int GetRandomNumber()
+        {
+            Random rnd = new Random();
+            int result = rnd.Next(9) + 1;
+            for (int i = 0; i < 5; i++)
+            {
+                result = result * 10 + rnd.Next(10);
+            }
+
+            return result;
         }
 
     }
