@@ -189,6 +189,8 @@
     <Content Include="Views\Auction\Post.cshtml" />
     <Content Include="Views\Member\EmailValidation.cshtml" />
     <Content Include="Views\Member\Activate.cshtml" />
+    <Content Include="Views\Member\PasswordForget.cshtml" />
+    <Content Include="Views\Member\PasswordChanged.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

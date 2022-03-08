@@ -233,36 +233,48 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult PasswordForget()
         {
-            // 輸入帳號
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult PasswordForget(string Account)
+        public ActionResult PasswordForget(string account, string email)
         {
-            if (string.IsNullOrEmpty(Account))
+            if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(email))
             {
-                return RedirectToAction("Index", "Home");
+                ViewData["errorMsg"] = "不得有空值";
+                return View();
             }
-            // 查 Email
+            string sqlStatement = "select * from tMember where fAccount=@acc and fEmail=@email";
+            List<SqlParameter> paras = new List<SqlParameter>();
+            paras.Add(new SqlParameter("acc", account));
+            paras.Add(new SqlParameter("email", email));
+            List<CMember> qryResult = CMemberFactory.QueryBy(sqlStatement, paras);
+            if(qryResult.Count == 0)
+            {
+                ViewData["errorMsg"] = "查無符合資料";
+                return View();
+            }
+            int newPassword = Service.GetRandomNumber();
 
-            // 送 Email
+            sqlStatement = "update tMember set fPassword=@pwd where fAccount=@acc";
+            paras.Clear();
+            paras.Add(new SqlParameter("pwd", Service.getCypher(newPassword.ToString())));
+            paras.Add(new SqlParameter("acc", account));
+            Service.ExecuteSql(sqlStatement, paras);
 
+            string emailSubject = "Card.卡牌競標網站重發密碼信件";
+            string accMask = account.Substring(0, 3) + new string('*', account.Length - 3);
+            string emailContent = $"<h2>Card.卡牌競標網站會員 {accMask} 您的新密碼為：</h2><h3>{newPassword}</h3><h3>請盡速至網站更新您的密碼</h3><br /><br /><h3 style=\"color: red\">若非您本人註冊，請不要理會本信件。</h3>";
+
+            Service.SendEmail(email, emailSubject, emailContent);
+
+            return RedirectToAction("PasswordChanged");
+        }
+
+        public ActionResult PasswordChanged()
+        {
             return View();
         }
 
-        [HttpGet]
-        public ActionResult PasswordForget(int? id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            // 輸入驗證碼
-
-            return View();
-        }
     }
 }

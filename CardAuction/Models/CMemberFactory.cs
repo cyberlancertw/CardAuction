@@ -74,14 +74,7 @@ namespace CardAuction.Models
             List<SqlParameter> paras = new List<SqlParameter>();
             paras.Add(new SqlParameter("acc", account));
             List<CMember> queryResult = QueryBy(sql, paras);
-            //if(queryResult.Count > 0)
-            //{
-            //    return queryResult[0];
-            //}
-            //else
-            //{
-            //    return null;
-            //}
+
             return queryResult.Count;
 
         }

@@ -1,8 +1,11 @@
 ﻿@using CardAuction.Models
 @{
     Layout = null;
-
-    string username = (Session[CDictionary.SK_User] as CMember).Account;
+    string username = null;
+    if(Session[CDictionary.SK_User] != null)
+    {
+        username = (Session[CDictionary.SK_User] as CMember).Account;
+    }
 }
 <!DOCTYPE html>
 
