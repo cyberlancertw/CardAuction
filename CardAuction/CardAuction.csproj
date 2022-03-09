@@ -124,6 +124,7 @@
     <Content Include="images\site\iconWebsite.png" />
     <Content Include="images\site\iconYuGiOh.png" />
     <Content Include="images\site\imgSelectFrame.png" />
+    <Content Include="images\site\imgSelectFrameEmpty.png" />
     <Content Include="images\site\mtgesika.png" />
     <Content Include="images\site\nbapanini.png" />
     <Content Include="images\site\pkmcharizard.png" />

@@ -39,24 +39,24 @@
                     <div class="content col-12 col-md-9">
                         <div class="row">
                             <div class="col-6 col-md-3 picBlock">
-                                <img src="~/images/site/imgSelectFrame.png" class="imgSelect" id="imgSelect0">
+                                <img src="~/images/site/imgSelectFrameEmpty.png" class="imgSelect dragNone" id="imgSelect0">
                                 *商品圖片
-                                <input type="hidden" name="fPhoto0">
+                                <input type="file" name="fPhoto0" id="domFile0">
                             </div>
                             <div class="col-6 col-md-3 picBlock">
-                                <img src="~/images/site/imgSelectFrame.png" class="imgSelect" id="imgSelect1">
+                                <img src="~/images/site/imgSelectFrameEmpty.png" class="imgSelect dragNone" id="imgSelect1">
                                 圖片一
-                                <input type="hidden" name="fPhoto1">
+                                <input type="file" name="fPhoto1" id="domFile1">
                             </div>
                             <div class="col-6 col-md-3 picBlock">
-                                <img src="~/images/site/imgSelectFrame.png" class="imgSelect" id="imgSelect2">
+                                <img src="~/images/site/imgSelectFrameEmpty.png" class="imgSelect dragNone" id="imgSelect2">
                                 圖片二
-                                <input type="hidden" name="fPhoto2">
+                                <input type="file" name="fPhoto2" id="domFile2">
                             </div>
                             <div class="col-6 col-md-3 picBlock">
-                                <img src="~/images/site/imgSelectFrame.png" class="imgSelect" id="imgSelect3">
+                                <img src="~/images/site/imgSelectFrameEmpty.png" class="imgSelect dragNone" id="imgSelect3">
                                 圖片三
-                                <input type="hidden" name="fPhoto3">
+                                <input type="file" name="fPhoto3" id="domFile3">
                             </div>
                         </div>
                     </div>
@@ -104,6 +104,14 @@
                     </div>
                     <div class="content col-12 col-md-9">
                         <input type="number" name="fMoneyStep" id="MoneyStep" />
+                    </div>
+                </div>
+                <div class="row divContent" id="divMoneyEnd">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="MoneyStep">*結標價格</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <input type="number" name="fMoney" id="MoneyStep" />
                     </div>
                 </div>
                 <div class="row divContent" id="divEndTime">
@@ -184,5 +192,76 @@
             </div>
         </div>
     </div>
+    <script>
+        var domImg0 = document.getElementById('imgSelect0');
+        var domFile0 = document.getElementById('domFile0');
+
+        domImg0.addEventListener('dragover', function (event) {
+            event.preventDefault();
+            domImg0.closest('div').classList.remove('dragNone');
+            domImg0.closest('div').classList.add('dragOver');
+        });
+        domImg0.addEventListener('dragleave', function (event) {
+            domImg0.closest('div').classList.remove('dragOver');
+            domImg0.closest('div').classList.add('dragNone');
+        })
+        domImg0.addEventListener('drop', function (event) {
+            event.preventDefault();
+            domFile0.files = event.dataTransfer.files;
+            let file = domFile0.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.addEventListener('load', function () {
+                domImg0.src = reader.result;
+            })
+        })
+        var domImg1 = document.getElementById('imgSelect1');
+        var domFile1 = document.getElementById('domFile1');
+
+        domImg1.addEventListener('dragover', function (event) {
+            event.preventDefault();
+            domImg1.classList.remove('dragNone');
+            domImg1.classList.add('dragOver');
+        });
+        domImg1.addEventListener('dragleave', function (event) {
+            domImg1.classList.remove('dragOver');
+            domImg1.classList.add('dragNone');
+        })
+        domImg1.addEventListener('drop', function (event) {
+            event.preventDefault();
+            domFile1.files = event.dataTransfer.files;
+            let file = domFile1.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.addEventListener('load', function () {
+                domImg1.src = reader.result;
+            })
+        })
+        var domImg2 = document.getElementById('imgSelect2');
+        var domFile2 = document.getElementById('domFile2');
+
+        domImg2.addEventListener('dragover', function (event) {
+            event.preventDefault();
+            domImg2.classList.remove('dragNone');
+            domImg2.classList.add('dragOver');
+        });
+        domImg2.addEventListener('dragleave', function (event) {
+            domImg2.classList.remove('dragOver');
+            domImg2.classList.add('dragNone');
+        })
+        domImg2.addEventListener('drop', function (event) {
+            event.preventDefault();
+            domFile2.files = event.dataTransfer.files;
+            console.log(event);
+            let file = domFile2.files[0];
+            let reader = new FileReader();
+            console.log(file);
+            reader.readAsDataURL(file);
+            reader.addEventListener('load', function () {
+                domImg2.src = reader.result;
+            })
+        })
+
+    </script>
 </body>
 </html>
