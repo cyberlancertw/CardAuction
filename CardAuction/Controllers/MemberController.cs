@@ -58,7 +58,10 @@ namespace CardAuction.Controllers
             {
                 Session[CDictionary.SK_User] = queryResult[0];      // 比對得到的帳號放入 Session ，要放入完整 CMember 物件
                                                                     // 還是只要使用者帳號名待之後查詢？
-
+                if (queryResult[0].Manager)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
                 if(Session[CDictionary.SK_RedirectToAction] != null)
                 {
                     string toAction = Session[CDictionary.SK_RedirectToAction].ToString();
