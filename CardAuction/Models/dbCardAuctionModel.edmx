@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tMember">
+          <Key>
+            <PropertyRef Name="fUserId" />
+          </Key>
+          <Property Name="fUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fAccount" Type="varchar" MaxLength="20" />
+          <Property Name="fPassword" Type="varchar" MaxLength="50" />
+          <Property Name="fName" Type="nvarchar" MaxLength="20" />
+          <Property Name="fEmail" Type="varchar" MaxLength="50" />
+          <Property Name="fAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="fPhone" Type="varchar" MaxLength="20" />
+          <Property Name="fBirthday" Type="date" />
+          <Property Name="fSubscribe" Type="bit" />
+          <Property Name="fManager" Type="bit" />
+          <Property Name="fActive" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="dbCardAuctionModelStoreContainer">
+          <EntitySet Name="tMember" EntityType="Self.tMember" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbCardAuctionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tMember">
+          <Key>
+            <PropertyRef Name="fUserId" />
+          </Key>
+          <Property Name="fUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fBirthday" Type="DateTime" Precision="0" />
+          <Property Name="fSubscribe" Type="Boolean" />
+          <Property Name="fManager" Type="Boolean" />
+          <Property Name="fActive" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="dbCardAuctionEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tMember" EntityType="Self.tMember" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbCardAuctionModelStoreContainer" CdmEntityContainer="dbCardAuctionEntities1">
+          <EntitySetMapping Name="tMember">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tMember">
+              <MappingFragment StoreEntitySet="tMember">
+                <ScalarProperty Name="fUserId" ColumnName="fUserId" />
+                <ScalarProperty Name="fAccount" ColumnName="fAccount" />
+                <ScalarProperty Name="fPassword" ColumnName="fPassword" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="fEmail" ColumnName="fEmail" />
+                <ScalarProperty Name="fAddress" ColumnName="fAddress" />
+                <ScalarProperty Name="fPhone" ColumnName="fPhone" />
+                <ScalarProperty Name="fBirthday" ColumnName="fBirthday" />
+                <ScalarProperty Name="fSubscribe" ColumnName="fSubscribe" />
+                <ScalarProperty Name="fManager" ColumnName="fManager" />
+                <ScalarProperty Name="fActive" ColumnName="fActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
