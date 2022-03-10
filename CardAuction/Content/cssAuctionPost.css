@@ -1,5 +1,26 @@
-﻿body {
-    font-family: 'Noto Sans CJK TC Medium',微軟正黑體;
+﻿@media only screen and (min-width: 769px) {
+    .picBlock {
+        width: 14vw;
+        height: 14vw;
+    }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+    .picBlock {
+        width: 30vw;
+        height: 30vw;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 320px) {
+    .picBlock {
+        width: 60vw;
+        height: 60vw;
+    }
+}
+
+body {
+    font-family: 'Noto Sans TC Medium', '微軟正黑體';
     background-color: #f6f6f6;
 }
 
@@ -34,9 +55,43 @@
     padding: 40px;
     box-shadow: 0px 0px 6px 2px lightgray;
 }
-div.picBlock{
+.picBlockList{
+    display:flex;
+}
+.picBlock {
+    flex-direction: row;
+    flex-wrap: wrap;
+    position:relative;
     margin-bottom: 20px;
-    text-align: center;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding-bottom: 10px;
+    border-radius: 14px;
+    vertical-align: central;
+    background-image: url("../../images/site/imgSelectFrameEmpty.png");
+    background-size: 10vw;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.txtBlock{
+    width: 100px;
+    position: absolute;
+    left:50%;
+    transform: translate(-50%,0);
+    bottom: 10px;
+}
+.imgSelect {
+    width: 100%;
+
+}
+
+.dragNone {
+    border: 4px dashed #6b6b6b;
+}
+
+.dragOver {
+    border: 3px solid #ced3d8;
 }
 .divTitle{
     font-size: 24px;
@@ -62,18 +117,7 @@ div.picBlock{
 div.content{
     text-align: center;
 }
-.imgSelect {
-    width: 100%;
-    border-radius: 14px;
-    margin-bottom: 18px;
-}
-.dragNone {
-    border: 4px dashed #6b6b6b;
-}
-.dragOver {
-    border: 4px solid #6b6b6b;
-}
-.content>input{
+.content>input, #seleSort{
     width: 100%;
     height: 40px;
     border: 2px solid #ced3d8;
@@ -136,6 +180,6 @@ label[for^="chk"]{
     color: #ffffff;
     background-color: #1f3444;
 }
-[id^="domFile"]{
+[id^="inputFile"]{
     display: none;
 }

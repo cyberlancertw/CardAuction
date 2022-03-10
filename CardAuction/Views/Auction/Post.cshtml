@@ -37,26 +37,30 @@
                         商品圖片
                     </div>
                     <div class="content col-12 col-md-9">
-                        <div class="row">
-                            <div class="col-6 col-md-3 picBlock">
-                                <img src="~/images/site/imgSelectFrameEmpty.png" class="imgSelect dragNone" id="imgSelect0">
+                        <div class="picBlockList">
+                            <div>
+                                <div class="picBlock dragNone" id="picBlock0">
+                                </div>
                                 *商品圖片
-                                <input type="file" name="fPhoto0" id="domFile0">
+                                <input type="file" name="Photo0" id="inputFile0">
                             </div>
-                            <div class="col-6 col-md-3 picBlock">
-                                <img src="~/images/site/imgSelectFrameEmpty.png" class="imgSelect dragNone" id="imgSelect1">
-                                圖片一
-                                <input type="file" name="fPhoto1" id="domFile1">
-                            </div>
-                            <div class="col-6 col-md-3 picBlock">
-                                <img src="~/images/site/imgSelectFrameEmpty.png" class="imgSelect dragNone" id="imgSelect2">
+                            <div>
+                                <div class="picBlock dragNone" id="picBlock1">
+                                </div>
+                                <input type="file" name="Photo1" id="inputFile1">
                                 圖片二
-                                <input type="file" name="fPhoto2" id="domFile2">
                             </div>
-                            <div class="col-6 col-md-3 picBlock">
-                                <img src="~/images/site/imgSelectFrameEmpty.png" class="imgSelect dragNone" id="imgSelect3">
+                            <div>
+                                <div class="picBlock dragNone" id="picBlock2">
+                                </div>
                                 圖片三
-                                <input type="file" name="fPhoto3" id="domFile3">
+                                <input type="file" name="Photo2" id="inputFile2">
+                            </div>
+                            <div>
+                                <div class="picBlock dragNone" id="picBlock3">
+                                </div>
+                                圖片四
+                                <input type="file" name="Photo3" id="inputFile3">
                             </div>
                         </div>
                     </div>
@@ -82,7 +86,13 @@
                         <label for="Sort">*類別</label>
                     </div>
                     <div class="content col-12 col-md-9">
-                        <input type="text" name="fSort" id="Sort" />
+                        <select name="fSort" id="seleSort">
+                            <option value="寶可夢">寶可夢</option>
+                            <option value="遊戲王">遊戲王</option>
+                            <option value="魔法風雲會">魔法風雲會</option>
+                            <option value="NBA">NBA</option>
+                            <option value="其他">其他</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -96,6 +106,17 @@
                     </div>
                     <div class="content col-12 col-md-9">
                         <input type="number" name="fMoneyStart" id="MoneyStart" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 col-md-4">
+                        <label class="fomr-check-label" for="chkFami">是否直購價</label>
+                    </div>
+                    <div class="col-4 offset-md-1 col-md-4">
+                        <input type="number" name="fMoneyUpperBound" id="txtUpperBound" />
+                    </div>
+                    <div class="form-check form-switch col-4 col-md-3">
+                        <input type="checkbox" class="form-check-input" id="chkUpperBound" />
                     </div>
                 </div>
                 <div class="row divContent" id="divMoneyStep">
@@ -193,74 +214,54 @@
         </div>
     </div>
     <script>
-        var domImg0 = document.getElementById('imgSelect0');
-        var domFile0 = document.getElementById('domFile0');
 
-        domImg0.addEventListener('dragover', function (event) {
-            event.preventDefault();
-            domImg0.closest('div').classList.remove('dragNone');
-            domImg0.closest('div').classList.add('dragOver');
-        });
-        domImg0.addEventListener('dragleave', function (event) {
-            domImg0.closest('div').classList.remove('dragOver');
-            domImg0.closest('div').classList.add('dragNone');
-        })
-        domImg0.addEventListener('drop', function (event) {
-            event.preventDefault();
-            domFile0.files = event.dataTransfer.files;
-            let file = domFile0.files[0];
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.addEventListener('load', function () {
-                domImg0.src = reader.result;
+        for (let i = 0; i < 4; i++) {
+            let picBlock = document.getElementById('picBlock' + i);
+            let inputFile = document.getElementById('inputFile' + i);
+            picBlock.addEventListener('dragover', function (event) {
+                event.preventDefault();
+                this.classList.remove('dragNone');
+                this.classList.add('dragOver');
+            });
+            picBlock.addEventListener('dragleave', function (event) {
+                this.classList.remove('dragOver');
+                this.classList.add('dragNone');
+            });
+            picBlock.addEventListener('drop', function (event) {
+                event.preventDefault();
+                inputFile.files = event.dataTransfer.files;
+                let file = inputFile.files[0];
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.addEventListener('load', function () {
+                    picBlock.style.backgroundImage = `url('${reader.result}')`;
+                })
+                思源黑體            });
+            picBlock.addEventListener('click', function () {
+                inputFile.click();
+            });
+            inputFile.addEventListener('change', function (e) {
+                if (inputFile.files.length > 0) {
+                    let file = inputFile.files[0];
+                    let reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.addEventListener('load', function () {
+                        picBlock.style.backgroundImage = `url('${reader.result}')`;
+                    })
+                    picBlock.classList.remove('dragNone');
+                    picBlock.classList.add('dragOver');
+                }
+                else {
+                    picBlock.style.backgroundImage = 'url("../../images/site/imgSelectFrameEmpty.png")';
+                    picBlock.classList.remove('dragOver');
+                    picBlock.classList.add('dragNone');
+                }
             })
-        })
-        var domImg1 = document.getElementById('imgSelect1');
-        var domFile1 = document.getElementById('domFile1');
+            
+        }
+        function addPicture(i, a) {
 
-        domImg1.addEventListener('dragover', function (event) {
-            event.preventDefault();
-            domImg1.classList.remove('dragNone');
-            domImg1.classList.add('dragOver');
-        });
-        domImg1.addEventListener('dragleave', function (event) {
-            domImg1.classList.remove('dragOver');
-            domImg1.classList.add('dragNone');
-        })
-        domImg1.addEventListener('drop', function (event) {
-            event.preventDefault();
-            domFile1.files = event.dataTransfer.files;
-            let file = domFile1.files[0];
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.addEventListener('load', function () {
-                domImg1.src = reader.result;
-            })
-        })
-        var domImg2 = document.getElementById('imgSelect2');
-        var domFile2 = document.getElementById('domFile2');
-
-        domImg2.addEventListener('dragover', function (event) {
-            event.preventDefault();
-            domImg2.classList.remove('dragNone');
-            domImg2.classList.add('dragOver');
-        });
-        domImg2.addEventListener('dragleave', function (event) {
-            domImg2.classList.remove('dragOver');
-            domImg2.classList.add('dragNone');
-        })
-        domImg2.addEventListener('drop', function (event) {
-            event.preventDefault();
-            domFile2.files = event.dataTransfer.files;
-            console.log(event);
-            let file = domFile2.files[0];
-            let reader = new FileReader();
-            console.log(file);
-            reader.readAsDataURL(file);
-            reader.addEventListener('load', function () {
-                domImg2.src = reader.result;
-            })
-        })
+        }
 
     </script>
 </body>
