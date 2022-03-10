@@ -13,5 +13,7 @@ namespace CardAuction.Controllers
         {
             return View();
         }
+
+
     }
 }
