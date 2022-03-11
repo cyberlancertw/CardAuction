@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin _ @ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/Content/cssAdminLayout.css" />
+    <!-- <script src="~/Scripts/modernizr-2.8.3.js"></script> -->
+</head>
+
+<body>
+
+    <header>
+
+    </header>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("Admin Index", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+        </div>
+    </nav>
+
+    <content >
+        @RenderBody()
+    </content>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Admin Footer</p>
+    </footer>
+
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
