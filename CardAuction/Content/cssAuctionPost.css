@@ -111,13 +111,13 @@ body {
 #divImgSelect{
     margin-bottom: 70px;
 }
-#divItemName,#divItemDescription,#divMoneyStart,#divMoneyStep{
+#divItemName, #divItemDescription, #divMoneyStart, #divMoneyStep, #divMoneyEnd, #divGrading {
     margin-bottom: 40px;
 }
 div.content{
     text-align: center;
 }
-.content>input, #seleSort{
+.content > input, #seleSort, #seleGrading {
     width: 100%;
     height: 40px;
     border: 2px solid #ced3d8;
