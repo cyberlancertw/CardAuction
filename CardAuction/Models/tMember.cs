@@ -21,7 +21,7 @@ namespace CardAuction.Models
         public string fEmail { get; set; }
         public string fAddress { get; set; }
         public string fPhone { get; set; }
-        public System.DateTime fBirthday { get; set; }
+        public Nullable<System.DateTime> fBirthday { get; set; }
         public Nullable<bool> fSubscribe { get; set; }
         public Nullable<bool> fManager { get; set; }
         public Nullable<bool> fActive { get; set; }
