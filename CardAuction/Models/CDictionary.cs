@@ -7,7 +7,8 @@ namespace CardAuction.Models
 {
     public class CDictionary
     {
-        public const string SK_User = "SK_User";
+        public const string SK_UserAccount = "SK_UserAccount";
+        public const string SK_UserUserId = "SK_UserUserId";
         public const string SK_RedirectToAction = "SK_RedirectAction";
         public const string SK_RedirectToController = "SK_RedirectController";
         public const string SK_ValidationNumber = "SK_ValidationNumber";

@@ -15,7 +15,7 @@ namespace CardAuction.Controllers
         // GET: Member
         public ActionResult Index()
         {
-            if(Session[CDictionary.SK_User] == null)
+            if(Session[CDictionary.SK_UserAccount] == null)
             {
                 return RedirectToAction("Login");
             }
@@ -26,7 +26,7 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            if(Session[CDictionary.SK_User] == null)        // 無登入，進登入頁
+            if(Session[CDictionary.SK_UserAccount] == null)        // 無登入，進登入頁
             {
                 return View();
             }
@@ -56,9 +56,10 @@ namespace CardAuction.Controllers
             List<CMember> queryResult = CMemberFactory.QueryBy(sql, paras);
             if(queryResult.Count > 0)
             {
-                Session[CDictionary.SK_User] = queryResult[0];      // 比對得到的帳號放入 Session ，要放入完整 CMember 物件
-                                                                    // 還是只要使用者帳號名待之後查詢？
-                if (queryResult[0].Manager)
+                CMember result = queryResult[0];
+                Session[CDictionary.SK_UserAccount] = result.Account;
+                Session[CDictionary.SK_UserUserId] = result.UserId;
+                if (result.Manager)
                 {
                     return RedirectToAction("Index", "Admin");
                 }

@@ -2,9 +2,9 @@
 @{
     Layout = null;
     string username = null;
-    if(Session[CDictionary.SK_User] != null)
+    if(Session[CDictionary.SK_UserAccount] != null)
     {
-        username = (Session[CDictionary.SK_User] as CMember).Account;
+        username = Session[CDictionary.SK_UserAccount].ToString();
     }
 }
 <!DOCTYPE html>
@@ -72,7 +72,7 @@
                             <label for="ItemName">*商品名稱</label>
                         </div>
                         <div class="content col-12 col-md-9">
-                            <input type="text" name="fItemName" id="ItemName" maxlength="60" />
+                            <input type="text" name="fItemName" id="ItemName" maxlength="60" required />
                             <p id="countItemName">
                                 0/60
                             </p>
@@ -83,7 +83,7 @@
                             <label for="ItemDescription">*商品描述</label>
                         </div>
                         <div class="content col-12 col-md-9">
-                            <textarea name="fItemDescription" id="ItemDescription" maxlength="800"></textarea>
+                            <textarea name="fItemDescription" id="ItemDescription" maxlength="800" required></textarea>
                             <p id="countDescription">
                                 0/800
                             </p>
@@ -113,7 +113,7 @@
                             <label for="MoneyStart">*起標價格</label>
                         </div>
                         <div class="content col-12 col-md-9">
-                            <input type="number" name="fMoneyStart" id="MoneyStart" min="1" />
+                            <input type="number" name="fMoneyStart" id="MoneyStart" min="1" value="1" required />
                         </div>
                     </div>
 
@@ -122,10 +122,11 @@
                             <label class="fomr-check-label" for="BuyPrice">是否直購價</label>
                         </div>
                         <div class="form-check form-switch offset-1 offset-md-1 col-3 col-md-2">
-                            <input type="checkbox" class="form-check-input" id="BuyPrice" />
+                            <input type="checkbox" class="form-check-input" id="BuyPrice" name="isBuy" value="true"/>
+                            <input type="hidden" name="isBuy" value="false" />
                         </div>
                         <div class="col-8 col-md-6">
-                            <input type="number" name="fBuyPrice" id="txtBuy" min="1" disabled placeholder="1" />
+                            <input type="number" name="fBuyPrice" id="txtBuy" min="1" value="1" disabled />
                         </div>
                     </div>
 
@@ -134,7 +135,7 @@
                             <label for="MoneyStep">*出價增額</label>
                         </div>
                         <div class="content col-12 col-md-9">
-                            <input type="number" name="fMoneyStep" id="MoneyStep" min="1" />
+                            <input type="number" name="fMoneyStep" id="MoneyStep" min="1" value="1" required />
                         </div>
                     </div>
 
@@ -167,10 +168,10 @@
                         <div class="content col-12 col-md-9">
                             <div id="dateTimeContainer">
                                 <div id="endTimeDate">
-                                    <input type="date" name="fEndTimeDate" id="EndTimeDate" />
+                                    <input type="date" name="fEndTimeDate" id="EndTimeDate" required />
                                 </div>
                                 <div id="endTimeTime">
-                                    <input type="time" name="fEndTimeTime" id="EndTimeTime" />
+                                    <input type="time" name="fEndTimeTime" id="EndTimeTime" required />
                                 </div>
                             </div>
                         </div>
@@ -190,10 +191,11 @@
                                     <label class="fomr-check-label" for="chkPerson">面交</label>
                                 </div>
                                 <div class="col-4 offset-md-1 col-md-4">
-                                    <input type="number" name="fTransPerson" id="txtPerson" />
+                                    <input type="number" name="fTransPerson" id="txtPerson" min="0" value="0" disabled />
                                 </div>
                                 <div class="form-check form-switch col-4 col-md-3">
-                                    <input type="checkbox" class="form-check-input" id="chkPerson" />
+                                    <input type="checkbox" class="form-check-input" id="chkPerson" name="isPerson" value="true" />
+                                    <input type="hidden" name="isPerson" value="false" />
                                 </div>
                             </div>
                             <div class="row">
@@ -201,10 +203,11 @@
                                     <label class="fomr-check-label" for="chkSeven">7-11</label>
                                 </div>
                                 <div class="col-4 offset-md-1 col-md-4">
-                                    <input type="number" name="fTransSeven" id="txtSeven" />
+                                    <input type="number" name="fTransSeven" id="txtSeven" min="0" value="0" disabled />
                                 </div>
                                 <div class="form-check form-switch col-4 col-md-3">
-                                    <input type="checkbox" class="form-check-input" id="chkSeven" />
+                                    <input type="checkbox" class="form-check-input" id="chkSeven" name="isSeven" value="true" />
+                                    <input type="hidden" name="isSeven" value="false" />
                                 </div>
                             </div>
                             <div class="row">
@@ -212,10 +215,11 @@
                                     <label class="fomr-check-label" for="chkFami">全家</label>
                                 </div>
                                 <div class="col-4 offset-md-1 col-md-4">
-                                    <input type="number" name="fTransFami" id="txtFami" />
+                                    <input type="number" name="fTransFami" id="txtFami" min="0" value="0" disabled />
                                 </div>
                                 <div class="form-check form-switch col-4 col-md-3">
-                                    <input type="checkbox" class="form-check-input" id="chkFami" />
+                                    <input type="checkbox" class="form-check-input" id="chkFami" name="isFami" value="true" />
+                                    <input type="hidden" name="isFami" value="false" />
                                 </div>
                             </div>
                             <div class="row">
@@ -223,10 +227,11 @@
                                     <label class="fomr-check-label" for="chkLogi">物流</label>
                                 </div>
                                 <div class="col-4 offset-md-1 col-md-4">
-                                    <input type="number" name="fTransLogi" id="txtLogi" />
+                                    <input type="number" name="fTransLogi" id="txtLogi" min="0" value="0" disabled/>
                                 </div>
                                 <div class="form-check form-switch col-4 col-md-3">
-                                    <input type="checkbox" class="form-check-input" id="chkLogi" />
+                                    <input type="checkbox" class="form-check-input" id="chkLogi" name="isLogi" value="true" />
+                                    <input type="hidden" name="isLogi" value="false" />
                                 </div>
                             </div>
                         </div>
@@ -292,8 +297,6 @@
             })
         }
 
-
-
         function addPicture(i, a) {
 
         }
@@ -308,20 +311,17 @@
             countDescription.textContent = `${domItemDescription.value.length}/800`;
         });
 
-        var switchBuyPrice = document.getElementById('BuyPrice')
-        var domBuy = document.getElementById('txtBuy');
+        let arySwitch = ['BuyPrice','chkPerson','chkSeven','chkFami','chkLogi'];
+        let aryTxt = ['txtBuy', 'txtPerson', 'txtSeven', 'txtFami', 'txtLogi'];
+        for (let i = 0; i < arySwitch.length; i++) {
+            let domSwitch = document.getElementById(arySwitch[i])
+            let domTxt = document.getElementById(aryTxt[i]);
+            domSwitch.addEventListener('change', function () {
+                domTxt.disabled = !domSwitch.checked;
+            });
+        }
 
-        switchBuyPrice.addEventListener('change', function () {
-            if (switchBuyPrice.checked) {
-                domBuy.disabled = false;
-            }
-            else {
-                domBuy.value = -1;
-                domBuy.disabled = true;
-            }
-
-            
-        })
+        
     </script>
 </body>
 </html>

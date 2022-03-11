@@ -16,14 +16,14 @@
     <div id="fullPage">
         <div id="header">
             @{
-                CMember member = Session[CDictionary.SK_User] as CMember;
-                if (member == null)
+                var userAcc = Session[CDictionary.SK_UserAccount];
+                if (userAcc == null)
                 {
                     @Html.ActionLink("登入", "Login", "Member")
                 }
                 else
                 {
-                    @Html.ActionLink(member.Account, "Index", "Member")
+                    @Html.ActionLink(userAcc.ToString(), "Index", "Member")
                 }
             }
             @Html.ActionLink("關於我們", "About")

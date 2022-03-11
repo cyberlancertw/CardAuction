@@ -11,10 +11,12 @@ namespace CardAuction.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tAuctionItem
     {
         public int fItemId { get; set; }
+        [Required]
         public string fItemName { get; set; }
         public string fItemDescription { get; set; }
         public string fSort { get; set; }

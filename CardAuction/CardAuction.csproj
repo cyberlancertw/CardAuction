@@ -119,25 +119,25 @@
     <Content Include="Content\cssMemberRegister.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
-    <Content Include="images\site\iconArrowLeft.png" />
-    <Content Include="images\site\iconArrowRight.png" />
-    <Content Include="images\site\iconCart.jpg" />
-    <Content Include="images\site\iconMagnifier.png" />
-    <Content Include="images\site\iconMLB.png" />
-    <Content Include="images\site\iconMTG.png" />
-    <Content Include="images\site\iconNBA.png" />
-    <Content Include="images\site\iconPokemon.png" />
-    <Content Include="images\site\iconPositionFalse.png" />
-    <Content Include="images\site\iconPositionTrue.png" />
-    <Content Include="images\site\iconPwdShow.png" />
-    <Content Include="images\site\iconWebsite.png" />
-    <Content Include="images\site\iconYuGiOh.png" />
-    <Content Include="images\site\imgSelectFrame.png" />
-    <Content Include="images\site\imgSelectFrameEmpty.png" />
-    <Content Include="images\site\mtgesika.png" />
-    <Content Include="images\site\nbapanini.png" />
-    <Content Include="images\site\pkmcharizard.png" />
-    <Content Include="images\site\yugiohprismatic.png" />
+    <Content Include="Images\site\iconArrowLeft.png" />
+    <Content Include="Images\site\iconArrowRight.png" />
+    <Content Include="Images\site\iconCart.jpg" />
+    <Content Include="Images\site\iconMagnifier.png" />
+    <Content Include="Images\site\iconMLB.png" />
+    <Content Include="Images\site\iconMTG.png" />
+    <Content Include="Images\site\iconNBA.png" />
+    <Content Include="Images\site\iconPokemon.png" />
+    <Content Include="Images\site\iconPositionFalse.png" />
+    <Content Include="Images\site\iconPositionTrue.png" />
+    <Content Include="Images\site\iconPwdShow.png" />
+    <Content Include="Images\site\iconWebsite.png" />
+    <Content Include="Images\site\iconYuGiOh.png" />
+    <Content Include="Images\site\imgSelectFrame.png" />
+    <Content Include="Images\site\imgSelectFrameEmpty.png" />
+    <Content Include="Images\site\mtgesika.png" />
+    <Content Include="Images\site\nbapanini.png" />
+    <Content Include="Images\site\pkmcharizard.png" />
+    <Content Include="Images\site\yugiohprismatic.png" />
     <Content Include="Models\dbAuctionCard.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dbAuctionCard.edmx</DependentUpon>
@@ -252,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\AuctionItemImages\" />
     <Folder Include="Views\Exchange\" />
   </ItemGroup>
   <ItemGroup>
