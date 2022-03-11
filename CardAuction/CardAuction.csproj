@@ -138,15 +138,20 @@
     <Content Include="Images\site\nbapanini.png" />
     <Content Include="Images\site\pkmcharizard.png" />
     <Content Include="Images\site\yugiohprismatic.png" />
-    <Content Include="Models\dbAuctionCard.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>dbAuctionCard.edmx</DependentUpon>
-      <LastGenOutput>dbAuctionCard.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="Models\dbAuctionCard.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dbAuctionCard.edmx</DependentUpon>
+      <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>dbAuctionCard.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\dbCardAuction.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>dbCardAuction.edmx</DependentUpon>
+      <LastGenOutput>dbCardAuction.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\dbCardAuction.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>dbCardAuction.edmx</DependentUpon>
+      <LastGenOutput>dbCardAuction.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -172,20 +177,30 @@
     <Compile Include="Models\CDictionary.cs" />
     <Compile Include="Models\CMember.cs" />
     <Compile Include="Models\CMemberFactory.cs" />
-    <Compile Include="Models\dbAuctionCard.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbAuctionCard.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\dbAuctionCard.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>dbAuctionCard.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\dbAuctionCard.Designer.cs">
+      <DependentUpon>dbAuctionCard.edmx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Models\dbCardAuction.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>dbAuctionCard.edmx</DependentUpon>
+      <DependentUpon>dbCardAuction.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dbCardAuction.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dbCardAuction.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\tAuctionItem.cs">
@@ -220,8 +235,12 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbAuctionCard.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\dbAuctionCard.edmx.diagram">
-      <DependentUpon>dbAuctionCard.edmx</DependentUpon>
+    <EntityDeploy Include="Models\dbCardAuction.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbCardAuction.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\dbCardAuction.edmx.diagram">
+      <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
