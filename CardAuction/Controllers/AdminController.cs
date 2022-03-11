@@ -10,7 +10,7 @@ namespace CardAuction.Controllers
     public class AdminController : Controller
     {
 
-        //dbCardAuctionEntities db = new dbCardAuctionEntities();
+        dbCardAuctionEntities db = new dbCardAuctionEntities();
         // GET: Admin
         public ActionResult Index()
         {
@@ -20,9 +20,9 @@ namespace CardAuction.Controllers
 
         public ActionResult MemberManage()
         {
-            //var tMembers = db.tMember.OrderBy(m => m.fUserId).ToList();
-            //return View(tMembers);
-            return View();
+            var tMembers = db.tMember.OrderBy(m => m.fUserId).ToList();
+            return View(tMembers);
+
         }
     }
 }

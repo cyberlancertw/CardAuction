@@ -9,6 +9,9 @@ namespace CardAuction.Controllers
 {
     public class AuctionController : Controller
     {
+
+        dbCardAuctionEntities db = new dbCardAuctionEntities();
+
         // GET: Auction
         public ActionResult Index()
         {
@@ -31,12 +34,13 @@ namespace CardAuction.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(string fItemName)       // use view model
+        public ActionResult Post(tAuctionItem item)       // use view model
         {
-           
-            //item.fCreateTime = DateTime.Now;
-            //item.fMoneyNow = item.fMoneyStart;
-
+            db.tAuctionItem.Add(item);
+            item.fCreateTime = DateTime.Now;
+            item.fMoneyNow = item.fMoneyStart;
+            db.tAuctionItem.Add(item);
+            db.SaveChanges();
             return View();
         }
     }
