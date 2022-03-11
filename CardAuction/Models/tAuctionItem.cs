@@ -23,7 +23,6 @@ namespace CardAuction.Models
         public int fMoneyNow { get; set; }
         public int fMoneyStep { get; set; }
         public int fMoneyStart { get; set; }
-        public int fMoneyUpperBound { get; set; }
         public string fGrading { get; set; }
         public System.DateTime fCreateTime { get; set; }
         public System.DateTime fEndTime { get; set; }
@@ -35,5 +34,6 @@ namespace CardAuction.Models
         public int fTransSeven { get; set; }
         public int fTransFami { get; set; }
         public int fTransLogi { get; set; }
+        public int fBuyPrice { get; set; }
     }
 }

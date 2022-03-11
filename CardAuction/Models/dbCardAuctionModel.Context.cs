@@ -13,10 +13,10 @@ namespace CardAuction.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class dbCardAuctionEntities1 : DbContext
+    public partial class dbCardAuctionEntities : DbContext
     {
-        public dbCardAuctionEntities1()
-            : base("name=dbCardAuctionEntities1")
+        public dbCardAuctionEntities()
+            : base("name=dbCardAuctionEntities")
         {
         }
     

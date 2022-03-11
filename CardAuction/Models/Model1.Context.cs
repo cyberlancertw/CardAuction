@@ -16,7 +16,7 @@ namespace CardAuction.Models
     public partial class dbCardAuctionEntities : DbContext
     {
         public dbCardAuctionEntities()
-            : base("name=dbCardAuctionEntities1")
+            : base("name=dbCardAuctionEntities")
         {
         }
     
@@ -26,5 +26,6 @@ namespace CardAuction.Models
         }
     
         public virtual DbSet<tMember> tMember { get; set; }
+        public virtual DbSet<tAuctionItem> tAuctionItem { get; set; }
     }
 }

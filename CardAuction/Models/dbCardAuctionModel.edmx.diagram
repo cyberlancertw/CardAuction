@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="cd3de46f51fe456ab084075b0a7d16ae" Name="Diagram1">
         <EntityTypeShape EntityType="dbCardAuctionModel.tMember" Width="1.375" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionItem" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionItem" Width="2.125" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

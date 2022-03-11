@@ -31,8 +31,12 @@ namespace CardAuction.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(string name)       // use view model
+        public ActionResult Post(string fItemName)       // use view model
         {
+           
+            //item.fCreateTime = DateTime.Now;
+            //item.fMoneyNow = item.fMoneyStart;
+
             return View();
         }
     }
