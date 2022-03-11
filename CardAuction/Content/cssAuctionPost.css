@@ -1,7 +1,7 @@
 ﻿@media only screen and (min-width: 769px) {
     .picBlock {
-        width: 14vw;
-        height: 14vw;
+        width: 13vw;
+        height: 13vw;
     }
 }
 
@@ -69,7 +69,7 @@ body {
     border-radius: 14px;
     vertical-align: central;
     background-image: url("../../images/site/imgSelectFrameEmpty.png");
-    background-size: 10vw;
+    background-size: 14vw;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -182,4 +182,8 @@ label[for^="chk"]{
 }
 [id^="inputFile"]{
     display: none;
+}
+#countItemName, #countDescription{
+    text-align: right;
+    margin-right: 10px;
 }
