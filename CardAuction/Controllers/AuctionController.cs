@@ -22,7 +22,7 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult Post()
         {
-            if(Session[CDictionary.SK_UserAccount] == null)
+            if(Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
                 Session[CDictionary.SK_RedirectToAction] = "Post";
                 Session[CDictionary.SK_RedirectToController] = "Auction";
@@ -43,7 +43,7 @@ namespace CardAuction.Controllers
         {
             if (!isBuy)
             {
-                item.fBuyPrice = -1;           // 以 -1 表示不提供此運送選項
+                item.fBuyPrice = -1;           // 以 -1 表示不提供直購價
             }
             if (!isPerson)
             {
@@ -67,7 +67,7 @@ namespace CardAuction.Controllers
             item.fMoneyNow = item.fMoneyStart;                                  // 目前價格即起標價格
 
             List<HttpPostedFileBase> photos = new List<HttpPostedFileBase>();
-            if (Photo0 != null)
+            if (Photo0 != null)                 // 無視沒上傳圖片的位置，全部往前推
             {
                 photos.Add(Photo0);
             }
@@ -84,9 +84,9 @@ namespace CardAuction.Controllers
                 photos.Add(Photo3);
             }
             int count = 0;
-            string guid = Guid.NewGuid().GetHashCode().ToString();
+            string fileNameInitial = nowTime.ToString("yyyyMMddHHmmss") + Guid.NewGuid().GetHashCode().ToString().Replace("-","").Substring(0,6);
             foreach(HttpPostedFileBase photo in photos){
-                string newFileName = nowTime.ToString("yyyyMMddHHmmss") + guid + count;
+                string newFileName = fileNameInitial + count + Path.GetExtension(photo.FileName);       // 檔名組成：日期、時間、6數字組成字串、編號.副檔名
                 switch (count)
                 {
                     case 0: item.fPhoto0 = newFileName; break;
@@ -95,13 +95,14 @@ namespace CardAuction.Controllers
                     case 3: item.fPhoto3 = newFileName; break;
                     default: break;
                 }
-                photo.SaveAs(Server.MapPath("~/Images/AuctionItemImages/")  + newFileName + Path.GetExtension(photo.FileName));
+                photo.SaveAs(Server.MapPath("~/Images/AuctionItemImages/") + newFileName);              // 存入 ~/Images/AuctionItemImages 資料夾內
                 count++;
             }
-            item.fPosterUserId = (int)Session[CDictionary.SK_UserUserId];
+            item.fPosterUserId = (int)Session[CDictionary.SK_UserUserId];                               // 張貼者 id 即 Session 登入者 id
             db.tAuctionItem.Add(item);
             db.SaveChanges();
             return RedirectToAction("Index","Home");
         }
     }
+
 }

@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "競標商品";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/cssAuctionIndex.css" type="text/css" />
+<div id="main-content">
+    <div id="divSort">
+        競標 / *分類*
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-9" id="divItemName">
+            卡牌名稱
+        </div>
+        <div class="col-sm-12 col-md-3" id="divFollow">
+            <a href=""><img src="~/Images/site/iconFavorite.png" /></a>
+            <a href=""><img src="~/Images/site/iconComment.png" /></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-7" id="divPhoto">
+            <img />
+            <img />    <img />     <img />
+        </div>
+        <div class="col-sm-12 col-md-5" id="divBidInfo">
+            <div id="divTime">
+                時鐘 時間 行事曆
+            </div>
+            <div id="divMoney">
+                <div id="divMoneyNow">
+                    目前出價
+                </div>
+                <div id="divMoneyStep">
+                    出價增額
+                </div>
+                <div id="divBid">
+                    <input type="number" placeholder="請輸入出價上限" />
+                    <button>出價</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="divDescripion">
+            <div id="titleDescription">
+                商品說明
+            </div>
+            <div id="divDescriptContent">
+                ....................
+            </div>
+        </div>
+
+        <div id="divComment">
+            <div id="titleComment">
+                留言
+            </div>
+            <div id="divCommentContent">
+                ....................
+            </div>
+        </div>
+
+        <div id="divHistory">
+            <div id="titleHistory">
+                歷史成交統計
+            </div>
+            <div id="divHistoryContent">
+                ....................
+            </div>
+        </div>
+
+    </div>
+</div>
+

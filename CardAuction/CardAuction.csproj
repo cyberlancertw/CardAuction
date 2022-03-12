@@ -113,6 +113,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\cssAdminLayout.css" />
+    <Content Include="Content\cssAuctionIndex.css" />
     <Content Include="Content\cssAuctionPost.css" />
     <Content Include="Content\cssHomeIndex.css" />
     <Content Include="Content\cssMemberLogin.css" />
@@ -244,7 +245,7 @@
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutCOPY.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
@@ -262,6 +263,9 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\MemberManage.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutShort.cshtml" />
+    <Content Include="Views\Auction\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
