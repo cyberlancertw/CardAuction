@@ -96,6 +96,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AdminCss\cssPsnCreate.css" />
+    <Content Include="Content\AdminCss\cssPsnEdit.css" />
+    <Content Include="Content\AdminCss\cssPsnManage.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -112,13 +115,18 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\cssAdminLayout.css" />
+    <Content Include="Content\AdminCss\cssAdminIndex.css" />
+    <Content Include="Content\AdminCss\cssAdminLayout.css" />
     <Content Include="Content\cssAuctionPost.css" />
     <Content Include="Content\cssHomeIndex.css" />
     <Content Include="Content\cssMemberLogin.css" />
     <Content Include="Content\cssMemberRegister.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Admin\Icon_商品.png" />
+    <Content Include="Images\Admin\Icon_廣告.png" />
+    <Content Include="Images\Admin\Icon_數據.png" />
+    <Content Include="Images\Admin\Icon_會員.png" />
     <Content Include="Images\site\iconArrowLeft.png" />
     <Content Include="Images\site\iconArrowRight.png" />
     <Content Include="Images\site\iconCart.jpg" />
@@ -241,8 +249,10 @@
     <Content Include="Views\Member\PasswordForget.cshtml" />
     <Content Include="Views\Member\PasswordChanged.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\MemberManage.cshtml" />
+    <Content Include="Views\Admin\PsnManage.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\PsnCreate.cshtml" />
+    <Content Include="Views\Admin\PsnEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

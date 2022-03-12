@@ -1,0 +1,62 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+content {
+    display: inline-block;
+/*    height:100%;*/
+    width:100%;
+}
+
+div#Index {
+    display: inline-block;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin: 0 0 0 -25%;
+}
+
+div.con {
+    display: inline-block;
+    position: relative;
+    height: 5cm;
+    width: 5cm;
+    margin: 15px;
+    padding: 30px;
+   /* top: 150px;*/
+}
+
+.image {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: 1s ease;
+    background-color: #008CBA;
+}
+
+.con:hover .overlay {
+    opacity: 1;
+}
+
+.text {
+    color: white;
+    font-size: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}

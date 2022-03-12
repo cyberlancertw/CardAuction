@@ -1,0 +1,93 @@
+﻿@*CSS*@
+<link rel="stylesheet" href="~/Content/AdminCss/cssPsnManage.css" />
+
+@model IEnumerable<CardAuction.Models.tMember>
+
+@{
+    ViewBag.Title = "人員管理";
+}
+
+
+
+<div>
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("新增人員", "PsnCreate", "Admin", null, new { @class = "btn btn-primary" })</li>
+        @*<li>@Html.ActionLink("會員管理", "會員管理", "Admin")*@
+        <li />
+    </ul>
+</div>
+
+<table class="table">
+    <tr>
+        <th>編號</th>
+        <th>帳號</th>
+        <th>密碼</th>
+        <th>姓名</th>
+        <th>信箱</th>
+        <th>地址</th>
+        <th>電話</th>
+        <th>生日</th>
+        <th>訂閱</th>
+        <th>權限</th>
+        <th>驗證</th>
+        <th>刪除</th>
+        <th>管理</th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.fActive)
+            </th>*@
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.fUserId</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fAccount)
+            </td>
+            <td>
+                ********
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fBirthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fSubscribe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fManager)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fDelete)
+            </td>
+            <td>
+                <a href="@Url.Action("PsnEdit")?fAccount=@item.fAccount" class="btn btn-warning">編輯</a>
+                <a href="@Url.Action("PsnDelete")?fAccount=@item.fAccount" class="btn btn-danger"
+                   onclick="return confirm(' 確定要刪除 @item.fAccount 帳號嘛 ? ');">刪除</a>
+
+
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.fUserId }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.fUserId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.fUserId })*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+

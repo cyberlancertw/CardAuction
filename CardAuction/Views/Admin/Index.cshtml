@@ -1,7 +1,58 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@{ ViewBag.Title = "Index"; }</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/Content/AdminCss/cssAdminIndex.css" />
+</head>
 
-<h2>Index</h2>
+<body>
+
+    <div id="Index">
+        <div class="con">
+            <a href="/Admin/PsnManage">
+                <img src="~/images/Admin/Icon_會員.png" class="image" />
+                <div class="overlay">
+                    <div class="text">會員<br>管理</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="con">
+            <a href="/Admin/ProdManage">
+                <img src="~/images/Admin/Icon_商品.png" class="image" />
+                <div class="overlay">
+                    <div class="text">商品<br>管理</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="con">
+            <a href="/Admin/AdManage">
+                <img src="~/images/Admin/Icon_廣告.png" class="image" />
+                <div class="overlay">
+                    <div class="text">廣告<br>管理</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="con">
+            <a href="/Admin/DataAnalyze">
+                <img src="~/images/Admin/Icon_數據.png" class="image" />
+                <div class="overlay">
+                    <div class="text">數據<br>管理</div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</body>
+</html>
+
+
+
+
 

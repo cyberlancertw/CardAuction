@@ -7,31 +7,32 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- CSS -->
-    <link rel="stylesheet" href="~/Content/cssAdminLayout.css" />
+    <link rel="stylesheet" href="~/Content/AdminCss/cssAdminLayout.css" />
     <!-- <script src="~/Scripts/modernizr-2.8.3.js"></script> -->
 </head>
 
 <body>
 
-    <header>
-
-    </header>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                @Html.ActionLink("Admin Index", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
+    <nav>
+        <div id="navdiv">
+            <button class="tablink" onclick="location.href='/Home/' ">使用者首頁</button>
+            <button class="tablink" onclick="location.href='/Admin/' ">管理員首頁</button>
+            <button class="tablink" onclick="location.href='/Admin/PsnManage' ">人員管理</button>
+            <button class="tablink" onclick="location.href='/Admin/' ">商品管理</button>
+            <button class="tablink" onclick="location.href='/Admin/' ">廣告管理</button>
+            <button class="tablink" onclick="location.href='/Admin/' ">數據分析</button>
+            <button class="tablink" onclick="location.href='/Home/' ">登出</button>
         </div>
     </nav>
 
-    <content >
+    <content>
         @RenderBody()
     </content>
 
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Admin Footer</p>
-    </footer>
+
+    @*<footer>
+            <p>&copy; @DateTime.Now.Year - Admin Footer</p>
+        </footer>*@
 
     <script src="~/Scripts/jquery-3.6.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

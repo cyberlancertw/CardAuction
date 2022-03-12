@@ -1,0 +1,30 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    /* display: inline-block;*/
+    font-size: 16px;
+}
+
+a.btn.btn-warning,
+a.btn.btn-danger,
+a.btn.btn-primary {
+    font-size: 16px;
+    margin: 0px;
+    padding: 5px 10px;
+}
+
+a.btn.btn-primary {
+    margin:10px 0 10px 30px;
+}
+
+td {
+    margin: 0px;
+    padding: 5px 10px;
+    vertical-align :middle;
+}
+
+table {
+    margin:0 30px 0 30px;
+}

@@ -1,0 +1,127 @@
+﻿<!-- CSS -->
+<link rel="stylesheet" href="~/Content/AdminCss/cssPsnEdit.css" />
+
+@model CardAuction.Models.tMember
+
+@{
+    ViewBag.Title = "編輯人員資料";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h6>編輯人員資料</h6>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.fUserId)
+
+        <div class="form-group">
+            帳號
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fAccount, new { htmlAttributes = new { @class = "form-control ", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.fAccount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            密碼
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            姓名
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            信箱
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            地址
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            電話
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fPhone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fPhone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            生日
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fBirthday, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fBirthday, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            訂閱
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.fSubscribe)
+                    @Html.ValidationMessageFor(model => model.fSubscribe, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            權限
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.fManager)
+                    @Html.ValidationMessageFor(model => model.fManager, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            驗證
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.fActive)
+                    @Html.ValidationMessageFor(model => model.fActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            刪除
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.fDelete)
+                    @Html.ValidationMessageFor(model => model.fDelete, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="更新資料" class="btn btn-default" id="EditBtn" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
