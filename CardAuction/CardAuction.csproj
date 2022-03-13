@@ -120,9 +120,16 @@
     <Content Include="Content\cssMemberRegister.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\site\cat0.jpg" />
+    <Content Include="Images\site\cat1.jpg" />
+    <Content Include="Images\site\cat2.jpg" />
+    <Content Include="Images\site\cat3.jpg" />
     <Content Include="Images\site\iconArrowLeft.png" />
     <Content Include="Images\site\iconArrowRight.png" />
     <Content Include="Images\site\iconCart.jpg" />
+    <Content Include="Images\site\iconClock.png" />
+    <Content Include="Images\site\iconComment.png" />
+    <Content Include="Images\site\iconFavorite.png" />
     <Content Include="Images\site\iconMagnifier.png" />
     <Content Include="Images\site\iconMLB.png" />
     <Content Include="Images\site\iconMTG.png" />
@@ -276,6 +283,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\AuctionItemImages\" />
+    <Folder Include="Images\ExchangeItemImages\" />
     <Folder Include="Views\Exchange\" />
   </ItemGroup>
   <ItemGroup>
