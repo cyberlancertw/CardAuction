@@ -56,11 +56,10 @@ body {
     box-shadow: 0px 0px 6px 2px lightgray;
 }
 .picBlockList{
-    display:flex;
+    display: flex;
+    flex-wrap: wrap;
 }
 .picBlock {
-    flex-direction: row;
-    flex-wrap: wrap;
     position:relative;
     margin-bottom: 20px;
     margin-right: 5px;

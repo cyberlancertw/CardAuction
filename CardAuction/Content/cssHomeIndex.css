@@ -3,7 +3,7 @@
 }
 
 #fullPage{
-    width: 90%;
+    width: 100%;
     margin: auto;
 }
 #header{
@@ -20,7 +20,9 @@
 }
 #nav{
     margin-top: 15px;
+    padding-bottom: 10px;
     margin-bottom: 15px;
+    border-bottom: 3px solid #ebebeb;
 }
 
 #webIcon{

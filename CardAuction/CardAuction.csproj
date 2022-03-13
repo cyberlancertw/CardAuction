@@ -127,9 +127,16 @@
     <Content Include="Images\Admin\Icon_廣告.png" />
     <Content Include="Images\Admin\Icon_數據.png" />
     <Content Include="Images\Admin\Icon_會員.png" />
+    <Content Include="Images\site\cat0.jpg" />
+    <Content Include="Images\site\cat1.jpg" />
+    <Content Include="Images\site\cat2.jpg" />
+    <Content Include="Images\site\cat3.jpg" />
     <Content Include="Images\site\iconArrowLeft.png" />
     <Content Include="Images\site\iconArrowRight.png" />
     <Content Include="Images\site\iconCart.jpg" />
+    <Content Include="Images\site\iconClock.png" />
+    <Content Include="Images\site\iconComment.png" />
+    <Content Include="Images\site\iconFavorite.png" />
     <Content Include="Images\site\iconMagnifier.png" />
     <Content Include="Images\site\iconMLB.png" />
     <Content Include="Images\site\iconMTG.png" />
@@ -233,7 +240,7 @@
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutCOPY.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
@@ -253,6 +260,9 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\PsnCreate.cshtml" />
     <Content Include="Views\Admin\PsnEdit.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutShort.cshtml" />
+    <Content Include="Views\Auction\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -263,6 +273,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\AuctionItemImages\" />
+    <Folder Include="Images\ExchangeItemImages\" />
     <Folder Include="Views\Exchange\" />
   </ItemGroup>
   <ItemGroup>

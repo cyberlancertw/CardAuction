@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "競標商品";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/cssAuctionIndex.css" type="text/css" />
+<div id="divMainContent">
+    <div id="divSort">
+        競標 / *分類*
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-9" id="divItemName">
+            *卡牌名稱*
+        </div>
+        <div class="col-sm-12 col-md-3" id="divFollow">
+            <div class="row justify-content-between">
+                <div class="col-3 col-sm-3 col-md-6">
+                    <a href=""><img src="~/Images/site/iconFavorite.png" class="imgFollow" /></a>
+                </div>
+                <div class="col-3 col-sm-3 col-md-6">
+                    <a href=""><img src="~/Images/site/iconComment.png" class="imgFollow" /></a>
+                </div>
+             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-7" id="divPhoto">
+            <div>
+                <img src="~/Images/site/cat0.jpg" id="imgShow" /><br />
+            </div>
+            <div id="divSmallList">
+                <img src="~/Images/site/cat1.jpg" id="imgSmall1" />
+                <img src="~/Images/site/cat2.jpg" id="imgSmall2" />
+                <img src="~/Images/site/cat3.jpg" id="imgSmall3" />
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-5" id="divBidInfo">
+            <div id="divTime">
+                <div id="divClock">
+                    <img src="~/Images/site/iconClock.png" id="imgClock" />
+                </div>
+                 <div id="divStamp">
+                     <span id="stampTime">00 天 00 時 00 分 00 秒 結束</span>
+                 </div>
+                 <div id="divCalender">
+                     加入行事曆
+                 </div>
+            </div>
+            <div id="divMoney">
+                <div class="row" id="divMoneyNow">
+                    <div class="col-6 titleMoney">
+                        目前出價
+                    </div>
+                    <div class="col-6">
+                        <span id="stampMoneyNow">$ 120 元</span>
+                    </div>
+                </div>
+                <div class="row" id="divMoneyStep">
+                    <div class="col-6 titleMoney">
+                        出價增額
+                    </div>
+                    <div class="col-6">
+                        <span id="stampMoneyStep">$ 20 元</span>
+                    </div>
+                </div>
+                <div class="row" id="divBid">
+                    <div class="col-8" id="titleTextBox">
+                        <input type="number" placeholder="請輸入出價上限" id="txtBid" step="10" min="120"/>
+                    </div>
+                    <div class="col-4">
+                        <button id="btnBid">出價</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="divHistory">
+                <div class="row historyRecord">
+                    <div class="col-4 historyAccount">
+                        出價者
+                    </div>
+                    <div class="col-6 historyTime">
+                        時間
+                    </div>
+                    <div class="col-2 historyMoney">
+                        出價
+                    </div>
+                </div>
+                <div class="row historyRecord">
+                    <div class="col-4 historyAccount">
+                        abcd123
+                    </div>
+                    <div class="col-6 historyTime">
+                        2022/03/13 21:32:45
+                    </div>
+                    <div class="col-2 historyMoney">
+                        $ 120
+                    </div>
+                </div>
+                <div class="row historyRecord">
+                    <div class="col-4 historyAccount">
+                        samplebid8675
+                    </div>
+                    <div class="col-6 historyTime">
+                        2022/03/13 14:19:07
+                    </div>
+                    <div class="col-2 historyMoney">
+                        $ 70
+                    </div>
+                </div>
+                <div class="row historyRecord">
+                    <div class="col-4 historyAccount">
+                        abcd123
+                    </div>
+                    <div class="col-6 historyTime">
+                        2022/03/12 23:34:18
+                    </div>
+                    <div class="col-2 historyMoney">
+                        $ 50
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" id="divDescription">
+            <div class="col-6 col-sm-5 col-md-3 titleTopic">
+                商品說明
+            </div>
+            <div id="divDescriptContent">
+                The cat (Felis catus) is a domestic species of a small carnivorous mammal.[1][2] It is the only domesticated species in the family Felidae and is often referred to as the domestic cat to distinguish it from the wild members of the family.[4] A cat can either be a house cat, a farm cat or a feral cat; the latter ranges freely and avoids human contact.[5] Domestic cats are valued by humans for companionship and their ability to kill rodents. About 60 cat breeds are recognized by various cat registries.[6]
+            </div>
+        </div>
+
+        <div class="row" id="divComment">
+            <div class="col-6 col-sm-5 col-md-3 titleTopic">
+                留言
+            </div>
+            <div id="divCommentContent">
+
+            </div>
+            <div id="inputSend">
+                <div class="row commentRecord">
+                    <div class="col-sm-4 col-md-2 commentAccount">
+                        samplebid8675
+                    </div>
+                    <div class="col-sm-8 col-md-10 commentContent">
+                        好
+                    </div>
+                </div>
+                <div class="row commentRecord">
+                    <div class="col-sm-4 col-md-2 commentAccount">
+                        abcd123
+                    </div>
+                    <div class="col-sm-8 col-md-10 commentContent">
+                        想要這張想要這張想要這張想要這張想要這張想要這張想要這張想要這張想要這張
+                    </div>
+                </div>
+                <div class="row commentRecord">
+                    <div class="col-sm-9 col-md-10">
+                        <input type="text" id="txtComment" />
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <button id="btnCommentSend">留言</button>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+
+        <div class="row" id="divHistory">
+            <div class="col-6 col-sm-5 col-md-3 titleTopic">
+                歷史成交統計
+            </div>
+            <div id="divHistoryContent">
+                <br /><br /><br /><br />
+            </div>
+        </div>
+    </div>
+</div>
+
