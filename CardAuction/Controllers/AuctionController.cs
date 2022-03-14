@@ -14,11 +14,25 @@ namespace CardAuction.Controllers
         dbCardAuctionEntities db = new dbCardAuctionEntities();
 
         // GET: Auction
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
+        [HttpGet]
+        public ActionResult Item(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("List");
+            }
+            var result = db.tAuctionItem.Find(id);
+            if(result == null)
+            {
+                return RedirectToAction("List");
+            }
+            return View(result);
+        }
         [HttpGet]
         public ActionResult Post()
         {
