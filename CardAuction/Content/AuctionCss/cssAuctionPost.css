@@ -44,6 +44,9 @@ body {
 #mainBox{
     margin-top: 5px;
 }
+.errMsg{
+    color: red;
+}
 #basicInfo,#sellDetail,#transFee{
     width: 85%;
     margin-left: auto;
