@@ -1,0 +1,103 @@
+/*body{
+    background-color: #1f3344;
+}*/
+.article {
+    display:block;
+    border: 1px groove gray;
+    width: 90%;
+    margin: auto;    
+    background-color: white;
+}/*背景*/
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}/*會員頭像*/
+.btncheng{
+    margin-top: 5% ;
+    margin-left: 510%;
+}
+.btnSize{
+    width:50%; 
+    height:50px;
+    font-size:25px;
+}
+.cardname{
+    margin-left: 20%;
+    margin-bottom: 5%;
+}/*卡牌名稱*/
+.cardlabel{
+    margin-left: 10%;
+}/*類別標籤*/
+.cardmsg{/*卡牌資訊*/
+    margin-top: 50px;
+    font-family: "微軟正黑體";
+}
+.depiction{
+    color: #ffffff;
+    background-color: #1f3344;
+    margin-left: 5%;
+}/*商品敘述*/
+.depictionG{
+    color: #ffffff;
+    background-color: #ab8f4e;
+    margin-left: 5%;
+}/*商品敘述*/
+.Goldcolor{
+    color: #ab8f4e;
+}
+.header{
+    margin-top: 30px;
+    margin-left: 10%;
+}/*交換/類別/卡牌名稱*/
+.imgBig{
+    border: 3px solid #141E27;
+    width: 35%;
+}/*圖片外框*/
+.img Center{
+    display:block;
+    margin: auto;
+}/*目前無作用*/
+.imgSmall{
+    margin-top: 10px;
+    margin-left:10px;
+    width:10%;
+}/*小圖片*/
+.line{
+    border: 1px solid #D8D2CB;
+    width: 90%;
+}
+.product{
+    margin-top: 10px;
+}
+.pmsg{
+    margin-left: 10%;
+    border: 1px solid black;
+    font-size: 20px;
+    width: 80%;
+    height: 130px;
+    background-color: #D8D2CB;
+}
+.pmsg2{
+    margin-left: 5%;
+    border: 1px solid #ab8f4e;
+    font-size: 20px;
+    width: 90%;
+    height: 130px;
+    background-color: #DDDDDD;
+    color: #000;
+}
+.time{
+    color: #ffffff;
+    background-color: #1f3344;
+}/*TIME*/
+h4{
+    color: #1f3344;
+    font-size: 30px;
+    font-family:'Courier New', Courier, monospace;
+}
+legend{
+    margin-left: 10%;
+}
+
