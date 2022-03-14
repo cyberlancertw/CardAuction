@@ -97,6 +97,11 @@ namespace CardAuction.Controllers
             {
                 photos.Add(Photo3);
             }
+            if(photos.Count == 0)
+            {
+                ViewData["errorMessage"] = "請上傳圖片";
+                return View();
+            }
             int count = 0;
             string fileNameInitial = nowTime.ToString("yyyyMMddHHmmss") + Guid.NewGuid().GetHashCode().ToString().Replace("-","").Substring(0,6);
             foreach(HttpPostedFileBase photo in photos){
