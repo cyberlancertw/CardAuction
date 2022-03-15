@@ -1,0 +1,208 @@
+﻿/*  淡灰 ced3d8   ebebeb    深灰 6b6b6b   黑 333333    藏青 1f3444    金  ab8f4e    白ffffff */
+body {
+    font-family: 'Noto Sans TC', 'Noto Sans CJK TC', '微軟正黑體';
+    color: #333333;
+    font-weight: bold;
+}
+#divMainContent{
+    margin-top: 26px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#divSort{
+    color: #6b6b6b;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#divItemName{
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}
+
+#divFollow {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.imgFollow{
+    width: 100%;
+}
+
+#divPhoto{
+    text-align: center;
+
+}
+#imgShow{
+    width: 90%;
+}
+
+#divSmallList{
+    margin-top: 10px;
+
+}
+#imgSmall1,#imgSmall2,#imgSmall3{
+    width: 100px;
+    margin-right: 10px;
+}
+#divTime{
+    border: 2px solid #ced3d8;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#divClock{
+    width: 40px;
+    padding: 5px;
+    margin-right: 3px;
+    text-align:center;
+
+}
+#imgClock{
+    width: 20px;
+}
+#divStamp {
+    padding: 10px 12px 10px 12px;
+    border-left: 2px solid #ced3d8;
+    border-right: 2px solid #ced3d8;
+    flex: auto;
+    text-align: center;
+    color: #ced3d8;
+}
+#divCalender {
+    width: 100px;
+    color: #ab8f4e;
+    text-align: center;
+}
+
+#divMoney{
+    margin-top: 10px;
+    background-color: #ebebeb;
+    border-radius: 10px;
+}
+#divMoneyNow, #divBuy {
+    padding-top: 5px;
+    align-items: center;
+    height: 65px;
+    padding-bottom: 5px;
+}
+#divBuy {
+    border-bottom: 5px solid #ffffff;
+}
+#divMoneyStep {
+    padding-top: 5px;
+    align-items: center;
+    height: 60px;
+    padding-bottom: 5px;
+ }
+.titleMoney {
+    padding-left: 46px;
+    text-align: left;
+    font-size: 22px;
+    color: #1f3444;
+}
+#stampMoneyBuy, #stampMoneyNow, #stampMoneyStep {
+    color: #ab8f4e;
+    font-size: 28px;
+}
+
+#divBid {
+    padding-top: 5px;
+    height: 80px;
+    align-items: center;
+    padding-bottom: 10px;
+    
+}
+#titleTextBox{
+    text-align: right;
+}
+#txtBid{
+    width: 90%;
+    height: 50px;
+    border: 1px solid #6b6b6b;
+    font-size: 20px;
+
+}
+#btnBuy, #btnBid{
+    height: 50px;
+    width: 80%;
+    background-color: #1f3444;
+    color: #ffffff;
+    font-size: 24px;
+    border: none;
+    border-radius: 4px;
+}
+#divHistory{
+    margin-top: 20px;
+}
+
+.historyRecord{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.historyAccount{
+
+}
+
+.historyTime{
+
+}
+
+.historyMoney{
+
+}
+
+.titleTopic{
+    background-color: #1f3444;
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#divDescription, #divComment, #divHistory {
+    border-top: 2px solid #ced3d8;
+    margin-top: 20px;
+}
+
+#divDescriptContent{
+    margin-top: 16px;
+    margin-bottom: 20px;
+}
+
+.commentRecord{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+
+}
+.commentAccount {
+
+}
+.commentContent{
+
+}
+
+#txtComment{
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    border: 2px solid #ced3d8;
+}
+#btnCommentSend{
+    background-color: #1f3444;
+    color: #ffffff;
+    border-radius: 4px;
+    width: 100%;
+    border: none;
+    padding: 5px;
+}
+
+.imgSmall{
+    width: 5vw;
+    margin-right: 10px;
+}

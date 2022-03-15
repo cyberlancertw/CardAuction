@@ -1,72 +1,4 @@
-﻿body {
-    font-family: 'Noto Sans TC Medium', '微軟正黑體';
-}
-
-#fullPage{
-    width: 100%;
-    margin: auto;
-}
-#header{
-    background-color: #ffffff;
-    padding: 4px;
-    text-align: right;
-    border-bottom: 3px solid #ebebeb;
-}
-#header>a{
-    text-decoration: none;
-    font-size: 18px;
-    color: #333333;
-    margin-right: 40px;
-}
-#nav{
-    margin-top: 15px;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-    border-bottom: 3px solid #ebebeb;
-}
-
-#webIcon{
-    width: 90%;
-    margin-left: 10px;
-}
-#catalog1{
-    padding-top: 5px;
-}
-#catalog1 a{
-    text-decoration: none;
-    font-size: 18px;
-    color: #333333;
-}
-
-#catalog2 {
-    
-}
-#catalog2 img{
-    padding: 3px;
-    height: 33px;
-}
-
-#divSearch{
-    position: relative;
-}
-
-#iconMag{
-    position: absolute;
-    width: 25px;
-    right: 30px;
-    top: 8px;
-}
-#txtSearch{
-    width: 100%;
-    height: 40px;
-    border-radius: 5px;
-    border: 3px solid #ebebeb;
-}
-#imgCart{
-    margin-left: 10px;
-    margin-top: 8px;
-    height: 20px;
-}
+﻿
 #adCarosel{
     position: relative;
 }
@@ -175,4 +107,3 @@
     border-radius: 2px;
     font-size: 18px;
 }
-

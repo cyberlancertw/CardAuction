@@ -14,11 +14,25 @@ namespace CardAuction.Controllers
         dbCardAuctionEntities db = new dbCardAuctionEntities();
 
         // GET: Auction
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
+        [HttpGet]
+        public ActionResult Item(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("List");
+            }
+            var result = db.tAuctionItem.Find(id);
+            if(result == null)
+            {
+                return RedirectToAction("List");
+            }
+            return View(result);
+        }
         [HttpGet]
         public ActionResult Post()
         {
@@ -41,23 +55,23 @@ namespace CardAuction.Controllers
                                  bool isBuy, DateTime fEndTimeDate, DateTime fEndTimeTime,
                                  bool isPerson, bool isSeven, bool isFami, bool isLogi)
         {
-            if (!isBuy)
+            if (!isBuy || item.fBuyPrice < 0)
             {
                 item.fBuyPrice = -1;           // 以 -1 表示不提供直購價
             }
-            if (!isPerson)
+            if (!isPerson || item.fTransPerson < 0)
             {
                 item.fTransPerson = -1;       // 以 -1 表示不提供此運送選項
             }
-            if (!isSeven)
+            if (!isSeven || item.fTransSeven < 0)
             {
                 item.fTransSeven = -1;        // 以 -1 表示不提供此運送選項
             }
-            if (!isFami)
+            if (!isFami || item.fTransFami < 0)
             {
                 item.fTransFami = -1;        // 以 -1 表示不提供此運送選項
             }
-            if (!isLogi)
+            if (!isLogi || item.fTransLogi < 0)
             {
                 item.fTransLogi = -1;         // 以 -1 表示不提供此運送選項
             }
@@ -83,6 +97,11 @@ namespace CardAuction.Controllers
             {
                 photos.Add(Photo3);
             }
+            if(photos.Count == 0)
+            {
+                ViewData["errorMessage"] = "請上傳圖片";
+                return View();
+            }
             int count = 0;
             string fileNameInitial = nowTime.ToString("yyyyMMddHHmmss") + Guid.NewGuid().GetHashCode().ToString().Replace("-","").Substring(0,6);
             foreach(HttpPostedFileBase photo in photos){
@@ -102,6 +121,13 @@ namespace CardAuction.Controllers
             db.tAuctionItem.Add(item);
             db.SaveChanges();
             return RedirectToAction("Index","Home");
+        }
+
+        [HttpGet]
+        public ActionResult List()
+        {
+            var result = db.tAuctionItem.Where(m => m.fEndTime > DateTime.Now).OrderBy(m => m.fEndTime).ToList();
+            return View(result);
         }
     }
 

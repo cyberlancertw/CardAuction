@@ -99,29 +99,32 @@
     <Content Include="Content\AdminCss\cssPsnCreate.css" />
     <Content Include="Content\AdminCss\cssPsnEdit.css" />
     <Content Include="Content\AdminCss\cssPsnManage.css" />
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-grid.rtl.css" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap-reboot.rtl.css" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
-    <Content Include="Content\bootstrap-utilities.css" />
-    <Content Include="Content\bootstrap-utilities.min.css" />
-    <Content Include="Content\bootstrap-utilities.rtl.css" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap.rtl.css" />
-    <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\AuctionCss\cssAuctionItem.css" />
+    <Content Include="Content\AuctionCss\cssAuctionList.css" />
+    <Content Include="Content\AuctionCss\cssAuctionPost.css" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.css" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.rtl.css" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.css" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.css" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap.css" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap.rtl.css" />
+    <Content Include="Content\Bootstrap\bootstrap.rtl.min.css" />
     <Content Include="Content\AdminCss\cssAdminIndex.css" />
     <Content Include="Content\AdminCss\cssAdminLayout.css" />
-    <Content Include="Content\cssAuctionPost.css" />
     <Content Include="Content\cssHomeIndex.css" />
-    <Content Include="Content\cssMemberLogin.css" />
-    <Content Include="Content\cssMemberRegister.css" />
-    <Content Include="Content\css\Merchandise.css" />
+    <Content Include="Content\HomeCss\cssHomeIndex.css" />
+    <Content Include="Content\LayoutCss\cssUserLayout.css" />
+    <Content Include="Content\MemberCss\cssMemberLogin.css" />
+    <Content Include="Content\MemberCss\cssMemberRegister.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\Admin\Icon_商品.png" />
@@ -166,6 +169,9 @@
     <Content Include="Images\site\nbapanini.png" />
     <Content Include="Images\site\pkmcharizard.png" />
     <Content Include="Images\site\yugiohprismatic.png" />
+    <Content Include="Images\User\Index\SlideShowAD\CuteDog_01.jpeg" />
+    <Content Include="Images\User\Index\SlideShowAD\CuteDog_02.jpeg" />
+    <Content Include="Images\User\Index\SlideShowAD\CuteDog_03.jpg" />
     <Content Include="Models\dbCardAuction.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
@@ -228,22 +234,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.css.map" />
-    <Content Include="Content\bootstrap-utilities.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.rtl.css.map" />
-    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.rtl.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.rtl.min.css.map" />
     <EntityDeploy Include="Models\dbCardAuction.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbCardAuction.Designer.cs</LastGenOutput>
@@ -275,8 +281,9 @@
     <Content Include="Views\Admin\PsnEdit.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutShort.cshtml" />
-    <Content Include="Views\Auction\Index.cshtml" />
     <Content Include="Views\Exchange\Post.cshtml" />
+    <Content Include="Views\Auction\Item.cshtml" />
+    <Content Include="Views\Auction\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

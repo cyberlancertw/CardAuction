@@ -1,0 +1,20 @@
+﻿/*  淡灰 ced3d8   ebebeb    深灰 6b6b6b   黑 333333    藏青 1f3444    金  ab8f4e    白ffffff */
+
+#mainContent{
+    width: 86%;
+    background-color:beige;
+    margin: auto;
+    
+}
+#banner{
+    height: 200px;
+    background-color: #ebebeb;
+    font-size: 50px;
+}
+
+.divCard{
+    width: 90%;
+}
+.imgCard{
+    width: 100%;
+}
