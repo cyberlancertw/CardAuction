@@ -55,23 +55,23 @@ namespace CardAuction.Controllers
                                  bool isBuy, DateTime fEndTimeDate, DateTime fEndTimeTime,
                                  bool isPerson, bool isSeven, bool isFami, bool isLogi)
         {
-            if (!isBuy)
+            if (!isBuy || item.fBuyPrice < 0)
             {
                 item.fBuyPrice = -1;           // 以 -1 表示不提供直購價
             }
-            if (!isPerson)
+            if (!isPerson || item.fTransPerson < 0)
             {
                 item.fTransPerson = -1;       // 以 -1 表示不提供此運送選項
             }
-            if (!isSeven)
+            if (!isSeven || item.fTransSeven < 0)
             {
                 item.fTransSeven = -1;        // 以 -1 表示不提供此運送選項
             }
-            if (!isFami)
+            if (!isFami || item.fTransFami < 0)
             {
                 item.fTransFami = -1;        // 以 -1 表示不提供此運送選項
             }
-            if (!isLogi)
+            if (!isLogi || item.fTransLogi < 0)
             {
                 item.fTransLogi = -1;         // 以 -1 表示不提供此運送選項
             }
@@ -121,6 +121,13 @@ namespace CardAuction.Controllers
             db.tAuctionItem.Add(item);
             db.SaveChanges();
             return RedirectToAction("Index","Home");
+        }
+
+        [HttpGet]
+        public ActionResult List()
+        {
+            var result = db.tAuctionItem.Where(m => m.fEndTime > DateTime.Now).OrderBy(m => m.fEndTime).ToList();
+            return View(result);
         }
     }
 

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CardAuction.Models.tAuctionItem>
+
+@{
+    ViewBag.Title = "競標商品一覽";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link rel="stylesheet" href="~/Content/AuctionCss/cssAuctionList.css" type="text/css" />
+}
+<div id="mainContent">
+    <div id="banner">
+        卡片競標<br />
+        Auction Card
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-3" id="divSort">
+
+        </div>
+        <div class="col-12 col-sm-12 col-md-9" id="divList">
+            <div class="row">
+                @foreach(var item in Model)
+            {
+                int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
+                int dayRemain = secondRemain / 86400;
+                secondRemain %= 86400;
+                int hourRemain = secondRemain / 3600;
+                secondRemain %= 3600;
+                int minuteRemain = secondRemain / 60;
+                <div class="col-12 col-sm-12 col-md-3">
+                    <div class="divCard">
+                        <img src="~/images/AuctionItemImages/@item.fPhoto0" class="imgCard" />
+                    </div>
+                    <div id="divItemName">
+                        @item.fItemName
+                    </div>
+                    <div id="divMoney">
+                        $ @item.fMoneyNow 元
+                    </div> 
+                    <div id="divTime">
+                        @dayRemain 天 @hourRemain 時 @minuteRemain 分 
+                    </div>
+                </div>
+            }
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+@foreach (var item in Model) {
+    Html.DisplayFor(modelItem => item.fItemId);
+    Html.DisplayFor(modelItem => item.fItemName);
+    Html.DisplayFor(modelItem => item.fItemDescription);
+
+
+
+}
