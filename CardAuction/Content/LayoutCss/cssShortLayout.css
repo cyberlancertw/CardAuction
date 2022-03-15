@@ -1,0 +1,21 @@
+﻿body {
+    font-family: 'Noto Sans TC Medium', 'Noto Sans TC', '微軟正黑體';
+    background-color: #f6f6f6;
+}
+
+#webIcon {
+    width: 120px;
+    margin-right: 10px;
+}
+
+#header {
+    margin-top: 8px;
+    padding-left: 20px;
+    font-size: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ced3d8;
+}
+#divGreeting {
+    text-align: right;
+    padding-right: 50px;
+}

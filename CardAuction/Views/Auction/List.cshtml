@@ -8,37 +8,46 @@
 @section styles{
     <link rel="stylesheet" href="~/Content/AuctionCss/cssAuctionList.css" type="text/css" />
 }
-<div id="mainContent">
+<div id="fullListPage">
     <div id="banner">
         卡片競標<br />
         Auction Card
     </div>
-    <div class="row">
+    <div class="row" id="mainContent">
         <div class="col-12 col-sm-12 col-md-3" id="divSort">
 
         </div>
         <div class="col-12 col-sm-12 col-md-9" id="divList">
             <div class="row">
                 @foreach(var item in Model)
-            {
-                int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
-                int dayRemain = secondRemain / 86400;
-                secondRemain %= 86400;
-                int hourRemain = secondRemain / 3600;
-                secondRemain %= 3600;
-                int minuteRemain = secondRemain / 60;
+                {
+                    int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
+                    int dayRemain = secondRemain / 86400;
+                    secondRemain %= 86400;
+                    int hourRemain = secondRemain / 3600;
+                    secondRemain %= 3600;
+                    int minuteRemain = secondRemain / 60;
+                    string itemNameShort = item.fItemName;
+                    if(itemNameShort.Length> 9)
+                    {
+                        itemNameShort = itemNameShort.Substring(0, 9);
+                    }
                 <div class="col-12 col-sm-12 col-md-3">
                     <div class="divCard">
-                        <img src="~/images/AuctionItemImages/@item.fPhoto0" class="imgCard" />
-                    </div>
-                    <div id="divItemName">
-                        @item.fItemName
-                    </div>
-                    <div id="divMoney">
-                        $ @item.fMoneyNow 元
-                    </div> 
-                    <div id="divTime">
-                        @dayRemain 天 @hourRemain 時 @minuteRemain 分 
+                        <div class="divPhoto">
+                            <a href="~/Auction/Item/@item.fItemId">
+                                <img src="~/images/AuctionItemImages/@item.fPhoto0" class="imgCard" />
+                            </a>
+                        </div>
+                        <div class="divItemName">
+                            @itemNameShort
+                        </div>
+                        <div class="divMoney">
+                            $ @item.fMoneyNow 元
+                        </div>
+                        <div class="divTime">
+                            剩餘 @dayRemain 天 @hourRemain 時 @minuteRemain 分
+                        </div>
                     </div>
                 </div>
             }
