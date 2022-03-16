@@ -38,7 +38,7 @@ namespace CardAuction.Controllers
                 return RedirectToAction("List");
             }
 
-            if (Session[CDictionary.SK_UserUserId] == null || result.fPostUserId != (int)Session[CDictionary.SK_UserUserId])
+            if (Session[CDictionary.SK_UserUserId] == null || result.fPostUserId != (string)Session[CDictionary.SK_UserUserId])
             {
                 result.fClick += 1;
                 db.SaveChanges();

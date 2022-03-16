@@ -4,11 +4,11 @@
     ViewBag.Title = "上架";
     ViewBag.pageTitle = "新增競標商品";
     string username = null;
-    int userId = 0;
+    string userId = null;
     if(Session[CDictionary.SK_UserAccount] != null)
     {
         username = Session[CDictionary.SK_UserAccount].ToString();
-        userId = (int)Session[CDictionary.SK_UserUserId];
+        userId = (string)Session[CDictionary.SK_UserUserId];
     }
 }
 @section styles{

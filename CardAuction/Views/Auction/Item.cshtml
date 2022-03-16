@@ -1,4 +1,5 @@
 ﻿@model CardAuction.Models.tAuctionItem
+@using CardAuction.Models
 @{
     ViewBag.Title = "競標商品";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,7 +27,7 @@
         <div class="col-sm-12 col-md-3" id="divFollow">
             <div class="row justify-content-between">
                 <div class="col-3 col-sm-3 col-md-6">
-                    <a href=""><img src="~/Images/site/iconFavorite.png" class="imgFollow" /></a>
+                    <a href="#" id="btnFavorite"><img src="~/Images/site/iconFavorite.png" class="imgFollow" /></a>
                 </div>
                 <div class="col-3 col-sm-3 col-md-6">
                     <a href=""><img src="~/Images/site/iconComment.png" class="imgFollow" /></a>
@@ -231,6 +232,7 @@
         var domBid = document.getElementById('btnBid');
         var domTxtBid = document.getElementById('txtBid');
         var domShow = document.getElementById('imgShow');
+        var btnFavorite = document.getElementById('btnFavorite');
 
         var timer = window.setInterval(function () {
             secondRemain -= 7;
@@ -269,6 +271,27 @@
 
         refreshStampTime(secondRemain);
 
-        
+        function AddFavorite(event) {
+            event.preventDefault();
+            console.log('!');
+        }
+        btnFavorite.addEventListener('click', function (event) {
+            @{
+    if (Session[CDictionary.SK_UserUserId] == null)
+    {               @:event.preventDefault();
+                    @:return;
+    }
+   
+            }
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', function () {
+                console.log('!');
+            });
+            let para = `?ItemId=@Model.fItemId.ToString()`;
+            console.log(para);
+            event.preventDefault();
+            xhr.open('GET','@Url.Content("~/Member/FavoriteAuction")' + para);
+            xhr.send();
+        })
     </script>
 }

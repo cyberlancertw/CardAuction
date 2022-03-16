@@ -8,7 +8,7 @@ namespace CardAuction.ViewModels
     public class CAuctionPostViewModel
     {
         //public string fItemId { get; set; }
-        public int fPostUserId { get; set; }
+        public string fPostUserId { get; set; }
         public HttpPostedFileBase Photo0 { get; set; }
         public HttpPostedFileBase Photo1 { get; set; }
         public HttpPostedFileBase Photo2 { get; set; }

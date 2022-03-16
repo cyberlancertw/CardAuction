@@ -211,7 +211,13 @@
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\tAuctionFavorite.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tAuctionItem.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tExchangeFavorite.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tMember.cs">
