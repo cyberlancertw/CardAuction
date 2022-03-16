@@ -12,6 +12,8 @@ namespace CardAuction.Controllers
 {
     public class MemberController : Controller
     {
+        dbCardAuctionEntities db = new dbCardAuctionEntities();
+
         // GET: Member
         public ActionResult Index()
         {
@@ -163,31 +165,51 @@ namespace CardAuction.Controllers
                 ViewData["errBirth"] = "生日輸入有異";
                 return View();
             }
-            CMemberFactory.Create(new CMember()
-            {
-                Account = vModel.Account,
-                Password = vModel.Password,
-                Name = vModel.Name,
-                Email = vModel.Email,
-                Address = vModel.AddressSelect + vModel.Address,
-                Phone = vModel.Phone,
-                Birthday = vModel.Birthday,
-                Subscribe = vModel.Subscribe
-            });
+            //CMemberFactory.Create(new CMember()
+            //{
+            //    Account = vModel.Account,
+            //    Password = vModel.Password,
+            //    Name = vModel.Name,
+            //    Email = vModel.Email,
+            //    Address = vModel.AddressSelect + vModel.Address,
+            //    Phone = vModel.Phone,
+            //    Birthday = vModel.Birthday,
+            //    Subscribe = vModel.Subscribe
+            //});
 
+            Random rnd = new Random();
+            int rndNum = rnd.Next(10);
+            string hashId = Guid.NewGuid().GetHashCode().ToString().Replace("-", rndNum.ToString());
+            tMember newMember = new tMember
+            {
+                fUserId = hashId,
+                fAccount = vModel.Account,
+                fPassword = vModel.Password,
+                fName = vModel.Name,
+                fEmail = vModel.Email,
+                fAddress = vModel.AddressSelect + vModel.Address,
+                fPhone = vModel.Phone,
+                fBirthday = vModel.Birthday,
+                fSubscribe = vModel.Subscribe,
+                fManager = false,
+                fActive = false,
+                fDelete = false
+            };
+
+            db.tMember.Add(newMember);
+            db.SaveChanges();
 
             Session[CDictionary.SK_ValidationAccount] = vModel.Account;
             Session[CDictionary.SK_ValidationEmail] = vModel.Email;
 
-            return RedirectToAction("EmailValidation");
+            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("EmailValidation");
 
-            //Session[CDictionary.SK_RedirectToAction] = "Index";
-            //Session[CDictionary.SK_RedirectToController] = "Home";
-            //return RedirectToAction("Login");
         }
 
         public ActionResult AccountCount(string Account)            // 註冊時檢查Account是否已存在用
         {
+            //return DBset .Any() true / false
             return Content(CMemberFactory.QueryByAccount(Account).ToString());
         }
 

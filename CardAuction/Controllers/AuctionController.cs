@@ -19,21 +19,33 @@ namespace CardAuction.Controllers
         //{
         //    return View();
         //}
+        public ActionResult test()
+        {
+            return View();
+        }
 
         [HttpGet]
-        public ActionResult Item(int? id)
+        public ActionResult Item(string id)
         {
             if (id == null)
             {
                 return RedirectToAction("List");
             }
             var result = db.tAuctionItem.Find(id);
-            if(result == null)
+            
+            if (result == null)
             {
                 return RedirectToAction("List");
             }
+
+            if (Session[CDictionary.SK_UserUserId] == null || result.fPostUserId != (int)Session[CDictionary.SK_UserUserId])
+            {
+                result.fClick += 1;
+                db.SaveChanges();
+            }
             return View(result);
         }
+
         [HttpGet]
         public ActionResult Post()
         {
@@ -53,7 +65,9 @@ namespace CardAuction.Controllers
         {
             tAuctionItem createItem = new tAuctionItem();
             DateTime nowTime = DateTime.Now;
-
+            Random rnd = new Random();
+            string fileNameInitial = nowTime.ToString("yyyyMMddHHmmss") + Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6) + rnd.Next(100,1000).ToString();
+            createItem.fItemId = fileNameInitial;
             List<HttpPostedFileBase> photos = new List<HttpPostedFileBase>();
 
             if (vModel.Photo0 != null)                 // 無視沒上傳圖片的位置，全部往前推
@@ -79,7 +93,7 @@ namespace CardAuction.Controllers
             }
 
             int count = 0;
-            string fileNameInitial = nowTime.ToString("yyyyMMddHHmmss") + Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6);
+            
             foreach (HttpPostedFileBase photo in photos)
             {
                 string newFileName = fileNameInitial + count + Path.GetExtension(photo.FileName);       // 檔名組成：日期、時間、6數字組成字串、編號.副檔名
@@ -94,7 +108,7 @@ namespace CardAuction.Controllers
                 photo.SaveAs(Server.MapPath("~/Images/AuctionItemImages/") + newFileName);              // 存入 ~/Images/AuctionItemImages 資料夾內
                 count++;
             }
-            createItem.fPosterUserId = vModel.fPostUserId;
+            createItem.fPostUserId = vModel.fPostUserId;
             createItem.fItemName = vModel.fItemName;
             createItem.fItemDescription = vModel.fItemDescription;
             createItem.fSort = vModel.fSort;
@@ -142,10 +156,12 @@ namespace CardAuction.Controllers
             }
             
             createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結標時間
-            createItem.fCreateTime = nowTime;                                         // 現在時間為建立時間
+            createItem.fCreateTime = nowTime;                                                       // 現在時間為建立時間
             createItem.fMoneyStart = vModel.fMoneyStart;
-            createItem.fMoneyNow = vModel.fMoneyStart;                                  // 目前價格即起標價格
-
+            createItem.fMoneyNow = vModel.fMoneyStart;                                              // 目前價格即起標價格
+            createItem.fClick = 0;
+            createItem.fDelete = false;
+            createItem.fReport = 0;
             
 
             db.tAuctionItem.Add(createItem);
@@ -156,7 +172,9 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult List()
         {
-            var result = db.tAuctionItem.Where(m => m.fEndTime > DateTime.Now).OrderBy(m => m.fEndTime).ToList();
+            var result = db.tAuctionItem.Where(m => m.fEndTime > DateTime.Now)
+                                        .OrderBy(m => m.fEndTime)
+                                        .ToList();
             return View(result);
         }
     }

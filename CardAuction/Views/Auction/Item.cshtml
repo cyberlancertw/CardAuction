@@ -8,12 +8,6 @@
     string filepath3 = Model.fPhoto3;
     int leastBid = Model.fMoneyNow + Model.fMoneyStep;
     int secondTotalRemain = Convert.ToInt32((Model.fEndTime - DateTime.Now).TotalSeconds);
-    int secondRemain = secondTotalRemain;
-    int dayRemain = secondRemain / 86400;
-    secondRemain %= 86400;
-    int hourRemain = secondRemain / 3600;
-    secondRemain %= 3600;
-    int minuteRemain = secondRemain / 60;
 
 }
 
@@ -46,10 +40,24 @@
                 <img src="~/Images/AuctionItemImages/@filepath0" id="imgShow" /><br />
             </div>
             <div id="divSmallList">
-                <img src="~/Images/AuctionItemImages/@filepath0" class="imgSmall" id="imgSmall0" />
-                <img src="~/Images/AuctionItemImages/@filepath1" class="imgSmall" id="imgSmall1" />
-                <img src="~/Images/AuctionItemImages/@filepath2" class="imgSmall" id="imgSmall2" />
-                <img src="~/Images/AuctionItemImages/@filepath3" class="imgSmall" id="imgSmall3" />
+                @{
+                    if (Model.fPhoto0 != null)
+                    {
+                        <img src="~/Images/AuctionItemImages/@filepath0" class="imgSmall" id="imgSmall0" />
+                    }
+                    if (Model.fPhoto1 != null)
+                    {
+                        <img src="~/Images/AuctionItemImages/@filepath1" class="imgSmall" id="imgSmall1" />
+                    }
+                    if (Model.fPhoto2 != null)
+                    {
+                        <img src="~/Images/AuctionItemImages/@filepath2" class="imgSmall" id="imgSmall2" />
+                    }
+                    if (Model.fPhoto3 != null)
+                    {
+                        <img src="~/Images/AuctionItemImages/@filepath3" class="imgSmall" id="imgSmall3" />
+                    }
+                }
             </div>
         </div>
         <div class="col-sm-12 col-md-6" id="divBidInfo">
@@ -58,7 +66,7 @@
                     <img src="~/Images/site/iconClock.png" id="imgClock" />
                 </div>
                  <div id="divStamp">
-                     <span id="stampTime">@dayRemain 天 @hourRemain 時 @minuteRemain 分 結束</span>
+                     <span id="stampTime"></span>
                  </div>
                  <div id="divCalender">
                      加入行事曆
@@ -215,13 +223,52 @@
 
 @section scripts{
     <script>
-        console.log(@secondTotalRemain);
-        var secondRemain = @secondTotalRemain
-        window.setInterval(function () {
-            secondRemain--;
-            console.log(secondRemain);
-        }, 1000);
+        
 
-        document.querySelector('')
+        var secondRemain = @secondTotalRemain ;
+        var domTime = document.getElementById('stampTime');
+        var domBuy = document.getElementById('btnBuy');
+        var domBid = document.getElementById('btnBid');
+        var domTxtBid = document.getElementById('txtBid');
+        var domShow = document.getElementById('imgShow');
+
+        var timer = window.setInterval(function () {
+            secondRemain -= 7;
+            refreshStampTime(secondRemain);
+        }, 7000);
+
+        function refreshStampTime(t) {
+            if (t <= 0) {
+                domTime.textContent = '競標已結束';
+                clearInterval(timer);
+                domBuy.setAttribute('disabled', 'true');
+                domBid.setAttribute('disabled', 'true');
+                domTxtBid.setAttribute('disabled', 'true');
+                return;
+            }
+            let day = Math.floor(t / 86400);
+            t %= 86400;
+            let hr = Math.floor(t / 3600);
+            t %= 3600;
+            let min = Math.floor(t / 60);
+            domTime.textContent = `${day} 天 ${hr} 時 ${min} 分 結束`;
+        }
+        document.querySelectorAll('.imgSmall').forEach(function (dom) {
+            dom.addEventListener('mouseover', function () {
+
+                domShow.classList.add('imageChange');
+                domShow.src = this.src;
+            });
+            dom.addEventListener('mouseleave', function () {
+                domShow.classList.remove('imageChange');
+            });
+            dom.addEventListener('click', function () {
+                domShow.src = this.src;
+            });
+        });
+
+        refreshStampTime(secondRemain);
+
+        
     </script>
 }

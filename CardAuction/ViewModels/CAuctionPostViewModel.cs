@@ -7,6 +7,7 @@ namespace CardAuction.ViewModels
 {
     public class CAuctionPostViewModel
     {
+        //public string fItemId { get; set; }
         public int fPostUserId { get; set; }
         public HttpPostedFileBase Photo0 { get; set; }
         public HttpPostedFileBase Photo1 { get; set; }
@@ -30,6 +31,9 @@ namespace CardAuction.ViewModels
         public int fTransFami { get; set; }
         public bool isLogi { get; set; }
         public int fTransLogi { get; set; }
+        public int fClick { get; set; }
+        public int fReport { get; set; }
+        public bool fDelete { get; set; }
 
 
     }

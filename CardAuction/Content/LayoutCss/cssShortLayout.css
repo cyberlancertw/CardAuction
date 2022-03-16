@@ -3,10 +3,7 @@
     background-color: #f6f6f6;
 }
 
-#webIcon {
-    width: 120px;
-    margin-right: 10px;
-}
+
 
 #header {
     margin-top: 8px;
@@ -14,6 +11,10 @@
     font-size: 24px;
     padding-bottom: 10px;
     border-bottom: 2px solid #ced3d8;
+}
+#webIcon {
+    width: 120px;
+    margin-right: 10px;
 }
 #divGreeting {
     text-align: right;

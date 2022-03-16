@@ -1,8 +1,7 @@
 ﻿/*  淡灰 ced3d8   ebebeb    深灰 6b6b6b   黑 333333    藏青 1f3444    金  ab8f4e    白ffffff */
 body {
-    font-family: 'Noto Sans TC', 'Noto Sans CJK TC', '微軟正黑體';
+    font-family: 'Noto Sans TC Medium','Noto Sans CJK TC Midium','Noto Sans TC', 'Noto Sans CJK TC', '微軟正黑體';
     color: #333333;
-    font-weight: bold;
 }
 #divMainContent{
     margin-top: 26px;
@@ -12,15 +11,15 @@ body {
 }
 #divSort{
     color: #6b6b6b;
-    font-size: 14px;
+    font-size: 18px;
     margin-bottom: 10px;
 }
 
 #divItemName{
-    font-size: 24px;
+    font-size: 28px;
     margin-top: 10px;
     margin-bottom: 10px;
-    
+    font-weight: bold;
 }
 
 #divFollow {
@@ -205,4 +204,19 @@ body {
 .imgSmall{
     width: 5vw;
     margin-right: 10px;
+}
+
+.imageChange{
+    animation-name: brightToNormal;
+    animation-duration: 0.5s;
+}
+@keyframes brightToNormal{
+    from{
+        /*filter:brightness(3);*/
+        filter: blur(3px);
+    }
+    to {
+        /*filter:brightness(1);*/
+        filter: blur(0);
+    }
 }
