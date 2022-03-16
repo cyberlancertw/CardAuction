@@ -121,6 +121,7 @@
     <Content Include="Content\AdminCss\cssAdminIndex.css" />
     <Content Include="Content\AdminCss\cssAdminLayout.css" />
     <Content Include="Content\cssHomeIndex.css" />
+    <Content Include="Content\ExchangeCss\Merchandise.css" />
     <Content Include="Content\HomeCss\cssHomeIndex.css" />
     <Content Include="Content\LayoutCss\cssUserLayout.css" />
     <Content Include="Content\MemberCss\cssMemberLogin.css" />

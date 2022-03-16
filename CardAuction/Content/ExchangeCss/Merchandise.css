@@ -1,6 +1,6 @@
-/*body{
+/* body{
     background-color: #1f3344;
-}*/
+} */
 .article {
     display:block;
     border: 1px groove gray;
@@ -14,14 +14,18 @@
     height: 50px;
     border-radius: 50%;
 }/*會員頭像*/
-.btncheng{
-    margin-top: 5% ;
-    margin-left: 510%;
+.btncheng {
+    margin-top: 25%;
 }
-.btnSize{
-    width:50%; 
+.btnSize1 {
+    width:30%; 
     height:50px;
     font-size:25px;
+}
+.btnSize2 {
+    width: 50%;
+    height: 50px;
+    font-size: 25px;
 }
 .cardname{
     margin-left: 20%;
@@ -44,6 +48,9 @@
     background-color: #ab8f4e;
     margin-left: 5%;
 }/*商品敘述*/
+.floatR{
+    float: right;
+}
 .Goldcolor{
     color: #ab8f4e;
 }
@@ -60,10 +67,23 @@
     margin: auto;
 }/*目前無作用*/
 .imgSmall{
-    margin-top: 10px;
-    margin-left:10px;
-    width:10%;
+    box-sizing: border-box;
+    margin-top: 15px;
+    width:15%;
 }/*小圖片*/
+.imgWH1{
+    width: 300px;
+    border: 3px solid #1f3344;
+}
+.imgwidth5{
+    width: 5%;
+}
+.imgwidth15{
+    width: 15%;
+}
+.imgwidth30{
+    width: 30%;
+}
 .line{
     border: 1px solid #D8D2CB;
     width: 90%;
@@ -87,6 +107,9 @@
     height: 130px;
     background-color: #DDDDDD;
     color: #000;
+}
+.spanmargin{
+    margin: 20%;
 }
 .time{
     color: #ffffff;
