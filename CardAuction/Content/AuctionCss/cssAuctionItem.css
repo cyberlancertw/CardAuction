@@ -220,3 +220,14 @@ body {
         filter: blur(0);
     }
 }
+
+#btnFavorite, #btnComment {
+    font-size: 24px;
+    color: #1f3444;
+    font-weight: bold;
+    width: 180px;
+    height: 64px;
+    border-radius: 30px;
+    background-color: #ffffff;
+    border: 2px solid #ced3d8;
+}

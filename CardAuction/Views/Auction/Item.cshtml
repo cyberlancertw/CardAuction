@@ -13,6 +13,7 @@
 }
 
 @section styles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/Bootstrap/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/AuctionCss/cssAuctionItem.css" type="text/css" />
 }
@@ -27,12 +28,12 @@
         <div class="col-sm-12 col-md-3" id="divFollow">
             <div class="row justify-content-between">
                 <div class="col-3 col-sm-3 col-md-6">
-                    <a href="#" id="btnFavorite"><img src="~/Images/site/iconFavorite.png" class="imgFollow" /></a>
+                    <button id="btnFavorite"><i class="fa-solid fa-heart-circle-plus"></i> 加入追蹤</button><!-- <i class="fa-solid fa-heart-circle-check"></i> -->
                 </div>
                 <div class="col-3 col-sm-3 col-md-6">
-                    <a href=""><img src="~/Images/site/iconComment.png" class="imgFollow" /></a>
+                    <button id="btnComment"><i class="fa-solid fa-comments"></i> 聯絡賣家</button>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -66,12 +67,12 @@
                 <div id="divClock">
                     <img src="~/Images/site/iconClock.png" id="imgClock" />
                 </div>
-                 <div id="divStamp">
-                     <span id="stampTime"></span>
-                 </div>
-                 <div id="divCalender">
-                     加入行事曆
-                 </div>
+                <div id="divStamp">
+                    <span id="stampTime"></span>
+                </div>
+                <div id="divCalender">
+                    加入行事曆
+                </div>
             </div>
             <div id="divMoney">
                 @if (Model.fBuyPrice > -1)
@@ -206,8 +207,8 @@
                         <button id="btnCommentSend">留言</button>
                     </div>
                 </div>
-                
-                
+
+
             </div>
         </div>
 
@@ -224,7 +225,7 @@
 
 @section scripts{
     <script>
-        
+
 
         var secondRemain = @secondTotalRemain ;
         var domTime = document.getElementById('stampTime');
@@ -281,7 +282,7 @@
     {               @:event.preventDefault();
                     @:return;
     }
-   
+
             }
             let xhr = new XMLHttpRequest();
             xhr.addEventListener('load', function () {
