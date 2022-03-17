@@ -17,9 +17,9 @@
         <div class="col-12 col-sm-12 col-md-3" id="divSort">
 
         </div>
-        <div class="col-12 col-sm-12 col-md-9" id="divList">
+        <div class="col-12 col-sm-12 col-md-9 container" id="divList">
             <div class="row">
-                @foreach(var item in Model)
+                @foreach (var item in Model)
                 {
                     int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
                     int dayRemain = secondRemain / 86400;
@@ -28,29 +28,20 @@
                     secondRemain %= 3600;
                     int minuteRemain = secondRemain / 60;
                     string itemNameShort = item.fItemName;
-                    if(itemNameShort.Length> 9)
+                    if (itemNameShort.Length > 9)
                     {
                         itemNameShort = itemNameShort.Substring(0, 9);
                     }
-                <div class="col-12 col-sm-12 col-md-3">
-                    <div class="divCard">
-                        <div class="divPhoto">
-                            <a href="~/Auction/Item/@item.fItemId">
-                                <img src="~/images/AuctionItemImages/@item.fPhoto0" class="imgCard" />
-                            </a>
-                        </div>
-                        <div class="divItemName">
-                            @itemNameShort
-                        </div>
-                        <div class="divMoney">
-                            $ @item.fMoneyNow 元
-                        </div>
-                        <div class="divTime">
-                            剩餘 @dayRemain 天 @hourRemain 時 @minuteRemain 分
+                    <div class="col-3">
+                        <div class="card">
+                            <img src="~/images/AuctionItemImages/@item.fPhoto0" class="card-img-top" alt="..." style="width:100%;height:100%;object-fit: contain;object-position:center">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.fItemName</h5>
+                                <p class="card-text">$ @item.fMoneyNow 元</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
             </div>
 
 

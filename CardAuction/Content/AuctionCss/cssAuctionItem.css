@@ -1,34 +1,179 @@
 ﻿/*  淡灰 ced3d8   ebebeb    深灰 6b6b6b   黑 333333    藏青 1f3444    金  ab8f4e    白ffffff */
+@media (min-width: 1200px) {
+    #btnReport, #btnFavorite, #btnComment {
+        height: 60px;
+        border-radius: 30px;
+    }
+    .moneyRow {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .titleMoney {
+        font-size: 1.5rem;
+    }
+    .goldMoney {
+        font-size: 1.8rem;
+    }
+    #btnBuy, #btnBid {
+        height: 40px;
+        width: 80%;
+        font-size: 1.4rem;
+    }
+    .imgSmall {
+        height: 100px;
+    }
+    #txtBid {
+        height: 3.2rem;
+        font-size: 1.4rem;
+    }
+}
+@media (min-width: 992px) and (max-width:1199px){
+    #btnReport, #btnFavorite, #btnComment {
+        height: 60px;
+        border-radius: 30px;
+    }
+    .moneyRow {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .titleMoney {
+        font-size: 1.2rem;
+    }
+    .goldMoney {
+        font-size: 1.4rem;
+    }
+    #btnBuy, #btnBid {
+        height: 38px;
+        width: 80%;
+        font-size: 1.2rem;
+    }
+    .imgSmall {
+        height: 80px;
+    }
+    #txtBid {
+        height: 3rem;
+        font-size: 1.2rem;
+    }
+}
+@media (min-width: 768px) and (max-width:991px){
+    html{
+        font-size: 12px;
+    }
+    #btnReport,#btnFavorite,#btnComment{
+        height: 40px;
+        border-radius: 20px;
+    }
+    .moneyRow {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+    .titleMoney {
+        font-size: 1.2rem;
+    }
+    .goldMoney {
+        font-size: 1.6rem;
+    }
+    #btnBuy, #btnBid {
+        height: 36px;
+        width: 85%;
+        font-size: 1.2rem;
+    }
+    .imgSmall {
+        height: 60px;
+    }
+    #txtBid {
+        height: 2.6rem;
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 576px) and (max-width:767px) {
+    html{
+        font-size: 16px;
+    }
+    #btnReport, #btnFavorite, #btnComment {
+        height: 60px;
+        border-radius: 30px;
+    }
+    .moneyRow {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .titleMoney {
+        font-size: 1.25rem;
+    }
+    .goldMoney {
+        font-size: 1.8rem;
+    }
+    #btnBuy, #btnBid {
+        height: 38px;
+        width: 85%;
+        font-size: 1.2rem;
+    }
+    .imgSmall {
+        height: 60px;
+    }
+    #txtBid {
+        height: 3.2rem;
+        font-size: 1.4rem;
+    }
+}
+@media (max-width: 575px){
+    html{
+        font-size: 11px;
+    }
+    #btnReport, #btnFavorite, #btnComment {
+        height: 40px;
+        border-radius: 20px;
+    }
+    .moneyRow {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .titleMoney {
+        font-size: 1.8rem;
+    }
+    .goldMoney {
+        font-size: 2rem;
+    }
+    #btnBuy, #btnBid {
+        height: 38px;
+        width: 85%;
+        font-size: 1.6rem;
+    }
+    .imgSmall {
+        height: 60px;
+    }
+    #txtBid {
+        height: 3.8rem;
+        font-size: 1.8rem;
+    }
+}
 body {
     font-family: 'Noto Sans TC Medium','Noto Sans CJK TC Midium','Noto Sans TC', 'Noto Sans CJK TC', '微軟正黑體';
-    color: #333333;
+    
 }
 #divMainContent{
-    margin-top: 26px;
-    width: 80%;
     margin-left: auto;
     margin-right: auto;
 }
 #divSort{
     color: #6b6b6b;
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 1.2rem;
 }
 
 #divItemName{
-    font-size: 28px;
+    font-size: 1.9rem;
     margin-top: 10px;
     margin-bottom: 10px;
     font-weight: bold;
 }
 
-#divFollow {
+#divButtons {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.imgFollow{
-    width: 100%;
-}
+
 
 #divPhoto{
     text-align: center;
@@ -40,12 +185,9 @@ body {
 
 #divSmallList{
     margin-top: 10px;
+    margin-bottom: 10px;
+}
 
-}
-#imgSmall1,#imgSmall2,#imgSmall3{
-    width: 100px;
-    margin-right: 10px;
-}
 #divTime{
     border: 2px solid #ced3d8;
     border-radius: 10px;
@@ -83,15 +225,14 @@ body {
     background-color: #ebebeb;
     border-radius: 10px;
 }
-#divMoneyNow, #divBuy {
-    padding-top: 5px;
+.moneyRow{
     align-items: center;
-    height: 65px;
-    padding-bottom: 5px;
 }
-#divBuy {
-    border-bottom: 5px solid #ffffff;
+.rowBuy{
+    border-bottom: 3px solid #ffffff;
+
 }
+
 #divMoneyStep {
     padding-top: 5px;
     align-items: center;
@@ -99,14 +240,12 @@ body {
     padding-bottom: 5px;
  }
 .titleMoney {
-    padding-left: 46px;
     text-align: left;
-    font-size: 22px;
+    font-weight: bold;
     color: #1f3444;
 }
-#stampMoneyBuy, #stampMoneyNow, #stampMoneyStep {
+.goldMoney {
     color: #ab8f4e;
-    font-size: 28px;
 }
 
 #divBid {
@@ -121,17 +260,11 @@ body {
 }
 #txtBid{
     width: 90%;
-    height: 50px;
     border: 1px solid #6b6b6b;
-    font-size: 20px;
-
 }
 #btnBuy, #btnBid{
-    height: 50px;
-    width: 80%;
     background-color: #1f3444;
     color: #ffffff;
-    font-size: 24px;
     border: none;
     border-radius: 4px;
 }
@@ -202,7 +335,6 @@ body {
 }
 
 .imgSmall{
-    width: 5vw;
     margin-right: 10px;
 }
 
@@ -221,13 +353,22 @@ body {
     }
 }
 
-#btnFavorite, #btnComment {
-    font-size: 24px;
+#btnReport, #btnFavorite, #btnComment {
+    font-size: 1.2rem;
     color: #1f3444;
     font-weight: bold;
-    width: 180px;
-    height: 64px;
-    border-radius: 30px;
+    width: 100%;
+
     background-color: #ffffff;
     border: 2px solid #ced3d8;
+}
+#btnFavorite {
+    
+}
+
+.Following {
+    background-color: #ced3d8;
+}
+.notFollowing{
+    background-color: #ffffff;
 }
