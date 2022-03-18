@@ -1,0 +1,217 @@
+﻿
+@*@{
+    ViewBag.Title = "Index";
+}*@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="~/Content/ExchangeCss/ExchangeIndex.css" rel="stylesheet" />
+    <title>Cards.交換頁面</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/de361254dc.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- model -->
+        <div class="model">
+            <div class="row">
+                <!-- header -->
+                <div class="col-12">
+                    <div class="header">
+                        <a href="https://card25th.portal-pokemon.com/tw/" target="_blank"><img src="~/images/ExchangeItemImages/maxresdefault.jpg" class="img-fluid"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- menu -->
+                <div class="col-3 d-none  d-sm-block">
+                    <div class="menu">
+                        <p><a href="#">遊戲王(YU-GI-OH!)</a></p>
+                        <p><a href="#">寶可夢(Pokomon)</a></p>
+                        <p><a href="#">黑與白(Weiß Schwarz)</a></p>
+                        <p><a href="#">七龍珠(DragonBallHeroes)</a></p>
+                        <p><a href="#">鋼彈大戰(GUNDAM WAR)</a></p>
+                        <p><a href="#">魔法風雲會(MTG)</a></p>
+                        <p><a href="#">聖火降魔錄(FE0)</a></p>
+                        <p><a href="#">運動卡(Sport)</a></p>
+                        <p><a href="#">其他(Other)</a></p>
+                    </div>
+                </div>
+                <!-- main -->
+                <div class="col-12 col-sm-9">
+                    <div class="main">
+                        <!-- filter -->
+                        <div class="col-12 d-none d-sm-block">
+                            <div class="filter">
+                                <div class="filter-left">
+                                    <span>篩選</span>
+                                </div>
+                                <div class="col-6 filter-middle">
+                                    <a class="filter-link" href="#">最多留言</a>
+                                    <a class="filter-link" href="#">最&emsp;新</a>
+                                </div>
+                                <div class="col-6 filter-right">
+                                    <a href="#" id="headline" title="列表顯示"><i class="material-icons">&#xe8ee;</i></a>
+                                    <a href="#" id="comfy" title="縮圖顯示"><i class="material-icons">&#xe5c3;</i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 	d-block d-sm-none">
+                            <nav class="navbar navbar-light bg-light">
+                                <div class="container">
+                                    <!-- <a class="navbar-brand" href="#">選&emsp;單</a> -->
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                                        <div class="offcanvas-header">
+                                            <h1 class="offcanvas-title" id="offcanvasNavbarLabel">選單</h1>
+                                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                        </div>
+                                        <div class="offcanvas-body">
+                                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                                <h2 class="offcanvas-title" id="offcanvasNavbarLabel">功&emsp;能</h2>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">我要交換</a>
+                                                </li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <h2 class="offcanvas-title" id="offcanvasNavbarLabel">分&emsp;類</h2>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">遊戲王</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">寶可夢</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">黑與白</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">七龍珠</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">鋼彈大戰</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">魔法風雲會</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">聖火降魔錄</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">運動卡牌</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">其他</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                        <!-- ExchangePt -->
+                        <div class="col-12 d-none d-sm-block">
+                            <div class="ExchangePt">
+                                <a href="#">我要交換</a>
+                            </div>
+                        </div>
+                        <!-- contance -->
+                        <div class="col-12">
+                            <div class="wrap justify-content-center justify-content-sm-start">
+                                <div class="contance">
+                                    <div class="img-wrap">
+                                        <img src="~/images/ExchangeItemImages/S__55230489.jpg">
+                                    </div>
+                                    <p><a href="#"><h3>卡牌名稱</h3></a></p>
+                                    <p><span id="message-num">留言數量</span><span>/10</span>則</p>
+                                    <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                    <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                </div>
+                                <div class="contance">
+                                    <div class="img-wrap">
+                                        <img src="~/images/ExchangeItemImages/p1.jpg">
+                                    </div>
+                                    <p><a href="#"><h3>卡牌名稱</h3></a></p>
+                                    <p><span id="message-num">留言數量</span><span>/10</span>則</p>
+                                    <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                    <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                </div>
+                                <div class="contance">
+                                    <div class="img-wrap">
+                                        <img src="~/images/ExchangeItemImages/p2.jpg">
+                                    </div>
+                                    <p><a href="#"><h3>卡牌名稱</h3></a></p>
+                                    <p><span id="message-num">留言數量</span><span>/10</span>則</p>
+                                    <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                    <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                </div>
+                                <div class="contance">
+                                    <div class="img-wrap">
+                                        <img src="~/images/ExchangeItemImages/S__55230493.jpg">
+                                    </div>
+                                    <p><a href="#"><h3>卡牌名稱</h3></a></p>
+                                    <p><span id="message-num">留言數量</span><span>/10</span>則</p>
+                                    <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                    <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                </div>
+                                <div class="contance">
+                                    <div class="img-wrap">
+                                        <img src="~/images/ExchangeItemImages/S__55230501.jpg">
+                                    </div>
+                                    <p><a href="#"><h3>卡牌名稱</h3></a></p>
+                                    <p><span id="message-num">留言數量</span><span>/10</span>則</p>
+                                    <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                    <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-12 col-sm-9">
+                <div class="page">
+                    <button class="btn" onclick="one()">1</button>
+                    <button class="btn" onclick="two()">2</button>
+                    <button class="btn" onclick="three()">3</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <script>
+        var element = document.getElementsByClassName("contance");
+        var i;
+        function one(){
+            for(i=0;i<element.length;i++){
+                element[i].style.flex = "100%"
+            }
+        }
+
+        function two(){
+            for(i=0;i<element.length;i++){
+                element[i].style.flex = "50%"
+            }
+        }
+
+        function three(){
+            for(i=0;i<element.length;i++){
+                element[i].style.flex = "25%"
+            }
+        }
+    </script>
+
+</body>
+</html>

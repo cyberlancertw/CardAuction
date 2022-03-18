@@ -1,0 +1,268 @@
+.header{
+        width: 100%;
+        height: 300px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.header img{
+    width: 100%;
+    height: 350px;
+    /* object-fit: cover; */
+}
+
+/* menu */
+.menu p{
+    padding: 20px 25px;
+}
+
+.menu a{
+    text-decoration: none;
+    font-size: 20px;
+    color: #1f3344;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.menu a:hover{
+    color: #ab8f4e;
+}
+
+
+/* main */
+.main{
+    border-left: 1px solid #D0D0D0;
+    border-right: 1px solid #D0D0D0;
+}
+
+
+/* filter */
+.filter{
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+}
+
+.filter-left{
+    width: 6%;
+    margin-left: 10px;
+}
+
+.filter-middle,.filter-right{
+    width: 47%;
+}
+
+.filter-left{
+    display: flex;
+}
+
+.filter-middle{
+    display: block;
+    align-items: center;
+}
+
+.filter-right{
+    display: block;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.filter-middle>a{
+    background-color: #fff;
+    padding: 5px 6px;
+    margin-left: 5px;
+    text-decoration: none;
+    border-radius: 3px;
+    color: #1f3344;
+    font-size: 16px;
+}
+
+.filter-middle>a:hover{
+    background-color: #1f3344;
+    padding: 5px 6px;
+    margin-left: 5px;
+    text-decoration: none;
+    font-family: '微軟正黑體';
+    border-radius: 3px;
+    color: #fff;
+}
+
+.filter-right>a{
+    background-color: #fff;
+    padding: 10px 5px 1px 5px;
+    margin-right: 10px;
+    text-decoration: none;
+    border-radius: 3px;
+    color: #1f3344;
+}
+
+.filter-right>a:hover{
+    background-color: #1f3344;
+    padding: 10px 5px 1px 5px;
+    margin-right: 10px;
+    text-decoration: none;
+    border-radius: 3px;
+    color: #fff;
+}
+
+/* navbar */
+.offcanvas{
+    /* 側邊欄位寬度 */
+    width: 320px;
+}
+
+.offcanvas-header{
+    background-color: #1f3344;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.nav-item{
+    /* background-color: #666; */
+    margin-bottom: 10px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(31,51,68);
+    font-weight: 400;
+    font-size: 1.1rem;
+}
+
+.navbar-light .navbar-nav .nav-link.active{
+    color: #ab8f4e;
+}
+
+h2{
+    color: 	#7B7B7B;
+    font-weight: 900;
+}
+/* ExchangePt */
+.ExchangePt{
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ExchangePt a{
+    /* text-align: right; */
+    padding: 5px;
+    background-color: #ab8f4e;
+    border-radius: 3px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.ExchangePt a:hover{
+    text-align: right;
+    padding: 5px;
+    background-color: #1f3344;
+    border-radius: 3px;
+    text-decoration: none;
+    color: #fff;
+}
+
+
+
+/* contance */
+.wrap{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    /* justify-content: space-between; */
+}
+
+.contance{
+    border: 1px solid #D0D0D0;
+    background-color: #fff;
+    width: 250px;
+    /* height: 500px; */
+    margin: 15px 35px ;
+    /* float: left; */
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.contance:hover{
+    border:1px solid #1f3344;
+}
+
+.contance>.img-wrap{
+    width: 100%;
+    height: 300px;
+    border-bottom: 1px solid #D0D0D0;
+}
+
+.contance img{
+    width: 100%;
+    height: 100%;
+    
+}
+
+.contance a{
+    color: #1f3344;
+    text-decoration: none;
+}
+
+.contance h3{
+    font-size: 24px;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-weight: 900;
+}
+
+.contance #message-num{
+    color: #ab8f4e;
+    font-weight:900;
+    padding-left: 10px;
+}
+
+.contance p{
+    padding-bottom: 1px;
+}
+
+.contance #time{
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.contance #favorite{
+    text-align: right;
+    padding-right: 5px;
+}
+
+/* page */
+.page{
+    /* background-color: #ab8f4e; */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    margin-right: 10px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .btn:hover {
+    background-color: #1f3344;
+    color: #fff;
+  }
+  
+  .btn.active {
+    background-color: #666;
+    color: white;
+  }
