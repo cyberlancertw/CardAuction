@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -165,7 +166,19 @@ namespace CardAuction.Controllers
             
 
             db.tAuctionItem.Add(createItem);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                string ErrorMsg = e.Message;
+                Console.WriteLine(ErrorMsg);
+            }
+            catch (Exception e)
+            {
+
+            }
             return RedirectToAction("List");
         }
 
@@ -180,7 +193,22 @@ namespace CardAuction.Controllers
 
         public ActionResult QueryBySort(string sortName)
         {
-            var queryResult = (from item in db.tAuctionItem
+            if (string.IsNullOrEmpty(sortName))
+            {
+                var queryAll = from item in db.tAuctionItem
+                                  where item.fEndTime > DateTime.Now
+                                  select new QueryResult
+                                  {
+                                      fItemId = item.fItemId,
+                                      fEndTime = item.fEndTime,
+                                      fItemName = item.fItemName,
+                                      fPhoto = item.fPhoto0,
+                                      fMoneyNow = item.fMoneyNow
+                                  };
+                return Json(queryAll, JsonRequestBehavior.AllowGet);
+            }
+            
+            var queryResult = from item in db.tAuctionItem
                               where item.fEndTime > DateTime.Now && item.fSort.Contains(sortName)
                               select new QueryResult
                               {
@@ -189,7 +217,8 @@ namespace CardAuction.Controllers
                                   fItemName = item.fItemName,
                                   fPhoto = item.fPhoto0,
                                   fMoneyNow = item.fMoneyNow
-                              }).ToList();
+                              };
+            
             return Json(queryResult,JsonRequestBehavior.AllowGet);
             
         }

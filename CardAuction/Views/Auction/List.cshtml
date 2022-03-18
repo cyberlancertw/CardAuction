@@ -43,47 +43,22 @@
             <p class="sortTitle">
                 <a href="" class="searchSort" data-keyword="運動"><span>運動卡 (Sport)</span></a>
             </p>
-
+        </div>
+        <div class="d-none col-sm-12" id="divBar">
+            <i class="fa-solid fa-bars"></i>
         </div>
         <div class="col-12 col-sm-12 col-md-9 col-lg-10 container" id="divList">
-            <div class="row">
-                @foreach (var item in Model)
-                {
-                    int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
-                    int dayRemain = secondRemain / 86400;
-                    secondRemain %= 86400;
-                    int hourRemain = secondRemain / 3600;
-                    secondRemain %= 3600;
-                    int minuteRemain = secondRemain / 60;
-                    string itemNameShort = item.fItemName;
-
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                        
-                        <div class="cardBorder">
-                            <a href="~/Auction/Item/@item.fItemId">
-                                <div class="imgWrap">
-                                    <img src="~/images/AuctionItemImages/@item.fPhoto0" class="cardImg" alt="..." style="width:100%;height:100%;object-fit: contain;object-position:center">
-                                </div>
-                                <div class="cardBody">
-                                    <p class="pName">@item.fItemName</p>
-                                    <p class="pMoney">$ @item.fMoneyNow 元</p>
-                                    <p class="pTime"><i class="fa-solid fa-clock"></i> @dayRemain 天 @hourRemain 時 @minuteRemain 分</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                }
+            <div class="row" id="contentRow">
+                <!-- result here-->
             </div>
-
-
-
-
         </div>
     </div>
 </div>
 
 @section scripts{
     <script>
+        var contentRow = document.getElementById('contentRow');
+        var datas;
         document.querySelectorAll('.cardBorder').forEach(function (dom) {
             dom.addEventListener('mouseover', function () {
                 this.classList.add('cardSelect');
@@ -102,12 +77,70 @@
 
                 let xhr = new XMLHttpRequest();
                 xhr.addEventListener('load', function () {
-                    let datas = xhr.response;
-                    console.log(datas);
+                    datas = JSON.parse(xhr.response);
+
+                    ShowSearchResult(datas);
                 });
-                xhr.open('GET', '@Url.Content("~/Auction/QueryBySort/")' + keyword);
+                let para = '?sortName=' + keyword;
+                xhr.open('GET', '@Url.Content("~/Auction/QueryBySort/")' + para);
                 xhr.send();
             })
         });
+
+        function ShowSearchResult(queryResult) {
+
+            // fEndTime, fItemId, fItemName, fMoneyNow, fPhoto
+
+            contentRow.innerHTML = '';
+
+            let docFrag = document.createDocumentFragment();
+
+            for (let item of queryResult) {
+                let secondRemain = Math.floor((new Date(parseInt(item.fEndTime.substr(6))) - new Date()) / 1000);
+                let dayRemain = Math.floor(secondRemain / 86400);
+                secondRemain %= 86400;
+                let hourRemain = Math.floor(secondRemain / 3600);
+                secondRemain %= 3600;
+                let minuteRemain = Math.floor(secondRemain / 60);
+                
+
+                
+                let domDiv = document.createElement('div');
+                domDiv.className = 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
+                let domBorder = document.createElement('div');
+                domBorder.className = 'cardBorder';
+                let domA = document.createElement('a');
+                domA.href = '@Url.Content("~/Auction/Item/")' + item.fItemId;
+                let domImgWrap = document.createElement('div');
+                domImgWrap.className = 'imgWrap';
+                let domImg = document.createElement('img');
+                domImg.src = '@Url.Content("~/Images/AuctionItemImages/")' + item.fPhoto;
+                domImg.className = 'cardImg';
+                domImgWrap.appendChild(domImg);
+                let domCardBody = document.createElement('div');
+                let domPname = document.createElement('p');
+                domPname.className = 'pName';
+                domPname.textContent = item.fItemName;
+                domCardBody.appendChild(domPname);
+                let domPmoney = document.createElement('p');
+                domPmoney.className = 'pMoney';
+                domPmoney.textContent = `$ ${item.fMoneyNow} 元`;
+                domCardBody.appendChild(domPmoney);
+                let domPtime = document.createElement('p');
+                domPtime.className = 'pTime';
+                let domI = document.createElement('i');
+                domI.className = 'fa-solid fa-clock';
+                domPtime.prepend(domI);
+                domPtime.textContent = `${dayRemain} 天 ${hourRemain} 時 ${minuteRemain} 分`;
+                domCardBody.appendChild(domPtime);
+                domA.appendChild(domImgWrap);
+                domA.appendChild(domCardBody);
+                domBorder.appendChild(domA);
+                domDiv.appendChild(domBorder);
+                docFrag.appendChild(domDiv);
+                
+            }
+            contentRow.appendChild(docFrag);
+        }
     </script>
     }
