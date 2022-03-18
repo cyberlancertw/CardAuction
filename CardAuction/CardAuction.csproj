@@ -121,6 +121,7 @@
     <Content Include="Content\AdminCss\cssAdminIndex.css" />
     <Content Include="Content\AdminCss\cssAdminLayout.css" />
     <Content Include="Content\cssHomeIndex.css" />
+    <Content Include="Content\cssRWDtemplate.css" />
     <Content Include="Content\HomeCss\cssHomeIndex.css" />
     <Content Include="Content\LayoutCss\cssShortLayout.css" />
     <Content Include="Content\LayoutCss\cssUserLayout.css" />

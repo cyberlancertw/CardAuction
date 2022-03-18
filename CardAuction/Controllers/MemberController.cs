@@ -294,13 +294,36 @@ namespace CardAuction.Controllers
             return View();
         }
 
+        public ActionResult IsFavorite(string ItemId)
+        {
+            string UserId = string.Empty;
+            if (Session[CDictionary.SK_UserUserId] == null)
+            {
+                return Content("False");
+            }
+            else
+            {
+                UserId = Session[CDictionary.SK_UserUserId].ToString();
+            }
+            tAuctionFavorite result = db.tAuctionFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
+            if(result != null)
+            {
+                return Content("True");
+            }
+            else
+            {
+                return Content("False");
+            }
+        }
         public ActionResult FavoriteAuction(string ItemId)
         {
             string UserId = Session[CDictionary.SK_UserUserId].ToString();
-            bool isExist = db.tAuctionFavorite.Any(m => m.fFromUserId == UserId && m.fToItemId == ItemId);
-            if (isExist)
+            tAuctionFavorite result = db.tAuctionFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
+            if (result != null)
             {
-                return Content("");
+                db.tAuctionFavorite.Remove(result);
+                db.SaveChanges();
+                return Content("False");
             }
             else
             {
@@ -310,7 +333,7 @@ namespace CardAuction.Controllers
                     fToItemId = ItemId
                 });
                 db.SaveChanges();
-                return Content("");
+                return Content("True");
             }
         }
 

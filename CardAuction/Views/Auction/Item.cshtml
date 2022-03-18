@@ -33,16 +33,17 @@
                     <div class="row">
 
                         <div class="col-4">
-                            <button id="btnReport"><i class="fa-solid fa-triangle-exclamation"></i> 檢舉</button>
+                            <button id="btnComment"><i class="fa-solid fa-comments"></i> 聯絡賣家</button>
                         </div>
 
                         <div class="col-4">
-                            <button id="btnFavorite"><i class="fa-solid fa-heart-circle-plus"></i> 加入追蹤</button>
+                            <button class="notFollowing" id="btnFavorite"><i id="iconFavorite" class="fa-solid fa-heart-circle-plus"></i> <span id="txtFavorite">加入追蹤</span></button>
+
                             <!-- <i class="fa-solid fa-heart-circle-check"></i> -->
                         </div>
 
                         <div class="col-4">
-                            <button id="btnComment"><i class="fa-solid fa-comments"></i> 聯絡賣家</button>
+                            <button id="btnReport"><i class="fa-solid fa-triangle-exclamation"></i> 檢舉</button>
                         </div>
 
                     </div>
@@ -251,6 +252,10 @@
         var domTxtBid = document.getElementById('txtBid');
         var domShow = document.getElementById('imgShow');
         var btnFavorite = document.getElementById('btnFavorite');
+        var iconFavorite = document.getElementById('iconFavorite');
+        var txtFavorite = document.getElementById('txtFavorite');
+        var txtComment = document.getElementById('txtComment');
+        var fItemId = @Model.fItemId.ToString();
 
         var timer = window.setInterval(function () {
             secondRemain -= 7;
@@ -288,28 +293,65 @@
         });
 
         refreshStampTime(secondRemain);
+        checkFavorite();
 
-        function AddFavorite(event) {
-            event.preventDefault();
-            console.log('!');
-        }
         btnFavorite.addEventListener('click', function (event) {
             @{
     if (Session[CDictionary.SK_UserUserId] == null)
     {               @:event.preventDefault();
+                    @:location.href = '@Url.Content("~/Member/Login")';
                     @:return;
     }
 
             }
+            event.preventDefault();
             let xhr = new XMLHttpRequest();
             xhr.addEventListener('load', function () {
-                console.log('!');
+                let isFavorite = xhr.response;
+                toggleFavorite(isFavorite);
             });
-            let para = `?ItemId=@Model.fItemId.ToString()`;
-            console.log(para);
-            event.preventDefault();
-            xhr.open('GET','@Url.Content("~/Member/FavoriteAuction")' + para);
+
+            let para = `?ItemId=${fItemId}`;
+            
+            xhr.open('GET', '@Url.Content("~/Member/FavoriteAuction")' + para);
             xhr.send();
-        })
+        });
+
+        document.getElementById('btnComment').addEventListener('click', function () {
+            location.href = '@Url.Content("~/Auction/Item/")' + fItemId + '#divComment';
+            txtComment.focus();
+        });
+
+        function checkFavorite() {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', function () {
+                let isFavorite = xhr.response;
+                toggleFavorite(isFavorite);
+
+            });
+            let para = `?ItemId=${fItemId}`;
+            xhr.open('GET', '@Url.Content("~/Member/IsFavorite")' + para);
+            xhr.send();
+        }
+
+        function toggleFavorite(isFavorite) {
+            if (isFavorite == 'True') {
+
+                txtFavorite.textContent = '已追蹤';
+                iconFavorite.classList.add('fa-heart-circle-check');
+                iconFavorite.classList.remove('fa-heart-circle-plus');
+                btnFavorite.classList.add('following');
+                btnFavorite.classList.remove('notFollowing');
+            }
+            else {
+                txtFavorite.textContent = '加入追蹤';
+                iconFavorite.classList.add('fa-heart-circle-plus');
+                iconFavorite.classList.remove('fa-heart-circle-check');
+
+                btnFavorite.classList.remove('following');
+                btnFavorite.classList.add('notFollowing');
+            }
+        }
+        
     </script>
 }
