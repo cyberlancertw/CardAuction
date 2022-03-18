@@ -282,7 +282,7 @@
     <Content Include="Views\Admin\PsnEdit.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutShort.cshtml" />
-    <Content Include="Views\Exchange\Post.cshtml" />
+    <Content Include="Views\Exchange\List.cshtml" />
     <Content Include="Views\Auction\Item.cshtml" />
     <Content Include="Views\Auction\List.cshtml" />
     <None Include="Web.Debug.config">

@@ -88,6 +88,9 @@
     border: 1px solid #D8D2CB;
     width: 90%;
 }
+.ml {
+    margin-left: auto;
+}
 .product{
     margin-top: 10px;
 }
@@ -100,7 +103,7 @@
     background-color: #D8D2CB;
 }
 .pmsg2{
-    margin-left: 5%;
+    margin: auto;
     border: 1px solid #ab8f4e;
     font-size: 20px;
     width: 90%;
