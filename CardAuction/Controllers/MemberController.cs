@@ -12,6 +12,8 @@ namespace CardAuction.Controllers
 {
     public class MemberController : Controller
     {
+        dbCardAuctionEntities db = new dbCardAuctionEntities();
+
         // GET: Member
         public ActionResult Index()
         {
@@ -41,29 +43,31 @@ namespace CardAuction.Controllers
         {
             if(string.IsNullOrEmpty(vModel.Account))
             {
-                ViewData["errorMessage"] = "帳號不得為空";
+                ViewBag.errorMessage = "帳號不得為空";
                 return View();
             }
             if (string.IsNullOrEmpty(vModel.Password))
             {
-                ViewData["errorMessage"] = "密碼不得為空";
+                ViewBag.errorMessage = "密碼不得為空";
                 return View();
             }
-            string sql = "select * from tMember where fAccount=@acc and fPassword=@pwd";
-            List<SqlParameter> paras = new List<SqlParameter>();
-            paras.Add(new SqlParameter("acc", vModel.Account));
-            paras.Add(new SqlParameter("pwd", Service.getCypher(vModel.Password)));
-            List<CMember> queryResult = CMemberFactory.QueryBy(sql, paras);
-            if(queryResult.Count > 0)
+            string cypher = Service.getCypher(vModel.Password);
+
+            tMember queryResult = db.tMember
+                .Where(m => m.fAccount == vModel.Account && m.fPassword == cypher)
+                .FirstOrDefault();
+
+            if(queryResult != null)
             {
-                CMember result = queryResult[0];
-                Session[CDictionary.SK_UserAccount] = result.Account;
-                Session[CDictionary.SK_UserUserId] = result.UserId;
-                if (result.Manager)
+                Session[CDictionary.SK_UserAccount] = queryResult.fAccount;
+                Session[CDictionary.SK_UserUserId] = queryResult.fUserId;
+
+                if (queryResult.fManager)
                 {
                     return RedirectToAction("Index", "Admin");
                 }
-                if(Session[CDictionary.SK_RedirectToAction] != null)
+
+                if (Session[CDictionary.SK_RedirectToAction] != null)
                 {
                     string toAction = Session[CDictionary.SK_RedirectToAction].ToString();
                     string toController = Session[CDictionary.SK_RedirectToController].ToString();
@@ -76,7 +80,7 @@ namespace CardAuction.Controllers
             }
             else
             {
-                ViewData["errorMessage"] = "帳號或密碼不正確！";
+                ViewBag.errorMessage = "帳號或密碼不正確！";
                 return View();
             }
         }
@@ -92,103 +96,113 @@ namespace CardAuction.Controllers
         {
             if (string.IsNullOrEmpty(vModel.Account))
             {
-                ViewData["errAcc"] = "帳號不得為空";
+                ViewBag.errAcc = "帳號不得為空";
                 return View();
             }
             if (vModel.Account.Length < 6)
             {
-                ViewData["errAcc"] = "帳號長度必須大於 5 個字元";
+                ViewBag.errAcc = "帳號長度必須大於 5 個字元";
                 return View();
             }
             
             if(!Regex.IsMatch(vModel.Account, @"^[0-9a-zA-Z@.]+$"))
             {
-                ViewData["errAcc"] = "帳號必須由英數字或 @ . 組成";
+                ViewBag.errAcc = "帳號必須由英數字或 @ . 組成";
                 return View();
             }
 
             if (CMemberFactory.QueryByAccount(vModel.Account) != 0)
             {
-                ViewData["errAcc"] = "帳號已存在";
+                ViewBag.errAcc = "帳號已存在";
                 return View();
             }
             if (vModel.Password.Length < 8)
             {
-                ViewData["errPwd"] = "密碼長度必須大於 7 個字元";
+                ViewBag.errPwd = "密碼長度必須大於 7 個字元";
                 return View();
             }
             if (string.IsNullOrEmpty(vModel.Password))
             {
-                ViewData["errPwd"] = "密碼不得為空";
+                ViewBag.errPwd = "密碼不得為空";
                 return View();
             }
             if (string.IsNullOrEmpty(vModel.PasswordCheck))
             {
-                ViewData["errPwdCheck"] = "密碼不得為空";
+                ViewBag.errPwdCheck = "密碼不得為空";
                 return View();
             }
             if (vModel.Password != vModel.PasswordCheck)
             {
-                ViewData["errPwd"] = "密碼必須相同";
-                ViewData["errPwdCheck"] = "密碼必須相同";
+                ViewBag.errPwd = "密碼必須相同";
+                ViewBag.errPwdCheck = "密碼必須相同";
                 return View();
             }
             if (string.IsNullOrEmpty(vModel.Name))
             {
-                ViewData["errName"] = "姓名不得為空";
+                ViewBag.errName = "姓名不得為空";
                 return View();
             }
             if (string.IsNullOrEmpty(vModel.Email))
             {
-                ViewData["errEmail"] = "Email 不得為空";
+                ViewBag.errEmail = "Email 不得為空";
                 return View();
             }
             if (string.IsNullOrEmpty(vModel.Address))
             {
-                ViewData["errAddr"] = "地址不得為空";
+                ViewBag.errAddr = "地址不得為空";
                 return View();
             }
             if (string.IsNullOrEmpty(vModel.Phone))
             {
-                ViewData["errPhone"] = "電話不得為空";
+                ViewBag.errPhone = "電話不得為空";
                 return View();
             }
             if (vModel.Birthday == null)
             {
-                ViewData["errBirth"] = "生日不得為空";
+                ViewBag.errBirth = "生日不得為空";
                 return View();
             }
             if(vModel.Birthday.Year < 1950)
             {
-                ViewData["errBirth"] = "生日輸入有異";
+                ViewBag.errBirth = "生日輸入有異";
                 return View();
             }
-            CMemberFactory.Create(new CMember()
-            {
-                Account = vModel.Account,
-                Password = vModel.Password,
-                Name = vModel.Name,
-                Email = vModel.Email,
-                Address = vModel.AddressSelect + vModel.Address,
-                Phone = vModel.Phone,
-                Birthday = vModel.Birthday,
-                Subscribe = vModel.Subscribe
-            });
 
+            Random rnd = new Random();
+            int rndNum = rnd.Next(10);
+            string newId = Guid.NewGuid().GetHashCode().ToString().Replace("-",rndNum.ToString()).Substring(0,8) + rnd.Next(1000,10000).ToString();
+            tMember newMember = new tMember
+            {
+                fUserId = newId,
+                fAccount = vModel.Account,
+                fPassword = Service.getCypher(vModel.Password),
+                fName = vModel.Name,
+                fEmail = vModel.Email,
+                fAddress = vModel.AddressSelect + vModel.Address,
+                fPhone = vModel.Phone,
+                fBirthday = vModel.Birthday,
+                fSubscribe = vModel.Subscribe,
+                fManager = false,
+                fActive = false,
+                fDelete = false
+            };
+
+            db.tMember.Add(newMember);
+            db.SaveChanges();
 
             Session[CDictionary.SK_ValidationAccount] = vModel.Account;
             Session[CDictionary.SK_ValidationEmail] = vModel.Email;
 
-            return RedirectToAction("EmailValidation");
+            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("EmailValidation");
 
-            //Session[CDictionary.SK_RedirectToAction] = "Index";
-            //Session[CDictionary.SK_RedirectToController] = "Home";
-            //return RedirectToAction("Login");
         }
 
         public ActionResult AccountCount(string Account)            // 註冊時檢查Account是否已存在用
         {
-            return Content(CMemberFactory.QueryByAccount(Account).ToString());
+            bool isExist = db.tMember.Any(m => m.fAccount == Account);
+
+            return Content(isExist.ToString());
         }
 
         [HttpGet]
@@ -278,6 +292,49 @@ namespace CardAuction.Controllers
         public ActionResult PasswordChanged()
         {
             return View();
+        }
+
+        public ActionResult IsFavorite(string ItemId)
+        {
+            string UserId = string.Empty;
+            if (Session[CDictionary.SK_UserUserId] == null)
+            {
+                return Content("False");
+            }
+            else
+            {
+                UserId = Session[CDictionary.SK_UserUserId].ToString();
+            }
+            tAuctionFavorite result = db.tAuctionFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
+            if(result != null)
+            {
+                return Content("True");
+            }
+            else
+            {
+                return Content("False");
+            }
+        }
+        public ActionResult FavoriteAuction(string ItemId)
+        {
+            string UserId = Session[CDictionary.SK_UserUserId].ToString();
+            tAuctionFavorite result = db.tAuctionFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
+            if (result != null)
+            {
+                db.tAuctionFavorite.Remove(result);
+                db.SaveChanges();
+                return Content("False");
+            }
+            else
+            {
+                db.tAuctionFavorite.Add(new tAuctionFavorite
+                {
+                    fFromUserId = UserId,
+                    fToItemId = ItemId
+                });
+                db.SaveChanges();
+                return Content("True");
+            }
         }
 
     }

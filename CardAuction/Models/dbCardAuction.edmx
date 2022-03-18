@@ -4,103 +4,146 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tAuctionFavorite">
+          <Key>
+            <PropertyRef Name="fFavId" />
+          </Key>
+          <Property Name="fFavId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fFromUserId" Type="varchar" MaxLength="20" />
+          <Property Name="fToItemId" Type="varchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="tAuctionItem">
           <Key>
             <PropertyRef Name="fItemId" />
           </Key>
-          <Property Name="fItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fItemId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="fItemName" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="fItemDescription" Type="nvarchar" MaxLength="800" Nullable="false" />
           <Property Name="fSort" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="fPosterUserId" Type="int" Nullable="false" />
+          <Property Name="fPostUserId" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="fTopBidUserId" Type="int" />
           <Property Name="fMoneyNow" Type="int" Nullable="false" />
           <Property Name="fMoneyStep" Type="int" Nullable="false" />
           <Property Name="fMoneyStart" Type="int" Nullable="false" />
           <Property Name="fBuyPrice" Type="int" Nullable="false" />
-          <Property Name="fGrading" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="fGrading" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="fCreateTime" Type="datetime" Nullable="false" />
           <Property Name="fEndTime" Type="datetime" Nullable="false" />
-          <Property Name="fPhoto0" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="fPhoto1" Type="varchar" MaxLength="50" />
-          <Property Name="fPhoto2" Type="varchar" MaxLength="50" />
-          <Property Name="fPhoto3" Type="varchar" MaxLength="50" />
+          <Property Name="fPhoto0" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fPhoto1" Type="varchar" MaxLength="30" />
+          <Property Name="fPhoto2" Type="varchar" MaxLength="30" />
+          <Property Name="fPhoto3" Type="varchar" MaxLength="30" />
           <Property Name="fTransPerson" Type="int" Nullable="false" />
           <Property Name="fTransSeven" Type="int" Nullable="false" />
           <Property Name="fTransFami" Type="int" Nullable="false" />
           <Property Name="fTransLogi" Type="int" Nullable="false" />
+          <Property Name="fClick" Type="int" Nullable="false" />
+          <Property Name="fReport" Type="int" Nullable="false" />
+          <Property Name="fDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tExchangeFavorite">
+          <Key>
+            <PropertyRef Name="fFavId" />
+          </Key>
+          <Property Name="fFavId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fFromUserId" Type="varchar" MaxLength="20" />
+          <Property Name="fToItemId" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="tMember">
           <Key>
             <PropertyRef Name="fUserId" />
           </Key>
-          <Property Name="fUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fAccount" Type="varchar" MaxLength="20" />
-          <Property Name="fPassword" Type="varchar" MaxLength="50" />
-          <Property Name="fName" Type="nvarchar" MaxLength="20" />
-          <Property Name="fEmail" Type="varchar" MaxLength="50" />
-          <Property Name="fAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="fPhone" Type="varchar" MaxLength="20" />
-          <Property Name="fBirthday" Type="date" />
-          <Property Name="fSubscribe" Type="bit" />
-          <Property Name="fManager" Type="bit" />
-          <Property Name="fActive" Type="bit" />
-          <Property Name="fDelete" Type="bit" />
+          <Property Name="fUserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fAccount" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fPassword" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="fEmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fPhone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fBirthday" Type="date" Nullable="false" />
+          <Property Name="fSubscribe" Type="bit" Nullable="false" />
+          <Property Name="fManager" Type="bit" Nullable="false" />
+          <Property Name="fActive" Type="bit" Nullable="false" />
+          <Property Name="fDelete" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="dbCardAuctionModelStoreContainer">
+          <EntitySet Name="tAuctionFavorite" EntityType="Self.tAuctionFavorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tExchangeFavorite" EntityType="Self.tExchangeFavorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tMember" EntityType="Self.tMember" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbCardAuctionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tAuctionFavorite">
+          <Key>
+            <PropertyRef Name="fFavId" />
+          </Key>
+          <Property Name="fFavId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fFromUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fToItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="tAuctionItem">
           <Key>
             <PropertyRef Name="fItemId" />
           </Key>
-          <Property Name="fItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fItemName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fItemDescription" Type="String" MaxLength="800" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fSort" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fPosterUserId" Type="Int32" Nullable="false" />
+          <Property Name="fPostUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fTopBidUserId" Type="Int32" />
           <Property Name="fMoneyNow" Type="Int32" Nullable="false" />
           <Property Name="fMoneyStep" Type="Int32" Nullable="false" />
           <Property Name="fMoneyStart" Type="Int32" Nullable="false" />
           <Property Name="fBuyPrice" Type="Int32" Nullable="false" />
-          <Property Name="fGrading" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fGrading" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fCreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fEndTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="fPhoto0" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fPhoto1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fPhoto2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fPhoto3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto0" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fPhoto1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="fTransPerson" Type="Int32" Nullable="false" />
           <Property Name="fTransSeven" Type="Int32" Nullable="false" />
           <Property Name="fTransFami" Type="Int32" Nullable="false" />
           <Property Name="fTransLogi" Type="Int32" Nullable="false" />
+          <Property Name="fClick" Type="Int32" Nullable="false" />
+          <Property Name="fReport" Type="Int32" Nullable="false" />
+          <Property Name="fDelete" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tExchangeFavorite">
+          <Key>
+            <PropertyRef Name="fFavId" />
+          </Key>
+          <Property Name="fFavId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fFromUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fToItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tMember">
           <Key>
             <PropertyRef Name="fUserId" />
           </Key>
-          <Property Name="fUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="fPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="fEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="fBirthday" Type="DateTime" Precision="0" />
-          <Property Name="fSubscribe" Type="Boolean" />
-          <Property Name="fManager" Type="Boolean" />
-          <Property Name="fActive" Type="Boolean" />
-          <Property Name="fDelete" Type="Boolean" />
+          <Property Name="fUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fBirthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fSubscribe" Type="Boolean" Nullable="false" />
+          <Property Name="fManager" Type="Boolean" Nullable="false" />
+          <Property Name="fActive" Type="Boolean" Nullable="false" />
+          <Property Name="fDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="dbCardAuctionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tAuctionFavorite" EntityType="Self.tAuctionFavorite" />
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" />
+          <EntitySet Name="tExchangeFavorite" EntityType="Self.tExchangeFavorite" />
           <EntitySet Name="tMember" EntityType="Self.tMember" />
         </EntityContainer>
       </Schema>
@@ -109,6 +152,15 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="dbCardAuctionModelStoreContainer" CdmEntityContainer="dbCardAuctionEntities">
+          <EntitySetMapping Name="tAuctionFavorite">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tAuctionFavorite">
+              <MappingFragment StoreEntitySet="tAuctionFavorite">
+                <ScalarProperty Name="fFavId" ColumnName="fFavId" />
+                <ScalarProperty Name="fFromUserId" ColumnName="fFromUserId" />
+                <ScalarProperty Name="fToItemId" ColumnName="fToItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tAuctionItem">
             <EntityTypeMapping TypeName="dbCardAuctionModel.tAuctionItem">
               <MappingFragment StoreEntitySet="tAuctionItem">
@@ -116,7 +168,7 @@
                 <ScalarProperty Name="fItemName" ColumnName="fItemName" />
                 <ScalarProperty Name="fItemDescription" ColumnName="fItemDescription" />
                 <ScalarProperty Name="fSort" ColumnName="fSort" />
-                <ScalarProperty Name="fPosterUserId" ColumnName="fPosterUserId" />
+                <ScalarProperty Name="fPostUserId" ColumnName="fPostUserId" />
                 <ScalarProperty Name="fTopBidUserId" ColumnName="fTopBidUserId" />
                 <ScalarProperty Name="fMoneyNow" ColumnName="fMoneyNow" />
                 <ScalarProperty Name="fMoneyStep" ColumnName="fMoneyStep" />
@@ -133,6 +185,18 @@
                 <ScalarProperty Name="fTransSeven" ColumnName="fTransSeven" />
                 <ScalarProperty Name="fTransFami" ColumnName="fTransFami" />
                 <ScalarProperty Name="fTransLogi" ColumnName="fTransLogi" />
+                <ScalarProperty Name="fClick" ColumnName="fClick" />
+                <ScalarProperty Name="fReport" ColumnName="fReport" />
+                <ScalarProperty Name="fDelete" ColumnName="fDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tExchangeFavorite">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tExchangeFavorite">
+              <MappingFragment StoreEntitySet="tExchangeFavorite">
+                <ScalarProperty Name="fFavId" ColumnName="fFavId" />
+                <ScalarProperty Name="fFromUserId" ColumnName="fFromUserId" />
+                <ScalarProperty Name="fToItemId" ColumnName="fToItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

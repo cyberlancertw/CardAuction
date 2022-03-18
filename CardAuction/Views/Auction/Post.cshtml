@@ -1,39 +1,27 @@
 ﻿@using CardAuction.Models
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutShort.cshtml";
+    ViewBag.Title = "上架";
+    ViewBag.pageTitle = "新增競標商品";
     string username = null;
+    string userId = null;
     if(Session[CDictionary.SK_UserAccount] != null)
     {
         username = Session[CDictionary.SK_UserAccount].ToString();
+        userId = (string)Session[CDictionary.SK_UserUserId];
     }
 }
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>上架</title>
-    <link rel="stylesheet" href="~/Content/Bootstrap/bootstrap.min.css" type="text/css" />
+@section styles{
     <link rel="stylesheet" href="~/Content/AuctionCss/cssAuctionPost.css" type="text/css" />
-</head>
-<body>
+}
     <form action="#" method="post" enctype="multipart/form-data">
         <div id="fullPage">
-            <div class="row" id="header">
-                <div class="col-12 col-md-3">
-                    <img src="~/images/site/iconWebsite.png" id="webIcon">
-                    新增商品
-                </div>
-                <div class="offset-8 col-4 offset-md-6 col-md-3" id="greeting">
-                    歡迎, @username
-                </div>
-            </div>
             <div id="mainBox">
                 <div id="basicInfo">
                     <div class="divTitle">
                         基本資訊  <span class="errMsg">@ViewData["errorMessage"]</span>
                     </div>
-                    <input type="hidden" name="fPostUserId" value="@username" />
+                    <input type="hidden" name="fPostUserId" value="@userId" />
                     <div class="row divContent" id="divImgSelect">
                         <div class="contentHead col-12 col-md-3">
                             商品圖片
@@ -145,7 +133,7 @@
 
                     <div class="row divContent" id="divGrading">
                         <div class="contentHead col-12 col-md-3">
-                            <label for="Sort">*鑑定公司</label>
+                            <label for="Sort">*鑑定級別</label>
                         </div>
                         <div class="content col-12 col-md-9">
                             <select name="fGrading" id="seleGrading">
@@ -330,5 +318,3 @@
             location.href = '@Url.Content("~/")';
         })
     </script>
-</body>
-</html>

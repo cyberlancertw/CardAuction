@@ -5,100 +5,37 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="~/Content/cssHomeIndex.css" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    @*RenderSection style*@
+    <link rel="stylesheet" href="~/Content/Bootstrap/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/LayoutCss/cssShortLayout.css" type="text/css" />
+    @RenderSection("styles", required: false)
 </head>
 <body>
     <div id="fullPage">
         <div id="header">
-            @{
-                var userAcc = Session[CDictionary.SK_UserAccount];
-                if (userAcc == null)
-                {
-                    @Html.ActionLink("登入", "Login", "Member")
-                }
-                else
-                {
-                    @Html.ActionLink(userAcc.ToString(), "Index", "Member")
-                }
+            <div class="row">
+                <div class="col-6 col-sm-4 col-md-2" id="divWebIcon">
+                    <a href="~/">
+                        <img src="~/images/site/iconWebsite.png" id="webIcon" />
+                    </a>
+                </div>
+                <div class="col-6 col-sm-8 col-md-3" id="divTitle">
+                    @ViewBag.pageTitle 
+                </div>
+                <div class="col-12 col-sm-12 col-md-7" id="divGreeting">
+                    @{
+            if (Session[CDictionary.SK_UserAccount] != null)
+            {
+                @:歡迎, @Session[CDictionary.SK_UserAccount].ToString()
             }
-            @Html.ActionLink("關於我們", "About")
-            @Html.ActionLink("使用說明", "Information")
-            @Html.ActionLink("聯絡我們", "Contact")
-        </div>
-        <div id="nav" class="row">
-            <div id="catalog1" class="col-12 col-sm-12 col-md-4">
-                <div class="row justify-content-around">
-                    <div class="col-6 col-sm-6 col-md-3"><a href="#"><img src="~/images/site/iconWebsite.png" id="webIcon" /></a></div>
-                    <div class="col-2 col-sm-2 col-md-3">@Html.ActionLink("購買", "List", "Auction")</div>
-                    <div class="col-2 col-sm-2 col-md-3">@Html.ActionLink("出售", "Post", "Auction")</div>
-                    <div class="col-2 col-sm-2 col-md-3">@Html.ActionLink("交換", "Index", "Exchange")</div>
-
-                </div>
-            </div>
-            <div id="catalog2" class="col-12 col-sm-12 col-md-4">
-                <div class="row justify-content-around">
-                    <div class="col-2"><a href="cataPokemon.html"><img src="~/Images/site/iconPokemon.png" /></a></div>
-                    <div class="col-2"><a href="cataYuGiOh.html"><img src="~/Images/site/iconYuGiOh.png" /></a></div>
-                    <div class="col-2"><a href="cataMTG.html"><img src="~/Images/site/iconMTG.png" /></a></div>
-                    <div class="col-2"><a href="cataNBA.html"><img src="~/Images/site/iconNBA.png" /></a></div>
-                    <div class="col-2"><a href="cataMLB.html"><img src="~/Images/site/iconMLB.png" /></a></div>
-                </div>
-            </div>
-            <div id="search" class="col-sm-12 col-md-4">
-                <div class="row">
-                    <div class="col-10" id="divSearch">
-                        <input type="search" id="txtSearch" placeholder="    搜尋品牌、價格、等" />
-                        <img src="~/images/site/iconMagnifier.png" id="iconMag" />
-                    </div>
-                    <div class="col-2"><img src="~/Images/site/iconCart.jpg" id="imgCart" /></div>
+                    }
                 </div>
             </div>
         </div>
-        <div id="adCarosel">
-            <div id="adMain">
-            </div>
-            <div id="adArrowLeft">
-                <img src="~/images/site/iconArrowLeft.png" />
-            </div>
-            <div id="adArrowRight">
-                <img src="~/images/site/iconArrowRight.png" />
-            </div>
-            <div id="adPosition">
-                <img src="~/Images/site/iconPositionFalse.png" />
-                <img src="~/Images/site/iconPositionFalse.png" />
-                <img src="~/Images/site/iconPositionFalse.png" />
-                <img src="~/Images/site/iconPositionFalse.png" />
-                <img src="~/Images/site/iconPositionTrue.png" />
-            </div>
-        </div>
-        <div id="betweenBar"></div>
-        <div id="mainContent">
-            <div id="contentInfo" class="row">
-                <div id="newArrival" class="col-6 col-md-3">
-                    <div id="arrivalText">最新商品</div>
-                    <div id="arrivalBar"></div>
-                </div>
-                <div id="checkAll" class="offset-2 col-4 offset-md-7 col-md-2">
-                    查看全部 →
-                </div>
-            </div>
-            
-        </div>
-
-
-
-        @RenderBody()
-
-
-        <div id="footer">
-
-        </div>
-
     </div>
-    @*RenderSection script*@
+    @RenderBody()
+
     <script src="~/Scripts/jquery-3.6.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("scripts", required: false);
 </body>
 </html>
