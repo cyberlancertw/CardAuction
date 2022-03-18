@@ -255,7 +255,7 @@
         var iconFavorite = document.getElementById('iconFavorite');
         var txtFavorite = document.getElementById('txtFavorite');
         var txtComment = document.getElementById('txtComment');
-        var fItemId = @Model.fItemId.ToString();
+        var fItemId = '@Model.fItemId.ToString()';
 
         var timer = window.setInterval(function () {
             secondRemain -= 7;
@@ -297,11 +297,12 @@
 
         btnFavorite.addEventListener('click', function (event) {
             @{
-    if (Session[CDictionary.SK_UserUserId] == null)
-    {               @:event.preventDefault();
-                    @:location.href = '@Url.Content("~/Member/Login")';
-                    @:return;
-    }
+            if (Session[CDictionary.SK_UserUserId] == null)
+            {
+                @:event.preventDefault();
+                @:location.href = '@Url.Content("~/Member/Login")';
+                @:return;
+            }
 
             }
             event.preventDefault();
@@ -318,7 +319,7 @@
         });
 
         document.getElementById('btnComment').addEventListener('click', function () {
-            location.href = '@Url.Content("~/Auction/Item/")' + fItemId + '#divComment';
+            location.href += '#divComment';
             txtComment.focus();
         });
 

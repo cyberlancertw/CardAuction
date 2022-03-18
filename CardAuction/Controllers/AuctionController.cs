@@ -177,6 +177,22 @@ namespace CardAuction.Controllers
                                         .ToList();
             return View(result);
         }
+
+        public ActionResult QueryBySort(string sortName)
+        {
+            var queryResult = (from item in db.tAuctionItem
+                              where item.fEndTime > DateTime.Now && item.fSort.Contains(sortName)
+                              select new QueryResult
+                              {
+                                  fItemId = item.fItemId,
+                                  fEndTime = item.fEndTime,
+                                  fItemName = item.fItemName,
+                                  fPhoto = item.fPhoto0,
+                                  fMoneyNow = item.fMoneyNow
+                              }).ToList();
+            return Json(queryResult,JsonRequestBehavior.AllowGet);
+            
+        }
     }
 
 }

@@ -224,6 +224,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\QueryResult.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\tAuctionFavorite.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>

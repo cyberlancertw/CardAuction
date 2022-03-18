@@ -15,10 +15,37 @@
         Auction Card
     </div>
     <div class="row" id="mainContent">
-        <div class="col-12 col-sm-12 col-md-3" id="divSort">
+        <div class="d-none d-md-block col-md-3 col-lg-2" id="divSort">
+            <p class="sortTitle">
+                <a href="" class="searchSort" data-keyword=""><span>所有商品</span></a>
+            </p>
+            <p class="sortTitle">
+                <a href="" class="searchSort" data-keyword="寶可夢"><span>寶可夢 (Pokemon)</span></a>
+            </p>
+            <p class="sortTitle">
+                <a href="" class="searchSort" data-keyword="遊戲王"><span>遊戲王 (Yu-Gi-Oh!)</span></a>
+            </p>
+            <p class="sortTitle">
+                <a href="" class="searchSort" data-keyword="魔法風雲會"><span>魔法風雲會 (MTG)</span></a>
+            </p>
+            <p class="sortTitle">
+                <a href="" class="searchSort" data-keyword="黑與白"><span>黑與白 (Weiß Schwarz)</span></a>
+            </p>
+            <p class="sortTitle">
+                <a href="" class="searchSort" data-keyword="七龍珠"><span>七龍珠 (DragonBallHeroes)</span></a>
+            </p>
+            <p class="sortTitle">
+                <a href="" class="searchSort" data-keyword="鋼彈大戰"><span>鋼彈大戰 (GUNDAM WAR)</span></a>
+            </p>
+            <p class="sortTitle">
+                <a href="" class="searchSort" data-keyword="聖火降魔錄"><span>聖火降魔錄 (FE0)</span></a>
+            </p>
+            <p class="sortTitle">
+                <a href="" class="searchSort" data-keyword="運動"><span>運動卡 (Sport)</span></a>
+            </p>
 
         </div>
-        <div class="col-12 col-sm-12 col-md-9 container" id="divList">
+        <div class="col-12 col-sm-12 col-md-9 col-lg-10 container" id="divList">
             <div class="row">
                 @foreach (var item in Model)
                 {
@@ -30,13 +57,8 @@
                     int minuteRemain = secondRemain / 60;
                     string itemNameShort = item.fItemName;
 
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3    ">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                         
-
-
-
-
-
                         <div class="cardBorder">
                             <a href="~/Auction/Item/@item.fItemId">
                                 <div class="imgWrap">
@@ -72,6 +94,20 @@
             });
 
         });
-        
+
+        document.querySelectorAll('.searchSort').forEach(function (dom) {
+            dom.addEventListener('click', function (event) {
+                event.preventDefault();
+                let keyword = this.dataset.keyword;
+
+                let xhr = new XMLHttpRequest();
+                xhr.addEventListener('load', function () {
+                    let datas = xhr.response;
+                    console.log(datas);
+                });
+                xhr.open('GET', '@Url.Content("~/Auction/QueryBySort/")' + keyword);
+                xhr.send();
+            })
+        });
     </script>
     }
