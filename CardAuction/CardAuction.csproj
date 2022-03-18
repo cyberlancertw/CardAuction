@@ -122,7 +122,9 @@
     <Content Include="Content\AdminCss\cssAdminLayout.css" />
     <Content Include="Content\cssHomeIndex.css" />
     <Content Include="Content\ExchangeCss\Merchandise.css" />
+    <Content Include="Content\cssRWDtemplate.css" />
     <Content Include="Content\HomeCss\cssHomeIndex.css" />
+    <Content Include="Content\LayoutCss\cssShortLayout.css" />
     <Content Include="Content\LayoutCss\cssUserLayout.css" />
     <Content Include="Content\MemberCss\cssMemberLogin.css" />
     <Content Include="Content\MemberCss\cssMemberRegister.css" />
@@ -223,13 +225,20 @@
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\tAuctionFavorite.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tAuctionItem.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tExchangeFavorite.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tMember.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CAuctionPostViewModel.cs" />
     <Compile Include="ViewModels\CLoginViewModel.cs" />
     <Compile Include="ViewModels\CRegisterViewModel.cs" />
   </ItemGroup>
@@ -285,6 +294,7 @@
     <Content Include="Views\Exchange\List.cshtml" />
     <Content Include="Views\Auction\Item.cshtml" />
     <Content Include="Views\Auction\List.cshtml" />
+    <Content Include="Views\Auction\test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

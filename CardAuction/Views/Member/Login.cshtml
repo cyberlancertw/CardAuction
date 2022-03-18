@@ -31,7 +31,7 @@
                     <div id="divForget">
                         @Html.ActionLink("忘記密碼？","PasswordForget",null, new { id = "pwdForget" })
                     </div>
-                    <span class="error">@ViewData["errorMessage"]</span>
+                    <span class="error">@ViewBag.errorMessage</span>
                     <div id="divSend">
                         <input type="submit" id="btnSend" value="登入" />
                     </div>

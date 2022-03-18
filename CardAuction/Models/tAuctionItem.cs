@@ -14,11 +14,11 @@ namespace CardAuction.Models
     
     public partial class tAuctionItem
     {
-        public int fItemId { get; set; }
+        public string fItemId { get; set; }
         public string fItemName { get; set; }
         public string fItemDescription { get; set; }
         public string fSort { get; set; }
-        public int fPosterUserId { get; set; }
+        public string fPostUserId { get; set; }
         public Nullable<int> fTopBidUserId { get; set; }
         public int fMoneyNow { get; set; }
         public int fMoneyStep { get; set; }
@@ -35,5 +35,8 @@ namespace CardAuction.Models
         public int fTransSeven { get; set; }
         public int fTransFami { get; set; }
         public int fTransLogi { get; set; }
+        public int fClick { get; set; }
+        public int fReport { get; set; }
+        public bool fDelete { get; set; }
     }
 }

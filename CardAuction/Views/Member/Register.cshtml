@@ -26,36 +26,36 @@
                     <form action="#" method="post">
                         <div id="divUsername">
                             <input id="username" type="text" name="Account" placeholder="     帳號" maxlength="20" minlength="6" required />
-                            <span class="errMsg" id="spanAcc">@ViewData["errAcc"]</span>
+                            <span class="errMsg" id="spanAcc">@ViewBag.errAcc</span>
                          </div>
                         <div id="divPwd">
                             <input id="password" type="password" name="Password" placeholder="     密碼" minlength="8" reuired/>
-                            <span class="errMsg">@ViewData["errPwd"]</span>
+                            <span class="errMsg">@ViewBag.errPwd</span>
                         </div>
                         <div id="divPwdCheck">
                             <input id="passwordCheck" type="password" name="PasswordCheck" placeholder="     確認密碼" required />
-                            <span class="errMsg">@ViewData["errPwdCheck"]</span>
+                            <span class="errMsg">@ViewBag.errPwdCheck</span>
                         </div>
                         <div id="divRealname">
                             <input id="realname" type="text" name="Name" placeholder="     姓名" required />
-                            <span class="errMsg">@ViewData["errName"]</span>
+                            <span class="errMsg">@ViewBag.errName</span>
                         </div>
                         <div id="divEmail">
-                            <input id="email" type="text" name="Email" placeholder="     Email" required/>
-                            <span class="errMsg">@ViewData["errEmail"]</span>
+                            <input id="email" type="email" name="Email" placeholder="     Email" required/>
+                            <span class="errMsg">@ViewBag.errEmail</span>
                         </div>
                         <div id="divAddress" class="row justify-content-between">
                             <select id="seleAddr" class="col-4" name="AddressSelect"></select>
                             <input id="address" type="text" class="col-7" name="Address" placeholder="     地址" required />
-                            <span class="errMsg">@ViewData["errAddr"]</span>
+                            <span class="errMsg">@ViewBag.errAddr</span>
                         </div>
                         <div id="divEmail">
                             <input id="phone" type="tel" name="Phone" placeholder="     電話" required />
-                            <span class="errMsg">@ViewData["errPhone"]</span>
+                            <span class="errMsg">@ViewBag.errPhone</span>
                         </div>
                         <div id="divBirthday">
                             <input id="birthday" type="date" name="Birthday" placeholder="     生日" value="1949-01-01"/>
-                            <span class="errMsg">@ViewData["errBirth"]</span>
+                            <span class="errMsg">@ViewBag.errBirth</span>
                         </div>
                         <div id="divConfirm1" class="row">
                             <div class="col-2">
@@ -92,9 +92,10 @@
             var xhr = new XMLHttpRequest();
             var inputAcc = document.getElementById('username').value;;
             xhr.addEventListener('load', function () {
-                let intResult = xhr.responseText;
+                let isExist = xhr.responseText;
+                console.log(isExist);
                 let domWarning = document.getElementById('spanAcc')
-                if (intResult != 0) {
+                if (isExist == 'True') {
                     domWarning.textContent = '此帳號已被註冊';
                 }
                 else {

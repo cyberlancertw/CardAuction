@@ -6,42 +6,51 @@
 }
 
 @section styles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/AuctionCss/cssAuctionList.css" type="text/css" />
 }
-<div id="mainContent">
+<div id="fullListPage">
     <div id="banner">
         卡片競標<br />
         Auction Card
     </div>
-    <div class="row">
+    <div class="row" id="mainContent">
         <div class="col-12 col-sm-12 col-md-3" id="divSort">
 
         </div>
-        <div class="col-12 col-sm-12 col-md-9" id="divList">
+        <div class="col-12 col-sm-12 col-md-9 container" id="divList">
             <div class="row">
-                @foreach(var item in Model)
-            {
-                int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
-                int dayRemain = secondRemain / 86400;
-                secondRemain %= 86400;
-                int hourRemain = secondRemain / 3600;
-                secondRemain %= 3600;
-                int minuteRemain = secondRemain / 60;
-                <div class="col-12 col-sm-12 col-md-3">
-                    <div class="divCard">
-                        <img src="~/images/AuctionItemImages/@item.fPhoto0" class="imgCard" />
+                @foreach (var item in Model)
+                {
+                    int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
+                    int dayRemain = secondRemain / 86400;
+                    secondRemain %= 86400;
+                    int hourRemain = secondRemain / 3600;
+                    secondRemain %= 3600;
+                    int minuteRemain = secondRemain / 60;
+                    string itemNameShort = item.fItemName;
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3    ">
+                        
+
+
+
+
+
+                        <div class="cardBorder">
+                            <a href="~/Auction/Item/@item.fItemId">
+                                <div class="imgWrap">
+                                    <img src="~/images/AuctionItemImages/@item.fPhoto0" class="cardImg" alt="..." style="width:100%;height:100%;object-fit: contain;object-position:center">
+                                </div>
+                                <div class="cardBody">
+                                    <p class="pName">@item.fItemName</p>
+                                    <p class="pMoney">$ @item.fMoneyNow 元</p>
+                                    <p class="pTime"><i class="fa-solid fa-clock"></i> @dayRemain 天 @hourRemain 時 @minuteRemain 分</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    <div id="divItemName">
-                        @item.fItemName
-                    </div>
-                    <div id="divMoney">
-                        $ @item.fMoneyNow 元
-                    </div> 
-                    <div id="divTime">
-                        @dayRemain 天 @hourRemain 時 @minuteRemain 分 
-                    </div>
-                </div>
-            }
+                }
             </div>
 
 
@@ -51,13 +60,18 @@
     </div>
 </div>
 
+@section scripts{
+    <script>
+        document.querySelectorAll('.cardBorder').forEach(function (dom) {
+            dom.addEventListener('mouseover', function () {
+                this.classList.add('cardSelect');
+            });
 
+            dom.addEventListener('mouseleave', function () {
+                this.classList.remove('cardSelect');
+            });
 
-@foreach (var item in Model) {
-    Html.DisplayFor(modelItem => item.fItemId);
-    Html.DisplayFor(modelItem => item.fItemName);
-    Html.DisplayFor(modelItem => item.fItemDescription);
-
-
-
-}
+        });
+        
+    </script>
+    }

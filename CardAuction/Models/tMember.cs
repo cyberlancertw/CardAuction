@@ -11,23 +11,20 @@ namespace CardAuction.Models
 {
     using System;
     using System.Collections.Generic;
-    //
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class tMember
     {
-        public int fUserId { get; set; }
+        public string fUserId { get; set; }
         public string fAccount { get; set; }
         public string fPassword { get; set; }
         public string fName { get; set; }
         public string fEmail { get; set; }
         public string fAddress { get; set; }
         public string fPhone { get; set; }
-        public Nullable<System.DateTime> fBirthday { get; set; }
-        public Nullable<bool> fSubscribe { get; set; }
-        public Nullable<bool> fManager { get; set; }
-        public Nullable<bool> fActive { get; set; }
-        public Nullable<bool> fDelete { get; set; }
+        public System.DateTime fBirthday { get; set; }
+        public bool fSubscribe { get; set; }
+        public bool fManager { get; set; }
+        public bool fActive { get; set; }
+        public bool fDelete { get; set; }
     }
 }
