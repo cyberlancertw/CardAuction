@@ -1,0 +1,101 @@
+﻿@*CSS*@
+<link rel="stylesheet" href="~/Content/AdminCss/cssAdManage.css" />
+
+@{
+    ViewBag.Title = "AdManage";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdManage</title>
+</head>
+<body>
+    <h4>使用者首頁 廣告輪播照片管理</h4>
+
+    <form method="post" action="@Url.Action("AdManage")"
+          enctype="multipart/form-data">
+        <div>
+
+            <div>
+                上傳圖片 1：<input type="file" name="photos" />
+            </div>
+
+            <div>
+                上傳圖片 2：<input type="file" name="photos" />
+            </div>
+
+            <div>
+                上傳圖片 3：<input type="file" name="photos" />
+            </div>
+
+            <input type="submit" value="圖片上傳" />
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <!-- 拖拉版面 -->
+    
+    @*</form>
+
+    <form action="/Admin/AdManage/" method="post" enctype="multipart/form-data">
+        <div id="fullPage">
+            <div id="mainBox">
+                <div id="basicInfo">
+                    <div class="row divContent" id="divImgSelect">
+                        <div class="contentHead col-12 col-md-3">
+                            商品圖片
+                        </div>
+                        <div class="content col-12 col-md-9">
+                            <div class="row picBlockList">
+                                <div class="col-12 col-sm-6 col-md-3">
+                                    <div class="picBlock dragNone" id="picBlock0">
+                                    </div>
+                                    *商品圖片
+                                    <input type="file" name="Photo0" id="inputFile0">
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-3">
+                                    <div class="picBlock dragNone" id="picBlock1">
+                                    </div>
+                                    <input type="file" name="Photo1" id="inputFile1">
+                                    圖片二
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-3">
+                                    <div class="picBlock dragNone" id="picBlock2">
+                                    </div>
+                                    圖片三
+                                    <input type="file" name="Photo2" id="inputFile2">
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-3">
+                                    <div class="picBlock dragNone" id="picBlock3">
+                                    </div>
+                                    圖片四
+                                    <input type="file" name="Photo3" id="inputFile3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="buttons">
+                        <button id="btnCancel">取消</button>
+                        <button id="btnPost">上架</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>*@
+
+   
+
+
+
+</body>
+</html>
