@@ -96,9 +96,79 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\CardAuction.dll" />
+    <Content Include="bin\CardAuction.pdb" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
+    <Content Include="bin\roslyn\System.AppContext.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Console.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
+    <Content Include="bin\roslyn\System.Globalization.Calendars.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.ZipFile.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Net.Http.dll" />
+    <Content Include="bin\roslyn\System.Net.Sockets.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
+    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
+    <Content Include="bin\roslyn\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\roslyn\System.ValueTuple.dll" />
+    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
+    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.Webpages.Deployment.dll" />
+    <Content Include="bin\System.Web.Webpages.Deployment.xml" />
+    <Content Include="bin\System.Web.Webpages.dll" />
+    <Content Include="bin\System.Web.Webpages.Razor.dll" />
+    <Content Include="bin\System.Web.Webpages.Razor.xml" />
+    <Content Include="bin\System.Web.Webpages.xml" />
+    <Content Include="bin\zh-Hant\EntityFramework.resources.dll" />
+    <Content Include="bin\zh-Hant\EntityFramework.SqlServer.resources.dll" />
+    <Content Include="bin\zh-Hant\System.Web.Helpers.resources.dll" />
+    <Content Include="bin\zh-Hant\System.Web.Mvc.resources.dll" />
+    <Content Include="bin\zh-Hant\System.Web.Razor.resources.dll" />
+    <Content Include="bin\zh-Hant\System.Web.Webpages.Deployment.resources.dll" />
+    <Content Include="bin\zh-Hant\System.Web.Webpages.Razor.resources.dll" />
+    <Content Include="bin\zh-Hant\System.Web.Webpages.resources.dll" />
+    <Content Include="Content\AdminCss\cssAdManage.css" />
     <Content Include="Content\AdminCss\cssPsnCreate.css" />
     <Content Include="Content\AdminCss\cssPsnEdit.css" />
     <Content Include="Content\AdminCss\cssPsnManage.css" />
+    <Content Include="Content\HomeCss\cssUserIndexAD.css" />
     <Content Include="Content\AuctionCss\cssAuctionItem.css" />
     <Content Include="Content\AuctionCss\cssAuctionList.css" />
     <Content Include="Content\AuctionCss\cssAuctionPost.css" />
@@ -120,7 +190,10 @@
     <Content Include="Content\Bootstrap\bootstrap.rtl.min.css" />
     <Content Include="Content\AdminCss\cssAdminIndex.css" />
     <Content Include="Content\AdminCss\cssAdminLayout.css" />
+    <Content Include="Content\cssAuctionIndex.css" />
     <Content Include="Content\cssHomeIndex.css" />
+    <Content Include="Content\cssNormalize.css" />
+    <Content Include="Content\cssReset.css" />
     <Content Include="Content\ExchangeCss\ExchangeIndex.css" />
     <Content Include="Content\ExchangeCss\Merchandise.css" />
     <Content Include="Content\cssRWDtemplate.css" />
@@ -195,6 +268,9 @@
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
       <LastGenOutput>dbCardAuction.cs</LastGenOutput>
     </Content>
+    <Content Include="obj\Debug\CardAuction.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\CardAuction.dll" />
+    <Content Include="obj\Debug\CardAuction.pdb" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -248,6 +324,7 @@
     <Compile Include="Models\tMember.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CAuctionPostViewModel.cs" />
     <Compile Include="ViewModels\CLoginViewModel.cs" />
@@ -278,6 +355,24 @@
     <Content Include="Models\dbCardAuction.edmx.diagram">
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Content>
+    <Content Include="obj\Debug\CardAuction.csproj.AssemblyReference.cache" />
+    <Content Include="obj\Debug\CardAuction.csproj.CopyComplete" />
+    <Content Include="obj\Debug\CardAuction.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\dbCardAuction.csdl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\dbCardAuction.msl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\dbCardAuction.ssdl" />
+    <Content Include="bin\CardAuction.dll.config" />
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
+    <Content Include="bin\roslyn\csi.exe.config" />
+    <Content Include="bin\roslyn\csi.rsp" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.Managed.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LayoutCOPY.cshtml" />
@@ -307,6 +402,7 @@
     <Content Include="Views\Auction\List.cshtml" />
     <Content Include="Views\Exchange\Index.cshtml" />
     <Content Include="Views\Auction\test.cshtml" />
+    <Content Include="Views\Admin\AdManage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -317,6 +413,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\AuctionItemImages\" />
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
