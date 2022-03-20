@@ -21,220 +21,217 @@
     <div class="mt-5" id="divMainContent">
         <div class="mb-3" id="divSort">
             競標 / @Model.fSort
+        </div>        
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6" id="divItemName">
+                @Model.fItemName
+            </div>
+
+                
+            <div class="col-sm-12 col-md-6 container" id="divButtons">
+                <div class="row">
+
+                    <div class="col-4">
+                        <button id="btnComment"><i class="fa-solid fa-comments"></i> 聯絡賣家</button>
+                    </div>
+
+                    <div class="col-4">
+                        <button class="notFollowing" id="btnFavorite"><i id="iconFavorite" class="fa-solid fa-heart-circle-plus"></i> <span id="txtFavorite">加入追蹤</span></button>
+                    </div>
+
+                    <div class="col-4">
+                        <button id="btnReport"><i class="fa-solid fa-triangle-exclamation"></i> 檢舉</button>
+                    </div>
+
+                </div>
+            </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6" id="divItemName">
-                    @Model.fItemName
-                </div>
-
-                
-                <div class="col-sm-12 col-md-6 container" id="divButtons">
-                    <div class="row">
-
-                        <div class="col-4">
-                            <button id="btnComment"><i class="fa-solid fa-comments"></i> 聯絡賣家</button>
-                        </div>
-
-                        <div class="col-4">
-                            <button class="notFollowing" id="btnFavorite"><i id="iconFavorite" class="fa-solid fa-heart-circle-plus"></i> <span id="txtFavorite">加入追蹤</span></button>
-
-                            <!-- <i class="fa-solid fa-heart-circle-check"></i> -->
-                        </div>
-
-                        <div class="col-4">
-                            <button id="btnReport"><i class="fa-solid fa-triangle-exclamation"></i> 檢舉</button>
-                        </div>
-
+                <div class="col-sm-12 col-md-6" id="divPhoto">
+                    <div>
+                        <img src="~/Images/AuctionItemImages/@filepath0" id="imgShow" /><br />
                     </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6" id="divPhoto">
-                        <div>
-                            <img src="~/Images/AuctionItemImages/@filepath0" id="imgShow" /><br />
-                        </div>
-                        <div id="divSmallList">
-                            @{
-                                if (Model.fPhoto0 != null)
-                                {
-                                    <img src="~/Images/AuctionItemImages/@filepath0" class="imgSmall" id="imgSmall0" />
-                                }
-                                if (Model.fPhoto1 != null)
-                                {
-                                    <img src="~/Images/AuctionItemImages/@filepath1" class="imgSmall" id="imgSmall1" />
-                                }
-                                if (Model.fPhoto2 != null)
-                                {
-                                    <img src="~/Images/AuctionItemImages/@filepath2" class="imgSmall" id="imgSmall2" />
-                                }
-                                if (Model.fPhoto3 != null)
-                                {
-                                    <img src="~/Images/AuctionItemImages/@filepath3" class="imgSmall" id="imgSmall3" />
-                                }
-                            }
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6" id="divBidInfo">
-                        <div id="divTime">
-                            <div id="divClock">
-                                <img src="~/Images/site/iconClock.png" id="imgClock" />
-                            </div>
-                            <div id="divStamp">
-                                <span id="stampTime"></span>
-                            </div>
-                            <div id="divCalender">
-                                加入行事曆
-                            </div>
-                        </div>
-                        <div class="container" id="divMoney"> 
-                            @if (Model.fBuyPrice > -1)
+                    <div id="divSmallList">
+                        @{
+                            if (Model.fPhoto0 != null)
                             {
-                                <div class="row moneyRow rowBuy">
-                                    <div class="col-3 titleMoney">
-                                        直購價
-                                    </div>
-                                    <div class="col-6 goldMoney">
-                                        $ @Model.fBuyPrice 元
-                                    </div>
-                                    <div class="col-3" id="divBtnBuy">
-                                        <button id="btnBuy">購買</button>
-                                    </div>
-                                </div>
+                                <img src="~/Images/AuctionItemImages/@filepath0" class="imgSmall" id="imgSmall0" />
                             }
-                            <div class="row moneyRow">
-                                <div class="col-3 titleMoney">
-                                    目前出價
-                                </div>
-                                <div class="col-9">
-                                    <span class="goldMoney" id="MoneyNow">$ @Model.fMoneyNow 元</span>
-                                </div>
-                            </div>
-                            <div class="row moneyRow">
-                                <div class="col-3 titleMoney">
-                                    出價增額
-                                </div>
-                                <div class="col-9">
-                                    <span class="goldMoney">$ @Model.fMoneyStep 元</span>
-                                </div>
-                            </div>
-                            <div class="row moneyRow" id="divBid">
-                                <div class="col-9" id="titleTextBox">
-                                    <input type="number" placeholder="請輸入出價上限" id="txtBid" step="@Model.fMoneyStep" min="@leastBid" />
-                                </div>
-                                <div class="col-3">
-                                    <button id="btnBid">出價</button>
-                                </div>
-                            </div>
+                            if (Model.fPhoto1 != null)
+                            {
+                                <img src="~/Images/AuctionItemImages/@filepath1" class="imgSmall" id="imgSmall1" />
+                            }
+                            if (Model.fPhoto2 != null)
+                            {
+                                <img src="~/Images/AuctionItemImages/@filepath2" class="imgSmall" id="imgSmall2" />
+                            }
+                            if (Model.fPhoto3 != null)
+                            {
+                                <img src="~/Images/AuctionItemImages/@filepath3" class="imgSmall" id="imgSmall3" />
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6" id="divBidInfo">
+                    <div id="divTime">
+                        <div id="divClock">
+                            <img src="~/Images/site/iconClock.png" id="imgClock" />
                         </div>
-
-                        <div class="row" id="divHistory">
-                            <div class="row historyRecord">
-                                <div class="col-4 historyAccount">
-                                    出價者
-                                </div>
-                                <div class="col-6 historyTime">
-                                    時間
-                                </div>
-                                <div class="col-2 historyMoney">
-                                    出價
-                                </div>
-                            </div>
-                            <div class="row historyRecord">
-                                <div class="col-4 historyAccount">
-                                    abcd123
-                                </div>
-                                <div class="col-6 historyTime">
-                                    2022/03/13 21:32:45
-                                </div>
-                                <div class="col-2 historyMoney">
-                                    $ 120
-                                </div>
-                            </div>
-                            <div class="row historyRecord">
-                                <div class="col-4 historyAccount">
-                                    samplebid8675
-                                </div>
-                                <div class="col-6 historyTime">
-                                    2022/03/13 14:19:07
-                                </div>
-                                <div class="col-2 historyMoney">
-                                    $ 70
-                                </div>
-                            </div>
-                            <div class="row historyRecord">
-                                <div class="col-4 historyAccount">
-                                    abcd123
-                                </div>
-                                <div class="col-6 historyTime">
-                                    2022/03/12 23:34:18
-                                </div>
-                                <div class="col-2 historyMoney">
-                                    $ 50
-                                </div>
-                            </div>
+                        <div id="divStamp">
+                            <span id="stampTime"></span>
+                        </div>
+                        <div id="divCalender">
+                            加入行事曆
                         </div>
                     </div>
-
-
-                    <div class="row" id="divDescription">
-                        <div class="col-6 col-sm-5 col-md-3 titleTopic">
-                            商品說明
-                        </div>
-                        <div id="divDescriptContent">
-                            <div>鑑定公司： @Model.fGrading</div>
-                            <div>
-                                @Model.fItemDescription
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" id="divComment">
-                        <div class="col-6 col-sm-5 col-md-3 titleTopic">
-                            留言
-                        </div>
-                        <div id="divCommentContent">
-
-                        </div>
-                        <div id="inputSend">
-                            <div class="row commentRecord">
-                                <div class="col-sm-4 col-md-2 commentAccount">
-                                    samplebid8675
+                    <div class="container" id="divMoney"> 
+                        @if (Model.fBuyPrice > -1)
+                        {
+                            <div class="row moneyRow rowBuy">
+                                <div class="col-3 titleMoney">
+                                    直購價
                                 </div>
-                                <div class="col-sm-8 col-md-10 commentContent">
-                                    好
+                                <div class="col-6 goldMoney">
+                                    $ @Model.fBuyPrice 元
+                                </div>
+                                <div class="col-3" id="divBtnBuy">
+                                    <button id="btnBuy">購買</button>
                                 </div>
                             </div>
-                            <hr />
-                            <div class="row commentRecord">
-                                <div class="col-sm-4 col-md-2 commentAccount">
-                                    abcd123
-                                </div>
-                                <div class="col-sm-8 col-md-10 commentContent">
-                                    想要這張想要這張想要這張想要這張想要這張想要這張想要這張想要這張想要這張
-                                </div>
+                        }
+                        <div class="row moneyRow">
+                            <div class="col-3 titleMoney">
+                                目前出價
                             </div>
-                            <div class="row commentRecord">
-                                <div class="col-sm-9 col-md-10">
-                                    <input type="text" id="txtComment" />
-                                </div>
-                                <div class="col-sm-3 col-md-2">
-                                    <button id="btnCommentSend">留言</button>
-                                </div>
+                            <div class="col-9">
+                                <span class="goldMoney" id="MoneyNow">$ @Model.fMoneyNow 元</span>
                             </div>
-
-
+                        </div>
+                        <div class="row moneyRow">
+                            <div class="col-3 titleMoney">
+                                出價增額
+                            </div>
+                            <div class="col-9">
+                                <span class="goldMoney">$ @Model.fMoneyStep 元</span>
+                            </div>
+                        </div>
+                        <div class="row moneyRow" id="divBid">
+                            <div class="col-9" id="titleTextBox">
+                                <input type="number" placeholder="請輸入出價上限" id="txtBid" step="@Model.fMoneyStep" min="@leastBid" />
+                            </div>
+                            <div class="col-3">
+                                <button id="btnBid">出價</button>
+                            </div>
                         </div>
                     </div>
 
                     <div class="row" id="divHistory">
-                        <div class="col-6 col-sm-5 col-md-3 titleTopic">
-                            歷史成交統計
+                        <div class="row historyRecord">
+                            <div class="col-4 historyAccount">
+                                出價者
+                            </div>
+                            <div class="col-6 historyTime">
+                                時間
+                            </div>
+                            <div class="col-2 historyMoney">
+                                出價
+                            </div>
                         </div>
-                        <div id="divHistoryContent">
-                            <br /><br /><br /><br />
+                        <div class="row historyRecord">
+                            <div class="col-4 historyAccount">
+                                abcd123
+                            </div>
+                            <div class="col-6 historyTime">
+                                2022/03/13 21:32:45
+                            </div>
+                            <div class="col-2 historyMoney">
+                                $ 120
+                            </div>
                         </div>
+                        <div class="row historyRecord">
+                            <div class="col-4 historyAccount">
+                                samplebid8675
+                            </div>
+                            <div class="col-6 historyTime">
+                                2022/03/13 14:19:07
+                            </div>
+                            <div class="col-2 historyMoney">
+                                $ 70
+                            </div>
+                        </div>
+                        <div class="row historyRecord">
+                            <div class="col-4 historyAccount">
+                                abcd123
+                            </div>
+                            <div class="col-6 historyTime">
+                                2022/03/12 23:34:18
+                            </div>
+                            <div class="col-2 historyMoney">
+                                $ 50
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" id="divDescription">
+                    <div class="col-6 col-sm-5 col-md-3 titleTopic">
+                        商品說明
+                    </div>
+                    <div id="divDescriptContent">
+                        <div class="mt-2 mb-4">鑑定公司： @Model.fGrading</div>
+                        <div class="mb-4">賣家：@ViewBag.PostUserAccount</div>
+                        <div class="mb-4">
+                            @Model.fItemDescription
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="divComment">
+                    <div class="col-6 col-sm-5 col-md-3 titleTopic">
+                        留言
+                    </div>
+                    <div id="divCommentContent">
+
+                    </div>
+                    <div id="inputSend">
+                        <div class="row commentRecord">
+                            <div class="col-sm-4 col-md-2 commentAccount">
+                                samplebid8675
+                            </div>
+                            <div class="col-sm-8 col-md-10 commentContent">
+                                好
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row commentRecord">
+                            <div class="col-sm-4 col-md-2 commentAccount">
+                                abcd123
+                            </div>
+                            <div class="col-sm-8 col-md-10 commentContent">
+                                想要這張想要這張想要這張想要這張想要這張想要這張想要這張想要這張想要這張
+                            </div>
+                        </div>
+                        <div class="row commentRecord">
+                            <div class="col-sm-9 col-md-10">
+                                <input type="text" id="txtComment" />
+                            </div>
+                            <div class="col-sm-3 col-md-2">
+                                <button id="btnCommentSend">留言</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row" id="divHistory">
+                    <div class="col-6 col-sm-5 col-md-3 titleTopic">
+                        歷史成交統計
+                    </div>
+                    <div id="divHistoryContent">
+                        <br /><br /><br /><br />
                     </div>
                 </div>
             </div>
@@ -293,6 +290,10 @@
         });
 
         refreshStampTime(secondRemain);
+        @if(Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString().Equals(Model.fPostUserId))
+        {
+                @:btnFavorite.disabled = true;
+        }
         checkFavorite();
 
         btnFavorite.addEventListener('click', function (event) {
@@ -313,7 +314,7 @@
             });
 
             let para = `?ItemId=${fItemId}`;
-            
+
             xhr.open('GET', '@Url.Content("~/Member/FavoriteAuction")' + para);
             xhr.send();
         });
@@ -353,6 +354,6 @@
                 btnFavorite.classList.add('notFollowing');
             }
         }
-        
+
     </script>
 }

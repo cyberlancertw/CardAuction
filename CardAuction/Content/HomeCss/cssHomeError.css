@@ -1,0 +1,64 @@
+﻿/*  淡灰 ced3d8   ebebeb    深灰 6b6b6b   黑 333333    藏青 1f3444    金  ab8f4e    白ffffff */
+
+@media (max-width: 575px) {
+    html {
+        font-size: 9px;
+    }
+    .iconErr {
+        font-size: 9rem;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    html {
+        font-size: 11px;
+    }
+    .iconErr {
+        font-size: 10rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    html {
+        font-size: 12px;
+    }
+    .iconErr {
+        font-size: 11rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width:1199px) {
+    html {
+        font-size: 13px;
+    }
+    .iconErr {
+        font-size: 11rem;
+    }
+}
+@media (min-width: 1200px) {
+    html {
+        font-size: 14px;
+    }
+    .iconErr{
+        font-size: 12rem;
+    }
+}
+
+.errorMsg {
+    text-align: center;
+    font-size: 3rem;
+    color: #333333;
+}
+.iconErr{
+    color: #6b6b6b;
+}
+.iconLeft{
+    text-align: right;
+}
+.iconRight{
+    text-align: left;
+}
+.redirect{
+    text-align: center;
+    font-size: 1.8rem;
+}

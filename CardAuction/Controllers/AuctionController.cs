@@ -20,29 +20,33 @@ namespace CardAuction.Controllers
         //{
         //    return View();
         //}
-        public ActionResult test()
-        {
-            return View();
-        }
 
         [HttpGet]
         public ActionResult Item(string id)
         {
-            if (id == null)
+            if (id == null)                             // 沒輸入 ItemId
             {
-                return RedirectToAction("List");
+                return RedirectToAction("Error","Home", new { ErrorMessage = "需要商品編號" , ToController = "Auction" , ToAction = "List" });
             }
             var result = db.tAuctionItem.Find(id);
-            
-            if (result == null)
+            if (result == null)                         // 有輸入 Id 但查不到
             {
-                return RedirectToAction("List");
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction" , ToAction = "List" });
             }
+            string postUserId = result.fPostUserId;
+            ViewBag.PostUserAccount = db.tMember.Find(postUserId).fAccount;
 
             if (Session[CDictionary.SK_UserUserId] == null || result.fPostUserId != (string)Session[CDictionary.SK_UserUserId])
             {
-                result.fClick += 1;
-                db.SaveChanges();
+                result.fClick += 1;                     // 無登入 或 有登入但非本人，則商品點擊數 + 1
+                try 
+                {
+                    db.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "List" });
+                }
             }
             return View(result);
         }
@@ -64,6 +68,13 @@ namespace CardAuction.Controllers
 
         public ActionResult Post(CAuctionPostViewModel vModel)
         {
+            if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
+            {
+                Session[CDictionary.SK_RedirectToAction] = "Post";
+                Session[CDictionary.SK_RedirectToController] = "Auction";
+                return RedirectToAction("Login", "Member");
+            }
+
             tAuctionItem createItem = new tAuctionItem();
             DateTime nowTime = DateTime.Now;
             Random rnd = new Random();
@@ -92,9 +103,7 @@ namespace CardAuction.Controllers
                 ViewData["errorMessage"] = "請上傳圖片";
                 return View();
             }
-
             int count = 0;
-            
             foreach (HttpPostedFileBase photo in photos)
             {
                 string newFileName = fileNameInitial + count + Path.GetExtension(photo.FileName);       // 檔名組成：日期、時間、6數字組成字串、編號.副檔名
@@ -114,48 +123,14 @@ namespace CardAuction.Controllers
             createItem.fItemDescription = vModel.fItemDescription;
             createItem.fSort = vModel.fSort;
             createItem.fGrading = vModel.fGrading;
-
-            if (!vModel.isBuy || vModel.fBuyPrice < 0)
-            {
-                createItem.fBuyPrice = -1;           // 以 -1 表示不提供直購價
-            }
-            else
-            {
-                createItem.fBuyPrice = vModel.fBuyPrice;
-            }
-            if (!vModel.isPerson || vModel.fTransPerson < 0)
-            {
-                createItem.fTransPerson = -1;       // 以 -1 表示不提供此運送選項
-            }
-            else
-            {
-                createItem.fTransPerson = vModel.fTransPerson;
-            }
-            if (!vModel.isSeven || vModel.fTransSeven < 0)
-            {
-                createItem.fTransSeven = -1;
-            }
-            else
-            {
-                createItem.fTransSeven = vModel.fTransSeven;
-            }
-            if (!vModel.isFami || vModel.fTransFami < 0)
-            {
-                createItem.fTransFami = -1;
-            }
-            else
-            {
-                createItem.fTransFami = vModel.fTransFami;
-            }
-            if (!vModel.isLogi || vModel.fTransLogi < 0)
-            {
-                createItem.fTransLogi = -1;
-            }
-            else
-            {
-                createItem.fTransLogi = vModel.fTransLogi;
-            }
             
+            createItem.fBuyPrice = vModel.isBuy ? vModel.fBuyPrice : -1;                            // 以負數表示不提供直購價
+
+            createItem.fTransPerson = vModel.isPerson ? vModel.fTransPerson : -1;                   // 以負數表示不提供此運送選項
+            createItem.fTransSeven = vModel.isSeven ? vModel.fTransSeven : -1;
+            createItem.fTransFami = vModel.isFami ? vModel.fTransFami : -1;
+            createItem.fTransLogi = vModel.isLogi ? vModel.fTransLogi : -1 ;
+
             createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結標時間
             createItem.fCreateTime = nowTime;                                                       // 現在時間為建立時間
             createItem.fMoneyStart = vModel.fMoneyStart;
@@ -163,21 +138,15 @@ namespace CardAuction.Controllers
             createItem.fClick = 0;
             createItem.fDelete = false;
             createItem.fReport = 0;
-            
 
             db.tAuctionItem.Add(createItem);
             try
             {
                 db.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException e)
-            {
-                string ErrorMsg = e.Message;
-                Console.WriteLine(ErrorMsg);
-            }
             catch (Exception e)
             {
-
+                return RedirectToAction("Error", "Home", new{ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "Post" });
             }
             return RedirectToAction("List");
         }
@@ -185,26 +154,24 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult List()
         {
-            var result = db.tAuctionItem.Where(m => m.fEndTime > DateTime.Now)
-                                        .OrderBy(m => m.fEndTime)
-                                        .ToList();
-            return View(result);
+            return View();
         }
 
-        public ActionResult QueryBySort(string sortName)
+        public ActionResult QueryBySort(string sortName, int mode = 0)
         {
+
             if (string.IsNullOrEmpty(sortName))
             {
                 var queryAll = from item in db.tAuctionItem
-                                  where item.fEndTime > DateTime.Now
-                                  select new QueryResult
-                                  {
-                                      fItemId = item.fItemId,
-                                      fEndTime = item.fEndTime,
-                                      fItemName = item.fItemName,
-                                      fPhoto = item.fPhoto0,
-                                      fMoneyNow = item.fMoneyNow
-                                  };
+                               where item.fEndTime > DateTime.Now
+                               select new QueryResult
+                               {
+                                   fItemId = item.fItemId,
+                                   fEndTime = item.fEndTime,
+                                   fItemName = item.fItemName,
+                                   fPhoto = item.fPhoto0,
+                                   fMoneyNow = item.fMoneyNow
+                               };
                 return Json(queryAll, JsonRequestBehavior.AllowGet);
             }
             

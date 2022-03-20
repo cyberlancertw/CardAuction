@@ -7,6 +7,9 @@
     .imgWrap {
         height: 20rem;
     }
+    #barBlock {
+        font-size: 1.4rem;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
@@ -64,6 +67,12 @@ a{
     text-decoration: none;
     color: #000000;
 }
+.barSortItem {
+    font-size: 1.2rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    padding-left: 3rem;
+}
 
 .sortTitle{
     font-size: 1.2rem;
@@ -106,4 +115,17 @@ a{
 }
 .pTime{
     font-size: 1.1rem;
+}
+#barSortName{
+    margin-left: 1.2rem;
+    font-weight: bold;
+}
+
+.fixedDivBar{
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+#divBar{
+    background-color: #ffffff;
 }

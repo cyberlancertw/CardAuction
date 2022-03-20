@@ -1,5 +1,4 @@
-﻿@model IEnumerable<CardAuction.Models.tAuctionItem>
-
+﻿
 @{
     ViewBag.Title = "競標商品一覽";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,7 +14,7 @@
         Auction Card
     </div>
     <div class="row" id="mainContent">
-        <div class="d-none d-md-block col-md-3 col-lg-2" id="divSort">
+        <div class="d-none d-sm-none d-md-block col-md-3 col-lg-2" id="divSort">
             <p class="sortTitle">
                 <a href="" class="searchSort" data-keyword=""><span>所有商品</span></a>
             </p>
@@ -44,8 +43,39 @@
                 <a href="" class="searchSort" data-keyword="運動"><span>運動卡 (Sport)</span></a>
             </p>
         </div>
-        <div class="d-none col-sm-12" id="divBar">
-            <i class="fa-solid fa-bars"></i>
+        <div class="d-block d-sm-block d-md-none col-sm-12 flex-row align-items-center" id="divBar">
+            <div class="col-12 m-2" id="barBlock">
+                <i class="fa-solid fa-bars"></i><span id="barSortName">所有商品</span>
+            </div>
+            <div id="expandItem">
+                <div class="col-12 barSortItem">
+                    <a href="" class="searchSort" data-keyword=""><span>所有商品</span></a>
+                </div>
+                <div class="col-12 barSortItem">
+                    <a href="" class="searchSort" data-keyword="寶可夢"><span>寶可夢 (Pokemon)</span></a>
+                </div>
+                <div class="col-12 barSortItem">
+                    <a href="" class="searchSort" data-keyword="遊戲王"><span>遊戲王 (Yu-Gi-Oh!)</span></a>
+                </div>
+                <div class="col-12 barSortItem">
+                    <a href="" class="searchSort" data-keyword="魔法風雲會"><span>魔法風雲會 (MTG)</span></a>
+                </div>
+                <div class="col-12 barSortItem">
+                    <a href="" class="searchSort" data-keyword="黑與白"><span>黑與白 (Weiß Schwarz)</span></a>
+                </div>
+                <div class="col-12 barSortItem">
+                    <a href="" class="searchSort" data-keyword="七龍珠"><span>七龍珠 (DragonBallHeroes)</span></a>
+                </div>
+                <div class="col-12 barSortItem">
+                    <a href="" class="searchSort" data-keyword="鋼彈大戰"><span>鋼彈大戰 (GUNDAM WAR)</span></a>
+                </div>
+                <div class="col-12 barSortItem">
+                    <a href="" class="searchSort" data-keyword="聖火降魔錄"><span>聖火降魔錄 (FE0)</span></a>
+                </div>
+                <div class="col-12 barSortItem">
+                    <a href="" class="searchSort" data-keyword="運動"><span>運動卡 (Sport)</span></a>
+                </div>
+            </div>
         </div>
         <div class="col-12 col-sm-12 col-md-9 col-lg-10 container" id="divList">
             <div class="row" id="contentRow">
@@ -58,25 +88,34 @@
 @section scripts{
     <script>
         var contentRow = document.getElementById('contentRow');
+        var divBar = document.getElementById('divBar');
+        var barBlock = document.getElementById('barBlock');
+        var expandItem = document.getElementById('expandItem');
+        var barSortName = document.getElementById('barSortName');
+        var loading = false;
         var datas;
-        document.querySelectorAll('.cardBorder').forEach(function (dom) {
-            dom.addEventListener('mouseover', function () {
-                this.classList.add('cardSelect');
-            });
 
-            dom.addEventListener('mouseleave', function () {
-                this.classList.remove('cardSelect');
-            });
-
-        });
 
         document.querySelectorAll('.searchSort').forEach(function (dom) {
+            
             dom.addEventListener('click', function (event) {
+
+                expandItem.style.display = 'none';
+                barSortName.textContent = this.textContent;
+
+                if (loading) {
+                    event.preventDefault();
+                    return;
+                }
                 event.preventDefault();
+                loading = true;
+
+                
                 let keyword = this.dataset.keyword;
 
                 let xhr = new XMLHttpRequest();
                 xhr.addEventListener('load', function () {
+                    loading = false;
                     datas = JSON.parse(xhr.response);
 
                     ShowSearchResult(datas);
@@ -87,6 +126,37 @@
             })
         });
 
+        document.querySelector('.searchSort').click();      // 載入頁面後就先列所有商品
+
+        barBlock.addEventListener('click', clickBar);
+
+
+        window.addEventListener('scroll', checkBarPosition);
+
+        function clickBar() {
+            if (expandItem.style.display == 'none') {
+                expandItem.style.display = '';
+            }
+            else {
+                expandItem.style.display = 'none';
+            }
+        }
+        function checkBarPosition() {
+            let isFixed = divBar.classList.contains('fixedDivBar');
+            let divBarY = divBar.getBoundingClientRect().y;
+            
+
+            //console.log(divBarY);
+            //console.log(window.scrollY);
+
+            if (window.scrollY >= 450  && !isFixed) {
+                divBar.classList.add('fixedDivBar');
+            }
+            if(window.scrollY < 450 && isFixed)
+            {
+                divBar.classList.remove('fixedDivBar');
+            }
+        }
         function ShowSearchResult(queryResult) {
 
             // fEndTime, fItemId, fItemName, fMoneyNow, fPhoto
@@ -97,12 +167,13 @@
 
             for (let item of queryResult) {
                 let secondRemain = Math.floor((new Date(parseInt(item.fEndTime.substr(6))) - new Date()) / 1000);
+                   // Ajax 撈得 Jason 的 Date 物件是來自 MS 的格式，長這樣 /Date(123456...)/
+                   // 取 substr(6) 子字串得 12345...)/ 然後 parseInt 自動去掉尾巴的 )/ ，就能實體化 JS 的 Date 物件
                 let dayRemain = Math.floor(secondRemain / 86400);
                 secondRemain %= 86400;
                 let hourRemain = Math.floor(secondRemain / 3600);
                 secondRemain %= 3600;
                 let minuteRemain = Math.floor(secondRemain / 60);
-                
 
                 
                 let domDiv = document.createElement('div');
@@ -141,6 +212,20 @@
                 
             }
             contentRow.appendChild(docFrag);
+
+            addHover();                 // 放上查詢出來的結果後加上滑鼠移上去的背景特效
         }
+
+        function addHover() {
+            document.querySelectorAll('.cardBorder').forEach(function (dom) {
+                dom.addEventListener('mouseover', function () {
+                    this.classList.add('cardSelect');
+                });
+                dom.addEventListener('mouseleave', function () {
+                    this.classList.remove('cardSelect');
+                });
+            });
+        };
+
     </script>
     }

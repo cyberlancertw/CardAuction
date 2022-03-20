@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_LayoutShort.cshtml";
+}
+@section styles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/Content/HomeCss/cssHomeError.css" type="text/css" rel="stylesheet" />
+}
+<div class="container">
+    <div class="row justify-content-center align-items-center mt-5">
+        <div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 iconErr iconLeft">
+            <i class="fa-solid fa-person-digging icon1"></i>
+        </div>
+        <div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 iconErr iconRight">
+            <i class="fa-solid fa-file-circle-question"></i>
+        </div>
+        <div class="col-12 errorMsg"> @TempData["ErrorMessage"] </div>
+        <div class="col-12 redirect">網頁將重新導向……</div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+        window.setInterval(function () {
+            @if (TempData["ToController"] == null)
+            {
+                @:location.href = '@Url.Content("~/")';
+            }
+            else
+            {
+                @:location.href = '@Url.Content($"~/{TempData["ToController"]}/{TempData["ToAction"]}")';
+            }
+        }, 2000);
+    </script>
+}

@@ -124,6 +124,7 @@
     <Content Include="Content\ExchangeCss\ExchangeIndex.css" />
     <Content Include="Content\ExchangeCss\Merchandise.css" />
     <Content Include="Content\cssRWDtemplate.css" />
+    <Content Include="Content\HomeCss\cssHomeError.css" />
     <Content Include="Content\HomeCss\cssHomeIndex.css" />
     <Content Include="Content\LayoutCss\cssShortLayout.css" />
     <Content Include="Content\LayoutCss\cssUserLayout.css" />
@@ -306,7 +307,7 @@
     <Content Include="Views\Auction\Item.cshtml" />
     <Content Include="Views\Auction\List.cshtml" />
     <Content Include="Views\Exchange\Index.cshtml" />
-    <Content Include="Views\Auction\test.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
