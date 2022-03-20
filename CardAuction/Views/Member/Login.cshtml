@@ -8,6 +8,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>登入</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="~/Content/Bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/MemberCss/cssMemberLogin.css" rel="stylesheet" />
 </head>
@@ -25,7 +26,9 @@
                     </div>
                     <div id="divPwd">
                         <input type="password" name="Password" id="password" placeholder="   密碼" />
-                        <img src="~/images/site/iconPwdShow.png" />
+                        <div>
+                            <i class="fa-solid fa-eye" id="pwdEye"></i>
+                        </div>
                     </div>
 
                     <div id="divForget">
@@ -33,7 +36,7 @@
                     </div>
                     <span class="error">@ViewBag.errorMessage</span>
                     <div id="divSend">
-                        <input type="submit" id="btnSend" value="登入" />
+                        <input type="submit" id="btnSend" value="登入" disabled />
                     </div>
                     <div id="txtRegistInfo">
                         沒有帳戶？@Html.ActionLink("立即建立", "Register")
@@ -43,7 +46,33 @@
         </div>
     </div>
     <script>
-        document.getElementById('username').focus();
+        var inputAcc = document.getElementById('username');
+        inputAcc.focus();
+        var inputPwd = document.getElementById('password');
+        var pwdEye = document.getElementById('pwdEye');
+        var btnSend = document.getElementById('btnSend');
+
+        pwdEye.addEventListener('click', togglePassword);
+        inputAcc.addEventListener('blur', checkButton);
+        inputPwd.addEventListener('blur', checkButton);
+        function togglePassword() {
+            if (inputPwd.type == 'password') {
+                inputPwd.type = 'text';
+            }
+            else {
+                inputPwd.type = 'password';
+            }
+        }
+        function checkButton() {
+            if (inputAcc.value == '' || inputPwd.value == '') {
+                btnSend.style.backgroundColor = '#ced3d8';
+                btnSend.disabled = 'true';
+            }
+            else {
+                btnSend.style.backgroundColor = '#6b6b6b';
+                btnSend.disabled = '';
+            }
+        }
     </script>
 </body>
 </html>

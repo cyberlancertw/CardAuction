@@ -41,11 +41,12 @@
     border: 2px solid #ebebeb;
     border-radius: 5px;
 }
-#divPwd > img {
+#divPwd > div {
     position: absolute;
-    top: 18px;
-    right: 16px;
-    width: 30px;
+    color: #808080;
+    font-size: 1.4rem;
+    top: 0.8rem;
+    right: 1.5rem;
 }
 #divForget{
     margin-top: 10px;

@@ -9,6 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>註冊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="~/Content/Bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/MemberCss/cssMemberRegister.css" rel="stylesheet" type="text/css" />
 </head>
@@ -29,7 +30,10 @@
                             <span class="errMsg" id="spanAcc">@ViewBag.errAcc</span>
                          </div>
                         <div id="divPwd">
-                            <input id="password" type="password" name="Password" placeholder="     密碼" minlength="8" reuired/>
+                            <input id="password" type="password" name="Password" placeholder="     密碼" minlength="8" reuired />
+                            <div>
+                                <i class="fa-solid fa-eye" id="pwdEye"></i>
+                            </div>
                             <span class="errMsg">@ViewBag.errPwd</span>
                         </div>
                         <div id="divPwdCheck">
@@ -49,7 +53,7 @@
                             <input id="address" type="text" class="col-7" name="Address" placeholder="     地址" required />
                             <span class="errMsg">@ViewBag.errAddr</span>
                         </div>
-                        <div id="divEmail">
+                        <div id="divPhone">
                             <input id="phone" type="tel" name="Phone" placeholder="     電話" required />
                             <span class="errMsg">@ViewBag.errPhone</span>
                         </div>
@@ -75,7 +79,7 @@
                             </div>
                         </div>
                         <div id="divSubmit">
-                            <input type="submit" id="btnSubmit" value="註冊" />
+                            <input type="submit" id="btnSubmit" value="註冊" disabled />
                         </div>
                         <div id="divLogin">
                             已有帳戶？@Html.ActionLink("登入", "Login")
@@ -88,6 +92,23 @@
     <!--地址select要放入的option-->
     <script src="~/Scripts/jsMemberRegister.js"></script>
     <script>
+        var pwdEye = document.getElementById('pwdEye');
+        var inputPwd = document.getElementById('password');
+        var inputPwdCheck = document.getElementById('passwordCheck');
+        var inputAcc = document.getElementById('username');
+        var chkPrivacy = document.getElementById('chkPrivacy');
+        var btnSubmit = document.getElementById('btnSubmit');
+        var inputRealName = document.getElementById('realname');
+        var inputEmail = document.getElementById('email');
+        var inputAddress = document.getElementById('address');
+        var inputPhone = document.getElementById('phone');
+        var blurList = [inputAcc, inputPwd, inputPwdCheck, inputRealName, inputEmail, inputAddress, inputPhone];
+        blurList.forEach(function (dom) {
+            dom.addEventListener('blur', checkButton);
+        });
+
+        var accEnable = false, privacyAccept = false;
+
         document.getElementById('username').addEventListener('blur', function () {
             var xhr = new XMLHttpRequest();
             var inputAcc = document.getElementById('username').value;;
@@ -97,15 +118,48 @@
                 let domWarning = document.getElementById('spanAcc')
                 if (isExist == 'True') {
                     domWarning.textContent = '此帳號已被註冊';
+                    accEnable = false;
                 }
                 else {
                     domWarning.textContent = '帳號可使用';
+                    accEnable = true;
                 }
             });
             let parameter = '?Account=' + inputAcc;
             xhr.open('GET', '@Url.Content("~/Member/AccountCount")'+ parameter);
             xhr.send();
         });
+
+        pwdEye.addEventListener('click', togglePassword);
+        chkPrivacy.addEventListener('change', function () {
+            privacyAccept = chkPrivacy.checked;
+            checkButton();
+        });
+
+        function togglePassword() {
+            if (inputPwd.type == 'password') {
+                inputPwd.type = 'text';
+                inputPwdCheck.type = 'text';
+            }
+            else {
+                inputPwd.type = 'password';
+                inputPwdCheck.type = 'password';
+            }
+        }
+
+        function checkButton() {
+            if (!privacyAccept || inputAcc.value.length < 6 || !accEnable ||
+                inputPwd.value < 8 || (inputPwd.value != inputPwdCheck.value) ||
+                inputRealName.value.length < 2 || inputEmail.value < 2 || !inputEmail.value.includes('@@') ||
+                inputAddress.value == '' || inputPhone.value == '' ) {
+                btnSubmit.style.backgroundColor = '#ced3d8';
+                btnSubmit.disabled = 'true';
+            }
+            else {
+                btnSubmit.style.backgroundColor = '#6b6b6b';
+                btnSubmit.disabled = '';
+            }
+        }
     </script>
 </body>
 </html>
