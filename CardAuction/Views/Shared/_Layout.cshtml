@@ -9,9 +9,11 @@
     <link href="~/Content/Bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
     @RenderSection("styles", required: false)
 </head>
+
 <body>
     <div id="fullPage">
         <div id="header">
+
             @{
                 var userAcc = Session[CDictionary.SK_UserAccount];
                 if (userAcc == null)
@@ -23,9 +25,12 @@
                     @Html.ActionLink(userAcc.ToString(), "Index", "Member")
                 }
             }
+            @Html.ActionLink("Admin","","Admin")
+
             @Html.ActionLink("關於我們", "About")
             @Html.ActionLink("使用說明", "Information")
             @Html.ActionLink("聯絡我們", "Contact")
+           
         </div>
         <div id="nav" class="row">
             <div id="catalog1" class="col-12 col-sm-12 col-md-4">

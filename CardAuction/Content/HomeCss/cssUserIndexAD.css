@@ -48,9 +48,9 @@ img {
 }
 
 /* On hover, add a black background color with a little bit see-through */
-    .prev:hover, .next:hover {
-        background-color: rgba(0,0,0,0.8);
-    }
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
 
 /* Caption text */
 .text {
@@ -117,6 +117,7 @@ img {
 }*/
 
 /* On smaller screens, decrease text size */
+
 @media only screen and (max-width: 300px) {
     .prev, .next, .text {
         font-size: 11px

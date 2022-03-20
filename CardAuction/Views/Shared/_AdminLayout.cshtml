@@ -3,27 +3,41 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin _ @ViewBag.Title</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <title>Cards Admin _ @ViewBag.Title</title>
+    <!-- CSSReset -->
+    <link rel="stylesheet" href="~/Content/cssReset.css">
+    <!-- Bootstrap -->
+    <link href="~/Content/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
     <!-- CSS -->
     <link rel="stylesheet" href="~/Content/AdminCss/cssAdminLayout.css" />
-    <!-- <script src="~/Scripts/modernizr-2.8.3.js"></script> -->
 </head>
 
 <body>
 
     <nav>
-        <div id="navdiv">
-            <button class="tablink" onclick="location.href='/Home/' ">使用者首頁</button>
-            <button class="tablink" onclick="location.href='/Admin/' ">管理員首頁</button>
-            <button class="tablink" onclick="location.href='/Admin/PsnManage' ">人員管理</button>
-            <button class="tablink" onclick="location.href='/Admin/' ">商品管理</button>
-            <button class="tablink" onclick="location.href='/Admin/' ">廣告管理</button>
-            <button class="tablink" onclick="location.href='/Admin/' ">數據分析</button>
-            <button class="tablink" onclick="location.href='/Home/' ">登出</button>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="nav-left">
+                    <a class="tablink" href="/Admin/PsnManage">Members</a>
+                    <a class="tablink" href="/Admin/">Products</a>
+                    <a class="tablink" href="/Admin/AdManage">Advert</a>
+                    <a class="tablink" href="/Admin/">Analysis</a>
+                </div>
+
+                <div class="nav-middle">
+                    <h1 class="nav-title">Cards </h1>
+                </div>
+
+                <div class="nav-right">
+                    <a class="tablink" href="/">User</a>
+                    <a class="tablink" href="/Admin">Admin</a>
+                    <a class="tablink" href="/">LogOut</a>
+                </div>
+
+            </div>
         </div>
-    </nav>
+     </nav>
 
     <content>
         @RenderBody()
