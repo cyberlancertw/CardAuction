@@ -56,19 +56,19 @@
                         @{
                             if (Model.fPhoto0 != null)
                             {
-                                <img src="~/Images/AuctionItemImages/@filepath0" class="imgSmall" id="imgSmall0" />
+                                <img src="~/Images/AuctionItemImages/@filepath0" class="imgSmall imgOut" id="imgSmall0" />
                             }
                             if (Model.fPhoto1 != null)
                             {
-                                <img src="~/Images/AuctionItemImages/@filepath1" class="imgSmall" id="imgSmall1" />
+                                <img src="~/Images/AuctionItemImages/@filepath1" class="imgSmall imgOut" id="imgSmall1" />
                             }
                             if (Model.fPhoto2 != null)
                             {
-                                <img src="~/Images/AuctionItemImages/@filepath2" class="imgSmall" id="imgSmall2" />
+                                <img src="~/Images/AuctionItemImages/@filepath2" class="imgSmall imgOut" id="imgSmall2" />
                             }
                             if (Model.fPhoto3 != null)
                             {
-                                <img src="~/Images/AuctionItemImages/@filepath3" class="imgSmall" id="imgSmall3" />
+                                <img src="~/Images/AuctionItemImages/@filepath3" class="imgSmall imgOut" id="imgSmall3" />
                             }
                         }
                     </div>
@@ -196,23 +196,10 @@
 
                     </div>
                     <div id="inputSend">
-                        <div class="row commentRecord">
-                            <div class="col-sm-4 col-md-2 commentAccount">
-                                samplebid8675
-                            </div>
-                            <div class="col-sm-8 col-md-10 commentContent">
-                                好
-                            </div>
+                        <div id="commentHere">
+                            <!-- comment result -->
                         </div>
-                        <hr />
-                        <div class="row commentRecord">
-                            <div class="col-sm-4 col-md-2 commentAccount">
-                                abcd123
-                            </div>
-                            <div class="col-sm-8 col-md-10 commentContent">
-                                想要這張想要這張想要這張想要這張想要這張想要這張想要這張想要這張想要這張
-                            </div>
-                        </div>
+                        
                         <div class="row commentRecord">
                             <div class="col-sm-9 col-md-10">
                                 <input type="text" id="txtComment" />
@@ -252,6 +239,9 @@
         var iconFavorite = document.getElementById('iconFavorite');
         var txtFavorite = document.getElementById('txtFavorite');
         var txtComment = document.getElementById('txtComment');
+        var btnCommentSend = document.getElementById('btnCommentSend');
+        var commentHere = document.getElementById('commentHere');
+
         var fItemId = '@Model.fItemId.ToString()';
 
         var timer = window.setInterval(function () {
@@ -277,14 +267,17 @@
         }
         document.querySelectorAll('.imgSmall').forEach(function (dom) {
             dom.addEventListener('mouseover', function () {
-
-                domShow.classList.add('imageChange');
+                this.classList.remove('imageOut');
+                this.classList.add('imageHover');
                 domShow.src = this.src;
             });
             dom.addEventListener('mouseleave', function () {
-                domShow.classList.remove('imageChange');
+                this.classList.remove('imageHover');
+                this.classList.add('imageOut');
             });
             dom.addEventListener('click', function () {
+                this.classList.remove('imageOut');
+                this.classList.add('imageHover');
                 domShow.src = this.src;
             });
         });
@@ -301,6 +294,9 @@
             if (Session[CDictionary.SK_UserUserId] == null)
             {
                 @:event.preventDefault();
+                TempData[CDictionary.SK_RedirectToAction] = "Item";
+                TempData[CDictionary.SK_RedirectToController] = "Auction";
+                TempData[CDictionary.SK_RedirectToId] = Model.fItemId.ToString();
                 @:location.href = '@Url.Content("~/Member/Login")';
                 @:return;
             }
@@ -324,6 +320,85 @@
             txtComment.focus();
         });
 
+
+        btnCommentSend.addEventListener('click', function () {
+        @if (Session[CDictionary.SK_UserAccount] == null)
+        {
+            TempData[CDictionary.SK_RedirectToAction] = "Item";
+            TempData[CDictionary.SK_RedirectToController] = "Auction";
+            TempData[CDictionary.SK_RedirectToId] = Model.fItemId.ToString();
+            @:location.href = '@Url.Content("~/Member/Login")';
+        }
+        else
+        {
+            @:let content = txtComment.value;
+            @:if (content != '') {
+            @:    sendComment(txtComment.value);
+            @:}
+            @:txtComment.value = '';
+            @:txtComment.focus();
+        }
+        });
+
+        receiveComments();
+
+
+        function sendComment(content) {
+            let xhr = new XMLHttpRequest();
+            let para = `?itemId=${fItemId}&message=${content}`;
+            xhr.addEventListener('load', receiveComments);
+            xhr.open('GET', '@Url.Content("~/Auction/WriteComment")' + para);
+            xhr.send();
+        };
+
+        function receiveComments() {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', function () {
+                let datas = JSON.parse(this.responseText);
+                refreshComments(datas);
+            });
+            let para = `?ItemId=${fItemId}`;
+            xhr.open('GET', '@Url.Content("~/Auction/ReceiveComments")' + para);
+            xhr.send();
+        }
+
+        function refreshComments(datas) {
+            console.log(datas);
+            commentHere.innerHTML = '';
+
+            let docFrag = document.createDocumentFragment();
+            for (let comment of datas) {
+                let commentTime = new Date(parseInt(comment.postTime.substr(6))).toLocaleString();
+                let domRow = document.createElement('div');
+                domRow.className = 'row commentRecord';
+                let domAccount = document.createElement('div');
+                domAccount.className = 'col-6 col-sm-6 col-md-2 commentAccount';
+                domAccount.textContent = comment.postAcc;
+                let domContent = document.createElement('div');
+                domContent.className = 'col-6 col-sm-12 col-md-8 commentContent';
+                domContent.textContent = comment.content;
+                let domTime = document.createElement('div');
+                domTime.className = 'col-6 col-sm-6 col-md-2 commentTime';
+                domTime.textContent = commentTime;
+                domRow.appendChild(domAccount);
+                domRow.appendChild(domContent);
+                domRow.appendChild(domTime);
+
+                docFrag.appendChild(domRow);
+            }
+
+            commentHere.appendChild(docFrag);
+            /*
+             * <div class="row commentRecord">
+                            <div class="col-sm-4 col-md-2 commentAccount">
+                                abcd123
+                            </div>
+                            <div class="col-sm-8 col-md-10 commentContent">
+                                想要這張想要這張想要這張想要這張想要這張想要這張想要這張想要這張想要這張
+                            </div>
+                        </div>
+             */
+        }
         function checkFavorite() {
             let xhr = new XMLHttpRequest();
             xhr.addEventListener('load', function () {
@@ -334,7 +409,7 @@
             let para = `?ItemId=${fItemId}`;
             xhr.open('GET', '@Url.Content("~/Member/IsFavorite")' + para);
             xhr.send();
-        }
+        };
 
         function toggleFavorite(isFavorite) {
             if (isFavorite == 'True') {

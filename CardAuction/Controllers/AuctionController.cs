@@ -56,8 +56,9 @@ namespace CardAuction.Controllers
         {
             if(Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                Session[CDictionary.SK_RedirectToAction] = "Post";
-                Session[CDictionary.SK_RedirectToController] = "Auction";
+                TempData[CDictionary.SK_RedirectToAction] = "Post";
+                TempData[CDictionary.SK_RedirectToController] = "Auction";
+
                 return RedirectToAction("Login", "Member");
             }
             else
@@ -70,8 +71,8 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                Session[CDictionary.SK_RedirectToAction] = "Post";
-                Session[CDictionary.SK_RedirectToController] = "Auction";
+                TempData[CDictionary.SK_RedirectToAction] = "Post";
+                TempData[CDictionary.SK_RedirectToController] = "Auction";
                 return RedirectToAction("Login", "Member");
             }
 
@@ -134,6 +135,7 @@ namespace CardAuction.Controllers
             createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結標時間
             createItem.fCreateTime = nowTime;                                                       // 現在時間為建立時間
             createItem.fMoneyStart = vModel.fMoneyStart;
+            createItem.fMoneyStep = vModel.fMoneyStep;
             createItem.fMoneyNow = vModel.fMoneyStart;                                              // 目前價格即起標價格
             createItem.fClick = 0;
             createItem.fDelete = false;
@@ -164,7 +166,7 @@ namespace CardAuction.Controllers
             {
                 var queryAll = from item in db.tAuctionItem
                                where item.fEndTime > DateTime.Now
-                               select new QueryResult
+                               select new
                                {
                                    fItemId = item.fItemId,
                                    fEndTime = item.fEndTime,
@@ -188,6 +190,56 @@ namespace CardAuction.Controllers
             
             return Json(queryResult,JsonRequestBehavior.AllowGet);
             
+        }
+        public ActionResult ReceiveComments(string itemId)
+        {
+            bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId);
+            if (isExist)
+            {
+                var queryResult = db.tCommentAuction
+                    .Where(p=>p.fItemId == itemId)
+                    .Join(db.tMember,
+                          c => c.fFromUserId,
+                          m => m.fUserId,
+                          (c, m) => new { postAcc = m.fAccount,
+                                          content = c.fContent,
+                                          postTime = c.fPostTime })
+                    .OrderBy(n => n.postTime); ;
+                return Json(queryResult, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult WriteComment(string itemId, string message)
+        {
+            //if (Session[CDictionary.SK_UserUserId] == null)
+            //{
+            //    return Redire
+            //}
+            string userId = Session[CDictionary.SK_UserUserId].ToString();
+            bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId && m.fContent == message && m.fFromUserId == userId);
+            if (isExist)
+            {
+                return null;
+            }
+            tCommentAuction newComment = new tCommentAuction
+            {
+                fItemId = itemId,
+                fFromUserId = userId,
+                fPostTime = DateTime.Now,
+                fContent = message
+            };
+            db.tCommentAuction.Add(newComment);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(Exception e)
+            {
+
+            }
+            return null;
         }
     }
 

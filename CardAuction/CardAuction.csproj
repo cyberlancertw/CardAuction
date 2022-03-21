@@ -319,6 +319,9 @@
     <Compile Include="Models\tAuctionItem.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tCommentAuction.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tExchangeFavorite.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>

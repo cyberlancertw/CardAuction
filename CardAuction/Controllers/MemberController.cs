@@ -32,7 +32,7 @@ namespace CardAuction.Controllers
             {
                 return View();
             }
-            else                                            // 有登入，送進 Home/Index
+            else                                                   // 有登入，送進 Home/Index
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -67,11 +67,20 @@ namespace CardAuction.Controllers
                     return RedirectToAction("Index", "Admin");
                 }
 
-                if (Session[CDictionary.SK_RedirectToAction] != null)
+                string toAction = TempData[CDictionary.SK_RedirectToAction].ToString();
+                if (toAction != null)
                 {
-                    string toAction = Session[CDictionary.SK_RedirectToAction].ToString();
-                    string toController = Session[CDictionary.SK_RedirectToController].ToString();
-                    return RedirectToAction(toAction, toController);
+                    string toController = TempData[CDictionary.SK_RedirectToController].ToString();
+                    string toId = TempData[CDictionary.SK_RedirectToId].ToString();
+
+                    if (toId == null)
+                    {
+                        return RedirectToAction(toAction, toController);
+                    }
+                    else
+                    {
+                        return RedirectToAction(toAction, toController, new { id = toId });
+                    }
                 }
                 else
                 {

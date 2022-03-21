@@ -14,10 +14,13 @@
 
 @media (min-width: 576px) and (max-width: 767px) {
     html {
-        font-size: 11px;
+        font-size: 14px;
     }
     .imgWrap {
         height: 35rem;
+    }
+    #barBlock {
+        font-size: 1.4rem;
     }
 }
 

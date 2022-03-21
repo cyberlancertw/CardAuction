@@ -29,5 +29,6 @@ namespace CardAuction.Models
         public virtual DbSet<tAuctionItem> tAuctionItem { get; set; }
         public virtual DbSet<tExchangeFavorite> tExchangeFavorite { get; set; }
         public virtual DbSet<tMember> tMember { get; set; }
+        public virtual DbSet<tCommentAuction> tCommentAuction { get; set; }
     }
 }

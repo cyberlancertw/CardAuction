@@ -42,6 +42,16 @@
           <Property Name="fReport" Type="int" Nullable="false" />
           <Property Name="fDelete" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="tCommentAuction">
+          <Key>
+            <PropertyRef Name="fCommentId" />
+          </Key>
+          <Property Name="fCommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fFromUserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fItemId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fPostTime" Type="datetime" Nullable="false" />
+          <Property Name="fContent" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
         <EntityType Name="tExchangeFavorite">
           <Key>
             <PropertyRef Name="fFavId" />
@@ -70,6 +80,7 @@
         <EntityContainer Name="dbCardAuctionModelStoreContainer">
           <EntitySet Name="tAuctionFavorite" EntityType="Self.tAuctionFavorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tCommentAuction" EntityType="Self.tCommentAuction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tExchangeFavorite" EntityType="Self.tExchangeFavorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tMember" EntityType="Self.tMember" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -144,7 +155,18 @@
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" />
           <EntitySet Name="tExchangeFavorite" EntityType="Self.tExchangeFavorite" />
           <EntitySet Name="tMember" EntityType="Self.tMember" />
+          <EntitySet Name="tCommentAuction" EntityType="dbCardAuctionModel.tCommentAuction" />
         </EntityContainer>
+        <EntityType Name="tCommentAuction">
+          <Key>
+            <PropertyRef Name="fCommentId" />
+          </Key>
+          <Property Name="fCommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fFromUserId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fItemId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPostTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fContent" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -214,6 +236,17 @@
                 <ScalarProperty Name="fManager" ColumnName="fManager" />
                 <ScalarProperty Name="fActive" ColumnName="fActive" />
                 <ScalarProperty Name="fDelete" ColumnName="fDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tCommentAuction">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tCommentAuction">
+              <MappingFragment StoreEntitySet="tCommentAuction">
+                <ScalarProperty Name="fContent" ColumnName="fContent" />
+                <ScalarProperty Name="fPostTime" ColumnName="fPostTime" />
+                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
+                <ScalarProperty Name="fFromUserId" ColumnName="fFromUserId" />
+                <ScalarProperty Name="fCommentId" ColumnName="fCommentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

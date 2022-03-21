@@ -88,6 +88,7 @@
         height: 2.6rem;
         font-size: 1.2rem;
     }
+    
 }
 
 @media (min-width: 576px) and (max-width:767px) {
@@ -120,6 +121,9 @@
         height: 3.2rem;
         font-size: 1.4rem;
     }
+    .commentContent {
+        order: 1;
+    }
 }
 @media (max-width: 575px){
     html{
@@ -150,6 +154,9 @@
     #txtBid {
         height: 3.8rem;
         font-size: 1.8rem;
+    }
+    .commentContent {
+        order: 1;
     }
 }
 body {
@@ -320,7 +327,11 @@ body {
 
 }
 .commentContent{
+}
 
+.commentTime {
+    text-align: right;
+    color: #ced3d8;
 }
 
 #txtComment{
@@ -339,22 +350,15 @@ body {
 }
 
 .imgSmall{
-    margin-right: 10px;
+    margin-right: 1rem;
 }
 
-.imageChange{
-    animation-name: brightToNormal;
-    animation-duration: 0.5s;
+.imgOut {
+    filter: opacity(0.8);
 }
-@keyframes brightToNormal{
-    from{
-        /*filter:brightness(3);*/
-        filter: blur(3px);
-    }
-    to {
-        /*filter:brightness(1);*/
-        filter: blur(0);
-    }
+
+.imageHover{
+    filter: opacity(1);
 }
 
 #btnReport, #btnFavorite, #btnComment {

@@ -9,6 +9,7 @@
         <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionItem" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbCardAuctionModel.tExchangeFavorite" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbCardAuctionModel.tMember" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCardAuctionModel.tCommentAuction" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
