@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tAuctionBid">
           <Key>
             <PropertyRef Name="fBidId" />
@@ -70,6 +70,27 @@
           <Property Name="fFromUserId" Type="varchar" MaxLength="20" />
           <Property Name="fToItemId" Type="varchar" MaxLength="30" />
         </EntityType>
+        <EntityType Name="tExchangeItem">
+          <Key>
+            <PropertyRef Name="fItemId" />
+          </Key>
+          <Property Name="fItemId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fItemName" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="fItemDescription" Type="nvarchar" MaxLength="800" Nullable="false" />
+          <Property Name="fPhoto0" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fPhoto1" Type="varchar" MaxLength="30" />
+          <Property Name="fPhoto2" Type="varchar" MaxLength="30" />
+          <Property Name="fPhoto3" Type="varchar" MaxLength="30" />
+          <Property Name="fItemLocation" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="fItemLeavel" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="fHopeItemName" Type="nvarchar" MaxLength="60" />
+          <Property Name="fHopeItemLocation" Type="nvarchar" MaxLength="5" />
+          <Property Name="fCreateTime" Type="datetime" Nullable="false" />
+          <Property Name="fEndTime" Type="datetime" Nullable="false" />
+          <Property Name="fClick" Type="int" />
+          <Property Name="fReport" Type="int" />
+          <Property Name="fDelete" Type="bit" />
+        </EntityType>
         <EntityType Name="tMember">
           <Key>
             <PropertyRef Name="fUserId" />
@@ -93,12 +114,24 @@
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tCommentAuction" EntityType="Self.tCommentAuction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tExchangeFavorite" EntityType="Self.tExchangeFavorite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tExchangeItem" EntityType="Self.tExchangeItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tMember" EntityType="Self.tMember" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbCardAuctionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tAuctionBid">
+          <Key>
+            <PropertyRef Name="fBidId" />
+          </Key>
+          <Property Name="fBidId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fMoney" Type="Int32" Nullable="false" />
+          <Property Name="fTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="tAuctionFavorite">
           <Key>
             <PropertyRef Name="fFavId" />
@@ -136,6 +169,16 @@
           <Property Name="fReport" Type="Int32" Nullable="false" />
           <Property Name="fDelete" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="tCommentAuction">
+          <Key>
+            <PropertyRef Name="fCommentId" />
+          </Key>
+          <Property Name="fCommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fFromUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fPostTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fContent" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="tExchangeFavorite">
           <Key>
             <PropertyRef Name="fFavId" />
@@ -143,6 +186,27 @@
           <Property Name="fFavId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fFromUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="fToItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tExchangeItem">
+          <Key>
+            <PropertyRef Name="fItemId" />
+          </Key>
+          <Property Name="fItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fItemName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fItemDescription" Type="String" MaxLength="800" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fPhoto0" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fPhoto1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fItemLocation" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fItemLeavel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fHopeItemName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="fHopeItemLocation" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="fCreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fEndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fClick" Type="Int32" />
+          <Property Name="fReport" Type="Int32" />
+          <Property Name="fDelete" Type="Boolean" />
         </EntityType>
         <EntityType Name="tMember">
           <Key>
@@ -162,39 +226,31 @@
           <Property Name="fDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="dbCardAuctionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tAuctionBid" EntityType="Self.tAuctionBid" />
           <EntitySet Name="tAuctionFavorite" EntityType="Self.tAuctionFavorite" />
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" />
+          <EntitySet Name="tCommentAuction" EntityType="Self.tCommentAuction" />
           <EntitySet Name="tExchangeFavorite" EntityType="Self.tExchangeFavorite" />
+          <EntitySet Name="tExchangeItem" EntityType="Self.tExchangeItem" />
           <EntitySet Name="tMember" EntityType="Self.tMember" />
-          <EntitySet Name="tCommentAuction" EntityType="dbCardAuctionModel.tCommentAuction" />
-          <EntitySet Name="tAuctionBid" EntityType="dbCardAuctionModel.tAuctionBid" />
         </EntityContainer>
-        <EntityType Name="tCommentAuction">
-          <Key>
-            <PropertyRef Name="fCommentId" />
-          </Key>
-          <Property Name="fCommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fFromUserId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="fItemId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="fPostTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="fContent" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="tAuctionBid">
-          <Key>
-            <PropertyRef Name="fBidId" />
-          </Key>
-          <Property Name="fBidId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fItemId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="fUserId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="fMoney" Type="Int32" Nullable="false" />
-          <Property Name="fTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="dbCardAuctionModelStoreContainer" CdmEntityContainer="dbCardAuctionEntities">
+          <EntitySetMapping Name="tAuctionBid">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tAuctionBid">
+              <MappingFragment StoreEntitySet="tAuctionBid">
+                <ScalarProperty Name="fBidId" ColumnName="fBidId" />
+                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
+                <ScalarProperty Name="fUserId" ColumnName="fUserId" />
+                <ScalarProperty Name="fMoney" ColumnName="fMoney" />
+                <ScalarProperty Name="fTime" ColumnName="fTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tAuctionFavorite">
             <EntityTypeMapping TypeName="dbCardAuctionModel.tAuctionFavorite">
               <MappingFragment StoreEntitySet="tAuctionFavorite">
@@ -234,12 +290,45 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tCommentAuction">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tCommentAuction">
+              <MappingFragment StoreEntitySet="tCommentAuction">
+                <ScalarProperty Name="fCommentId" ColumnName="fCommentId" />
+                <ScalarProperty Name="fFromUserId" ColumnName="fFromUserId" />
+                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
+                <ScalarProperty Name="fPostTime" ColumnName="fPostTime" />
+                <ScalarProperty Name="fContent" ColumnName="fContent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tExchangeFavorite">
             <EntityTypeMapping TypeName="dbCardAuctionModel.tExchangeFavorite">
               <MappingFragment StoreEntitySet="tExchangeFavorite">
                 <ScalarProperty Name="fFavId" ColumnName="fFavId" />
                 <ScalarProperty Name="fFromUserId" ColumnName="fFromUserId" />
                 <ScalarProperty Name="fToItemId" ColumnName="fToItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tExchangeItem">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tExchangeItem">
+              <MappingFragment StoreEntitySet="tExchangeItem">
+                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
+                <ScalarProperty Name="fItemName" ColumnName="fItemName" />
+                <ScalarProperty Name="fItemDescription" ColumnName="fItemDescription" />
+                <ScalarProperty Name="fPhoto0" ColumnName="fPhoto0" />
+                <ScalarProperty Name="fPhoto1" ColumnName="fPhoto1" />
+                <ScalarProperty Name="fPhoto2" ColumnName="fPhoto2" />
+                <ScalarProperty Name="fPhoto3" ColumnName="fPhoto3" />
+                <ScalarProperty Name="fItemLocation" ColumnName="fItemLocation" />
+                <ScalarProperty Name="fItemLeavel" ColumnName="fItemLeavel" />
+                <ScalarProperty Name="fHopeItemName" ColumnName="fHopeItemName" />
+                <ScalarProperty Name="fHopeItemLocation" ColumnName="fHopeItemLocation" />
+                <ScalarProperty Name="fCreateTime" ColumnName="fCreateTime" />
+                <ScalarProperty Name="fEndTime" ColumnName="fEndTime" />
+                <ScalarProperty Name="fClick" ColumnName="fClick" />
+                <ScalarProperty Name="fReport" ColumnName="fReport" />
+                <ScalarProperty Name="fDelete" ColumnName="fDelete" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -258,28 +347,6 @@
                 <ScalarProperty Name="fManager" ColumnName="fManager" />
                 <ScalarProperty Name="fActive" ColumnName="fActive" />
                 <ScalarProperty Name="fDelete" ColumnName="fDelete" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tCommentAuction">
-            <EntityTypeMapping TypeName="dbCardAuctionModel.tCommentAuction">
-              <MappingFragment StoreEntitySet="tCommentAuction">
-                <ScalarProperty Name="fContent" ColumnName="fContent" />
-                <ScalarProperty Name="fPostTime" ColumnName="fPostTime" />
-                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
-                <ScalarProperty Name="fFromUserId" ColumnName="fFromUserId" />
-                <ScalarProperty Name="fCommentId" ColumnName="fCommentId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tAuctionBid">
-            <EntityTypeMapping TypeName="dbCardAuctionModel.tAuctionBid">
-              <MappingFragment StoreEntitySet="tAuctionBid">
-                <ScalarProperty Name="fTime" ColumnName="fTime" />
-                <ScalarProperty Name="fMoney" ColumnName="fMoney" />
-                <ScalarProperty Name="fUserId" ColumnName="fUserId" />
-                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
-                <ScalarProperty Name="fBidId" ColumnName="fBidId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -25,11 +25,12 @@ namespace CardAuction.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tAuctionBid> tAuctionBid { get; set; }
         public virtual DbSet<tAuctionFavorite> tAuctionFavorite { get; set; }
         public virtual DbSet<tAuctionItem> tAuctionItem { get; set; }
-        public virtual DbSet<tExchangeFavorite> tExchangeFavorite { get; set; }
-        public virtual DbSet<tMember> tMember { get; set; }
         public virtual DbSet<tCommentAuction> tCommentAuction { get; set; }
-        public virtual DbSet<tAuctionBid> tAuctionBid { get; set; }
+        public virtual DbSet<tExchangeFavorite> tExchangeFavorite { get; set; }
+        public virtual DbSet<tExchangeItem> tExchangeItem { get; set; }
+        public virtual DbSet<tMember> tMember { get; set; }
     }
 }
