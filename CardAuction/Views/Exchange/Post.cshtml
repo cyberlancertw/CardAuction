@@ -1,0 +1,383 @@
+﻿@using CardAuction.Models
+@{
+    Layout = "~/Views/Shared/_LayoutShort.cshtml";
+    ViewBag.Title = "交換商品上架";
+    ViewBag.pageTitle = "新增交換商品";
+    string username = null;
+    string userId = null;
+    if (Session[CDictionary.SK_UserAccount] != null)
+    {
+        username = Session[CDictionary.SK_UserAccount].ToString();
+        userId = (string)Session[CDictionary.SK_UserUserId];
+    }
+}
+@section styles{
+    <link rel="stylesheet" href="~/Content/ExchangeCss/cssExchange.css" type="text/css" />
+}
+<form action="#" method="post" enctype="multipart/form-data">
+    <div id="fullPage">
+        <div class="row" id="header">
+            <div class="col-12 col-md-3">
+                <img src="~/images/site/iconWebsite.png" id="webIcon">
+                新增商品
+            </div>
+            <div class="offset-8 col-4 offset-md-6 col-md-3" id="greeting">
+                歡迎, @username
+            </div>
+        </div>
+        <div id="mainBox">
+            <div id="basicInfo">
+                <div class="divTitle">
+                    基本資訊  <span class="errMsg">@ViewData["errorMessage"]</span>
+                </div>
+                <input type="hidden" name="fPostUserId" value="@username" />
+                <div class="row divContent" id="divImgSelect">
+                    <div class="contentHead col-12 col-md-3">
+                        商品圖片
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <div class="row picBlockList">
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="picBlock dragNone" id="picBlock0">
+                                </div>
+                                *商品圖片
+                                <input type="file" name="Photo0" id="inputFile0">
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="picBlock dragNone" id="picBlock1">
+                                </div>
+                                <input type="file" name="Photo1" id="inputFile1">
+                                圖片二
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="picBlock dragNone" id="picBlock2">
+                                </div>
+                                圖片三
+                                <input type="file" name="Photo2" id="inputFile2">
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="picBlock dragNone" id="picBlock3">
+                                </div>
+                                圖片四
+                                <input type="file" name="Photo3" id="inputFile3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row divContent" id="divItemplace">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="Sort">*所在地點</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <select name="fItemplace" id="selectItemplace">
+                            <option value="none"></option>
+                            <option value="Keelung">基隆市</option>
+                            <option value="New_Taipei">新北市</option>
+                            <option value="Taipei">臺北市</option>
+                            <option value="Taoyuan">新北市</option>
+                            <option value="Hsinchu_County">新竹縣</option>
+                            <option value="Hsinchu_City">新竹市</option>
+                            <option value="Miaoli_County">苗栗縣</option>
+                            <option value="Taichung">臺中市</option>
+                            <option value="Changhua_County">彰化縣</option>
+                            <option value="Nantou_County">南投縣</option>
+                            <option value="Yunlin">雲林縣</option>
+                            <option value="Chiayi_County">嘉義縣</option>
+                            <option value="Chiayi_City">嘉義市</option>
+                            <option value="Tainan">臺南市</option>
+                            <option value="Kaohsiung">高雄市</option>
+                            <option value="Pingtung_County">屏東縣</option>
+                            <option value="Yilan_County">宜蘭縣</option>
+                            <option value="Hualien_County">花蓮縣</option>
+                            <option value="Taitung_County">臺東縣</option>
+                            <option value="Penghu">澎湖縣</option>
+                            <option value="Green_Island">綠島</option>
+                            <option value="Orchid_Island">蘭嶼</option>
+                            <option value="Kinmen">金門縣</option>
+                            <option value="Matsu">馬祖</option>
+                            <option value="Lienchiang">連江縣</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row divContent" id="divItemName">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="ItemName">*商品名稱</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <input type="text" name="fItemName" id="ItemName" maxlength="60" required />
+                        <p id="countItemName">
+                            0/60
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row divContent" id="divItemDescription">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="ItemDescription">*商品描述</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <textarea name="fItemDescription" id="ItemDescription" maxlength="800" required></textarea>
+                        <p id="countDescription">
+                            0/800
+                        </p>
+                    </div>
+                </div>
+                <div class="row divContent" id="divSort">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="Sort">*類別</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <select name="fSort" id="seleSort">
+                            <option value="寶可夢 (Pokemon)">寶可夢 (Pokemon)</option>
+                            <option value="遊戲王 (Yu-Gi-Oh!)">遊戲王 (Yu-Gi-Oh!)</option>
+                            <option value="魔法風雲會 (MTG)">魔法風雲會 (MTG)</option>
+                            <option value="黑與白 (Weiß Schwarz)">黑與白 (Weiß Schwarz)</option>
+                            <option value="七龍珠 (DragonBallHeroes)">七龍珠 (DragonBallHeroes)</option>
+                            <option value="鋼彈大戰 (GUNDAM WAR)">鋼彈大戰 (GUNDAM WAR)</option>
+                            <option value="聖火降魔錄 (FE0)">聖火降魔錄 (FE0)</option>
+                            <option value="運動卡 (Sport)">運動卡 (Sport)</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="sellDetail">
+                <div class="divTitle">
+                    交換資訊
+                </div>
+                <!-- <div class="row divContent" id="divMoneyStart">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="MoneyStart">*起標價格</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <input type="number" name="fMoneyStart" id="MoneyStart" min="1" value="1" required />
+                    </div>
+                </div>
+
+                <div class="row divContent">
+                    <div class="contentHead col-12 col-md-3">
+                        <label class="fomr-check-label" for="BuyPrice">是否直購價</label>
+                    </div>
+                    <div class="form-check form-switch offset-1 offset-md-1 col-3 col-md-2">
+                        <input type="checkbox" class="form-check-input" id="BuyPrice" name="isBuy" value="true" />
+                        <input type="hidden" name="isBuy" value="false" />
+                    </div>
+                    <div class="col-8 col-md-6">
+                        <input type="number" name="fBuyPrice" id="txtBuy" min="1" value="1" disabled />
+                    </div>
+                </div>
+
+                <div class="row divContent" id="divMoneyStep">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="MoneyStep">*出價增額</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <input type="number" name="fMoneyStep" id="MoneyStep" min="1" value="1" required />
+                    </div>
+                </div> -->
+
+                <div class="row divContent" id="divGrading">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="Sort">*鑑定級別</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <select name="fGrading" id="seleGrading">
+                            <option value="沒有鑑定">沒有鑑定</option>
+                            <option value="GEM MT 10 (Gem Mint)">GEM MT 10 (Gem Mint)</option>
+                            <option value="Mint 9 (Mint)">Mint 9 (Mint)</option>
+                            <option value="NM-MT 8 (Near Mint-Mint)">NM-MT 8 (Near Mint-Mint)</option>
+                            <option value="NM 7 (Near Mint)">NM 7 (Near Mint)</option>
+                            <option value="EX-MT 6 (Excellent-Mint)">EX-MT 6 (Excellent-Mint)</option>
+                            <option value="EX 5 (Excellent)">EX 5 (Excellent)</option>
+                            <option value="VG-EX 4 (Very Good-Excellent)">VG-EX 4 (Very Good-Excellent)</option>
+                            <option value="VG 3 (Very Good)">VG 3 (Very Good)</option>
+                            <option value="Good 2 (Good)">Good 2 (Good)</option>
+                            <option value="Fr 1.5 (Fair)">Fr 1.5 (Fair)</option>
+                            <option value="PR 1 (Poor)">PR 1 (Poor)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row divContent" id="divSort">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="Sort">*希望交換分類</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <select name="fhope-class" id="selecthope-class">
+                            <option value="寶可夢 (Pokemon)">寶可夢 (Pokemon)</option>
+                            <option value="遊戲王 (Yu-Gi-Oh!)">遊戲王 (Yu-Gi-Oh!)</option>
+                            <option value="魔法風雲會 (MTG)">魔法風雲會 (MTG)</option>
+                            <option value="黑與白 (Weiß Schwarz)">黑與白 (Weiß Schwarz)</option>
+                            <option value="七龍珠 (DragonBallHeroes)">七龍珠 (DragonBallHeroes)</option>
+                            <option value="鋼彈大戰 (GUNDAM WAR)">鋼彈大戰 (GUNDAM WAR)</option>
+                            <option value="聖火降魔錄 (FE0)">聖火降魔錄 (FE0)</option>
+                            <option value="運動卡 (Sport)">運動卡 (Sport)</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row divContent" id="divhope-name">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="hope-name">*希望物品名稱</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <input type="text" name="fhope-name" id="hope-name" maxlength="60" required />
+                        <p id="counthope-name">
+                            0/60
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row divContent" id="divhope-place">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="Sort">希望交換地點</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <select name="fhope-place" id="selecthope-place">
+                            <option value="none"></option>
+                            <option value="Keelung">基隆市</option>
+                            <option value="New_Taipei">新北市</option>
+                            <option value="Taipei">臺北市</option>
+                            <option value="Taoyuan">新北市</option>
+                            <option value="Hsinchu_County">新竹縣</option>
+                            <option value="Hsinchu_City">新竹市</option>
+                            <option value="Miaoli_County">苗栗縣</option>
+                            <option value="Taichung">臺中市</option>
+                            <option value="Changhua_County">彰化縣</option>
+                            <option value="Nantou_County">南投縣</option>
+                            <option value="Yunlin">雲林縣</option>
+                            <option value="Chiayi_County">嘉義縣</option>
+                            <option value="Chiayi_City">嘉義市</option>
+                            <option value="Tainan">臺南市</option>
+                            <option value="Kaohsiung">高雄市</option>
+                            <option value="Pingtung_County">屏東縣</option>
+                            <option value="Yilan_County">宜蘭縣</option>
+                            <option value="Hualien_County">花蓮縣</option>
+                            <option value="Taitung_County">臺東縣</option>
+                            <option value="Penghu">澎湖縣</option>
+                            <option value="Green_Island">綠島</option>
+                            <option value="Orchid_Island">蘭嶼</option>
+                            <option value="Kinmen">金門縣</option>
+                            <option value="Matsu">馬祖</option>
+                            <option value="Lienchiang">連江縣</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row divContent" id="divEndTime">
+                    <div class="contentHead col-12 col-md-3">
+                        <label for="EndTIme">*結束時間</label>
+                    </div>
+                    <div class="content col-12 col-md-9">
+                        <div id="dateTimeContainer">
+                            <div id="endTimeDate">
+                                <input type="date" name="fEndTimeDate" id="EndTimeDate" required />
+                            </div>
+                            <div id="endTimeTime">
+                                <input type="time" name="fEndTimeTime" id="EndTimeTime" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="buttons">
+                <button id="btnCancel">取消</button>
+                <button id="btnPost">上架</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+
+        var domItemName = document.getElementById('ItemName');
+        var countName = document.getElementById('countItemName');
+        domItemName.addEventListener('change', function () {
+            countName.textContent = `${domItemName.value.length}/60`;
+        })
+
+        var domhopename = document.getElementById('hope-name');
+        var counthopename = document.getElementById('counthope-name');
+        domhopename.addEventListener('change', function () {
+            counthopename.textContent = `${domhopename.value.length}/60`;
+        })
+
+
+        for (let i = 0; i < 4; i++) {
+            let picBlock = document.getElementById('picBlock' + i);
+            let inputFile = document.getElementById('inputFile' + i);
+            picBlock.addEventListener('dragover', function (event) {
+                event.preventDefault();
+                this.classList.remove('dragNone');
+                this.classList.add('dragOver');
+            });
+            picBlock.addEventListener('dragleave', function () {
+                this.classList.remove('dragOver');
+                this.classList.add('dragNone');
+            });
+            picBlock.addEventListener('drop', function (event) {
+                event.preventDefault();
+                inputFile.files = event.dataTransfer.files;
+                let file = inputFile.files[0];
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.addEventListener('load', function () {
+                    picBlock.style.backgroundImage = `url('${reader.result}')`;
+                })
+            });
+            picBlock.addEventListener('click', function () {
+                inputFile.click();
+            });
+            inputFile.addEventListener('change', function () {
+                if (inputFile.files.length > 0) {
+                    let file = inputFile.files[0];
+                    let reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.addEventListener('load', function () {
+                        picBlock.style.backgroundImage = `url('${reader.result}')`;
+                    })
+                    picBlock.classList.remove('dragNone');
+                    picBlock.classList.add('dragOver');
+                }
+                else {
+                    picBlock.style.backgroundImage = 'url("../../Images/site/imgSelectFrameEmpty.png")';
+                    picBlock.classList.remove('dragOver');
+                    picBlock.classList.add('dragNone');
+                }
+            })
+        }
+
+        function addPicture(i, a) {
+
+        }
+        // var domItemName = document.getElementById('ItemName');
+        // var countName = document.getElementById('countItemName');
+        // domItemName.addEventListener('keyup', function () {
+        //     countName.textContent = `${domItemName.value.length}/60`;
+        // });
+        var domItemDescription = document.getElementById('ItemDescription');
+        var countDescription = document.getElementById('countDescription');
+        domItemDescription.addEventListener('keyup', function () {
+            countDescription.textContent = `${domItemDescription.value.length}/800`;
+        });
+
+        // let arySwitch = ['BuyPrice','chkPerson','chkSeven','chkFami','chkLogi'];
+        // let aryTxt = ['txtBuy', 'txtPerson', 'txtSeven', 'txtFami', 'txtLogi'];
+        // for (let i = 0; i < arySwitch.length; i++) {
+        //     let domSwitch = document.getElementById(arySwitch[i])
+        //     let domTxt = document.getElementById(aryTxt[i]);
+        //     domSwitch.addEventListener('change', function () {
+        //         domTxt.disabled = !domSwitch.checked;
+        //     });
+        // }
+
+        document.getElementById('btnCancel').addEventListener('click', function (event) {
+            event.preventDefault();
+            location.href = '@Url.Content("~/")';
+        })
+</script>
+</body>
+</html>

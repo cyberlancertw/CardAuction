@@ -168,6 +168,7 @@
     <Content Include="Content\AdminCss\cssPsnCreate.css" />
     <Content Include="Content\AdminCss\cssPsnEdit.css" />
     <Content Include="Content\AdminCss\cssPsnManage.css" />
+    <Content Include="Content\ExchangeCss\cssExchange.css" />
     <Content Include="Content\HomeCss\cssUserIndexAD.css" />
     <Content Include="Content\AuctionCss\cssAuctionItem.css" />
     <Content Include="Content\AuctionCss\cssAuctionList.css" />
@@ -194,8 +195,8 @@
     <Content Include="Content\cssHomeIndex.css" />
     <Content Include="Content\cssNormalize.css" />
     <Content Include="Content\cssReset.css" />
-    <Content Include="Content\ExchangeCss\ExchangeIndex.css" />
-    <Content Include="Content\ExchangeCss\Merchandise.css" />
+    <Content Include="Content\ExchangeCss\cssExchangeList.css" />
+    <Content Include="Content\ExchangeCss\cssExchangeItem.css" />
     <Content Include="Content\cssRWDtemplate.css" />
     <Content Include="Content\HomeCss\cssHomeError.css" />
     <Content Include="Content\HomeCss\cssHomeIndex.css" />
@@ -209,6 +210,99 @@
     <Content Include="Images\Admin\Icon_廣告.png" />
     <Content Include="Images\Admin\Icon_數據.png" />
     <Content Include="Images\Admin\Icon_會員.png" />
+    <Content Include="Images\AuctionItemImages\202203142230357637420.jpg" />
+    <Content Include="Images\AuctionItemImages\202203142231211914140.png" />
+    <Content Include="Images\AuctionItemImages\202203142232161428260.png" />
+    <Content Include="Images\AuctionItemImages\202203142233081835240.jpg" />
+    <Content Include="Images\AuctionItemImages\202203151952561177758170.jpg" />
+    <Content Include="Images\AuctionItemImages\202203151954047324261220.jpg" />
+    <Content Include="Images\AuctionItemImages\202203151954581022065910.png" />
+    <Content Include="Images\AuctionItemImages\202203151955471540013160.jpg" />
+    <Content Include="Images\AuctionItemImages\202203151957098534378160.jfif" />
+    <Content Include="Images\AuctionItemImages\202203151958139018972270.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152055001826082670.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152055551271224730.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152104377842103100.png" />
+    <Content Include="Images\AuctionItemImages\202203152105561578162700.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152107101904022000.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152108071223565790.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152206431022338300.png" />
+    <Content Include="Images\AuctionItemImages\202203152232361709284390.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152246099129557710.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152254216125325990.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152254216125325991.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152254216125325992.jpg" />
+    <Content Include="Images\AuctionItemImages\202203152320361572225320.png" />
+    <Content Include="Images\AuctionItemImages\202203160037322093028360.jpg" />
+    <Content Include="Images\AuctionItemImages\202203160037322093028361.jpg" />
+    <Content Include="Images\AuctionItemImages\202203160037322093028362.jpg" />
+    <Content Include="Images\AuctionItemImages\202203160037322093028363.jpg" />
+    <Content Include="Images\AuctionItemImages\202203171823452856804220.png" />
+    <Content Include="Images\AuctionItemImages\202203171823452856804221.png" />
+    <Content Include="Images\AuctionItemImages\202203171823452856804222.png" />
+    <Content Include="Images\AuctionItemImages\202203172356021857874420.jpg" />
+    <Content Include="Images\AuctionItemImages\202203172356254365055220.jpg" />
+    <Content Include="Images\AuctionItemImages\202203172356593464041960.jpg" />
+    <Content Include="Images\AuctionItemImages\202203172356593464041961.jpg" />
+    <Content Include="Images\AuctionItemImages\202203172357208787671980.jpg" />
+    <Content Include="Images\AuctionItemImages\202203172357501774698680.jpg" />
+    <Content Include="Images\AuctionItemImages\202203180016358133427500.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182016511024216070.jfif" />
+    <Content Include="Images\AuctionItemImages\202203182322161961726860.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182323122127762360.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182324078362299560.png" />
+    <Content Include="Images\AuctionItemImages\202203182325027485072650.png" />
+    <Content Include="Images\AuctionItemImages\202203182326068016597010.png" />
+    <Content Include="Images\AuctionItemImages\202203182327035268485690.png" />
+    <Content Include="Images\AuctionItemImages\202203182328191901519230.png" />
+    <Content Include="Images\AuctionItemImages\202203182330338033786090.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182330338033786091.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182330338033786092.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182332221228899850.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182332221228899851.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182332221228899852.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182334313034612210.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182336271396996180.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182337242873399310.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182339041194365090.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182340019954909540.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182340481531672540.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182341591562693690.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182349011491335280.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182350258474469430.jfif" />
+    <Content Include="Images\AuctionItemImages\202203182351497377158750.jfif" />
+    <Content Include="Images\AuctionItemImages\202203182353081108599790.jfif" />
+    <Content Include="Images\AuctionItemImages\202203182354081855476720.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182355412630317720.jpg" />
+    <Content Include="Images\AuctionItemImages\202203182359151375781920.jpg" />
+    <Content Include="Images\AuctionItemImages\202203190003322087786120.jpg" />
+    <Content Include="Images\AuctionItemImages\202203190004293031652530.jpg" />
+    <Content Include="Images\AuctionItemImages\202203190005535076702140.jpg" />
+    <Content Include="Images\AuctionItemImages\202203190006481123423600.jpeg" />
+    <Content Include="Images\AuctionItemImages\202203190011362084643340.png" />
+    <Content Include="Images\AuctionItemImages\202203190011362084643341.png" />
+    <Content Include="Images\AuctionItemImages\202203190029532859747030.png" />
+    <Content Include="Images\AuctionItemImages\202203190030549346094420.png" />
+    <Content Include="Images\AuctionItemImages\202203190034378848929800.png" />
+    <Content Include="Images\AuctionItemImages\202203190038143305491180.png" />
+    <Content Include="Images\AuctionItemImages\202203190117037357718110.jpg" />
+    <Content Include="Images\AuctionItemImages\202203190117037357718111.jpg" />
+    <Content Include="Images\AuctionItemImages\202203191033542058322260.png" />
+    <Content Include="Images\AuctionItemImages\202203191033542058322261.png" />
+    <Content Include="Images\AuctionItemImages\202203191039268967313310.png" />
+    <Content Include="Images\AuctionItemImages\202203191039268967313311.png" />
+    <Content Include="Images\AuctionItemImages\202203191039268967313312.png" />
+    <Content Include="Images\AuctionItemImages\202203191053072792184960.png" />
+    <Content Include="Images\AuctionItemImages\202203191053072792184961.png" />
+    <Content Include="Images\AuctionItemImages\202203192042261981515160.jpg" />
+    <Content Include="Images\AuctionItemImages\202203192042261981515161.jpg" />
+    <Content Include="Images\AuctionItemImages\202203192045282138875310.jpg" />
+    <Content Include="Images\AuctionItemImages\202203192045282138875311.jpg" />
+    <Content Include="Images\AuctionItemImages\202203192159341740366180.png" />
+    <Content Include="Images\AuctionItemImages\202203192204417537534890.png" />
+    <Content Include="Images\AuctionItemImages\202203192204417537534891.jpg" />
+    <Content Include="Images\AuctionItemImages\202203192210217011548410.png" />
+    <Content Include="Images\AuctionItemImages\202203192214061911984570.png" />
     <Content Include="Images\ExchangeItemImages\HDog.jpg" />
     <Content Include="Images\ExchangeItemImages\Hisuian Decidueye.png" />
     <Content Include="Images\ExchangeItemImages\Hisuian Samurott.png" />
@@ -322,12 +416,16 @@
     <Compile Include="Models\tExchangeFavorite.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tExchangeItem.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tMember.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CAuctionPostViewModel.cs" />
+    <Compile Include="ViewModels\CExchangePostViewModel.cs" />
     <Compile Include="ViewModels\CLoginViewModel.cs" />
     <Compile Include="ViewModels\CRegisterViewModel.cs" />
   </ItemGroup>
@@ -398,12 +496,13 @@
     <Content Include="Views\Admin\PsnEdit.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutShort.cshtml" />
-    <Content Include="Views\Exchange\List.cshtml" />
+    <Content Include="Views\Exchange\Item.cshtml" />
     <Content Include="Views\Auction\Item.cshtml" />
     <Content Include="Views\Auction\List.cshtml" />
-    <Content Include="Views\Exchange\Index.cshtml" />
+    <Content Include="Views\Exchange\List.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Admin\AdManage.cshtml" />
+    <Content Include="Views\Exchange\Post.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -413,7 +512,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\AuctionItemImages\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
