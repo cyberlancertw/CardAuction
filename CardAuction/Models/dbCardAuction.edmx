@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tAuctionBid">
+          <Key>
+            <PropertyRef Name="fBidId" />
+          </Key>
+          <Property Name="fBidId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fItemId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fUserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fMoney" Type="int" Nullable="false" />
+          <Property Name="fTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="tAuctionFavorite">
           <Key>
             <PropertyRef Name="fFavId" />
@@ -78,6 +88,7 @@
           <Property Name="fDelete" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="dbCardAuctionModelStoreContainer">
+          <EntitySet Name="tAuctionBid" EntityType="Self.tAuctionBid" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionFavorite" EntityType="Self.tAuctionFavorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tCommentAuction" EntityType="Self.tCommentAuction" Schema="dbo" store:Type="Tables" />
@@ -156,6 +167,7 @@
           <EntitySet Name="tExchangeFavorite" EntityType="Self.tExchangeFavorite" />
           <EntitySet Name="tMember" EntityType="Self.tMember" />
           <EntitySet Name="tCommentAuction" EntityType="dbCardAuctionModel.tCommentAuction" />
+          <EntitySet Name="tAuctionBid" EntityType="dbCardAuctionModel.tAuctionBid" />
         </EntityContainer>
         <EntityType Name="tCommentAuction">
           <Key>
@@ -166,6 +178,16 @@
           <Property Name="fItemId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="fPostTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fContent" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tAuctionBid">
+          <Key>
+            <PropertyRef Name="fBidId" />
+          </Key>
+          <Property Name="fBidId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fItemId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fUserId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fMoney" Type="Int32" Nullable="false" />
+          <Property Name="fTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -247,6 +269,17 @@
                 <ScalarProperty Name="fItemId" ColumnName="fItemId" />
                 <ScalarProperty Name="fFromUserId" ColumnName="fFromUserId" />
                 <ScalarProperty Name="fCommentId" ColumnName="fCommentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tAuctionBid">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tAuctionBid">
+              <MappingFragment StoreEntitySet="tAuctionBid">
+                <ScalarProperty Name="fTime" ColumnName="fTime" />
+                <ScalarProperty Name="fMoney" ColumnName="fMoney" />
+                <ScalarProperty Name="fUserId" ColumnName="fUserId" />
+                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
+                <ScalarProperty Name="fBidId" ColumnName="fBidId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

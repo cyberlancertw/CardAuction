@@ -313,6 +313,9 @@
     </Compile>
     <Compile Include="Models\QueryResult.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\tAuctionBid.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tAuctionFavorite.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>

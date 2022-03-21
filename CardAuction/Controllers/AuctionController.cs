@@ -191,6 +191,12 @@ namespace CardAuction.Controllers
             return Json(queryResult,JsonRequestBehavior.AllowGet);
             
         }
+
+        public ActionResult Bid(int amount)
+        {
+            
+            return null;
+        }
         public ActionResult ReceiveComments(string itemId)
         {
             bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId);
@@ -213,10 +219,7 @@ namespace CardAuction.Controllers
 
         public ActionResult WriteComment(string itemId, string message)
         {
-            //if (Session[CDictionary.SK_UserUserId] == null)
-            //{
-            //    return Redire
-            //}
+
             string userId = Session[CDictionary.SK_UserUserId].ToString();
             bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId && m.fContent == message && m.fFromUserId == userId);
             if (isExist)
@@ -237,7 +240,7 @@ namespace CardAuction.Controllers
             }
             catch(Exception e)
             {
-
+                Console.WriteLine(e.ToString());
             }
             return null;
         }
