@@ -324,14 +324,15 @@ body {
 
 }
 .commentAccount {
-
+    font-size: 1.4rem;
 }
-.commentContent{
+.commentContent {
+    font-size: 1.4rem;
 }
 
 .commentTime {
     text-align: right;
-    color: #ced3d8;
+    color: #6b6b6b;
 }
 
 #txtComment{
@@ -377,4 +378,7 @@ body {
 }
 .notFollowing{
     background-color: #ffffff;
+}
+.commentRecord:nth-child(2n+1) {
+    background-color: #ebebeb;
 }

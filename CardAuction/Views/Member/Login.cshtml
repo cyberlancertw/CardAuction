@@ -53,8 +53,8 @@
         var btnSend = document.getElementById('btnSend');
 
         pwdEye.addEventListener('click', togglePassword);
-        inputAcc.addEventListener('blur', checkButton);
-        inputPwd.addEventListener('blur', checkButton);
+        inputAcc.addEventListener('keyup', checkButton);
+        inputPwd.addEventListener('keyup', checkButton);
         function togglePassword() {
             if (inputPwd.type == 'password') {
                 inputPwd.type = 'text';

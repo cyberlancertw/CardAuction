@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -192,10 +193,77 @@ namespace CardAuction.Controllers
             
         }
 
-        public ActionResult Bid(int amount)
+        public void Bid(string itemId, int amount)
         {
+            if(Session[CDictionary.SK_UserUserId] == null)
+            {
+                return;
+            }
+            string userId = Session[CDictionary.SK_UserUserId].ToString();
+            tAuctionItem item = db.tAuctionItem.Find(itemId);
             
-            return null;
+            if(userId.Equals(item.fPostUserId))      // 不給自己商品出價
+            {
+                return;
+            }
+            if(amount < item.fMoneyNow + item.fMoneyStep)         // 防另一人在另一端已出過價，不能只靠前端
+            {
+                return;
+            }
+               //  無直購                 有直購但出不到直購價
+            if(item.fBuyPrice < 0 || amount < item.fBuyPrice)
+            {
+                tAuctionBid newBid = new tAuctionBid
+                {
+                    fItemId = itemId,
+                    fTime = DateTime.Now,
+                    fUserId = userId,
+                    fMoney = amount
+                };
+                db.tAuctionBid.Add(newBid);
+                item.fMoneyNow = amount;
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                return;
+            }
+
+
+            //   直購的部份
+
+            return;
+        }
+
+        public ActionResult ReceiveBidRecords(string itemId)
+        {
+            bool isExist = db.tAuctionBid.Any(m => m.fItemId == itemId);
+            if (isExist)
+            {
+                var queryResult = db.tAuctionBid
+                    .Where(p => p.fItemId == itemId)
+                    .Join(db.tMember,
+                          b => b.fUserId,
+                          m => m.fUserId,
+                          (b, m) => new
+                          {
+                              bidAcc = m.fAccount,
+                              bidTime = b.fTime,
+                              bidMoney = b.fMoney
+                          })
+                    .OrderByDescending(r => r.bidTime);
+                return Json(queryResult, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ReceiveComments(string itemId)
         {
@@ -212,19 +280,21 @@ namespace CardAuction.Controllers
                                           postTime = c.fPostTime })
                     .OrderBy(n => n.postTime); ;
                 return Json(queryResult, JsonRequestBehavior.AllowGet);
-
             }
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult WriteComment(string itemId, string message)
+        public void WriteComment(string itemId, string message)
         {
-
+            if(Session[CDictionary.SK_UserUserId] == null)
+            {
+                return;
+            }
             string userId = Session[CDictionary.SK_UserUserId].ToString();
             bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId && m.fContent == message && m.fFromUserId == userId);
             if (isExist)
             {
-                return null;
+                return;
             }
             tCommentAuction newComment = new tCommentAuction
             {
@@ -242,7 +312,7 @@ namespace CardAuction.Controllers
             {
                 Console.WriteLine(e.ToString());
             }
-            return null;
+            return;
         }
     }
 

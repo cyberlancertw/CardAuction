@@ -67,9 +67,9 @@ namespace CardAuction.Controllers
                     return RedirectToAction("Index", "Admin");
                 }
 
-                string toAction = TempData[CDictionary.SK_RedirectToAction].ToString();
-                if (toAction != null)
+                if(TempData[CDictionary.SK_RedirectToAction] != null)
                 {
+                    string toAction = TempData[CDictionary.SK_RedirectToAction].ToString();
                     string toController = TempData[CDictionary.SK_RedirectToController].ToString();
                     string toId = TempData[CDictionary.SK_RedirectToId].ToString();
 
