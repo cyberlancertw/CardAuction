@@ -67,24 +67,23 @@ namespace CardAuction.Controllers
                     return RedirectToAction("Index", "Admin");
                 }
 
-                if(TempData[CDictionary.SK_RedirectToAction] != null)
+                if(TempData[CDictionary.SK_RedirectToAction] == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
                 {
                     string toAction = TempData[CDictionary.SK_RedirectToAction].ToString();
                     string toController = TempData[CDictionary.SK_RedirectToController].ToString();
-                    string toId = TempData[CDictionary.SK_RedirectToId].ToString();
-
-                    if (toId == null)
+                    if (TempData[CDictionary.SK_RedirectToId] == null)
                     {
                         return RedirectToAction(toAction, toController);
                     }
                     else
                     {
+                        string toId = TempData[CDictionary.SK_RedirectToId].ToString();
                         return RedirectToAction(toAction, toController, new { id = toId });
                     }
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
                 }
             }
             else

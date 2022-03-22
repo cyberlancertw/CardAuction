@@ -52,6 +52,8 @@
 
 #iconMag{
     position: absolute;
+    color: #6b6b6b;
+    font-size: 1rem;
     width: 25px;
     right: 30px;
     top: 8px;

@@ -509,6 +509,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Admin\AdManage.cshtml" />
     <Content Include="Views\Exchange\Post.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

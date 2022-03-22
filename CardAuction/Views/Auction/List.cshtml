@@ -42,6 +42,9 @@
             <p class="sortTitle">
                 <a href="" class="searchSort" data-keyword="運動"><span>運動卡 (Sport)</span></a>
             </p>
+            <p class="sortTitle">
+                <a href="~/Auction/Post"><span>我要上架</span></a>
+            </p>
         </div>
         <div class="d-block d-sm-block d-md-none col-sm-12 flex-row align-items-center" id="divBar">
             <div class="col-12 m-2" id="barBlock">
@@ -75,6 +78,9 @@
                 <div class="col-12 barSortItem">
                     <a href="" class="searchSort" data-keyword="運動"><span>運動卡 (Sport)</span></a>
                 </div>
+                <div class="col-12 barSortItem">
+                    <a href="~/Auction/Post"><span>我要上架</span></a>
+                </div>
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-9 col-lg-10 container" id="divList">
@@ -95,12 +101,12 @@
         var loading = false;
         var datas;
 
-
         document.querySelectorAll('.searchSort').forEach(function (dom) {
             
             dom.addEventListener('click', function (event) {
 
-                expandItem.style.display = 'none';
+                expandItem.classList.add('hideExpandItem');
+                //expandItem.style.display = 'none';
                 barSortName.textContent = this.textContent;
 
                 if (loading) {
@@ -116,7 +122,7 @@
                 let xhr = new XMLHttpRequest();
                 xhr.addEventListener('load', function () {
                     loading = false;
-                    datas = JSON.parse(xhr.response);
+                    datas = JSON.parse(xhr.responseText);
 
                     ShowSearchResult(datas);
                 });
@@ -143,11 +149,6 @@
         }
         function checkBarPosition() {
             let isFixed = divBar.classList.contains('fixedDivBar');
-            let divBarY = divBar.getBoundingClientRect().y;
-            
-
-            //console.log(divBarY);
-            //console.log(window.scrollY);
 
             if (window.scrollY >= 450  && !isFixed) {
                 divBar.classList.add('fixedDivBar');
@@ -158,8 +159,6 @@
             }
         }
         function ShowSearchResult(queryResult) {
-
-            // fEndTime, fItemId, fItemName, fMoneyNow, fPhoto
 
             contentRow.innerHTML = '';
 

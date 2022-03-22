@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/LayoutCss/cssUserLayout.css" type="text/css" />
     <link href="~/Content/Bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
     @RenderSection("styles", required: false)
@@ -55,7 +56,9 @@
                 <div class="row">
                     <div class="col-10" id="divSearch">
                         <input type="search" id="txtSearch" placeholder="    搜尋品牌、價格、等" />
-                        <img src="~/images/site/iconMagnifier.png" id="iconMag" />
+                        <div id="iconMag">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
                     </div>
                     <div class="col-2"><img src="~/Images/site/iconCart.jpg" id="imgCart" /></div>
                 </div>
@@ -71,6 +74,22 @@
     </div>
     <script src="~/Scripts/jquery-3.6.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        var txtSearch = document.getElementById('txtSearch');
+
+        txtSearch.addEventListener('keypress', function (event) {
+            if (event.code == 'Enter' || event.code == 'NumpadEnter') {
+                searchBy(this.value);
+            }
+        });
+        document.getElementById('iconMag').addEventListener('click', function () {
+            searchBy(txtSearch.value);
+        })
+        function searchBy(keyword) {
+            let para = `?keyword=${keyword}`;
+            location.href = '@Url.Content("~/Home/Search/")' + para;
+        }
+    </script>
     @RenderSection("scripts", required: false);
 </body>
 </html>

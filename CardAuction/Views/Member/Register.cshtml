@@ -114,7 +114,7 @@
             var inputAcc = document.getElementById('username').value;;
             xhr.addEventListener('load', function () {
                 let isExist = xhr.responseText;
-                console.log(isExist);
+
                 let domWarning = document.getElementById('spanAcc')
                 if (isExist == 'True') {
                     domWarning.textContent = '此帳號已被註冊';
