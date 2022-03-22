@@ -60,7 +60,7 @@ namespace CardAuction.Models
                 member.Subscribe = (bool)reader["fSubscribe"];
                 member.Manager = (bool)reader["fManager"];
                 member.Active = (bool)reader["fActive"];
-
+                
                 queryResult.Add(member);
             }
             reader.Close();

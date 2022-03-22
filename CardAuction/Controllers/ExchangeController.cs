@@ -20,6 +20,8 @@ namespace CardAuction.Controllers
         public ActionResult Post()
         {
             return View();
+            
         }
+
     }
 }
