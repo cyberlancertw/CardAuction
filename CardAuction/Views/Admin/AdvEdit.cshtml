@@ -1,0 +1,82 @@
+﻿<!-- CSS -->
+<link rel="stylesheet" href="~/Content/AdminCss/cssPsnEdit.css" />
+
+@model CardAuction.Models.tAdminAd
+
+@{
+    ViewBag.Title = "AdvEdit";
+    //string ImgPath1 = Model.fAdFileName;
+    //string ImgPath2 = Model.fAdFileName;
+    //string ImgPath3 = Model.fAdFileName;
+}
+
+
+
+
+
+@using (Html.BeginForm("AdvEdit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Advert Edit</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.fAdId)
+
+
+
+        <div class="form-group">
+            Advert
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fAdName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fAdName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            Note
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fAdNote, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fAdNote, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                File Name
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fAdFileName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fAdFileName, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-10">
+                Image
+                <input type="file" name="photo" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
