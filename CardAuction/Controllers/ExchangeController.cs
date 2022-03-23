@@ -95,9 +95,10 @@ namespace CardAuction.Controllers
                 count++;
             }
             createItem.fItemName = vModel.fItemName;
+            createItem.fSort = vModel.fSort;
             createItem.fItemDescription = vModel.fItemDescription;
             createItem.fItemLocation = vModel.fItemLocation;
-            createItem.fItemLevel = vModel.fItemLeavel;
+            createItem.fItemLevel = vModel.fItemLevel;
             createItem.fHopeItemName = vModel.fHopeItemName;
             createItem.fHopeItemLocation = vModel.fHopeItemLocation;
             createItem.fCreateTime = nowTime; // 現在時間為建立時間
@@ -110,7 +111,7 @@ namespace CardAuction.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "Post" });
+                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Exchange", ToAction = "Post" });
             }
             return RedirectToAction("Index");
 
