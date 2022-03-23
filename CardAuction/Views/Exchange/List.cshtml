@@ -1,21 +1,17 @@
-﻿@*@{
-        ViewBag.Title = "Index";
-    }*@
+﻿@{
+    ViewBag.Title = "交換商品一覽";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section styles{
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="~/Content/ExchangeCss/cssExchangeList.css" rel="stylesheet" />
-    <title>Cards.交換頁面</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://kit.fontawesome.com/de361254dc.js" crossorigin="anonymous"></script>
+}
 
-</head>
 
-<body>
+
     <div class="container">
         <!-- model -->
         <div class="model">
@@ -31,15 +27,15 @@
                 <!-- menu -->
                 <div class="col-3 d-none  d-sm-block">
                     <div class="menu">
-                        <p><a href="#">遊戲王(YU-GI-OH!)</a></p>
-                        <p><a href="#">寶可夢(Pokomon)</a></p>
-                        <p><a href="#">黑與白(Weiß Schwarz)</a></p>
-                        <p><a href="#">七龍珠(DragonBallHeroes)</a></p>
-                        <p><a href="#">鋼彈大戰(GUNDAM WAR)</a></p>
-                        <p><a href="#">魔法風雲會(MTG)</a></p>
-                        <p><a href="#">聖火降魔錄(FE0)</a></p>
-                        <p><a href="#">運動卡(Sport)</a></p>
-                        <p><a href="#">其他(Other)</a></p>
+                        <p><a class="searchSort" data-keyword="" href="#">所有商品(All)</a></p>
+                        <p><a class="searchSort" data-keyword="遊戲王" href="#">遊戲王(YU-GI-OH!)</a></p>
+                        <p><a class="searchSort" data-keyword="寶可夢" href="#">寶可夢(Pokomon)</a></p>
+                        <p><a class="searchSort" data-keyword="黑與白" href="#">黑與白(Weiß Schwarz)</a></p>
+                        <p><a class="searchSort" data-keyword="七龍珠" href="#">七龍珠(DragonBallHeroes)</a></p>
+                        <p><a class="searchSort" data-keyword="鋼彈大戰" href="#">鋼彈大戰(GUNDAM WAR)</a></p>
+                        <p><a class="searchSort" data-keyword="魔法風雲會" href="#">魔法風雲會(MTG)</a></p>
+                        <p><a class="searchSort" data-keyword="聖火降魔錄" href="#">聖火降魔錄(FE0)</a></p>
+                        <p><a class="searchSort" data-keyword="運動卡" href="#">運動卡(Sport)</a></p>
                     </div>
                 </div>
                 <!-- main -->
@@ -75,38 +71,42 @@
                                         </div>
                                         <div class="offcanvas-body">
                                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                                <h2 class="offcanvas-title" id="offcanvasNavbarLabel">功&emsp;能</h2>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">我要交換</a>
+                                                    <h2 class="offcanvas-title" id="offcanvasNavbarLabel">功&emsp;能</h2>
+                                                </li>
+                                                <li class="nav-item">
+                                                    @Html.ActionLink("我要交換", "Post", "Exchange", new { @class = "nav-link" })
                                                 </li>
                                                 <li><hr class="dropdown-divider"></li>
-                                                <h2 class="offcanvas-title" id="offcanvasNavbarLabel">分&emsp;類</h2>
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" aria-current="page" href="#">遊戲王</a>
+                                                    <h2 class="offcanvas-title" id="offcanvasNavbarLabel">分&emsp;類</h2>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">寶可夢</a>
+                                                    <a class="nav-link active searchSort" data-keyword="" aria-current="page" href="#">所有商品</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">黑與白</a>
+                                                    <a class="nav-link searchSort" data-keyword="遊戲王" href="#">遊戲王</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">七龍珠</a>
+                                                    <a class="nav-link searchSort" data-keyword="寶可夢" href="#">寶可夢</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">鋼彈大戰</a>
+                                                    <a class="nav-link searchSort" data-keyword="黑與白" href="#">黑與白</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">魔法風雲會</a>
+                                                    <a class="nav-link searchSort" data-keyword="七龍珠" href="#">七龍珠</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">聖火降魔錄</a>
+                                                    <a class="nav-link searchSort" data-keyword="鋼彈大戰" href="#">鋼彈大戰</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">運動卡牌</a>
+                                                    <a class="nav-link searchSort" data-keyword="魔法風雲會" href="#">魔法風雲會</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">其他</a>
+                                                    <a class="nav-link searchSort" data-keyword="聖火降魔錄" href="#">聖火降魔錄</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link searchSort" data-keyword="運動卡" href="#">運動卡</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -117,56 +117,66 @@
                         <!-- ExchangePt -->
                         <div class="col-12 d-none d-sm-block">
                             <div class="ExchangePt">
-                                <a href="#">我要交換</a>
+                                @Html.ActionLink("我要交換", "Post", "Exchange")
                             </div>
                         </div>
                         <!-- contance -->
                         <div class="col-12">
-                            <div class="wrap justify-content-center justify-content-sm-start">
+                            <div class="wrap justify-content-center justify-content-sm-start" id="contentRow">
                                 <div class="contance">
-                                    <div class="img-wrap">
-                                        <img src="~/images/ExchangeItemImages/S__55230489.jpg">
-                                    </div>
-                                    <p><a href="#"><h3>卡牌名稱</h3></a></p>
-                                    <p><span id="message-num">留言數量</span><span>/10</span>則</p>
-                                    <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
-                                    <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                    <a href="#">
+                                        <div class="img-wrap">
+                                            <img src="~/images/ExchangeItemImages/S__55230489.jpg">
+                                        </div>
+                                        <p><h3>卡牌名稱</h3></p>
+                                        <p><span id="message-num">留言數量</span><span>/10</span>則</p>
+                                        <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                        <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                    </a>
                                 </div>
                                 <div class="contance">
-                                    <div class="img-wrap">
-                                        <img src="~/images/ExchangeItemImages/p1.jpg">
-                                    </div>
-                                    <p><a href="#"><h3>卡牌名稱</h3></a></p>
-                                    <p><span id="message-num">留言數量</span><span>/10</span>則</p>
-                                    <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
-                                    <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                    <a href="#">
+                                        <div class="img-wrap">
+                                            <img src="~/images/ExchangeItemImages/S__55230493.jpg">
+                                        </div>
+                                        <p><h3>卡牌名稱</h3></p>
+                                        <p><span id="message-num">留言數量</span><span>/10</span>則</p>
+                                        <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                        <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                    </a>
                                 </div>
                                 <div class="contance">
-                                    <div class="img-wrap">
-                                        <img src="~/images/ExchangeItemImages/p2.jpg">
-                                    </div>
-                                    <p><a href="#"><h3>卡牌名稱</h3></a></p>
-                                    <p><span id="message-num">留言數量</span><span>/10</span>則</p>
-                                    <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
-                                    <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                    <a href="#">
+                                        <div class="img-wrap">
+                                            <img src="~/images/ExchangeItemImages/S__55230501.jpg">
+                                        </div>
+                                        <p><h3>卡牌名稱</h3></p>
+                                        <p><span id="message-num">留言數量</span><span>/10</span>則</p>
+                                        <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                        <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                    </a>
                                 </div>
                                 <div class="contance">
-                                    <div class="img-wrap">
-                                        <img src="~/images/ExchangeItemImages/S__55230493.jpg">
-                                    </div>
-                                    <p><a href="#"><h3>卡牌名稱</h3></a></p>
-                                    <p><span id="message-num">留言數量</span><span>/10</span>則</p>
-                                    <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
-                                    <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                    <a href="#">
+                                        <div class="img-wrap">
+                                            <img src="~/images/ExchangeItemImages/S__55238662.jpg">
+                                        </div>
+                                        <p><h3>卡牌名稱</h3></p>
+                                        <p><span id="message-num">留言數量</span><span>/10</span>則</p>
+                                        <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                        <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                    </a>
                                 </div>
                                 <div class="contance">
-                                    <div class="img-wrap">
-                                        <img src="~/images/ExchangeItemImages/S__55230501.jpg">
-                                    </div>
-                                    <p><a href="#"><h3>卡牌名稱</h3></a></p>
-                                    <p><span id="message-num">留言數量</span><span>/10</span>則</p>
-                                    <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
-                                    <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                    <a href="#">
+                                        <div class="img-wrap">
+                                            <img src="~/images/ExchangeItemImages/p2.jpg">
+                                        </div>
+                                        <p><h3>卡牌名稱</h3></p>
+                                        <p><span id="message-num">留言數量</span><span>/10</span>則</p>
+                                        <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                        <p id="favorite"><i class="material-icons">favorite_border</i></p>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -188,29 +198,95 @@
     </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    <script>
-        var element = document.getElementsByClassName("contance");
-        var i;
-        function one() {
-            for (i = 0; i < element.length; i++) {
-                element[i].style.flex = "100%"
+
+
+    @section scripts{
+        <script>
+            var contentRow = document.getElementById("contentRow");
+            function ShowSearchResult(queryResult) {
+
+
+                contentRow.innerHTML = '';
+
+                let docFrag = document.createDocumentFragment();
+
+                for (let item of queryResult) {
+
+                let domDiv = document.createElement('div');
+                domDiv.className = 'contance';
+                let domA = document.createElement('a');
+                domA.href = '#';
+                let img_wrap = document.createElement('div');
+                img_wrap.className = 'img-wrap';
+                let domImg = document.createElement('img');
+                domImg.src = '@Url.Content("~/Images/ExchangeItemImages/")' + item.fPhoto;
+                img_wrap.appendChild(domImg);
+                let domPtName = document.createElement('p');
+                let domh3 = document.createElement('h3');
+                    domh3.textContent = item.fItemName;
+                    domh3.appendChild();
+                    domPtName.appendChild(domh3);
+                    let domPMsg = document.createElement('p');
+                    let domSpanMsg = document.createElement('span');
+                    domSpanMsg.id = 'message-num';
+                    domSpanMsg.textContent = '留言數量';
+                    domSpanMsg.appendChild();
+                    let domSpanMsgNum = document.createElement('span');
+                    domSpanMsgNum.textContent = '/10';
+                    domSpanMsgNum.appendChild();
+                    domPMsg.textContent = '則';
+                    domPMsg.appendChild(domSpanMsg);
+                    domPMsg.appendChild(domSpanMsgNum);
+                    //domPMsg.appendChild(domSpanMsg, domSpanMsgNum);
+                    let domPRTime = document.createElement('p');
+                    let domIRtime = document.createElement('i');
+                    domIRtime.id = 'time';
+                    domIRtime.className = 'material-icons';
+                    domIRtime.textContent = 'access_alarm';
+                    domIRtime.appendChild();
+                    domPRTime.textContent = '剩餘時間';
+                    domPRTime.appendChild(domIRtime);
+                    let domPFavorite = document.createElement('p');
+                    domPFavorite.id = 'favorite';
+                    let domIFavorite = document.createElement('i');
+                    domIFavorite.className = 'material-icons';
+                    domIFavorite.textContent = 'favorite_border';
+                    domIFavorite.appendChild();
+                    domPFavorite.appendChild(domIFavorite);
+                    domA.appendChild(img_wrap);
+                    domA.appendChild(domPtName);
+                    domA.appendChild(domPMsg);
+                    domA.appendChild(domPRTime);
+                    domA.appendChild(domPFavorite);
+                    domDiv.appendChild(domA);
+
+                }//<--- DOM結束
+
             }
-        }
 
-        function two() {
-            for (i = 0; i < element.length; i++) {
-                element[i].style.flex = "50%"
+
+            //頁碼
+            var i;
+            function one() {
+                for (i = 0; i < element.length; i++) {
+                    element[i].style.flex = "100%"
+                }
             }
-        }
 
-        function three() {
-            for (i = 0; i < element.length; i++) {
-                element[i].style.flex = "25%"
+            function two() {
+                for (i = 0; i < element.length; i++) {
+                    element[i].style.flex = "50%"
+                }
             }
-        }
-    </script>
 
-</body>
-</html>
+            function three() {
+                for (i = 0; i < element.length; i++) {
+                    element[i].style.flex = "25%"
+                }
+            }
+        </script>
+
+    }
+
+
