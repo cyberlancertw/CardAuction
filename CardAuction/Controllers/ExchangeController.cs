@@ -97,7 +97,7 @@ namespace CardAuction.Controllers
             createItem.fItemName = vModel.fItemName;
             createItem.fItemDescription = vModel.fItemDescription;
             createItem.fItemLocation = vModel.fItemLocation;
-            createItem.fItemLeavel = vModel.fItemLeavel;
+            createItem.fItemLevel = vModel.fItemLeavel;
             createItem.fHopeItemName = vModel.fHopeItemName;
             createItem.fHopeItemLocation = vModel.fHopeItemLocation;
             createItem.fCreateTime = nowTime; // 現在時間為建立時間

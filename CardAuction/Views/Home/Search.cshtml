@@ -1,0 +1,19 @@
+﻿@model CardAuction.ViewModels.CHomeSearchViewModel
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.keyword</h2>
+
+@foreach(var item in Model.fullMatch)
+            {
+                <div>@item.fItemName</div>
+            }
+
+<hr />
+@foreach(var item in Model.partialMatch)
+            {
+                <div>@item.fItemName</div>
+            }
+

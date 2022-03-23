@@ -4,14 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8d21a2562ef34faa8b535f32a81f8654" Name="Diagram1">
-        <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionBid" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionFavorite" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionItem" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCardAuctionModel.tCommentAuction" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCardAuctionModel.tExchangeFavorite" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCardAuctionModel.tExchangeItem" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCardAuctionModel.tMember" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="b8dff511d5c649bfbffbc2a2c4e42ba5" Name="Diagram1">
+        <EntityTypeShape EntityType="dbCardAuctionModel.tAdminAd" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionBid" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionFavorite" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionItem" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCardAuctionModel.tCommentAuction" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCardAuctionModel.tExchangeFavorite" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCardAuctionModel.tExchangeItem" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCardAuctionModel.tMember" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

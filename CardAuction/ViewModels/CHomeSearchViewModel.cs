@@ -8,6 +8,7 @@ namespace CardAuction.ViewModels
 {
     public class CHomeSearchViewModel
     {
+        public string keyword { get; set; }
         public List<QueryResult> fullMatch { get; set; }
         public List<QueryResult> partialMatch { get; set; }
     }

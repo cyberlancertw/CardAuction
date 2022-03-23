@@ -25,6 +25,7 @@ namespace CardAuction.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tAdminAd> tAdminAd { get; set; }
         public virtual DbSet<tAuctionBid> tAuctionBid { get; set; }
         public virtual DbSet<tAuctionFavorite> tAuctionFavorite { get; set; }
         public virtual DbSet<tAuctionItem> tAuctionItem { get; set; }

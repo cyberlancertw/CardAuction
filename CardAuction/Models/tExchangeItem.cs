@@ -17,12 +17,13 @@ namespace CardAuction.Models
         public string fItemId { get; set; }
         public string fItemName { get; set; }
         public string fItemDescription { get; set; }
+        public string fSort { get; set; }
         public string fPhoto0 { get; set; }
         public string fPhoto1 { get; set; }
         public string fPhoto2 { get; set; }
         public string fPhoto3 { get; set; }
         public string fItemLocation { get; set; }
-        public string fItemLeavel { get; set; }
+        public string fItemLevel { get; set; }
         public string fHopeItemName { get; set; }
         public string fHopeItemLocation { get; set; }
         public System.DateTime fCreateTime { get; set; }

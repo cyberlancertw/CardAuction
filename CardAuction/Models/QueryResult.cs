@@ -7,7 +7,6 @@ namespace CardAuction.Models
 {
     public class QueryResult
     {
-        public bool TotalMatch { get; set; }
         public string fItemId { get; set; }
         public string fItemName { get; set; }
         public string fPhoto { get; set; }

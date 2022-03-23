@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tAdminAd">
+          <Key>
+            <PropertyRef Name="fAdId" />
+          </Key>
+          <Property Name="fAdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fAdName" Type="nvarchar" MaxLength="60" />
+          <Property Name="fAdNote" Type="nvarchar" MaxLength="800" />
+          <Property Name="fAdFileName" Type="nvarchar" MaxLength="800" />
+        </EntityType>
         <EntityType Name="tAuctionBid">
           <Key>
             <PropertyRef Name="fBidId" />
@@ -77,12 +86,13 @@
           <Property Name="fItemId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="fItemName" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="fItemDescription" Type="nvarchar" MaxLength="800" Nullable="false" />
+          <Property Name="fSort" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="fPhoto0" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="fPhoto1" Type="varchar" MaxLength="30" />
           <Property Name="fPhoto2" Type="varchar" MaxLength="30" />
           <Property Name="fPhoto3" Type="varchar" MaxLength="30" />
           <Property Name="fItemLocation" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="fItemLeavel" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="fItemLevel" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="fHopeItemName" Type="nvarchar" MaxLength="60" />
           <Property Name="fHopeItemLocation" Type="nvarchar" MaxLength="5" />
           <Property Name="fCreateTime" Type="datetime" Nullable="false" />
@@ -109,6 +119,7 @@
           <Property Name="fDelete" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="dbCardAuctionModelStoreContainer">
+          <EntitySet Name="tAdminAd" EntityType="Self.tAdminAd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionBid" EntityType="Self.tAuctionBid" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionFavorite" EntityType="Self.tAuctionFavorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" Schema="dbo" store:Type="Tables" />
@@ -122,6 +133,15 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbCardAuctionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tAdminAd">
+          <Key>
+            <PropertyRef Name="fAdId" />
+          </Key>
+          <Property Name="fAdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fAdName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="fAdNote" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="fAdFileName" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="tAuctionBid">
           <Key>
             <PropertyRef Name="fBidId" />
@@ -194,12 +214,13 @@
           <Property Name="fItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fItemName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fItemDescription" Type="String" MaxLength="800" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fSort" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fPhoto0" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fPhoto1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="fPhoto2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="fPhoto3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="fItemLocation" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fItemLeavel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fItemLevel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fHopeItemName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="fHopeItemLocation" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="fCreateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -226,6 +247,7 @@
           <Property Name="fDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="dbCardAuctionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tAdminAd" EntityType="Self.tAdminAd" />
           <EntitySet Name="tAuctionBid" EntityType="Self.tAuctionBid" />
           <EntitySet Name="tAuctionFavorite" EntityType="Self.tAuctionFavorite" />
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" />
@@ -240,6 +262,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="dbCardAuctionModelStoreContainer" CdmEntityContainer="dbCardAuctionEntities">
+          <EntitySetMapping Name="tAdminAd">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tAdminAd">
+              <MappingFragment StoreEntitySet="tAdminAd">
+                <ScalarProperty Name="fAdId" ColumnName="fAdId" />
+                <ScalarProperty Name="fAdName" ColumnName="fAdName" />
+                <ScalarProperty Name="fAdNote" ColumnName="fAdNote" />
+                <ScalarProperty Name="fAdFileName" ColumnName="fAdFileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tAuctionBid">
             <EntityTypeMapping TypeName="dbCardAuctionModel.tAuctionBid">
               <MappingFragment StoreEntitySet="tAuctionBid">
@@ -316,12 +348,13 @@
                 <ScalarProperty Name="fItemId" ColumnName="fItemId" />
                 <ScalarProperty Name="fItemName" ColumnName="fItemName" />
                 <ScalarProperty Name="fItemDescription" ColumnName="fItemDescription" />
+                <ScalarProperty Name="fSort" ColumnName="fSort" />
                 <ScalarProperty Name="fPhoto0" ColumnName="fPhoto0" />
                 <ScalarProperty Name="fPhoto1" ColumnName="fPhoto1" />
                 <ScalarProperty Name="fPhoto2" ColumnName="fPhoto2" />
                 <ScalarProperty Name="fPhoto3" ColumnName="fPhoto3" />
                 <ScalarProperty Name="fItemLocation" ColumnName="fItemLocation" />
-                <ScalarProperty Name="fItemLeavel" ColumnName="fItemLeavel" />
+                <ScalarProperty Name="fItemLevel" ColumnName="fItemLevel" />
                 <ScalarProperty Name="fHopeItemName" ColumnName="fHopeItemName" />
                 <ScalarProperty Name="fHopeItemLocation" ColumnName="fHopeItemLocation" />
                 <ScalarProperty Name="fCreateTime" ColumnName="fCreateTime" />

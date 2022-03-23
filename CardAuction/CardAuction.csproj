@@ -358,13 +358,10 @@
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
       <LastGenOutput>dbCardAuction.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\dbCardAuction.edmx.diagram">
-      <DependentUpon>dbCardAuction.edmx</DependentUpon>
-    </Content>
     <Content Include="Models\dbCardAuction.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>dbCardAuction.cs</LastGenOutput>
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
+      <LastGenOutput>dbCardAuction.cs</LastGenOutput>
     </Content>
     <Content Include="obj\Debug\CardAuction.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\CardAuction.dll" />
@@ -399,17 +396,20 @@
       <DependentUpon>dbCardAuction.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\dbCardAuction.cs">
-      <DependentUpon>dbCardAuction.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\dbCardAuction.Designer.cs">
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\QueryResult.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\tAdminAd.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tAuctionBid.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
@@ -479,6 +479,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbCardAuction.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Models\dbCardAuction.edmx.diagram">
+      <DependentUpon>dbCardAuction.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LayoutCOPY.cshtml" />
@@ -510,6 +513,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Admin\AdManage.cshtml" />
     <Content Include="Views\Exchange\Post.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

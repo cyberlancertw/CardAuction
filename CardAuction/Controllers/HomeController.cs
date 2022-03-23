@@ -28,24 +28,27 @@ namespace CardAuction.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult Search(string keyword = "pokemon")
+        public ActionResult Search(string id)
         {
-            // 搜尋 split
-            // 比對 fItemName, fItemDescription, fSort, fGrading
-            // intersect , union
-            //return Json();
+            CHomeSearchViewModel vModel = new CHomeSearchViewModel();
+            vModel.keyword = id;
+            if (string.IsNullOrEmpty(id))                               // 空的
+            {
+                vModel.fullMatch = new List<QueryResult>();
+                vModel.partialMatch = new List<QueryResult>();
+                return View(vModel);
+            }
 
-            string[] keywordList = keyword.Split(' ');
+            string[] keywordList = id.Split(' ');
             int keywordCount = keywordList.Length;
 
-            
-            IQueryable<QueryItem> informations = db.tAuctionItem
+            IQueryable<QueryItem> informations = db.tAuctionItem        // 撈商品名、描述、分類、鑑定 成待查字串
                 .Select(m => new QueryItem
                 {
                     itemId = m.fItemId,
                     information = m.fItemName + m.fItemDescription + m.fSort + m.fGrading
                 });
-            List<IQueryable<QueryItem>> queryResult = new List<IQueryable<QueryItem>>();
+            //List<IQueryable<QueryItem>> queryResult = new List<IQueryable<QueryItem>>();
             List<List<string>> queryResultItemId = new List<List<string>>();
 
             foreach (string queryKey in keywordList)
@@ -54,44 +57,55 @@ namespace CardAuction.Controllers
                 queryResultItemId.Add(resultStrings);
             }
 
-            CHomeSearchViewModel vModel = new CHomeSearchViewModel();
-            List<QueryResult> finalResult = new List<QueryResult>();
-            List<string> AndResult = queryResultItemId[0];
+            
+            List<QueryResult> andQueryResult = new List<QueryResult>();
+            
 
+            List<string> AndResult = queryResultItemId[0];
             for(int i=1; i < queryResultItemId.Count; i++)
             {
                 AndResult = AndResult.Intersect(queryResultItemId[i]).ToList();
             }
-
-
             foreach(string str in AndResult)
             {
                 tAuctionItem item = db.tAuctionItem.Find(str);
-                finalResult.Add(new QueryResult
+                andQueryResult.Add(new QueryResult
                 {
                     fItemId = item.fItemId,
                     fEndTime = item.fEndTime,
                     fItemName = item.fItemName,
                     fMoneyNow = item.fMoneyNow,
-                    TotalMatch = true,
                     fPhoto = item.fPhoto0
                 });
             }
-            vModel.fullMatch = finalResult;
+            vModel.fullMatch = andQueryResult;
 
-            if(queryResultItemId.Count == 1)
+            if(queryResultItemId.Count == 1)                        // 若只有一個關鍵字，就無部份符合的list要做，直接傳View
             {
                 vModel.partialMatch = new List<QueryResult>();
                 return View(vModel);
             }
 
+            List<QueryResult> orQueryResult = new List<QueryResult>();
             List<string> OrResult = new List<string>();
             foreach(List<string> result in queryResultItemId)
             {
-                //
-                //
-
+                List<string> temp = result.Except(AndResult).Except(OrResult).ToList();         // 差集掉交集結果和前面已蒐集的部分
+                OrResult.AddRange(temp);
             }
+            foreach (string str in OrResult)
+            {
+                tAuctionItem item = db.tAuctionItem.Find(str);
+                orQueryResult.Add(new QueryResult
+                {
+                    fItemId = item.fItemId,
+                    fEndTime = item.fEndTime,
+                    fItemName = item.fItemName,
+                    fMoneyNow = item.fMoneyNow,
+                    fPhoto = item.fPhoto0
+                });
+            }
+            vModel.partialMatch = orQueryResult;
             return View(vModel);
         }
 
