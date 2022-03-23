@@ -12,10 +12,11 @@ namespace CardAuction.ViewModels
         public HttpPostedFileBase Photo1 { get; set; }
         public HttpPostedFileBase Photo2 { get; set; }
         public HttpPostedFileBase Photo3 { get; set; }
+        public string fSort { get; set; }
         public string fItemName { get; set; }
         public string fItemDescription { get; set; }
         public string fItemLocation { get; set; }
-        public string fItemLeavel { get; set; }
+        public string fItemLevel { get; set; }
         public string fHopeItemName { get; set; }
         public string fHopeItemLocation { get; set; }
         public DateTime fEndTimeDate { get; set; }
