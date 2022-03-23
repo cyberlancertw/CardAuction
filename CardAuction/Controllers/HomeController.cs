@@ -48,7 +48,6 @@ namespace CardAuction.Controllers
                     itemId = m.fItemId,
                     information = m.fItemName + m.fItemDescription + m.fSort + m.fGrading
                 });
-            //List<IQueryable<QueryItem>> queryResult = new List<IQueryable<QueryItem>>();
             List<List<string>> queryResultItemId = new List<List<string>>();
 
             foreach (string queryKey in keywordList)

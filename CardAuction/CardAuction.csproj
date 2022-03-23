@@ -514,6 +514,9 @@
     <Content Include="Views\Admin\AdManage.cshtml" />
     <Content Include="Views\Exchange\Post.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Admin\AdvManage.cshtml" />
+    <Content Include="Views\Admin\AdvEdit.cshtml" />
+    <Content Include="Views\Admin\AdvCreate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

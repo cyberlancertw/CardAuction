@@ -36,7 +36,7 @@
           <Property Name="fMoneyStep" Type="int" Nullable="false" />
           <Property Name="fMoneyStart" Type="int" Nullable="false" />
           <Property Name="fBuyPrice" Type="int" Nullable="false" />
-          <Property Name="fGrading" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="fGrading" Type="nvarchar" MaxLength="35" Nullable="false" />
           <Property Name="fCreateTime" Type="datetime" Nullable="false" />
           <Property Name="fEndTime" Type="datetime" Nullable="false" />
           <Property Name="fPhoto0" Type="varchar" MaxLength="30" Nullable="false" />
@@ -161,7 +161,7 @@
           <Property Name="fMoneyStep" Type="Int32" Nullable="false" />
           <Property Name="fMoneyStart" Type="Int32" Nullable="false" />
           <Property Name="fBuyPrice" Type="Int32" Nullable="false" />
-          <Property Name="fGrading" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fGrading" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fCreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fEndTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fPhoto0" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />

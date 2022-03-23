@@ -4,8 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cards Admin _ @ViewBag.Title</title>
-    <!-- CSSReset -->
+
     <link rel="stylesheet" href="~/Content/cssReset.css">
+    <link rel="stylesheet" href="~/Content/cssNormalize.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+          integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Bootstrap -->
     <link href="~/Content/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
     <!-- CSS -->
@@ -21,7 +29,7 @@
                 <div class="nav-left">
                     <a class="tablink" href="/Admin/PsnManage">Members</a>
                     <a class="tablink" href="/Admin/">Products</a>
-                    <a class="tablink" href="/Admin/AdManage">Advert</a>
+                    <a class="tablink" href="/Admin/AdvManage">Advert</a>
                     <a class="tablink" href="/Admin/">Analysis</a>
                 </div>
 
@@ -37,18 +45,52 @@
 
             </div>
         </div>
-     </nav>
+    </nav>
 
     <content>
         @RenderBody()
     </content>
 
+    <br><br><br><br><br><br><br><br><br><br><br>
 
-    @*<footer>
-            <p>&copy; @DateTime.Now.Year - Admin Footer</p>
-        </footer>*@
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <div class="row ">
+
+                <div class="nav-left">
+                    <a class="text-muted tablink" href="/">Back to User</a>
+                    <a class="text-muted tablink" href="/Admin">Back to Admin</a>
+
+                </div>
+
+                <div class="nav-middle">
+                    <a class="text-muted tablink" href="/">Instructions</a>
+                    <a class="text-muted tablink" href="/">About Us</a>
+                    <a class="text-muted tablink" href="/">Contact Us</a>
+
+                </div>
+
+                <div class="nav-right">
+                    <i class="fa-regular fa-envelope text-muted"></i>
+                    <i class="fa-brands fa-instagram text-muted"></i>
+                    <i class="fa-brands fa-facebook text-muted"></i>
+                    <i class="fa-brands fa-youtube text-muted"></i>
+                    <i class="fa-brands fa-telegram text-muted"></i>
+                </div>
+
+            </div>
+            <div>
+                <span class=" text-muted tablink row-div"> &copy; Cards - 2022</span>
+            </div>
+        </div>
+        <div class="dark-blue">.</div>
+
+    </footer>
 
     <script src="~/Scripts/jquery-3.6.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"></script>
 </body>
 </html>
