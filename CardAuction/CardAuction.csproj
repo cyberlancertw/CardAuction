@@ -413,6 +413,9 @@
     <Compile Include="Models\tAuctionBid.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tAuctionDetail.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tAuctionFavorite.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
@@ -422,6 +425,12 @@
     <Compile Include="Models\tCommentAuction.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tCommentExchange.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tExchangeDetail.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tExchangeFavorite.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
@@ -429,6 +438,12 @@
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tMember.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tReportAuction.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tReportExchange.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
