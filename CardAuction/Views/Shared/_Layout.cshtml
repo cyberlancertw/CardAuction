@@ -86,8 +86,7 @@
             searchBy(txtSearch.value);
         })
         function searchBy(keyword) {
-            let para = `?keyword=${keyword}`;
-            location.href = '@Url.Content("~/Home/Search/")' + para;
+            location.href = '@Url.Content("~/Home/Search/")' + keyword;
         }
     </script>
     @RenderSection("scripts", required: false);

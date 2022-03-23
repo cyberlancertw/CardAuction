@@ -46,7 +46,7 @@
           <Property Name="fMoneyStep" Type="int" Nullable="false" />
           <Property Name="fMoneyStart" Type="int" Nullable="false" />
           <Property Name="fBuyPrice" Type="int" Nullable="false" />
-          <Property Name="fGrading" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="fGrading" Type="nvarchar" MaxLength="35" Nullable="false" />
           <Property Name="fCreateTime" Type="datetime" Nullable="false" />
           <Property Name="fEndTime" Type="datetime" Nullable="false" />
           <Property Name="fPhoto0" Type="varchar" MaxLength="30" Nullable="false" />
@@ -92,7 +92,7 @@
           <Property Name="fPhoto2" Type="varchar" MaxLength="30" />
           <Property Name="fPhoto3" Type="varchar" MaxLength="30" />
           <Property Name="fItemLocation" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="fItemLevel" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="fItemLevel" Type="nvarchar" MaxLength="35" Nullable="false" />
           <Property Name="fHopeItemName" Type="nvarchar" MaxLength="60" />
           <Property Name="fHopeItemLocation" Type="nvarchar" MaxLength="5" />
           <Property Name="fCreateTime" Type="datetime" Nullable="false" />
@@ -174,7 +174,7 @@
           <Property Name="fMoneyStep" Type="Int32" Nullable="false" />
           <Property Name="fMoneyStart" Type="Int32" Nullable="false" />
           <Property Name="fBuyPrice" Type="Int32" Nullable="false" />
-          <Property Name="fGrading" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fGrading" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fCreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fEndTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fPhoto0" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
@@ -220,7 +220,7 @@
           <Property Name="fPhoto2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="fPhoto3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="fItemLocation" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fItemLevel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fItemLevel" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fHopeItemName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="fHopeItemLocation" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="fCreateTime" Type="DateTime" Nullable="false" Precision="3" />
