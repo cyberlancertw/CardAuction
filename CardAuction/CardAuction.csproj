@@ -169,6 +169,8 @@
     <Content Include="Content\AdminCss\cssPsnEdit.css" />
     <Content Include="Content\AdminCss\cssPsnManage.css" />
     <Content Include="Content\ExchangeCss\cssExchange.css" />
+    <Content Include="Content\HomeCss\cssHomePost.css" />
+    <Content Include="Content\HomeCss\cssHomeSearch.css" />
     <Content Include="Content\HomeCss\cssUserIndexAD.css" />
     <Content Include="Content\AuctionCss\cssAuctionItem.css" />
     <Content Include="Content\AuctionCss\cssAuctionList.css" />
@@ -532,6 +534,7 @@
     <Content Include="Views\Admin\AdvManage.cshtml" />
     <Content Include="Views\Admin\AdvEdit.cshtml" />
     <Content Include="Views\Admin\AdvCreate.cshtml" />
+    <Content Include="Views\Home\Post.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

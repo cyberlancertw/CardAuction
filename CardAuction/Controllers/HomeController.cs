@@ -107,6 +107,11 @@ namespace CardAuction.Controllers
             vModel.partialMatch = orQueryResult;
             return View(vModel);
         }
+        [HttpGet]
+        public ActionResult Post()
+        {
+            return View();
+        }
 
     }
 

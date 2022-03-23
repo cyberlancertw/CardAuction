@@ -1,0 +1,68 @@
+﻿/*  淡灰 ced3d8   ebebeb    深灰 6b6b6b   黑 333333    藏青 1f3444    金  ab8f4e    白ffffff */
+
+@media (max-width: 575px) {
+    html {
+        font-size: 9px;
+    }
+    .iconSize {
+        font-size: 12rem;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    html {
+        font-size: 11px;
+    }
+    .iconSize {
+        font-size: 10rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    html {
+        font-size: 12px;
+    }
+    .iconSize {
+        font-size: 11rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width:1199px) {
+    html {
+        font-size: 13px;
+    }
+    .iconSize {
+        font-size: 11rem;
+    }
+}
+@media (min-width: 1200px) {
+    html {
+        font-size: 14px;
+    }
+    .iconSize{
+        font-size: 12rem;
+    }
+}
+a{
+    text-decoration: none;
+    color: #6b6b6b;
+}
+a:hover {
+    color: #ab8f4e;
+}
+.linkWord {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.divIcon{
+    margin-top: 5rem;
+    text-align: center;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+.divBorder {
+    background-color: #ebebeb;
+    border-radius: 2rem;
+}

@@ -1,0 +1,89 @@
+﻿/*  淡灰 ced3d8   ebebeb    深灰 6b6b6b   黑 333333    藏青 1f3444    金  ab8f4e    白ffffff */
+
+@media (max-width: 575px) {
+    html {
+        font-size: 14px;
+    }
+    .imgWrap {
+        height: 20rem;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    html {
+        font-size: 14px;
+    }
+    .imgWrap {
+        height: 35rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    html {
+        font-size: 12px;
+    }
+    .imgWrap {
+        height: 20rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width:1199px) {
+    html {
+        font-size: 13px;
+    }
+    .imgWrap {
+        height: 20rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    html {
+        font-size: 14px;
+    }
+    .imgWrap {
+        height: 20rem;
+    }
+}
+a {
+    text-decoration: none;
+    color: #000000;
+}
+.cardBorder {
+    border-radius: 1rem;
+    padding: 0.6rem;
+    margin-bottom: 1.2rem;
+}
+.cardSelect {
+    background-color: #ebebeb;
+}
+.imgWrap {
+    width: 100%;
+}
+.cardImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+.cardBody {
+    padding: 1rem 1rem;
+}
+.pName {
+    font-size: 1.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pMoney {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ab8f4e;
+}
+
+.pTime {
+    font-size: 1.1rem;
+}
+
+
