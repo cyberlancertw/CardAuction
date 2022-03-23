@@ -175,7 +175,7 @@
                                     <input type="text" id="txtComment" maxlength="100" />
                                 </div>
                                 <div class="col-2 col-sm-2 col-md-1" id="divCountComment">
-                                    <span id="countComment">0/300</span>
+                                    <span id="countComment">0/100</span>
                                 </div>
                                 <div class="col-2 col-sm-2 col-md-1">
                                     <button id="btnCommentSend">留言</button>
@@ -328,6 +328,7 @@
             @:    sendComment(content);
             @:}
             @:txtComment.value = '';
+            @:countComment.textContent = '0/100';
             @:txtComment.focus();
         @:});
         }

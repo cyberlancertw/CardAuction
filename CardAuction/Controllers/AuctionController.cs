@@ -167,6 +167,7 @@ namespace CardAuction.Controllers
             {
                 var queryAll = from item in db.tAuctionItem
                                where item.fEndTime > DateTime.Now
+                               orderby item.fEndTime
                                select new
                                {
                                    fItemId = item.fItemId,
@@ -177,18 +178,18 @@ namespace CardAuction.Controllers
                                };
                 return Json(queryAll, JsonRequestBehavior.AllowGet);
             }
-            
-            var queryResult = from item in db.tAuctionItem
-                              where item.fEndTime > DateTime.Now && item.fSort.Contains(sortName)
-                              select new QueryResult
-                              {
-                                  fItemId = item.fItemId,
-                                  fEndTime = item.fEndTime,
-                                  fItemName = item.fItemName,
-                                  fPhoto = item.fPhoto0,
-                                  fMoneyNow = item.fMoneyNow
-                              };
-            
+
+            var queryResult = db.tAuctionItem
+                .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                .OrderBy(p => p.fEndTime)
+                .Select(n => new QueryResult
+                {
+                    fItemId = n.fItemId,
+                    fEndTime = n.fEndTime,
+                    fItemName = n.fItemName,
+                    fPhoto = n.fPhoto0,
+                    fMoneyNow = n.fMoneyNow
+                });
             return Json(queryResult,JsonRequestBehavior.AllowGet);
             
         }

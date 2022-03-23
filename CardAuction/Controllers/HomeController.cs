@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CardAuction.Models;
+using CardAuction.ViewModels;
 
 namespace CardAuction.Controllers
 {
@@ -44,30 +45,54 @@ namespace CardAuction.Controllers
                     itemId = m.fItemId,
                     information = m.fItemName + m.fItemDescription + m.fSort + m.fGrading
                 });
-
-
             List<IQueryable<QueryItem>> queryResult = new List<IQueryable<QueryItem>>();
-
+            List<List<string>> queryResultItemId = new List<List<string>>();
 
             foreach (string queryKey in keywordList)
             {
-                IQueryable<QueryItem> result = informations
-                    .Where(m => m.information.Contains(queryKey));
-
-                queryResult.Add(result);
+                var resultStrings = informations.Where(m => m.information.Contains(queryKey)).Select(r => r.itemId).ToList();
+                queryResultItemId.Add(resultStrings);
             }
 
-            List<QueryItem> finalResult = new List<QueryItem>();
+            CHomeSearchViewModel vModel = new CHomeSearchViewModel();
+            List<QueryResult> finalResult = new List<QueryResult>();
+            List<string> AndResult = queryResultItemId[0];
 
-            foreach(var item in queryResult)
+            for(int i=1; i < queryResultItemId.Count; i++)
             {
-                foreach(var itemmm in item)
-                {
-
-                    finalResult.Add(itemmm);
-                }
+                AndResult = AndResult.Intersect(queryResultItemId[i]).ToList();
             }
-            return View(finalResult);
+
+
+            foreach(string str in AndResult)
+            {
+                tAuctionItem item = db.tAuctionItem.Find(str);
+                finalResult.Add(new QueryResult
+                {
+                    fItemId = item.fItemId,
+                    fEndTime = item.fEndTime,
+                    fItemName = item.fItemName,
+                    fMoneyNow = item.fMoneyNow,
+                    TotalMatch = true,
+                    fPhoto = item.fPhoto0
+                });
+            }
+            vModel.fullMatch = finalResult;
+
+            if(queryResultItemId.Count == 1)
+            {
+                vModel.partialMatch = new List<QueryResult>();
+                return View(vModel);
+            }
+
+            List<string> OrResult = new List<string>();
+            foreach(List<string> result in queryResultItemId)
+            {
+                //
+                //
+
+            }
+            return View(vModel);
         }
 
     }
