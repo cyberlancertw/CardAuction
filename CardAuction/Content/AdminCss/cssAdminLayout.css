@@ -1,16 +1,10 @@
-﻿* {
+﻿
+/* Layout Nav */
+* {
     margin: 0;
     padding: 0;
-    font-family: "Lato", sans-serif;
     box-sizing: border-box;
-}
-
-a {
-    color: #000;
-    text-decoration: none;
-    font-size:18px;
-    font-weight: 800;
-    color: #1f3344;
+    font-family: "Lato", sans-serif;
 }
 
 .container-fluid {
@@ -19,7 +13,7 @@ a {
     margin-right: 30px;
     padding-top: 30px;
     padding-bottom: 30px;
-    border-bottom: 2px solid #DCDCDC;
+    border-bottom: 2px solid #dcdcdc;
 }
 
 .row {
@@ -42,29 +36,30 @@ a {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    text-align: left
+    text-align: left;
 }
 
-.nav-right > i {
+    .nav-right > i {
         margin: 10px;
-}
+    }
 
 .nav-title {
     margin-bottom: 0;
     line-height: 1;
-    font-family: 微軟正黑體;
-    font-size:32px;
-    font-weight: 800;
+    font-size: 32px;
+    font-weight: 600;
     color: #1f3344;
 }
-
 
 .tablink {
     border: none;
     outline: none;
+    text-decoration: none;
     cursor: pointer;
     margin: 0 16px;
     font-size: 16px;
+    font-weight: 600;
+    color: #1f3344;
     width: 60px;
 }
 
@@ -72,3 +67,19 @@ a {
         color: #ab8f4e;
         text-decoration: underline;
     }
+
+/* footer */
+.footer {
+    padding-bottom: 0 !important;
+}
+
+.row-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+
+.dark-blue {
+    background-color: #1f3344;
+}

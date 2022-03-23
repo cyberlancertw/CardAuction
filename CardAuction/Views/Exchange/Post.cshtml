@@ -1,7 +1,7 @@
 ﻿@using CardAuction.Models
 @{
     Layout = "~/Views/Shared/_LayoutShort.cshtml";
-    ViewBag.Title = "交換商品上架";
+    ViewBag.Title = "交換-商品上架";
     ViewBag.pageTitle = "新增交換商品";
     string username = null;
     string userId = null;
@@ -16,15 +16,6 @@
 }
 <form action="#" method="post" enctype="multipart/form-data">
     <div id="fullPage">
-        <div class="row" id="header">
-            <div class="col-12 col-md-3">
-                <img src="~/images/site/iconWebsite.png" id="webIcon">
-                新增商品
-            </div>
-            <div class="offset-8 col-4 offset-md-6 col-md-3" id="greeting">
-                歡迎, @username
-            </div>
-        </div>
         <div id="mainBox">
             <div id="basicInfo">
                 <div class="divTitle">
@@ -379,5 +370,3 @@
             location.href = '@Url.Content("~/")';
         })
 </script>
-</body>
-</html>
