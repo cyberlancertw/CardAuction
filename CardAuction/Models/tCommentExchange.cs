@@ -11,15 +11,13 @@ namespace CardAuction.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
     
-    
-    public partial class tAdminAd
+    public partial class tCommentExchange
     {
-        public int fAdId { get; set; }
-        public string fAdName { get; set; }
-        public string fAdNote { get; set; }
-        public string fAdFileName { get; set; }
-        public HttpPostedFileBase photo { get; set; }
+        public int fCommentId { get; set; }
+        public string fFromUserId { get; set; }
+        public string fItemId { get; set; }
+        public System.DateTime fPostTime { get; set; }
+        public string fContent { get; set; }
     }
 }

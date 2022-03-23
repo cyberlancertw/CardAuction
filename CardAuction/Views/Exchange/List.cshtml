@@ -203,9 +203,10 @@
 
     @section scripts{
         <script>
-            var contentRow = document.getElementById("contentRow");
-            function ShowSearchResult(queryResult) {
+            var contentRow = document.getElementsByClassName("contance");
 
+
+            function ShowSearchResult(queryResult) {
 
                 contentRow.innerHTML = '';
 
@@ -260,8 +261,9 @@
                     domA.appendChild(domPRTime);
                     domA.appendChild(domPFavorite);
                     domDiv.appendChild(domA);
-
+                    docFrag.appendChild(domDiv);
                 }//<--- DOM結束
+                contentRow.appendChild(docFrag);
 
             }
 
