@@ -14,13 +14,34 @@ namespace CardAuction.Controllers
         dbCardAuctionEntities db = new dbCardAuctionEntities();
 
         // GET: Exchange
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-        public ActionResult Item()
+        [HttpGet]
+        public ActionResult Item(string id)
         {
-            return View();
+            if (id == null)                             // 沒輸入 ItemId
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "需要商品編號", ToController = "Exchange", ToAction = "List" });
+            }
+            var result = db.tExchangeItem.Find(id);
+            if (result == null)                         // 有輸入 Id 但查不到
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Exchange", ToAction = "List" });
+            }
+            string postUserId = result.fPostUserId;
+            ViewBag.PostUserAccount = db.tMember.Find(postUserId).fAccount;
+
+            if (Session[CDictionary.SK_UserUserId] == null || result.fPostUserId != (string)Session[CDictionary.SK_UserUserId])
+            {
+                result.fClick += 1;                     // 無登入 或 有登入但非本人，則商品點擊數 + 1
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "List" });
+                }
+            }
+            return View(result);
         }
 
         [HttpGet]
@@ -96,6 +117,7 @@ namespace CardAuction.Controllers
             }
             createItem.fItemName = vModel.fItemName;
             createItem.fSort = vModel.fSort;
+            createItem.fPostUserId = vModel.fPostUserId;
             createItem.fItemDescription = vModel.fItemDescription;
             createItem.fItemLocation = vModel.fItemLocation;
             createItem.fItemLevel = vModel.fItemLevel;
@@ -123,6 +145,37 @@ namespace CardAuction.Controllers
             return View();
         }
 
+        public ActionResult QueryBySort(string sortName, int mode = 0)
+        {
+
+            if (string.IsNullOrEmpty(sortName))
+            {
+                var queryAll = from item in db.tExchangeItem
+                               where item.fEndTime > DateTime.Now
+                               orderby item.fEndTime
+                               select new
+                               {
+                                   fItemId = item.fItemId,
+                                   fEndTime = item.fEndTime,
+                                   fItemName = item.fItemName,
+                                   fPhoto = item.fPhoto0,
+                               };
+                return Json(queryAll, JsonRequestBehavior.AllowGet);
+            }
+
+            var queryResult = db.tAuctionItem
+                .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                .OrderBy(p => p.fEndTime)
+                .Select(n => new QueryResult
+                {
+                    fItemId = n.fItemId,
+                    fEndTime = n.fEndTime,
+                    fItemName = n.fItemName,
+                    fPhoto = n.fPhoto0,
+                });
+            return Json(queryResult, JsonRequestBehavior.AllowGet);
+
+        }
 
 
 

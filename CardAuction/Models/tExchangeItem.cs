@@ -18,6 +18,7 @@ namespace CardAuction.Models
         public string fItemName { get; set; }
         public string fItemDescription { get; set; }
         public string fSort { get; set; }
+        public string fPostUserId { get; set; }
         public string fPhoto0 { get; set; }
         public string fPhoto1 { get; set; }
         public string fPhoto2 { get; set; }
