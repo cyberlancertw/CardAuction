@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tAdminAd">
           <Key>
             <PropertyRef Name="fAdId" />
@@ -49,7 +49,7 @@
           <Property Name="fItemId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="fItemName" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="fItemDescription" Type="nvarchar" MaxLength="800" Nullable="false" />
-          <Property Name="fSort" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="fSort" Type="nvarchar" MaxLength="35" Nullable="false" />
           <Property Name="fPostUserId" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="fTopBidUserId" Type="int" />
           <Property Name="fMoneyNow" Type="int" Nullable="false" />
@@ -182,7 +182,8 @@
           <EntitySet Name="tReportAuction" EntityType="Self.tReportAuction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tReportExchange" EntityType="Self.tReportExchange" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbCardAuctionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -230,7 +231,7 @@
           <Property Name="fItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fItemName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fItemDescription" Type="String" MaxLength="800" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fSort" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fSort" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fPostUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fTopBidUserId" Type="Int32" />
           <Property Name="fMoneyNow" Type="Int32" Nullable="false" />

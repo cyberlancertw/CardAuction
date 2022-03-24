@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "上架商品";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/Content/HomeCss/cssHomePost.css" type="text/css" rel="stylesheet" />
+}
+
+<div class="container">
+    <div class="row">
+        <div class="row justify-content-center align-items-center mt-5">
+            <div class="col-9 col-sm-5 iconSize divIcon">
+                <a href="~/Auction/Post">
+                    <p>
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </p>
+                    <p class="linkWord">
+                        上架競標商品
+                    </p>
+                </a>
+            </div>
+            <div class="col-9 col-sm-5 iconSize divIcon">
+                <a href="~/Exchange/Post">
+                    <p>
+                        <i class="fa-solid fa-money-bill-transfer"></i>
+                    </p>
+                    <p class="linkWord">
+                        上架交換商品
+                    </p>
+                 </a>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        document.querySelectorAll('.divIcon').forEach(function (dom) {
+            dom.addEventListener('mouseover', function () {
+                this.classList.add('divBorder');
+            });
+            dom.addEventListener('click', function () {
+                this.classList.add('divBorder');
+            });
+            dom.addEventListener('mouseout', function () {
+                this.classList.remove('divBorder');
+            })
+        });
+    </script>
+}

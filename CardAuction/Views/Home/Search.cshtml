@@ -3,20 +3,134 @@
     ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>@Model.keyword</h2>
-
-@foreach(var item in Model.fullMatch)
-            {
-                <div>@item.fItemName</div>
-            }
-
+@section styles{
+    <link rel="stylesheet" href="~/Content/HomeCss/cssHomeSearch.css" type="text/css" />
+}
+<h1>關鍵字：@Model.keyword</h1>
+<h2>完全符合：</h2>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model.fullMatch)
+        {
+            int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
+            int dayRemain = secondRemain / 86400;
+            secondRemain %= 86400;
+            int hourRemain = secondRemain / 3600;
+            secondRemain %= 3600;
+            int minuteRemain = secondRemain / 60;
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="cardBorder">
+                    <a href="~/Auction/@item.fItemId">
+                        <div class="imgWrap">
+                            <img class="cardImg" src="~/Images/AuctionItemImages/@item.fPhoto" />
+                        </div>
+                        <div class="cardBody">
+                            <p class="pName">@item.fItemName</p>
+                            <p class="pMoney">$ @item.fMoneyNow 元</p>
+                            <p class="pTime"><i class="fa-solid fa-clock"></i> @dayRemain 天 @hourRemain 時 @minuteRemain 分</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 <hr />
-@foreach(var item in Model.partialMatch)
-            {
-                <div>@item.fItemName</div>
-            }
+<h2>部份符合</h2>
+<div class="container">
+    <div class ="row">
 
+        @foreach (var item in Model.partialMatch)
+        {
+            int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
+            int dayRemain = secondRemain / 86400;
+            secondRemain %= 86400;
+            int hourRemain = secondRemain / 3600;
+            secondRemain %= 3600;
+            int minuteRemain = secondRemain / 60;
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="cardBorder">
+                    <a href="~/Auction/@item.fItemId">
+                        <div class="imgWrap">
+                            <img class="cardImg" src="~/Images/AuctionItemImages/@item.fPhoto" />
+                        </div>
+                        <div class="">
+                            <p class="pName">@item.fItemName</p>
+                            <p class="pMoney">$ @item.fMoneyNow 元</p>
+                            <p class="pTime"><i class="fa-solid fa-clock"></i> @dayRemain 天 @hourRemain 時 @minuteRemain 分</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 <script>
+    function ShowSearchResult(queryResult) {
 
+            contentRow.innerHTML = '';
+
+            let docFrag = document.createDocumentFragment();
+
+            for (let item of queryResult) {
+                let secondRemain = Math.floor((new Date(parseInt(item.fEndTime.substr(6))) - new Date()) / 1000);
+                   // Ajax 撈得 Jason 的 Date 物件是來自 MS 的格式，長這樣 /Date(123456...)/
+                   // 取 substr(6) 子字串得 12345...)/ 然後 parseInt 自動去掉尾巴的 )/ ，就能實體化 JS 的 Date 物件
+                let dayRemain = Math.floor(secondRemain / 86400);
+                secondRemain %= 86400;
+                let hourRemain = Math.floor(secondRemain / 3600);
+                secondRemain %= 3600;
+                let minuteRemain = Math.floor(secondRemain / 60);
+
+
+                let domDiv = document.createElement('div');
+                domDiv.className = 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
+                let domBorder = document.createElement('div');
+                domBorder.className = 'cardBorder';
+                let domA = document.createElement('a');
+                domA.href = '@Url.Content("~/Auction/Item/")' + item.fItemId;
+                let domImgWrap = document.createElement('div');
+                domImgWrap.className = 'imgWrap';
+                let domImg = document.createElement('img');
+                domImg.src = '@Url.Content("~/Images/AuctionItemImages/")' + item.fPhoto;
+                domImg.className = 'cardImg';
+                domImgWrap.appendChild(domImg);
+                let domCardBody = document.createElement('div');
+                let domPname = document.createElement('p');
+                domPname.className = 'pName';
+                domPname.textContent = item.fItemName;
+                domCardBody.appendChild(domPname);
+                let domPmoney = document.createElement('p');
+                domPmoney.className = 'pMoney';
+                domPmoney.textContent = `$ ${item.fMoneyNow} 元`;
+                domCardBody.appendChild(domPmoney);
+                let domPtime = document.createElement('p');
+                domPtime.className = 'pTime';
+                let domI = document.createElement('i');
+                domI.className = 'fa-solid fa-clock';
+                domPtime.prepend(domI);
+                domPtime.textContent = `${dayRemain} 天 ${hourRemain} 時 ${minuteRemain} 分`;
+                domCardBody.appendChild(domPtime);
+                domA.appendChild(domImgWrap);
+                domA.appendChild(domCardBody);
+                domBorder.appendChild(domA);
+                domDiv.appendChild(domBorder);
+                docFrag.appendChild(domDiv);
+
+            }
+            contentRow.appendChild(docFrag);
+
+                            // 放上查詢出來的結果後加上滑鼠移上去的背景特效
+    }
+    addHover();
+    function addHover() {
+        document.querySelectorAll('.cardBorder').forEach(function (dom) {
+            dom.addEventListener('mouseover', function () {
+                this.classList.add('cardSelect');
+            });
+            dom.addEventListener('mouseleave', function () {
+                this.classList.remove('cardSelect');
+            });
+        });
+    };
 </script>
