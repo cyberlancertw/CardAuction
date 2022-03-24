@@ -15,10 +15,10 @@ namespace CardAuction.Models
     
     public partial class tAdminAd
     {
-        public HttpPostedFileBase photo { get; set; }
         public int fAdId { get; set; }
         public string fAdName { get; set; }
         public string fAdNote { get; set; }
         public string fAdFileName { get; set; }
+        public HttpPostedFileBase photo { get; set; }
     }
 }
