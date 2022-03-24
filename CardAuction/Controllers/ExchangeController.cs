@@ -123,6 +123,7 @@ namespace CardAuction.Controllers
             createItem.fItemLevel = vModel.fItemLevel;
             createItem.fHopeItemName = vModel.fHopeItemName;
             createItem.fHopeItemLocation = vModel.fHopeItemLocation;
+            createItem.fUserInfo = vModel.fUserInfo;
             createItem.fCreateTime = nowTime; // 現在時間為建立時間
             createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結束時間
 

@@ -28,6 +28,7 @@ namespace CardAuction.Models
         public string fHopeItemName { get; set; }
         public string fHopeItemLocation { get; set; }
         public System.DateTime fCreateTime { get; set; }
+        public string fUserInfo { get; set; }
         public System.DateTime fEndTime { get; set; }
         public Nullable<int> fClick { get; set; }
         public Nullable<int> fReport { get; set; }

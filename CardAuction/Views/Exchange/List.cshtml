@@ -206,7 +206,16 @@
             var contentRow = document.getElementsByClassName("contance");
 
 
-            function ShowSearchResult(queryResult) {
+            function ShowSearchResult(queryResult)
+            {
+                let secondRemain = Math.floor((new Date(parseInt(item.fEndTime.substr(6))) - new Date()) / 1000);
+                // Ajax 撈得 Jason 的 Date 物件是來自 MS 的格式，長這樣 /Date(123456...)/
+                // 取 substr(6) 子字串得 12345...)/ 然後 parseInt 自動去掉尾巴的 )/ ，就能實體化 JS 的 Date 物件
+                let dayRemain = Math.floor(secondRemain / 86400);
+                secondRemain %= 86400;
+                let hourRemain = Math.floor(secondRemain / 3600);
+                secondRemain %= 3600;
+                let minuteRemain = Math.floor(secondRemain / 60);
 
                 contentRow.innerHTML = '';
 

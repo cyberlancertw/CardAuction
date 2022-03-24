@@ -19,6 +19,7 @@ namespace CardAuction.ViewModels
         public string fItemLevel { get; set; }
         public string fHopeItemName { get; set; }
         public string fHopeItemLocation { get; set; }
+        public string fUserInfo { get; set; }
         public DateTime fEndTimeDate { get; set; }
         public DateTime fEndTimeTime { get; set; }
         public int fClick { get; set; }
