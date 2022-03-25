@@ -239,8 +239,33 @@ namespace CardAuction.Controllers
                 return;
             }
 
-
             //   直購的部份
+            if(item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
+            {
+                item.fMoneyNow = amount;
+
+                tAuctionBid newBid = new tAuctionBid
+                {
+                    fItemId = itemId,
+                    fTime = DateTime.Now,
+                    fUserId = userId,
+                    fMoney = amount
+                };
+
+                db.tAuctionBid.Add(newBid);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+            }
 
             return;
         }

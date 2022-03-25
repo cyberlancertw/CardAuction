@@ -88,7 +88,7 @@ a{
 }
 .cardBorder {
     border-radius: 1rem;
-    
+    border: 1px solid #ced3d8;
     padding: 0.6rem;
     margin-bottom: 1.2rem;
 }
@@ -106,7 +106,7 @@ a{
 }
 .cardBody{
     padding: 0px 1rem;
-    
+    margin-top:1.5rem;
 }
 .pName{
     font-size: 1.5rem;

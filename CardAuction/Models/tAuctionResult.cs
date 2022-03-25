@@ -12,12 +12,15 @@ namespace CardAuction.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tAuctionDetail
+    public partial class tAuctionResult
     {
-        public int fDetailId { get; set; }
-        public Nullable<int> fItemId { get; set; }
-        public Nullable<int> fUserId { get; set; }
-        public Nullable<System.DateTime> fBidTime { get; set; }
+        public string fResultId { get; set; }
+        public string fPostUserId { get; set; }
+        public string fWinUserId { get; set; }
         public Nullable<int> fBidMoney { get; set; }
+        public Nullable<int> fTotalMoney { get; set; }
+        public Nullable<System.DateTime> fWinTime { get; set; }
+        public Nullable<int> fBidCount { get; set; }
+        public string fDeliveryInfo { get; set; }
     }
 }
