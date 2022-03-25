@@ -28,7 +28,6 @@ namespace CardAuction.Models
         public virtual DbSet<tAdminAd> tAdminAd { get; set; }
         public virtual DbSet<tAuctionBid> tAuctionBid { get; set; }
         public virtual DbSet<tAuctionFavorite> tAuctionFavorite { get; set; }
-        public virtual DbSet<tAuctionItem> tAuctionItem { get; set; }
         public virtual DbSet<tAuctionResult> tAuctionResult { get; set; }
         public virtual DbSet<tCommentAuction> tCommentAuction { get; set; }
         public virtual DbSet<tCommentExchange> tCommentExchange { get; set; }
@@ -38,5 +37,6 @@ namespace CardAuction.Models
         public virtual DbSet<tMember> tMember { get; set; }
         public virtual DbSet<tReportAuction> tReportAuction { get; set; }
         public virtual DbSet<tReportExchange> tReportExchange { get; set; }
+        public virtual DbSet<tAuctionItem> tAuctionItem { get; set; }
     }
 }

@@ -33,5 +33,6 @@ namespace CardAuction.Models
         public Nullable<int> fClick { get; set; }
         public Nullable<int> fReport { get; set; }
         public Nullable<bool> fDelete { get; set; }
+        public int fChangeCount { get; set; }
     }
 }
