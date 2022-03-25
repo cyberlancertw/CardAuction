@@ -345,5 +345,26 @@ namespace CardAuction.Controllers
             }
         }
 
+        public ActionResult FavoriteExchange(string ItemId)
+        {
+            string UserId = Session[CDictionary.SK_UserUserId].ToString();
+            tExchangeFavorite result = db.tExchangeFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
+            if(result == null)
+            {
+                db.tExchangeFavorite.Remove(result);
+                db.SaveChanges();
+                return Content("False");
+            }
+            else
+            {
+                db.tExchangeFavorite.Add(new tExchangeFavorite
+                {
+                    fFromUserId = UserId,
+                    fToItemId = ItemId
+                });
+                db.SaveChanges();
+                return Content("True");
+            }
+        }
     }
 }
