@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CardAuction.Models.tExchangeItem
+@using CardAuction.Models
+@{
     ViewBag.Title = "交換商品一覽";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -12,200 +14,156 @@
 
 
 
-    <div class="container">
-        <!-- model -->
-        <div class="model">
-            <div class="row">
-                <!-- header -->
-                <div class="col-12">
-                    <div class="header">
-                        <a href="https://card25th.portal-pokemon.com/tw/" target="_blank"><img src="~/images/ExchangeItemImages/maxresdefault.jpg" class="img-fluid"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!-- menu -->
-                <div class="col-3 d-none  d-sm-block">
-                    <div class="menu">
-                        <p><a class="searchSort" data-keyword="" href="#">所有商品(All)</a></p>
-                        <p><a class="searchSort" data-keyword="遊戲王" href="#">遊戲王(YU-GI-OH!)</a></p>
-                        <p><a class="searchSort" data-keyword="寶可夢" href="#">寶可夢(Pokomon)</a></p>
-                        <p><a class="searchSort" data-keyword="黑與白" href="#">黑與白(Weiß Schwarz)</a></p>
-                        <p><a class="searchSort" data-keyword="七龍珠" href="#">七龍珠(DragonBallHeroes)</a></p>
-                        <p><a class="searchSort" data-keyword="鋼彈大戰" href="#">鋼彈大戰(GUNDAM WAR)</a></p>
-                        <p><a class="searchSort" data-keyword="魔法風雲會" href="#">魔法風雲會(MTG)</a></p>
-                        <p><a class="searchSort" data-keyword="聖火降魔錄" href="#">聖火降魔錄(FE0)</a></p>
-                        <p><a class="searchSort" data-keyword="運動卡" href="#">運動卡(Sport)</a></p>
-                    </div>
-                </div>
-                <!-- main -->
-                <div class="col-12 col-sm-9">
-                    <div class="main">
-                        <!-- filter -->
-                        <div class="col-12 d-none d-sm-block">
-                            <div class="filter">
-                                <div class="filter-left">
-                                    <span>篩選</span>
-                                </div>
-                                <div class="col-6 filter-middle">
-                                    <a class="filter-link" href="#">最多留言</a>
-                                    <a class="filter-link" href="#">最&emsp;新</a>
-                                </div>
-                                <div class="col-6 filter-right">
-                                    <a href="#" id="headline" title="列表顯示"><i class="material-icons">&#xe8ee;</i></a>
-                                    <a href="#" id="comfy" title="縮圖顯示"><i class="material-icons">&#xe5c3;</i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 	d-block d-sm-none">
-                            <nav class="navbar navbar-light bg-light">
-                                <div class="container">
-                                    <!-- <a class="navbar-brand" href="#">選&emsp;單</a> -->
-                                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                                        <span class="navbar-toggler-icon"></span>
-                                    </button>
-                                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                                        <div class="offcanvas-header">
-                                            <h1 class="offcanvas-title" id="offcanvasNavbarLabel">選單</h1>
-                                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                        </div>
-                                        <div class="offcanvas-body">
-                                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                                <li class="nav-item">
-                                                    <h2 class="offcanvas-title" id="offcanvasNavbarLabel">功&emsp;能</h2>
-                                                </li>
-                                                <li class="nav-item">
-                                                    @Html.ActionLink("我要交換", "Post", "Exchange", new { @class = "nav-link" })
-                                                </li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li class="nav-item">
-                                                    <h2 class="offcanvas-title" id="offcanvasNavbarLabel">分&emsp;類</h2>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link active searchSort" data-keyword="" aria-current="page" href="#">所有商品</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link searchSort" data-keyword="遊戲王" href="#">遊戲王</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link searchSort" data-keyword="寶可夢" href="#">寶可夢</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link searchSort" data-keyword="黑與白" href="#">黑與白</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link searchSort" data-keyword="七龍珠" href="#">七龍珠</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link searchSort" data-keyword="鋼彈大戰" href="#">鋼彈大戰</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link searchSort" data-keyword="魔法風雲會" href="#">魔法風雲會</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link searchSort" data-keyword="聖火降魔錄" href="#">聖火降魔錄</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link searchSort" data-keyword="運動卡" href="#">運動卡</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </nav>
-                        </div>
-                        <!-- ExchangePt -->
-                        <div class="col-12 d-none d-sm-block">
-                            <div class="ExchangePt">
-                                @Html.ActionLink("我要交換", "Post", "Exchange")
-                            </div>
-                        </div>
-                        <!-- contance -->
-                        <div class="col-12">
-                            <div class="wrap justify-content-center justify-content-sm-start" id="contentRow">
-                                <div class="contance">
-                                    <a href="#">
-                                        <div class="img-wrap">
-                                            <img src="~/images/ExchangeItemImages/S__55230489.jpg">
-                                        </div>
-                                        <p><h3>卡牌名稱</h3></p>
-                                        <p><span id="message-num">留言數量</span><span>/10</span>則</p>
-                                        <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
-                                        <p id="favorite"><i class="material-icons">favorite_border</i></p>
-                                    </a>
-                                </div>
-                                <div class="contance">
-                                    <a href="#">
-                                        <div class="img-wrap">
-                                            <img src="~/images/ExchangeItemImages/S__55230493.jpg">
-                                        </div>
-                                        <p><h3>卡牌名稱</h3></p>
-                                        <p><span id="message-num">留言數量</span><span>/10</span>則</p>
-                                        <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
-                                        <p id="favorite"><i class="material-icons">favorite_border</i></p>
-                                    </a>
-                                </div>
-                                <div class="contance">
-                                    <a href="#">
-                                        <div class="img-wrap">
-                                            <img src="~/images/ExchangeItemImages/S__55230501.jpg">
-                                        </div>
-                                        <p><h3>卡牌名稱</h3></p>
-                                        <p><span id="message-num">留言數量</span><span>/10</span>則</p>
-                                        <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
-                                        <p id="favorite"><i class="material-icons">favorite_border</i></p>
-                                    </a>
-                                </div>
-                                <div class="contance">
-                                    <a href="#">
-                                        <div class="img-wrap">
-                                            <img src="~/images/ExchangeItemImages/S__55238662.jpg">
-                                        </div>
-                                        <p><h3>卡牌名稱</h3></p>
-                                        <p><span id="message-num">留言數量</span><span>/10</span>則</p>
-                                        <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
-                                        <p id="favorite"><i class="material-icons">favorite_border</i></p>
-                                    </a>
-                                </div>
-                                <div class="contance">
-                                    <a href="#">
-                                        <div class="img-wrap">
-                                            <img src="~/images/ExchangeItemImages/p2.jpg">
-                                        </div>
-                                        <p><h3>卡牌名稱</h3></p>
-                                        <p><span id="message-num">留言數量</span><span>/10</span>則</p>
-                                        <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
-                                        <p id="favorite"><i class="material-icons">favorite_border</i></p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="container">
+    <!-- model -->
+    <div class="model">
+        <div class="row">
+            <!-- header -->
+            <div class="col-12">
+                <div class="header">
+                    <a href="https://card25th.portal-pokemon.com/tw/" target="_blank"><img src="~/images/ExchangeItemImages/maxresdefault.jpg" class="img-fluid"></a>
                 </div>
             </div>
         </div>
-        <!-- footer -->
         <div class="row">
-            <div class="col-3"></div>
+            <!-- menu -->
+            <div class="col-3 d-none  d-sm-block">
+                <div class="menu">
+                    <p><a class="searchSort" data-keyword="" href="#">所有商品(All)</a></p>
+                    <p><a class="searchSort" data-keyword="遊戲王" href="#">遊戲王(YU-GI-OH!)</a></p>
+                    <p><a class="searchSort" data-keyword="寶可夢" href="#">寶可夢(Pokomon)</a></p>
+                    <p><a class="searchSort" data-keyword="黑與白" href="#">黑與白(Weiß Schwarz)</a></p>
+                    <p><a class="searchSort" data-keyword="七龍珠" href="#">七龍珠(DragonBallHeroes)</a></p>
+                    <p><a class="searchSort" data-keyword="鋼彈大戰" href="#">鋼彈大戰(GUNDAM WAR)</a></p>
+                    <p><a class="searchSort" data-keyword="魔法風雲會" href="#">魔法風雲會(MTG)</a></p>
+                    <p><a class="searchSort" data-keyword="聖火降魔錄" href="#">聖火降魔錄(FE0)</a></p>
+                    <p><a class="searchSort" data-keyword="運動卡" href="#">運動卡(Sport)</a></p>
+                </div>
+            </div>
+            <!-- main -->
             <div class="col-12 col-sm-9">
-                <div class="page">
-                    <button class="btn" onclick="one()">1</button>
-                    <button class="btn" onclick="two()">2</button>
-                    <button class="btn" onclick="three()">3</button>
+                <div class="main">
+                    <!-- filter -->
+                    <div class="col-12 d-none d-sm-block">
+                        <div class="filter">
+                            <div class="filter-left">
+                                <span>篩選</span>
+                            </div>
+                            <div class="col-6 filter-middle">
+                                <a class="filter-link" href="#">最多留言</a>
+                                <a class="filter-link" href="#">最&emsp;新</a>
+                            </div>
+                            <div class="col-6 filter-right">
+                                <a href="#" id="headline" title="列表顯示"><i class="material-icons">&#xe8ee;</i></a>
+                                <a href="#" id="comfy" title="縮圖顯示"><i class="material-icons">&#xe5c3;</i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 	d-block d-sm-none">
+                        <nav class="navbar navbar-light bg-light">
+                            <div class="container">
+                                <!-- <a class="navbar-brand" href="#">選&emsp;單</a> -->
+                                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                                    <div class="offcanvas-header">
+                                        <h1 class="offcanvas-title" id="offcanvasNavbarLabel">選單</h1>
+                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                    </div>
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                            <li class="nav-item">
+                                                <h2 class="offcanvas-title" id="offcanvasNavbarLabel">功&emsp;能</h2>
+                                            </li>
+                                            <li class="nav-item">
+                                                @Html.ActionLink("我要交換", "Post", "Exchange", new { @class = "nav-link" })
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li class="nav-item">
+                                                <h2 class="offcanvas-title" id="offcanvasNavbarLabel">分&emsp;類</h2>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active searchSort" data-keyword="" aria-current="page" href="#">所有商品</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link searchSort" data-keyword="遊戲王" href="#">遊戲王</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link searchSort" data-keyword="寶可夢" href="#">寶可夢</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link searchSort" data-keyword="黑與白" href="#">黑與白</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link searchSort" data-keyword="七龍珠" href="#">七龍珠</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link searchSort" data-keyword="鋼彈大戰" href="#">鋼彈大戰</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link searchSort" data-keyword="魔法風雲會" href="#">魔法風雲會</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link searchSort" data-keyword="聖火降魔錄" href="#">聖火降魔錄</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link searchSort" data-keyword="運動卡" href="#">運動卡</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- ExchangePt -->
+                    <div class="col-12 d-none d-sm-block">
+                        <div class="ExchangePt">
+                            @Html.ActionLink("我要交換", "Post", "Exchange")
+                        </div>
+                    </div>
+                    <!-- contance -->
+                    <div class="col-12">
+                        <div class="wrap justify-content-center justify-content-sm-start" id="contentRow">
+                            <div class="contance">
+                                <div class="img-wrap">
+                                    <img src="~/images/ExchangeItemImages/S__55230489.jpg">
+                                </div>
+                                <p> <a href="#"><h3>卡牌名稱</h3></a></p>
+                                <p><span id="message-num">交換人數</span><span>/10</span>位</p>
+                                <p><i id="time" class="material-icons">access_alarm</i>剩餘時間</p>
+                                <button id="favorite"><i class="material-icons" id="iconfavorite">favorite_border</i></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- footer -->
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-12 col-sm-9">
+            <div class="page">
+                <button class="btn" onclick="one()">1</button>
+                <button class="btn" onclick="two()">2</button>
+                <button class="btn" onclick="three()">3</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 
 
-    @section scripts{
-        <script>
+@section scripts{
+    <script>
             var contentRow = document.getElementsByClassName("contance");
-            ShowSearchResult()
+            var btnfavorite = document.getElementById("favorite");
+            var iconfavorite = document.getElementById("iconfavorite");
 
+            //顯示新增商品
             function ShowSearchResult(queryResult)
             {
                 let secondRemain = Math.floor((new Date(parseInt(item.fEndTime.substr(6))) - new Date()) / 1000);
@@ -240,12 +198,12 @@
                     let domPMsg = document.createElement('p');
                     let domSpanMsg = document.createElement('span');
                     domSpanMsg.id = 'message-num';
-                    domSpanMsg.textContent = '留言數量';
+                    domSpanMsg.textContent = '交換人數';
                     domSpanMsg.appendChild();
                     let domSpanMsgNum = document.createElement('span');
                     domSpanMsgNum.textContent = '/10';
                     domSpanMsgNum.appendChild();
-                    domPMsg.textContent = '則';
+                    domPMsg.textContent = '位';
                     domPMsg.appendChild(domSpanMsg);
                     domPMsg.appendChild(domSpanMsgNum);
                     //domPMsg.appendChild(domSpanMsg, domSpanMsgNum);
@@ -257,13 +215,14 @@
                     domIRtime.appendChild();
                     domPRTime.textContent = '剩餘時間';
                     domPRTime.appendChild(domIRtime);
-                    let domPFavorite = document.createElement('p');
-                    domPFavorite.id = 'favorite';
+                    let dombtnFavorite = document.createElement('btn');
+                    dombtnFavorite.id = 'favorite';
                     let domIFavorite = document.createElement('i');
                     domIFavorite.className = 'material-icons';
+                    domIFavorite.id = 'iconfavorite';
                     domIFavorite.textContent = 'favorite_border';
                     domIFavorite.appendChild();
-                    domPFavorite.appendChild(domIFavorite);
+                    dombtnFavorite.appendChild(domIFavorite);
                     domA.appendChild(img_wrap);
                     domA.appendChild(domPtName);
                     domA.appendChild(domPMsg);
@@ -276,28 +235,80 @@
 
             }
 
+            //追蹤功能
+            @if (Session[CDictionary.SK_UserUserId] == null) {
 
-            //頁碼
-            var i;
-            function one() {
-                for (i = 0; i < element.length; i++) {
-                    element[i].style.flex = "100%"
-                }
+                TempData[CDictionary.SK_RedirectToAction] = "List";
+                TempData[CDictionary.SK_RedirectToController] = "Exchange";
+                //TempData[CDictionary.SK_RedirectToId] = Model.fItemId;
+
+                @:btnfavorite.addEventListener('click', function (event) {
+                    @:event.preventDefault();
+                    @:location.href = '@Url.Content("~/Member/Login")';
+                @:});
+
             }
-
-            function two() {
-                for (i = 0; i < element.length; i++) {
-                    element[i].style.flex = "50%"
-                }
+            else
+            {
+                @:btnfavorite.addEventListener('click', function (event) {
+                   @:event.preventDefault();
+                   @:let xhr = new XMLHttpRequest();
+                        @:xhr.addEventListener('load', function () {
+                            @:let isFavorite = xhr.response;
+                            @:toggleFavorite(isFavorite);
+                        @:});
+                   @:let para = `?ItemId=${fItemId}`;
+                   @:xhr.open('GET', '@Url.Content("~/Member/FavoriteExchange")' + para);
+                   @:xhr.send();
+                @:});
             }
+        checkFavorite();
 
-            function three() {
-                for (i = 0; i < element.length; i++) {
-                    element[i].style.flex = "25%"
-                }
+
+        function checkFavorite() {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', function () {
+                let isFavorite = xhr.response;
+                toggleFavorite(isFavorite);
+            });
+            let para = `?ItemId=${fItemId}`;
+            xhr.open('GET', '@Url.Content("~/Member/IsFavorite")' + para);
+            xhr.send();
+        };
+
+        function toggleFavorite(isFavorite) {
+            //已追蹤
+            if (isFavorite == 'True') {
+                iconfavorite.textContent = 'favorite'
             }
-        </script>
+            else {
+                //加入追蹤
+                iconfavorite.textContent = 'favorite_border'
+            }
+        }
 
-    }
+
+                //頁碼
+                var i;
+                function one() {
+                    for (i = 0; i < element.length; i++) {
+                        element[i].style.flex = "100%"
+                    }
+                }
+
+                function two() {
+                    for (i = 0; i < element.length; i++) {
+                        element[i].style.flex = "50%"
+                    }
+                }
+
+                function three() {
+                    for (i = 0; i < element.length; i++) {
+                        element[i].style.flex = "25%"
+                    }
+                }
+    </script>
+
+}
 
 

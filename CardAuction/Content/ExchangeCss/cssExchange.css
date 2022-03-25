@@ -189,7 +189,7 @@ label[for^="chk"]{
 [id^="inputFile"]{
     display: none;
 }
-#countItemName, #countDescription, #counthope-name{
+#countItemName, #countDescription, #countUserInfo, #counthope-name {
     text-align: right;
     margin-right: 10px;
 }
