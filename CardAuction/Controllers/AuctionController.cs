@@ -214,62 +214,47 @@ namespace CardAuction.Controllers
                //  無直購                 有直購但出不到直購價
             if(item.fBuyPrice < 0 || amount < item.fBuyPrice)
             {
-                tAuctionBid newBid = new tAuctionBid
-                {
-                    fItemId = itemId,
-                    fTime = DateTime.Now,
-                    fUserId = userId,
-                    fMoney = amount
-                };
-                db.tAuctionBid.Add(newBid);
-                item.fMoneyNow = amount;
-
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch(DbEntityValidationException ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-                catch(Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
+                UpdateBid(item, amount, userId, itemId);
                 return;
             }
 
             //   直購的部份
             if(item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
             {
-                item.fMoneyNow = amount;
+                UpdateBid(item, amount, userId, itemId);
 
-                tAuctionBid newBid = new tAuctionBid
-                {
-                    fItemId = itemId,
-                    fTime = DateTime.Now,
-                    fUserId = userId,
-                    fMoney = amount
-                };
-
-                db.tAuctionBid.Add(newBid);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch(DbEntityValidationException ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-                catch(Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
+                // 開新的結算紀錄
             }
 
             return;
         }
 
+        private void UpdateBid(tAuctionItem item, int amount, string userId, string itemId)
+        {
+            item.fMoneyNow = amount;
+            item.fBidCount++;
+            tAuctionBid newBid = new tAuctionBid
+            {
+                fItemId = itemId,
+                fTime = DateTime.Now,
+                fUserId = userId,
+                fMoney = amount
+            };
+
+            db.tAuctionBid.Add(newBid);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
         public ActionResult ReceiveBidRecords(string itemId)
         {
             bool isExist = db.tAuctionBid.Any(m => m.fItemId == itemId);
