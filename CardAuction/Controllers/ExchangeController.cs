@@ -126,6 +126,9 @@ namespace CardAuction.Controllers
             createItem.fUserInfo = vModel.fUserInfo;
             createItem.fCreateTime = nowTime; // 現在時間為建立時間
             createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結束時間
+            createItem.fClick = 0;
+            createItem.fDelete = false;
+            createItem.fReport = 0;
 
             db.tExchangeItem.Add(createItem);
             try
@@ -134,7 +137,7 @@ namespace CardAuction.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Exchange", ToAction = "Post" });
+                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Exchange", ToAction = "List" });
             }
             return RedirectToAction("Index");
 

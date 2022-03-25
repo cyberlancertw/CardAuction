@@ -115,6 +115,7 @@
 .offcanvas {
     /* 側邊欄位寬度 */
     width: 320px;
+    /*深度*/
     z-index: 1051;
 }
 
@@ -191,10 +192,11 @@ h2{
     border-radius: 4px;
 }
 
-    .contance:hover {
-        /*border:1px solid #1f3344;*/
-        box-shadow: 0px 0px 6px 2px lightgray;
-    }
+.contance:hover {
+    /*border:1px solid #1f3344;*/
+    box-shadow: 0px 0px 6px 2px lightgray;
+}
+
 
 .contance .img-wrap{
     width: 100%;
@@ -212,6 +214,11 @@ h2{
     color: #1f3344;
     text-decoration: none;
 }
+
+.contance a:hover {
+    color: #ab8f4e;
+}
+
 
 .contance h3{
     font-size: 24px;
@@ -236,9 +243,12 @@ h2{
 }
 
 .contance #favorite{
-    text-align: right;
-    padding-right: 5px;
+    margin-left: 210px; 
+    background-color: white;
+    border: none;
 }
+
+
 
 /* page */
 .page{
