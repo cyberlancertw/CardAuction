@@ -101,8 +101,8 @@ namespace CardAuction.Controllers
             foreach (HttpPostedFileBase photo in photos)
             {
                 // 檔名組成：日期、時間、6數字組成字串、編號.副檔名
-                string newFileName = fileNameInitial + count + Path.GetExtension(photo.FileName);    
-                
+                string newFileName = fileNameInitial + count + Path.GetExtension(photo.FileName);
+
                 switch (count)
                 {
                     case 0: createItem.fPhoto0 = newFileName; break;
@@ -112,7 +112,7 @@ namespace CardAuction.Controllers
                     default: break;
                 }
                 // 存入 ~/Images/ExchangeItemImages 資料夾內
-                photo.SaveAs(Server.MapPath("~/Images/ExchangeItemImages/") + newFileName);              
+                photo.SaveAs(Server.MapPath("~/Images/ExchangeItemImages/") + newFileName);
                 count++;
             }
             createItem.fItemName = vModel.fItemName;
