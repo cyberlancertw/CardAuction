@@ -134,7 +134,7 @@ namespace CardAuction.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Exchange", ToAction = "Post" });
+                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Exchange", ToAction = "List" });
             }
             return RedirectToAction("Index");
 

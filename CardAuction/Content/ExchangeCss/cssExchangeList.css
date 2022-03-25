@@ -115,6 +115,7 @@
 .offcanvas {
     /* 側邊欄位寬度 */
     width: 320px;
+    /*深度*/
     z-index: 1051;
 }
 
