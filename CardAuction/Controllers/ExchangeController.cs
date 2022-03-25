@@ -18,9 +18,34 @@ namespace CardAuction.Controllers
         //{
         //    return View();
         //}
-        public ActionResult Item()
+       [HttpGet]
+        public ActionResult Item(string id)
         {
-            return View();
+            if (id == null)                             // 沒輸入 ItemId
+            {
+                return RedirectToAction("Error","Home", new { ErrorMessage = "需要商品編號" , ToController = "Auction" , ToAction = "List" });
+            }
+            var result = db.tAuctionItem.Find(id);
+            if (result == null)                         // 有輸入 Id 但查不到
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction" , ToAction = "List" });
+            }
+            string postUserId = result.fPostUserId;
+            ViewBag.PostUserAccount = db.tMember.Find(postUserId).fAccount;
+
+            if (Session[CDictionary.SK_UserUserId] == null || result.fPostUserId != (string)Session[CDictionary.SK_UserUserId])
+            {
+                result.fClick += 1;                     // 無登入 或 有登入但非本人，則商品點擊數 + 1
+                try 
+                {
+                    db.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "List" });
+                }
+            }
+            return View(result);
         }
 
         [HttpGet]
@@ -80,8 +105,8 @@ namespace CardAuction.Controllers
             foreach (HttpPostedFileBase photo in photos)
             {
                 // 檔名組成：日期、時間、6數字組成字串、編號.副檔名
-                string newFileName = fileNameInitial + count + Path.GetExtension(photo.FileName);    
-                
+                string newFileName = fileNameInitial + count + Path.GetExtension(photo.FileName);
+
                 switch (count)
                 {
                     case 0: createItem.fPhoto0 = newFileName; break;
@@ -91,13 +116,13 @@ namespace CardAuction.Controllers
                     default: break;
                 }
                 // 存入 ~/Images/ExchangeItemImages 資料夾內
-                photo.SaveAs(Server.MapPath("~/Images/ExchangeItemImages/") + newFileName);              
+                photo.SaveAs(Server.MapPath("~/Images/ExchangeItemImages/") + newFileName);
                 count++;
             }
             createItem.fItemName = vModel.fItemName;
             createItem.fItemDescription = vModel.fItemDescription;
             createItem.fItemLocation = vModel.fItemLocation;
-            createItem.fItemLeavel = vModel.fItemLeavel;
+            createItem.fItemLevel = vModel.fItemLeavel;
             createItem.fHopeItemName = vModel.fHopeItemName;
             createItem.fHopeItemLocation = vModel.fHopeItemLocation;
             createItem.fCreateTime = nowTime; // 現在時間為建立時間

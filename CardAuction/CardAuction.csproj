@@ -303,6 +303,7 @@
     <Content Include="Images\AuctionItemImages\202203192204417537534891.jpg" />
     <Content Include="Images\AuctionItemImages\202203192210217011548410.png" />
     <Content Include="Images\AuctionItemImages\202203192214061911984570.png" />
+    <Content Include="Images\ExchangeItemImages\202203231130351000001.jpg" />
     <Content Include="Images\ExchangeItemImages\HDog.jpg" />
     <Content Include="Images\ExchangeItemImages\Hisuian Decidueye.png" />
     <Content Include="Images\ExchangeItemImages\Hisuian Samurott.png" />
@@ -391,6 +392,7 @@
     </Compile>
     <Compile Include="Models\CAuctionItem.cs" />
     <Compile Include="Models\CDictionary.cs" />
+    <Compile Include="Models\CExchangeItem.cs" />
     <Compile Include="Models\CMember.cs" />
     <Compile Include="Models\CMemberFactory.cs" />
     <Compile Include="Models\dbCardAuction.Context.cs">
@@ -478,6 +480,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbCardAuction.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Images\ExchangeItemImages\.gitkeep" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LayoutCOPY.cshtml" />
