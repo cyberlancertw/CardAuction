@@ -2,35 +2,26 @@
 
 @media (max-width: 575px) {
     html {
-        font-size: 14px;
+        font-size: 9px;
     }
     .imgWrap {
         height: 20rem;
-    }
-    #barBlock {
-        border: 1px solid #ced3d8;
-        padding: 10px;
-        font-size: 1.4rem;
     }
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
     html {
-        font-size: 14px;
+        font-size: 10px;
     }
     .imgWrap {
         height: 35rem;
     }
-    #barBlock {
-        border: 1px solid #ced3d8;
-        padding: 10px;
-        font-size: 1.4rem;
-    }
+
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
     html {
-        font-size: 12px;
+        font-size: 10px;
     }
     .imgWrap {
         height: 20rem;
@@ -39,7 +30,7 @@
 
 @media (min-width: 992px) and (max-width:1199px) {
     html {
-        font-size: 13px;
+        font-size: 11px;
     }
     .imgWrap {
         height: 20rem;
@@ -49,7 +40,7 @@
 }
 @media (min-width: 1200px) {
     html {
-        font-size: 14px;
+        font-size: 12px;
     }
     .imgWrap {
         height: 20rem;
@@ -73,12 +64,6 @@
 a{
     text-decoration: none;
     color: #000000;
-}
-.barSortItem {
-    font-size: 1.2rem;
-    margin-top: 0.8rem;
-    margin-bottom: 0.8rem;
-    padding-left: 3rem;
 }
 
 .sortTitle{
@@ -123,31 +108,104 @@ a{
 .pTime{
     font-size: 1.1rem;
 }
-#barSortName{
-    margin-left: 1.2rem;
+#selectedSort{
+    font-size: 1.5rem;
     font-weight: bold;
+    color: #333333;
 }
-
-.fixedDivBar{
-    position: fixed;
-    top: 0;
-    z-index: 100;
+#filterArrangeBar {
+    font-size: 1.6rem;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+    background-color: #ebebeb;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
 }
-#divBar{
+#divFilter{
+    width: auto;
+}
+#divFilter>button{
+    border: none;
+    border-radius: 5px;
+    padding: 0.4rem 1.5rem;
+    margin-left: 0.8rem;
+}
+.btnSelect {
+    background-color: #1f3444;
+    color: #ffffff;
+}
+.btnNotSelect{
     background-color: #ffffff;
+    color: #1f3444;
+}
+#divArrange{
+    width:auto;
+    display: flex;
+    align-items:center;
+}
+#divArrange > button{
+    font-size: 1.8rem;
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-right: 1rem;
+}
+#pageBtnRow{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+#pageBtnRow > button {
+    font-size: 1.8rem;
+    border: 1px solid #1f3444;
+    text-align: center;
+    border-radius: 4px;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-right: 1rem;
 }
 
-@keyframes hideExpand{
-    from{
-        margin-top: -30px;
-    }
-    to{
-        margin-top: 20px;
-        display: none;
-    }
+/* navbar */
+.offcanvas {
+    /* 側邊欄位寬度 */
+    width: 320px;
+    z-index: 1051;
 }
 
-.hideExpandItem{
-    animation-duration: 0.6s;
-    animation-name: hideExpand;
+.offcanvas-header {
+    background-color: #1f3344;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.nav-item {
+    /* background-color: #666; */
+    margin-bottom: 10px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(31,51,68);
+    font-weight: 400;
+    font-size: 2rem;
+}
+
+    .navbar-light .navbar-nav .nav-link.active {
+        color: #ab8f4e;
+    }
+
+h2 {
+    color: #7B7B7B;
+    font-weight: 900;
+}
+
+/* page */
+.page {
+    /* background-color: #ab8f4e; */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

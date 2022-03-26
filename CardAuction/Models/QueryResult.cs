@@ -13,7 +13,7 @@ namespace CardAuction.Models
         public int CommentCount { get; set; }
         public int fMoneyNow { get; set; }
         public DateTime fEndTime { get; set; }
-
+        public int fBidCount { get; set; }
         public QueryResult()
         {
             CommentCount = 0;
