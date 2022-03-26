@@ -115,6 +115,9 @@
             <div class="row" id="contentRow">
                 <!-- result here-->
             </div>
+            <div class="row" id="pageBtnRow">
+                <!-- page button here -->
+            </div>
         </div>
     </div>
 </div>
@@ -125,47 +128,37 @@
         var barSortName = document.getElementById('barSortName');
         var btnEndTime = document.getElementById('btnEndTime');
         var btnHotClick = document.getElementById('btnHotClick');
-        var btnJustPost = document.getElementById('btnJustPost')
+        var btnJustPost = document.getElementById('btnJustPost');
+        var pageBtnRow = document.getElementById('pageBtnRow');
         var filterBtns = [btnEndTime, btnHotClick, btnJustPost];
-        var loading = false;
-        var datas, keyword = '', filter = 'EndTime', arrange = 'Grip', page = 1;
+        var loading = false, datas;
+        var keyword = '', filter = 'EndTime', arrange = 'Grip', pageNow = 0, pageCount = 0;
 
         document.querySelectorAll('.searchSort').forEach(function (dom) {
             dom.addEventListener('click', function (event) {
                 keyword = this.dataset.keyword;
-                page = 1;
-                Search(event, keyword, filter, page);
-
+                pageNow = 0;                                        // 預設開第一頁
+                Search(event, keyword, filter, pageNow);
+                GetCount(keyword);
                 document.querySelector('.btn-close').click();       // 點後縮回去
-            })
+            });
         });
 
         document.querySelector('.searchSort').click();      // 載入頁面後就先列所有商品
 
         filterBtns.forEach(function (dom) {
             dom.addEventListener('click', function () {
-                filter = this.id.slice(3);
-                Search(event, keyword, filter, page);
+                filter = this.id.slice(3);                  // 從index=3開始是filter字串
+                Search(event, keyword, filter, 0);          // 點過濾條件一律回到第1頁
+
                 filterBtns.forEach(d => d.className = 'btnNotSelect');
                 this.className = 'btnSelect';
+                document.querySelectorAll('#pageBtnRow>button').forEach(d => d.className = 'btnNotSelect');
+                document.querySelector('#pageBtnRow>button').className = 'btnSelect';
             });
         });
-        /*
-        document.getElementById('btnEndTime').addEventListener('click', function () {
-            filter = 'EndTime';
-            Search(event, keyword, filter, page);
-        });
-        document.getElementById('btnHotClick').addEventListener('click', function () {
-            filter = 'HotClick';
-            Search(event, keyword, filter, page);
-        });
-        document.getElementById('btnJustPost').addEventListener('click', function () {
-            filter = 'JustPost';
-            Search(event, keyword, filter, page);
-        });
-        */
 
-        function ShowSearchResult(queryResult) {
+        function ShowSearchResultGrip(queryResult) {
 
             contentRow.innerHTML = '';
 
@@ -180,7 +173,6 @@
                 let hourRemain = Math.floor(secondRemain / 3600);
                 secondRemain %= 3600;
                 let minuteRemain = Math.floor(secondRemain / 60);
-
 
                 let domDiv = document.createElement('div');
                 domDiv.className = 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
@@ -220,13 +212,42 @@
                 domBorder.appendChild(domA);
                 domDiv.appendChild(domBorder);
                 docFrag.appendChild(domDiv);
-
             }
             contentRow.appendChild(docFrag);
 
             addHover();                 // 放上查詢出來的結果後加上滑鼠移上去的背景特效
         }
 
+        function ShowSearchResultList(queryResult) {
+            contentRow.innerHTML = '';
+
+            let docFrag = document.createDocumentFragment();
+
+            for (let item of queryResult) {
+                let secondRemain = Math.floor((new Date(parseInt(item.fEndTime.substr(6))) - new Date()) / 1000);
+                // Ajax 撈得 Jason 的 Date 物件是來自 MS 的格式，長這樣 /Date(123456...)/
+                // 取 substr(6) 子字串得 12345...)/ 然後 parseInt 自動去掉尾巴的 )/ ，就能實體化 JS 的 Date 物件
+                let dayRemain = Math.floor(secondRemain / 86400);
+                secondRemain %= 86400;
+                let hourRemain = Math.floor(secondRemain / 3600);
+                secondRemain %= 3600;
+                let minuteRemain = Math.floor(secondRemain / 60);
+
+
+
+
+
+
+
+
+
+
+
+            }
+            contentRow.appendChild(docFrag);
+
+            addHover();                 // 放上查詢出來的結果後加上滑鼠移上去的背景特效
+        }
         function addHover() {
             document.querySelectorAll('.cardBorder').forEach(function (dom) {
                 dom.addEventListener('mouseover', function () {
@@ -251,24 +272,56 @@
                 loading = false;
                 datas = JSON.parse(xhrSearch.responseText);
 
-                ShowSearchResult(datas);
-                GetPage(keyword);
+                if (arrange == 'Grip') {
+                    ShowSearchResultGrip(datas);
+                }
+                else {
+                    ShowSearchResultList(datas);
+                }
             });
             let para = `?sortName=${keyword}&filter=${filter}&page=${page}`;
 
             xhrSearch.open('GET', '@Url.Content("~/Auction/QueryBySort/")' + para);
             xhrSearch.send();
         }
-        function GetPage(keyword) {
-            let xhrPage = new XMLHttpRequest();
-            xhrPage.addEventListener('load', function () {
+        function GetCount(keyword) {
+            let xhrCount = new XMLHttpRequest();
+            xhrCount.addEventListener('load', function () {
                 loading = false;
-                itemCount = parseInt(xhrPage.responseText);
-                console.log(xhrPage.responseText);
+                let itemCount = parseInt(xhrCount.responseText);
+                console.log(itemCount);
+                GeneratePageButton(itemCount);
             });
             let para = `?sortName=${keyword}`;
-            xhrPage.open('GET', '@Url.Content("~/Auction/GetPage/")' + para);
-            xhrPage.send();
+            xhrCount.open('GET', '@Url.Content("~/Auction/GetCount/")' + para);
+            xhrCount.send();
+        }
+        function GeneratePageButton(itemCount) {
+            pageBtnRow.innerHTML = '';
+            pageCount = Math.floor(itemCount / 12) + 1;
+            console.log(pageCount);
+            let docFrag = document.createDocumentFragment();
+            for (let i = 0; i < pageCount; i++) {
+                let domBtn = document.createElement('button');
+                domBtn.textContent = i + 1;
+                domBtn.id = `btnPage${i}`;
+                domBtn.className = 'btnNotSelect';
+                domBtn.addEventListener('click', function (event) {
+                    pageNow = i;
+                    changePage(event, pageNow);
+
+                    document.querySelectorAll('[id^="btnPage"]').forEach(d => d.className = 'btnNotSelect');
+                    domBtn.className = 'btnSelect';
+                })
+                docFrag.appendChild(domBtn);
+            }
+            pageBtnRow.appendChild(docFrag);
+            document.querySelector('[id^="btnPage"]').className = 'btnSelect';
+        }
+        function changePage(event, i) {
+            console.log(i);
+            Search(event, keyword, filter, i);
+            //
         }
     </script>
 }

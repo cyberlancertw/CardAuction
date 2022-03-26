@@ -160,7 +160,7 @@ namespace CardAuction.Controllers
             return View();
         }
 
-        public ActionResult QueryBySort(string sortName, string filter = "EndTime", int page = 1)
+        public ActionResult QueryBySort(string sortName, string filter = "EndTime", int page = 0)
         {
             switch (filter)
             {
@@ -169,6 +169,8 @@ namespace CardAuction.Controllers
                         var queryResult = db.tAuctionItem
                             .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
                             .OrderBy(p => p.fEndTime)
+                            .Skip(page * 12)
+                            .Take(12)
                             .Select(n => new QueryResult
                             {
                                 fItemId = n.fItemId,
@@ -185,6 +187,8 @@ namespace CardAuction.Controllers
                         var queryResult = db.tAuctionItem
                             .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
                             .OrderByDescending(p=>p.fClick).ThenBy(q=>q.fEndTime)
+                            .Skip(page * 12)
+                            .Take(12)
                             .Select(n => new QueryResult
                             {
                                 fItemId = n.fItemId,
@@ -201,6 +205,8 @@ namespace CardAuction.Controllers
                         var queryResult = db.tAuctionItem
                             .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
                             .OrderByDescending(p=>p.fCreateTime)
+                            .Skip(page * 12)
+                            .Take(12)
                             .Select(n => new QueryResult
                             {
                                 fItemId = n.fItemId,
@@ -219,7 +225,7 @@ namespace CardAuction.Controllers
 
         }
 
-        public int GetPage(string sortName)
+        public int GetCount(string sortName)
         {
             return db.tAuctionItem.Where(m => m.fSort.Contains(sortName)).Count();
         }

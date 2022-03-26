@@ -153,6 +153,21 @@ a{
     height: 3.5rem;
     margin-right: 1rem;
 }
+#pageBtnRow{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+#pageBtnRow > button {
+    font-size: 1.8rem;
+    border: 1px solid #1f3444;
+    text-align: center;
+    border-radius: 4px;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-right: 1rem;
+}
+
 /* navbar */
 .offcanvas {
     /* 側邊欄位寬度 */
