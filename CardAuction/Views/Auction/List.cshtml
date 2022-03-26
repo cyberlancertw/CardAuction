@@ -44,14 +44,11 @@
             <p class="sortTitle">
                 <a href="" class="searchSort" data-keyword="運動"><span>運動卡 (Sport)</span></a>
             </p>
-            <p class="sortTitle">
-                <a href="~/Auction/Post"><span>我要上架</span></a>
-            </p>
         </div>
-        <div class="col-12 	d-block d-sm-none">
+        <div class="col-12 d-block d-sm-none">
             <nav class="navbar navbar-light bg-light">
                 <div class="container">
-                    <a class="navbar-brand" href="#">選&emsp;單</a>
+                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -103,14 +100,14 @@
                 <div id="divFilter">
                     &nbsp;&nbsp;篩選&nbsp;&nbsp;
                     <button class="btnSelect" id="btnEndTime">結束時間</button>
-                    <button class="btnNotSelect" id="btnHot">熱門</button>
+                    <button class="btnNotSelect" id="btnHotClick">熱門</button>
                     <button class="btnNotSelect" id="btnJustPost">最新上架</button>
                 </div>
-                <div id="divArrange">
-                    <button class="btnSelect">
+                <div id="divArrange" class="d-none d-sm-block">
+                    <button class="btnSelect" id="btnGrip">
                         <i class="fa-solid fa-grip"></i>
                     </button>
-                    <button class="btnNotSelect">
+                    <button class="btnNotSelect" id="btnList">
                         <i class="fa-solid fa-list"></i>
                     </button>
                 </div>
@@ -126,39 +123,47 @@
     <script>
         var contentRow = document.getElementById('contentRow');
         var barSortName = document.getElementById('barSortName');
+        var btnEndTime = document.getElementById('btnEndTime');
+        var btnHotClick = document.getElementById('btnHotClick');
+        var btnJustPost = document.getElementById('btnJustPost')
+        var filterBtns = [btnEndTime, btnHotClick, btnJustPost];
         var loading = false;
-        var datas, filter, arrange;
+        var datas, keyword = '', filter = 'EndTime', arrange = 'Grip', page = 1;
 
         document.querySelectorAll('.searchSort').forEach(function (dom) {
-
             dom.addEventListener('click', function (event) {
+                keyword = this.dataset.keyword;
+                page = 1;
+                Search(event, keyword, filter, page);
 
-                if (loading) {
-                    event.preventDefault();
-                    return;
-                }
-                event.preventDefault();
-                loading = true;
-
-                let keyword = this.dataset.keyword;
-
-                let xhr = new XMLHttpRequest();
-                xhr.addEventListener('load', function () {
-                    loading = false;
-                    datas = JSON.parse(xhr.responseText);
-
-                    ShowSearchResult(datas);
-
-                    document.querySelector('.btn-close').click();       // 點後縮回去
-                });
-                let para = '?sortName=' + keyword + '&mode=' + mode;
-                xhr.open('GET', '@Url.Content("~/Auction/QueryBySort/")' + para);
-                xhr.send();
+                document.querySelector('.btn-close').click();       // 點後縮回去
             })
         });
 
         document.querySelector('.searchSort').click();      // 載入頁面後就先列所有商品
 
+        filterBtns.forEach(function (dom) {
+            dom.addEventListener('click', function () {
+                filter = this.id.slice(3);
+                Search(event, keyword, filter, page);
+                filterBtns.forEach(d => d.className = 'btnNotSelect');
+                this.className = 'btnSelect';
+            });
+        });
+        /*
+        document.getElementById('btnEndTime').addEventListener('click', function () {
+            filter = 'EndTime';
+            Search(event, keyword, filter, page);
+        });
+        document.getElementById('btnHotClick').addEventListener('click', function () {
+            filter = 'HotClick';
+            Search(event, keyword, filter, page);
+        });
+        document.getElementById('btnJustPost').addEventListener('click', function () {
+            filter = 'JustPost';
+            Search(event, keyword, filter, page);
+        });
+        */
 
         function ShowSearchResult(queryResult) {
 
@@ -199,6 +204,10 @@
                 domPmoney.className = 'pMoney';
                 domPmoney.textContent = `$ ${item.fMoneyNow} 元`;
                 domCardBody.appendChild(domPmoney);
+                let domPcount = document.createElement('p');
+                domPcount.className = 'pCount';
+                domPcount.textContent = `${item.fBidCount}次出價`;
+                domCardBody.appendChild(domPcount);
                 let domPtime = document.createElement('p');
                 domPtime.className = 'pTime';
                 let domI = document.createElement('i');
@@ -229,5 +238,37 @@
             });
         };
 
+        function Search(event, keyword, filter, page) {
+            if (loading) {
+                event.preventDefault();
+                return;
+            }
+            event.preventDefault();
+            loading = true;
+
+            let xhrSearch = new XMLHttpRequest();
+            xhrSearch.addEventListener('load', function () {
+                loading = false;
+                datas = JSON.parse(xhrSearch.responseText);
+
+                ShowSearchResult(datas);
+                GetPage(keyword);
+            });
+            let para = `?sortName=${keyword}&filter=${filter}&page=${page}`;
+
+            xhrSearch.open('GET', '@Url.Content("~/Auction/QueryBySort/")' + para);
+            xhrSearch.send();
+        }
+        function GetPage(keyword) {
+            let xhrPage = new XMLHttpRequest();
+            xhrPage.addEventListener('load', function () {
+                loading = false;
+                itemCount = parseInt(xhrPage.responseText);
+                console.log(xhrPage.responseText);
+            });
+            let para = `?sortName=${keyword}`;
+            xhrPage.open('GET', '@Url.Content("~/Auction/GetPage/")' + para);
+            xhrPage.send();
+        }
     </script>
 }

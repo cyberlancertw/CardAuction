@@ -27,12 +27,12 @@ namespace CardAuction.Controllers
         {
             if (id == null)                             // 沒輸入 ItemId
             {
-                return RedirectToAction("Error","Home", new { ErrorMessage = "需要商品編號" , ToController = "Auction" , ToAction = "List" });
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "需要商品編號", ToController = "Auction", ToAction = "List" });
             }
             var result = db.tAuctionItem.Find(id);
             if (result == null)                         // 有輸入 Id 但查不到
             {
-                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction" , ToAction = "List" });
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction", ToAction = "List" });
             }
             string postUserId = result.fPostUserId;
             ViewBag.PostUserAccount = db.tMember.Find(postUserId).fAccount;
@@ -40,11 +40,11 @@ namespace CardAuction.Controllers
             if (Session[CDictionary.SK_UserUserId] == null || result.fPostUserId != (string)Session[CDictionary.SK_UserUserId])
             {
                 result.fClick += 1;                     // 無登入 或 有登入但非本人，則商品點擊數 + 1
-                try 
+                try
                 {
                     db.SaveChanges();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "List" });
                 }
@@ -55,7 +55,7 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult Post()
         {
-            if(Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
+            if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
                 TempData[CDictionary.SK_RedirectToAction] = "Post";
                 TempData[CDictionary.SK_RedirectToController] = "Auction";
@@ -80,7 +80,7 @@ namespace CardAuction.Controllers
             tAuctionItem createItem = new tAuctionItem();
             DateTime nowTime = DateTime.Now;
             Random rnd = new Random();
-            string fileNameInitial = nowTime.ToString("yyyyMMddHHmmss") + Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6) + rnd.Next(100,1000).ToString();
+            string fileNameInitial = nowTime.ToString("yyyyMMddHHmmss") + Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6) + rnd.Next(100, 1000).ToString();
             createItem.fItemId = fileNameInitial;
             List<HttpPostedFileBase> photos = new List<HttpPostedFileBase>();
 
@@ -125,13 +125,13 @@ namespace CardAuction.Controllers
             createItem.fItemDescription = vModel.fItemDescription;
             createItem.fSort = vModel.fSort;
             createItem.fGrading = vModel.fGrading;
-            
+
             createItem.fBuyPrice = vModel.isBuy ? vModel.fBuyPrice : -1;                            // 以負數表示不提供直購價
 
             createItem.fTransPerson = vModel.isPerson ? vModel.fTransPerson : -1;                   // 以負數表示不提供此運送選項
             createItem.fTransSeven = vModel.isSeven ? vModel.fTransSeven : -1;
             createItem.fTransFami = vModel.isFami ? vModel.fTransFami : -1;
-            createItem.fTransLogi = vModel.isLogi ? vModel.fTransLogi : -1 ;
+            createItem.fTransLogi = vModel.isLogi ? vModel.fTransLogi : -1;
 
             createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結標時間
             createItem.fCreateTime = nowTime;                                                       // 現在時間為建立時間
@@ -149,7 +149,7 @@ namespace CardAuction.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", "Home", new{ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "Post" });
+                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "Post" });
             }
             return RedirectToAction("List");
         }
@@ -160,66 +160,98 @@ namespace CardAuction.Controllers
             return View();
         }
 
-        public ActionResult QueryBySort(string sortName, int mode = 0)
+        public ActionResult QueryBySort(string sortName, string filter = "EndTime", int page = 1)
         {
-
-            if (string.IsNullOrEmpty(sortName))
+            switch (filter)
             {
-                var queryAll = from item in db.tAuctionItem
-                               where item.fEndTime > DateTime.Now
-                               orderby item.fEndTime
-                               select new
-                               {
-                                   fItemId = item.fItemId,
-                                   fEndTime = item.fEndTime,
-                                   fItemName = item.fItemName,
-                                   fPhoto = item.fPhoto0,
-                                   fMoneyNow = item.fMoneyNow
-                               };
-                return Json(queryAll, JsonRequestBehavior.AllowGet);
+                case "EndTime":
+                    {
+                        var queryResult = db.tAuctionItem
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .OrderBy(p => p.fEndTime)
+                            .Select(n => new QueryResult
+                            {
+                                fItemId = n.fItemId,
+                                fEndTime = n.fEndTime,
+                                fItemName = n.fItemName,
+                                fPhoto = n.fPhoto0,
+                                fMoneyNow = n.fMoneyNow,
+                                fBidCount = n.fBidCount
+                            });
+                        return Json(queryResult, JsonRequestBehavior.AllowGet);
+                    }
+                case "HotClick":
+                    {
+                        var queryResult = db.tAuctionItem
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .OrderByDescending(p=>p.fClick).ThenBy(q=>q.fEndTime)
+                            .Select(n => new QueryResult
+                            {
+                                fItemId = n.fItemId,
+                                fEndTime = n.fEndTime,
+                                fItemName = n.fItemName,
+                                fPhoto = n.fPhoto0,
+                                fMoneyNow = n.fMoneyNow,
+                                fBidCount = n.fBidCount
+                            });
+                        return Json(queryResult, JsonRequestBehavior.AllowGet);
+                    }
+                case "JustPost":
+                    {
+                        var queryResult = db.tAuctionItem
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .OrderByDescending(p=>p.fCreateTime)
+                            .Select(n => new QueryResult
+                            {
+                                fItemId = n.fItemId,
+                                fEndTime = n.fEndTime,
+                                fItemName = n.fItemName,
+                                fPhoto = n.fPhoto0,
+                                fMoneyNow = n.fMoneyNow,
+                                fBidCount = n.fBidCount
+                            });
+                        return Json(queryResult, JsonRequestBehavior.AllowGet);
+                    }
+                default:
+                    break;
             }
+            return Json(new { }, JsonRequestBehavior.AllowGet);
 
-            var queryResult = db.tAuctionItem
-                .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
-                .OrderBy(p => p.fEndTime)
-                .Select(n => new QueryResult
-                {
-                    fItemId = n.fItemId,
-                    fEndTime = n.fEndTime,
-                    fItemName = n.fItemName,
-                    fPhoto = n.fPhoto0,
-                    fMoneyNow = n.fMoneyNow
-                });
-            return Json(queryResult,JsonRequestBehavior.AllowGet);
-            
         }
+
+        public int GetPage(string sortName)
+        {
+            return db.tAuctionItem.Where(m => m.fSort.Contains(sortName)).Count();
+        }
+
+
 
         public void Bid(string itemId, int amount)
         {
-            if(Session[CDictionary.SK_UserUserId] == null)
+            if (Session[CDictionary.SK_UserUserId] == null)
             {
                 return;
             }
             string userId = Session[CDictionary.SK_UserUserId].ToString();
             tAuctionItem item = db.tAuctionItem.Find(itemId);
-            
-            if(userId.Equals(item.fPostUserId))      // 不給自己商品出價
+
+            if (userId.Equals(item.fPostUserId))      // 不給自己商品出價
             {
                 return;
             }
-            if(amount < item.fMoneyNow + item.fMoneyStep)         // 防另一人在另一端已出過價，不能只靠前端
+            if (amount < item.fMoneyNow + item.fMoneyStep)         // 防另一人在另一端已出過價，不能只靠前端
             {
                 return;
             }
-               //  無直購                 有直購但出不到直購價
-            if(item.fBuyPrice < 0 || amount < item.fBuyPrice)
+            //  無直購                 有直購但出不到直購價
+            if (item.fBuyPrice < 0 || amount < item.fBuyPrice)
             {
                 UpdateBid(item, amount, userId, itemId);
                 return;
             }
 
             //   直購的部份
-            if(item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
+            if (item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
             {
                 UpdateBid(item, amount, userId, itemId);
 
@@ -282,13 +314,16 @@ namespace CardAuction.Controllers
             if (isExist)
             {
                 var queryResult = db.tCommentAuction
-                    .Where(p=>p.fItemId == itemId)
+                    .Where(p => p.fItemId == itemId)
                     .Join(db.tMember,
                           c => c.fFromUserId,
                           m => m.fUserId,
-                          (c, m) => new { postAcc = m.fAccount,
-                                          content = c.fContent,
-                                          postTime = c.fPostTime })
+                          (c, m) => new
+                          {
+                              postAcc = m.fAccount,
+                              content = c.fContent,
+                              postTime = c.fPostTime
+                          })
                     .OrderBy(n => n.postTime); ;
                 return Json(queryResult, JsonRequestBehavior.AllowGet);
             }
@@ -297,7 +332,7 @@ namespace CardAuction.Controllers
 
         public void WriteComment(string itemId, string message)
         {
-            if(Session[CDictionary.SK_UserUserId] == null)
+            if (Session[CDictionary.SK_UserUserId] == null)
             {
                 return;
             }
@@ -319,7 +354,7 @@ namespace CardAuction.Controllers
             {
                 db.SaveChanges();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }

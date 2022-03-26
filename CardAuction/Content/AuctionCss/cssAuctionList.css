@@ -2,7 +2,7 @@
 
 @media (max-width: 575px) {
     html {
-        font-size: 14px;
+        font-size: 9px;
     }
     .imgWrap {
         height: 20rem;
@@ -11,7 +11,7 @@
 
 @media (min-width: 576px) and (max-width: 767px) {
     html {
-        font-size: 14px;
+        font-size: 10px;
     }
     .imgWrap {
         height: 35rem;
@@ -21,7 +21,7 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
     html {
-        font-size: 12px;
+        font-size: 10px;
     }
     .imgWrap {
         height: 20rem;
@@ -30,7 +30,7 @@
 
 @media (min-width: 992px) and (max-width:1199px) {
     html {
-        font-size: 13px;
+        font-size: 11px;
     }
     .imgWrap {
         height: 20rem;
@@ -40,7 +40,7 @@
 }
 @media (min-width: 1200px) {
     html {
-        font-size: 14px;
+        font-size: 12px;
     }
     .imgWrap {
         height: 20rem;
@@ -174,7 +174,7 @@ a{
 .navbar-light .navbar-nav .nav-link {
     color: rgba(31,51,68);
     font-weight: 400;
-    font-size: 1.1rem;
+    font-size: 2rem;
 }
 
     .navbar-light .navbar-nav .nav-link.active {
