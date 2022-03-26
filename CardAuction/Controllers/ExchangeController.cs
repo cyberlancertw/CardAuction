@@ -147,6 +147,7 @@ namespace CardAuction.Controllers
         public ActionResult List()
         {
             return View();
+            
         }
 
         public ActionResult QueryBySort(string sortName, int mode = 0)
