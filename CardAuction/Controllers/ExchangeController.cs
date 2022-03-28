@@ -150,37 +150,74 @@ namespace CardAuction.Controllers
             
         }
 
-        public ActionResult QueryBySort(string sortName, int mode = 0)
+        public ActionResult QueryBySort(string sortName, string filter = "EndTime", int page = 0)
         {
-
-            if (string.IsNullOrEmpty(sortName))
+            switch (filter) 
             {
-                var queryAll = from item in db.tExchangeItem
-                               where item.fEndTime > DateTime.Now
-                               orderby item.fEndTime
-                               select new
-                               {
-                                   fItemId = item.fItemId,
-                                   fEndTime = item.fEndTime,
-                                   fItemName = item.fItemName,
-                                   fPhoto = item.fPhoto0,
-                               };
-                return Json(queryAll, JsonRequestBehavior.AllowGet);
+                case "EndTime":
+                    {
+                        var queryResult = db.tExchangeItem
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .OrderBy(p => p.fEndTime)
+                            .Skip(page * 12)
+                            .Take(12)
+                            .Select(n => new QueryResult
+                            {
+                                fItemId = n.fItemId,
+                                fEndTime = n.fEndTime,
+                                fItemName = n.fItemName,
+                                fPhoto = n.fPhoto0,
+                                fChangeCount = n.fChangeCount,
+                            });
+                        return Json(queryResult, JsonRequestBehavior.AllowGet);
+                    }
+
+                case "HotClick":
+                    {
+                        var queryResult = db.tExchangeItem
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .OrderBy(p => p.fClick).ThenBy(q => q.fEndTime)
+                            .Skip(page * 12)
+                            .Take(12)
+                            .Select(n => new QueryResult 
+                            {
+                                fItemId = n.fItemId,
+                                fEndTime = n.fEndTime,
+                                fItemName = n.fItemName,
+                                fPhoto = n.fPhoto0,
+                                fChangeCount = n.fChangeCount,
+                            });
+                        return Json(queryResult, JsonRequestBehavior.AllowGet);
+                    }
+
+                case "JustPost":
+                    {
+                        var queryResult = db.tExchangeItem
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .OrderBy(p => p.fCreateTime)
+                            .Skip(page * 12)
+                            .Take(12)
+                            .Select(n => new QueryResult 
+                            {
+                                fItemId = n.fItemId,
+                                fEndTime = n.fEndTime,
+                                fItemName = n.fItemName,
+                                fPhoto = n.fPhoto0,
+                                fChangeCount = n.fChangeCount,
+                            });
+                        return Json(queryResult, JsonRequestBehavior.AllowGet);
+                    }
+                default:
+                    break;
             }
-
-            var queryResult = db.tAuctionItem
-                .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
-                .OrderBy(p => p.fEndTime)
-                .Select(n => new QueryResult
-                {
-                    fItemId = n.fItemId,
-                    fEndTime = n.fEndTime,
-                    fItemName = n.fItemName,
-                    fPhoto = n.fPhoto0,
-                });
-            return Json(queryResult, JsonRequestBehavior.AllowGet);
-
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
+
+        public int GetCount(string sortName)
+        {
+            return db.tExchangeItem.Where(m => m.fSort.Contains(sortName)).Count();
+        }
+
 
 
 
