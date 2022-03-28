@@ -77,14 +77,56 @@ a{
     padding: 0.6rem;
     margin-bottom: 1.2rem;
 }
+.listBorder {
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    border-radius: 1rem;
+    border: 1px solid #ced3d8;
+    padding: 0.6rem;
+    margin-bottom: 1.2rem;
+}
 .cardSelect {
     background-color: #ebebeb;
 }
 .imgWrap{
     width: 100%;
 }
+.listImgWrap{
+    width: 5rem;
+}
+.listName {
+    font-size: 1.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: auto;
+}
+.listMoney {
+    width: 7rem;
+
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ab8f4e;
+    margin-right: 0.8rem;
+}
+.listCount{
+    width: 6rem;
+    margin-right: 0.8rem;
+}
+.listTime {
+    width: 12rem;
+    font-size: 1.1rem;
+}
 .cardImg {
     width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+.listImg {
+    width: 4rem;
     height: 100%;
     object-fit: contain;
     object-position: center;
@@ -104,6 +146,9 @@ a{
     font-weight: bold;
     font-size: 1.5rem;
     color: #ab8f4e;
+}
+.pCount{
+
 }
 .pTime{
     font-size: 1.1rem;

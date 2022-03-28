@@ -131,6 +131,9 @@
         var btnJustPost = document.getElementById('btnJustPost');
         var pageBtnRow = document.getElementById('pageBtnRow');
         var filterBtns = [btnEndTime, btnHotClick, btnJustPost];
+        var btnGrip = document.getElementById('btnGrip');
+        var btnList = document.getElementById('btnList');
+        var arrangeBtns = [btnGrip, btnList];
         var loading = false, datas;
         var keyword = '', filter = 'EndTime', arrange = 'Grip', pageNow = 0, pageCount = 0;
 
@@ -147,17 +150,31 @@
         document.querySelector('.searchSort').click();      // 載入頁面後就先列所有商品
 
         filterBtns.forEach(function (dom) {
-            dom.addEventListener('click', function () {
+            dom.addEventListener('click', function (event) {
                 filter = this.id.slice(3);                  // 從index=3開始是filter字串
                 Search(event, keyword, filter, 0);          // 點過濾條件一律回到第1頁
 
-                filterBtns.forEach(d => d.className = 'btnNotSelect');
+                filterBtns.forEach(d => d.className = 'btnNotSelect');      // 改過濾條件按鈕的樣式
                 this.className = 'btnSelect';
                 document.querySelectorAll('#pageBtnRow>button').forEach(d => d.className = 'btnNotSelect');
-                document.querySelector('#pageBtnRow>button').className = 'btnSelect';
+                document.querySelector('#pageBtnRow>button').className = 'btnSelect';       // 改頁面按鈕的樣式
             });
         });
 
+        arrangeBtns.forEach(function (dom) {
+            dom.addEventListener('click', function (event) {
+                arrange = this.id.slice(3);                  // 從index=3開始是arrange字串
+
+                if (arrange == 'Grip') {
+                    ShowSearchResultGrip(datas);             // 不再 ajax 撈資料，從已撈的來呈現
+                }
+                else {
+                    ShowSearchResultList(datas);
+                }
+                arrangeBtns.forEach(d => d.className = 'btnNotSelect');      // 改排列方式按鈕的樣式
+                this.className = 'btnSelect';
+            })
+        })
         function ShowSearchResultGrip(queryResult) {
 
             contentRow.innerHTML = '';
@@ -233,7 +250,39 @@
                 secondRemain %= 3600;
                 let minuteRemain = Math.floor(secondRemain / 60);
 
-
+                let domA = document.createElement('a');
+                domA.href = '@Url.Content("~/Auction/Item/")' + item.fItemId;
+                let domBorder = document.createElement('div');
+                domBorder.className = 'listBorder';
+                let domImgWrap = document.createElement('div');
+                domImgWrap.className = 'listImgWrap';
+                let domImg = document.createElement('img');
+                domImg.src = '@Url.Content("~/Images/AuctionItemImages/")' + item.fPhoto;
+                domImg.className = 'listImg';
+                domImgWrap.appendChild(domImg);
+                domBorder.appendChild(domImgWrap);
+                let divName = document.createElement('div');
+                divName.className = 'listName';
+                divName.textContent = item.fItemName;
+                domBorder.appendChild(divName);
+                let divMoney = document.createElement('div');
+                divMoney.className = 'listMoney';
+                divMoney.textContent = `$ ${item.fMoneyNow} 元`;
+                domBorder.appendChild(divMoney);
+                let divCount = document.createElement('div');
+                divCount.className = 'listCount';
+                divCount.textContent = `${item.fBidCount}次出價`;
+                domBorder.appendChild(divCount);
+                let divTime = document.createElement('div');
+                divTime.className = 'listTime';
+                let domI = document.createElement('i');
+                domI.className = 'fa-solid fa-clock';
+                divTime.textContent = `  ${dayRemain} 天 ${hourRemain} 時 ${minuteRemain} 分`;
+                divTime.prepend(domI);
+                domBorder.appendChild(divTime);
+                
+                domA.appendChild(domBorder);
+                docFrag.appendChild(domA);
 
 
 
