@@ -90,34 +90,37 @@ a{
     background-color: #ebebeb;
 }
 .imgWrap{
+
     width: 100%;
 }
-.listImgWrap{
-    width: 5rem;
+.listImgWrap {
+    width: 10%;
+    text-align: center;
 }
 .listName {
+    width: 40%;
     font-size: 1.5rem;
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-right: auto;
 }
 .listMoney {
-    width: 7rem;
-
+    text-align: center;
+    width: 15%;
     font-weight: bold;
     font-size: 1.5rem;
     color: #ab8f4e;
-    margin-right: 0.8rem;
 }
-.listCount{
-    width: 6rem;
-    margin-right: 0.8rem;
+.listCount {
+    text-align: center;
+    width: 12%;
+    font-size: 1.3rem;
 }
 .listTime {
-    width: 12rem;
+    width: 23%;
     font-size: 1.1rem;
+    text-align: center;
 }
 .cardImg {
     width: 100%;

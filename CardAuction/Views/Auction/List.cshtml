@@ -104,7 +104,7 @@
                     <button class="btnNotSelect" id="btnJustPost">最新上架</button>
                 </div>
                 <div id="divArrange" class="d-none d-sm-block">
-                    <button class="btnSelect" id="btnGrip">
+                    <button class="btnSelect" id="btnCard">
                         <i class="fa-solid fa-grip"></i>
                     </button>
                     <button class="btnNotSelect" id="btnList">
@@ -131,11 +131,11 @@
         var btnJustPost = document.getElementById('btnJustPost');
         var pageBtnRow = document.getElementById('pageBtnRow');
         var filterBtns = [btnEndTime, btnHotClick, btnJustPost];
-        var btnGrip = document.getElementById('btnGrip');
+        var btnCard = document.getElementById('btnCard');
         var btnList = document.getElementById('btnList');
-        var arrangeBtns = [btnGrip, btnList];
+        var arrangeBtns = [btnCard, btnList];
         var loading = false, datas;
-        var keyword = '', filter = 'EndTime', arrange = 'Grip', pageNow = 0, pageCount = 0;
+        var keyword = '', filter = 'EndTime', arrange = 'Card', pageNow = 0, pageCount = 0;
 
         document.querySelectorAll('.searchSort').forEach(function (dom) {
             dom.addEventListener('click', function (event) {
@@ -165,8 +165,8 @@
             dom.addEventListener('click', function (event) {
                 arrange = this.id.slice(3);                  // 從index=3開始是arrange字串
 
-                if (arrange == 'Grip') {
-                    ShowSearchResultGrip(datas);             // 不再 ajax 撈資料，從已撈的來呈現
+                if (arrange == 'Card') {
+                    ShowSearchResultCard(datas);             // 不再 ajax 撈資料，從已撈的來呈現
                 }
                 else {
                     ShowSearchResultList(datas);
@@ -175,7 +175,7 @@
                 this.className = 'btnSelect';
             })
         })
-        function ShowSearchResultGrip(queryResult) {
+        function ShowSearchResultCard(queryResult) {
 
             contentRow.innerHTML = '';
 
@@ -232,7 +232,7 @@
             }
             contentRow.appendChild(docFrag);
 
-            addHover();                 // 放上查詢出來的結果後加上滑鼠移上去的背景特效
+            addHoverCard();                 // 放上查詢出來的結果後加上滑鼠移上去的背景特效
         }
 
         function ShowSearchResultList(queryResult) {
@@ -283,22 +283,24 @@
                 
                 domA.appendChild(domBorder);
                 docFrag.appendChild(domA);
-
-
-
-
-
-
-
-
-
             }
             contentRow.appendChild(docFrag);
 
-            addHover();                 // 放上查詢出來的結果後加上滑鼠移上去的背景特效
+            addHoverList();                 // 放上查詢出來的結果後加上滑鼠移上去的背景特效
         }
-        function addHover() {
+        function addHoverCard() {
             document.querySelectorAll('.cardBorder').forEach(function (dom) {
+                dom.addEventListener('mouseover', function () {
+                    this.classList.add('cardSelect');
+                });
+                dom.addEventListener('mouseleave', function () {
+                    this.classList.remove('cardSelect');
+                });
+            });
+        };
+
+        function addHoverList() {
+            document.querySelectorAll('.listBorder').forEach(function (dom) {
                 dom.addEventListener('mouseover', function () {
                     this.classList.add('cardSelect');
                 });
@@ -321,8 +323,8 @@
                 loading = false;
                 datas = JSON.parse(xhrSearch.responseText);
 
-                if (arrange == 'Grip') {
-                    ShowSearchResultGrip(datas);
+                if (arrange == 'Card') {
+                    ShowSearchResultCard(datas);
                 }
                 else {
                     ShowSearchResultList(datas);
