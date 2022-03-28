@@ -1,6 +1,6 @@
 ﻿@using CardAuction.Models
 @{
-    Layout = "~/Views/Shared/_LayoutShort.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "上架";
     ViewBag.pageTitle = "新增競標商品";
     string username = null;
@@ -234,14 +234,14 @@
             </div>
         </div>
     </form>
+@section scripts{
     <script>
 
         var domItemName = document.getElementById('ItemName');
         var countName = document.getElementById('countItemName');
         domItemName.addEventListener('change', function () {
             countName.textContent = `${domItemName.value.length}/60`;
-        })
-
+        });
 
         for (let i = 0; i < 4; i++) {
             let picBlock = document.getElementById('picBlock' + i);
@@ -263,7 +263,7 @@
                 reader.readAsDataURL(file);
                 reader.addEventListener('load', function () {
                     picBlock.style.backgroundImage = `url('${reader.result}')`;
-                })
+                });
             });
             picBlock.addEventListener('click', function () {
                 inputFile.click();
@@ -287,9 +287,6 @@
             })
         }
 
-        function addPicture(i, a) {
-
-        }
         var domItemName = document.getElementById('ItemName');
         var countName = document.getElementById('countItemName');
         domItemName.addEventListener('keyup', function () {
@@ -316,3 +313,4 @@
             location.href = '@Url.Content("~/")';
         })
     </script>
+}

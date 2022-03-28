@@ -6,7 +6,7 @@
     白ffffff */
 @media (max-width: 575px) {
     html {
-        font-size: 9px;
+        font-size: 10px;
     }
     #header{
         justify-content: center;
@@ -21,7 +21,7 @@
 
 @media (min-width: 576px) and (max-width: 767px) {
     html {
-        font-size: 10px;
+        font-size: 11px;
     }
     #header {
         justify-content: flex-end;
@@ -90,15 +90,15 @@ body {
     padding: 4px;
     border-bottom: 3px solid #ebebeb;
     font-size: 1.4rem;
-    font-weight: bold;
-    color: #333333;
+    font-weight: 700;
+    color: #6b6b6b;
 }
 #header>div{
     margin: 0rem 2.4rem;
 }
 #header > div > a {
     text-decoration: none;
-    color: #333333;
+    color: #6b6b6b;
 }
 #nav{
     display: flex;
@@ -125,7 +125,7 @@ body {
     text-decoration: none;
     font-size: 2rem;
     color: #333333;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 #divSearch {

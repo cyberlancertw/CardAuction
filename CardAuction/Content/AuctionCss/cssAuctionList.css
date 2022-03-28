@@ -1,18 +1,13 @@
 ﻿/*  淡灰 ced3d8   ebebeb    深灰 6b6b6b   黑 333333    藏青 1f3444    金  ab8f4e    白ffffff */
 
 @media (max-width: 575px) {
-    html {
-        font-size: 9px;
-    }
     .imgWrap {
-        height: 20rem;
+        height: 30rem;
+        margin-top: 1rem;
     }
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
-    html {
-        font-size: 10px;
-    }
     .imgWrap {
         height: 35rem;
     }
@@ -20,18 +15,12 @@
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-    html {
-        font-size: 10px;
-    }
     .imgWrap {
         height: 20rem;
     }
 }
 
 @media (min-width: 992px) and (max-width:1199px) {
-    html {
-        font-size: 11px;
-    }
     .imgWrap {
         height: 20rem;
     }
@@ -39,17 +28,9 @@
 
 }
 @media (min-width: 1200px) {
-    html {
-        font-size: 12px;
-    }
     .imgWrap {
         height: 20rem;
     }
-}
-#fullListPage{
-    width: 86%;
-    margin: auto;
-    
 }
 #banner{
     height: 200px;
@@ -60,7 +41,9 @@
 #mainContent{
     margin-top: 20px;
 }
-
+#mainContent > div > nav {
+    margin-bottom: 1rem;
+}
 a{
     text-decoration: none;
     color: #000000;
