@@ -139,7 +139,7 @@ namespace CardAuction.Controllers
             {
                 return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Exchange", ToAction = "List" });
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
 
         }
 
