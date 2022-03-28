@@ -1,109 +1,172 @@
-﻿
-#adCarosel{
+﻿/*  淡灰 ced3d8   ebebeb    
+    深灰 6b6b6b   
+    黑 333333    
+    藏青 1f3444    
+    金  ab8f4e    
+    白ffffff */
+@media (max-width: 575px) {
+    html {
+        font-size: 10px;
+    }
+    #carouselArea {
+        height: 20rem;
+    }
+    #divLeft, #divRight {
+        font-size: 2rem;
+    }
+    #divLeft, #divRight {
+        top: 9rem;
+    }
+    #divLeft{
+        left: 1.2rem;
+    }
+    #divRight{
+        right: 1.2rem;
+    }
+    #divCurrent {
+        width: 30%;
+        left: 35%;
+        bottom: 5%;
+        font-size: 0.2rem;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    html {
+        font-size: 11px;
+    }
+    #carouselArea {
+        height: 24rem;
+    }
+    #divLeft, #divRight {
+        font-size: 2rem;
+    }
+    #divLeft, #divRight {
+        top: 11rem;
+    }
+
+    #divLeft {
+        left: 1.2rem;
+    }
+
+    #divRight {
+        right: 1.2rem;
+    }
+    #divCurrent {
+        width: 28%;
+        left: 36%;
+        bottom: 5%;
+        font-size: 0.2rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    html {
+        font-size: 12px;
+    }
+    #carouselArea {
+        height: 28rem;
+    }
+    #divLeft, #divRight {
+        font-size: 2.4rem;
+    }
+    #divLeft, #divRight {
+        top: 12.6rem;
+    }
+    #divLeft {
+        left: 1.2rem;
+    }
+    #divRight {
+        right: 1.2rem;
+    }
+    #divCurrent {
+        width: 22%;
+        left: 39%;
+        bottom: 5%;
+        font-size: 0.2rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width:1199px) {
+    html {
+        font-size: 13px;
+    }
+    #carouselArea {
+        height: 32rem;
+    }
+    #divLeft, #divRight {
+        font-size: 3rem;
+    }
+    #divLeft, #divRight {
+        top: 14.5rem;
+    }
+
+    #divLeft {
+        left: 1.6rem;
+    }
+
+    #divRight {
+        right: 1.6rem;
+    }
+    #divCurrent {
+        width: 16%;
+        left: 42%;
+        bottom: 4%;
+        font-size: 0.2rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    html {
+        font-size: 14px;
+    }
+    #carouselArea {
+        height: 40rem;
+    }
+    #divLeft, #divRight {
+        font-size: 4rem;
+    }
+    #divLeft, #divRight {
+        top: 18rem;
+    }
+
+    #divLeft {
+        left: 2rem;
+    }
+
+    #divRight {
+        right: 2rem;
+    }
+    #divCurrent {
+        width: 14%;
+        left: 43%;
+        bottom: 8%;
+        font-size: 0.7rem;
+    }
+}
+
+#carouselArea {
     position: relative;
-}
-#adMain {
     width: 100%;
-    height: 500px;
-    background-color: #1F3444;
-}
-#adArrowLeft{
-    position: absolute;
-    top: 220px;
-    left: 25px;
-}
-#adArrowLeft>img{
-    width: 60px;
+    background-color: #1f3444;
 }
 
-#adArrowRight{
-    position: absolute;
-    top: 220px;
-    right: 25px;
-}
-#adArrowRight>img{
-    width: 60px;
-}
-
-#adPosition{
-    width: 8vw;
-    position: absolute;
-    left: 46vw;
-    bottom: 20px;
-}
-
-#adPosition>img{
-    width: 1vw;
-
-}
-
-#betweenBar{
+[id^="imgAd"]{
     width: 100%;
-    height: 30px;
-    background-color: #ffffff;
-}
-#mainContent{
-    background-color: #ebebeb;
-}
-#contentInfo{
-    padding-top: 80px;
-}
-#arrivalText{
-    font-family: 'Noto Serif CJK TC Medium', 新細明體;
-    font-size: 24px;
-    text-align:right;
-}
-#arrivalBar{
-    margin-top: 5px;
-    width: 90%;
-    margin-left: 15px;
-    height: 8px;
-    background-color: #ab8f4e;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
-#checkAll{
-    font-size: 16px;
+#divLeft, #divRight {
+    position: absolute;
+    color: #ced3d8;
 }
-
-#cardList{
-    padding-top: 50px;
-}
-.divPicture{
+#divCurrent{
+    position: absolute;
     text-align: center;
-    height: 420px;
+    color: #ffffff;
 }
-.divPicture>img{
-    height: 400px;
-    margin-left: auto;
-}
-
-.divTitle{
-    font-size: 24px;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-top: 20px;
-    height: 100px;
-}
-
-.divPrice {
-    font-size: 38px;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-top: 20px;
-    color: #ab8f4e;
-    height: 100px;
-}
-
-.divButton{
-    margin-bottom: 120px;
-}
-.btnCheck{
-    margin-left: 20px;
-    width: 60%;
-    height: 50px;
-    border: 2px solid #1f3344;
-    
-    color: #1f3344;
-    border-radius: 2px;
-    font-size: 18px;
+#divCurrent>i{
+    margin: 0 0.6rem;
 }
