@@ -11,6 +11,12 @@
     #header{
         justify-content: center;
     }
+    #catalog > div > a {
+        font-size: 2rem;
+    }
+    #greeting{
+        display: none;
+    }
     #catalog{
         width: 100%;
     }
@@ -25,6 +31,9 @@
     }
     #header {
         justify-content: flex-end;
+    }
+    #catalog > div > a {
+        font-size: 1.4rem;
     }
     #catalog {
         width: 57%;
@@ -41,6 +50,9 @@
     #header {
         justify-content: flex-end;
     }
+    #catalog > div > a {
+        font-size: 1.8rem;
+    }
     #catalog {
         width: 57%;
     }
@@ -56,6 +68,9 @@
     #header {
         justify-content: flex-end;
     }
+    #catalog > div > a {
+        font-size: 2rem;
+    }
     #catalog {
         width: 57%;
     }
@@ -70,6 +85,9 @@
     }
     #header {
         justify-content: flex-end;
+    }
+    #catalog > div > a {
+        font-size: 2rem;
     }
     #catalog {
         width: 57%;
@@ -93,7 +111,14 @@ body {
     font-weight: 700;
     color: #6b6b6b;
 }
-#header>div{
+
+#aMyPage{
+    margin-right: 2.4rem;
+}
+#aLogout{
+    text-decoration: none;
+}
+#divAbout, #divContact{
     margin: 0rem 2.4rem;
 }
 #header > div > a {
@@ -123,7 +148,6 @@ body {
 }
 #catalog > div > a {
     text-decoration: none;
-    font-size: 2rem;
     color: #333333;
     font-weight: 700;
 }

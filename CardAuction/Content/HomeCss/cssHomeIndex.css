@@ -2,7 +2,7 @@
     深灰 6b6b6b   
     黑 333333    
     藏青 1f3444    
-    金  ab8f4e    
+    金  ab8f4e
     白ffffff */
 @media (max-width: 575px) {
     html {
@@ -28,6 +28,20 @@
         left: 35%;
         bottom: 5%;
         font-size: 0.2rem;
+    }
+    #divLabel > div {
+        width: 20%;
+    }
+    .newest {
+        font-size: 1.8rem;
+    }
+
+    .findall {
+        font-size: 1.4rem;
+    }
+    .imgWrap {
+        height: 30rem;
+        margin-top: 1rem;
     }
 }
 
@@ -58,6 +72,19 @@
         bottom: 5%;
         font-size: 0.2rem;
     }
+    #divLabel > div {
+        width: 20%;
+    }
+    .newest {
+        font-size: 1.8rem;
+    }
+
+    .findall {
+        font-size: 1.4rem;
+    }
+    .imgWrap {
+        height: 35rem;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -84,6 +111,19 @@
         left: 39%;
         bottom: 5%;
         font-size: 0.2rem;
+    }
+    #divLabel > div {
+        width: 20%;
+    }
+    .newest {
+        font-size: 1.8rem;
+    }
+
+    .findall {
+        font-size: 1.4rem;
+    }
+    .imgWrap {
+        height: 20rem;
     }
 }
 
@@ -114,6 +154,19 @@
         bottom: 4%;
         font-size: 0.2rem;
     }
+    #divLabel > div {
+        width: 20%;
+    }
+    .newest {
+        font-size: 1.8rem;
+    }
+
+    .findall {
+        font-size: 1.4rem;
+    }
+    .imgWrap {
+        height: 20rem;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -142,6 +195,19 @@
         left: 43%;
         bottom: 4%;
         font-size: 0.3rem;
+    }
+    #divLabel > div {
+        width: 20%;
+    }
+    .newest {
+        font-size: 1.8rem;
+    }
+
+    .findall {
+        font-size: 1.4rem;
+    }
+    .imgWrap {
+        height: 20rem;
     }
 }
 
@@ -175,4 +241,76 @@
     color: #ffffff;
     margin: 0 0.6rem;
 }
+#cardList {
+    margin-top: 1rem;
+    background-color: #ced3d8;
+    height: 1000px;
+}
 
+#divLabel{
+    padding-top: 3rem;
+    display: flex;
+    justify-content:space-between;
+}
+.newest {
+    text-align: right;
+    font-weight: 700;
+    color: #333333;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #ab8f4e;
+    margin-bottom: 5rem;
+}
+.findall{
+    text-align: left;
+    color: #6b6b6b;
+}
+#auctionRow, #exchangeRow{
+    margin:1rem 2rem;
+}
+.cardBorder {
+    border-radius: 1rem;
+    box-shadow: gray 0px 0px 5px;
+    border: 1px solid #ffffff;
+    padding: 0.6rem;
+    background-color: #ffffff;
+    margin-bottom: 1.2rem;
+}
+.cardBorder > a {
+    text-decoration: none;
+    color: #000000;
+}
+.cardSelect {
+    background-color: #ebebeb;
+}
+.cardImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+.imgWrap {
+    width: 100%;
+}
+.cardBody {
+    padding: 0px 1rem;
+    margin-top: 1.5rem;
+}
+
+.pName {
+    font-size: 1.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.pMoney {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ab8f4e;
+}
+.pCount {
+}
+
+.pTime {
+    font-size: 1.1rem;
+}

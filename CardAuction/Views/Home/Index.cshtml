@@ -31,20 +31,18 @@
         <a href="" id="dotLink4"><i id="dot4" class="fa-solid fa-circle"></i></a>
     </div>
 </div>
-    <div id="mainContent">
-        <div id="contentInfo" class="row">
-            <div id="newArrival" class="col-6 col-md-3">
-                <div id="arrivalText">最新商品</div>
-                <div id="arrivalBar"></div>
-            </div>
-            <div id="checkAll" class="offset-2 col-4 offset-md-7 col-md-2">
-                查看全部 →
-            </div>
+<div id="cardList">
+    <div id="divLabel">
+        <div class="newest">
+            最新商品
+        </div>
+        <div class="findall">
+            查看全部<i class="fa-solid fa-arrow-right-long"></i>
         </div>
     </div>
-
-    <div id="cardList">
-    </div>
+    <div class="row" id="auctionRow"></div>
+    <div class="row" id="exchangeRow"></div>
+</div>
 
 @section scripts{
     <script>
@@ -60,6 +58,8 @@
         var arrowList = [arrowLeft, arrowRight];
         var imgNow = 0;
         var carouselAuto = window.setInterval(() => arrowRight.click(), 3000);      // 3秒換一張圖
+        var auctionRow = document.getElementById('auctionRow');
+        var exchangeRow = document.getElementById('exchangeRow');
 
         document.querySelectorAll('[id^="dotLink"]').forEach(dom => {
             dom.addEventListener('click', event => {
@@ -88,6 +88,75 @@
             carouselJump(imgNow);
         });
 
+        fetch('@Url.Content("~/Home/QueryNewest")', { method: 'GET' })
+            .then(response => response.json())
+            .then(datas => generateNewestItem(datas))
+            .catch(reject=> console.log(reject));
+
+        function generateNewestItem(datas) {
+            let auctionItems = datas.newestAuctionItem;
+            
+
+            auctionRow.innerHTML = '';
+
+            let docFrag = document.createDocumentFragment();
+
+            for (let item of auctionItems) {
+                let secondRemain = Math.floor((new Date(parseInt(item.fEndTime.substr(6))) - new Date()) / 1000);
+                let dayRemain = Math.floor(secondRemain / 86400);
+                secondRemain %= 86400;
+                let hourRemain = Math.floor(secondRemain / 3600);
+                secondRemain %= 3600;
+                let minuteRemain = Math.floor(secondRemain / 60);
+
+                let domDiv = document.createElement('div');
+                domDiv.className = 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
+                let domBorder = document.createElement('div');
+                domBorder.className = 'cardBorder';
+                let domA = document.createElement('a');
+                domA.href = '@Url.Content("~/Auction/Item/")' + item.fItemId;
+                let domImgWrap = document.createElement('div');
+                domImgWrap.className = 'imgWrap';
+                let domImg = document.createElement('img');
+                domImg.src = '@Url.Content("~/Images/AuctionItemImages/")' + item.fPhoto;
+                domImg.className = 'cardImg';
+                domImgWrap.appendChild(domImg);
+                let domCardBody = document.createElement('div');
+                domCardBody.className = 'cardBody';
+                let domPname = document.createElement('p');
+                domPname.className = 'pName';
+                domPname.textContent = item.fItemName;
+                domCardBody.appendChild(domPname);
+                let domPmoney = document.createElement('p');
+                domPmoney.className = 'pMoney';
+                domPmoney.textContent = `$ ${item.fMoneyNow} 元`;
+                domCardBody.appendChild(domPmoney);
+                let domPcount = document.createElement('p');
+                domPcount.className = 'pCount';
+                domPcount.textContent = `${item.fBidCount}次出價`;
+                domCardBody.appendChild(domPcount);
+                let domPtime = document.createElement('p');
+                domPtime.className = 'pTime';
+                let domI = document.createElement('i');
+                domI.className = 'fa-solid fa-clock';
+                domPtime.textContent = `  ${dayRemain} 天 ${hourRemain} 時 ${minuteRemain} 分`;
+                domPtime.prepend(domI);
+                domCardBody.appendChild(domPtime);
+                domA.appendChild(domImgWrap);
+                domA.appendChild(domCardBody);
+                domBorder.appendChild(domA);
+                domDiv.appendChild(domBorder);
+                docFrag.appendChild(domDiv);
+            }
+            auctionRow.appendChild(docFrag);
+
+
+            let exchangeItems = datas.newestExchangeItem;
+
+
+
+            addHoverCard();
+        }
         function carouselJump(n) {
             imgList.forEach(d => d.hidden = true);
             imgList[n].hidden = false;
