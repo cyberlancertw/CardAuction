@@ -196,6 +196,44 @@
                 let domBorder = document.createElement('div');
                 domBorder.className = 'cardBorder';
                 let domA = document.createElement('a');
+                domA.href = '@Url.Content("~/Exchange/Item/")' + item.fItemId;
+                let domImgWrap = document.createElement('div');
+                domImgWrap.className = 'imgWrap';
+                let domImg = document.createElement('img');
+                domImg.src = '@Url.Content("~/Images/ExchangeItemImages/")' + item.fPhoto;
+                domImg.className = 'cardImg';
+                domImgWrap.appendChild(domImg);
+                let domCardBody = document.createElement('div');
+                domCardBody.className = 'cardBody';
+                let domPname = document.createElement('p');
+                domPname.className = 'pName';
+                domPname.textContent = item.fItemName;
+                domCardBody.appendChild(domPname);
+                let domPcount = document.createElement('p');
+                domPcount.className = 'pCount';
+                let domSpancount = document.createElement('span');
+                domSpancount.className = 'spanCount';
+                domSpancount.textContent = '提出交換數'
+                domPcount.textContent = `  / ${item.fChangeCount} 人`;
+                domPcount.prepend(domSpancount);
+                domCardBody.appendChild(domPcount);
+                let domPtime = document.createElement('p');
+                domPtime.className = 'pTime';
+                let domI = document.createElement('i');
+                domI.className = 'fa-solid fa-clock';
+                domPtime.textContent = `  ${dayRemain} 天 ${hourRemain} 時 ${minuteRemain} 分`;
+                domPtime.prepend(domI);
+                domCardBody.appendChild(domPtime);
+                domA.appendChild(domImgWrap);
+                domA.appendChild(domCardBody);
+                domBorder.appendChild(domA);
+                domDiv.appendChild(domBorder);
+                docFrag.appendChild(domDiv);
+                @*let domDiv = document.createElement('div');
+                domDiv.className = 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
+                let domBorder = document.createElement('div');
+                domBorder.className = 'cardBorder';
+                let domA = document.createElement('a');
                 domA.href = '@Url.Content("~/Auction/Item/")' + item.fItemId;
                 let domImgWrap = document.createElement('div');
                 domImgWrap.className = 'imgWrap';
@@ -228,7 +266,7 @@
                 domA.appendChild(domCardBody);
                 domBorder.appendChild(domA);
                 domDiv.appendChild(domBorder);
-                docFrag.appendChild(domDiv);
+                docFrag.appendChild(domDiv);*@
             }
             contentRow.appendChild(docFrag);
 
@@ -251,6 +289,41 @@
                 let minuteRemain = Math.floor(secondRemain / 60);
 
                 let domA = document.createElement('a');
+                domA.href = '@Url.Content("~/Exchange/Item/")' + item.fItemId;
+                let domBorder = document.createElement('div');
+                domBorder.className = 'listBorder';
+                let domImgWrap = document.createElement('div');
+                domImgWrap.className = 'listImgWrap';
+                let domImg = document.createElement('img');
+                domImg.src = '@Url.Content("~/Images/ExchangeItemImages/")' + item.fPhoto;
+                domImg.className = 'listImg';
+                domImgWrap.appendChild(domImg);
+                domBorder.appendChild(domImgWrap);
+                let divName = document.createElement('div');
+                divName.className = 'listName';
+                divName.textContent = item.fItemName;
+                domBorder.appendChild(divName);
+                let divCount = document.createElement('div');
+                divCount.className = 'listCount';
+                divCount.textContent = `  / ${item.fChangeCount} 人`;
+                let domSpancount = document.createElement('span');
+                domSpancount.className = 'spanCount';
+                domSpancount.textContent = '提出交換數'
+                divCount.prepend(domSpancount);
+                domBorder.appendChild(divCount);
+                domBorder.appendChild(divCount);
+                let divTime = document.createElement('div');
+                divTime.className = 'listTime';
+                let domI = document.createElement('i');
+                domI.className = 'fa-solid fa-clock';
+                divTime.textContent = `  ${dayRemain} 天 ${hourRemain} 時 ${minuteRemain} 分`;
+                divTime.prepend(domI);
+                domBorder.appendChild(divTime);
+
+                domA.appendChild(domBorder);
+                docFrag.appendChild(domA);
+
+                @*let domA = document.createElement('a');
                 domA.href = '@Url.Content("~/Auction/Item/")' + item.fItemId;
                 let domBorder = document.createElement('div');
                 domBorder.className = 'listBorder';
@@ -282,7 +355,7 @@
                 domBorder.appendChild(divTime);
 
                 domA.appendChild(domBorder);
-                docFrag.appendChild(domA);
+                docFrag.appendChild(domA);*@
             }
             contentRow.appendChild(docFrag);
 
@@ -332,7 +405,7 @@
             });
             let para = `?sortName=${keyword}&filter=${filter}&page=${page}`;
 
-            xhrSearch.open('GET', '@Url.Content("~/Auction/QueryBySort/")' + para);
+            xhrSearch.open('GET', '@Url.Content("~/Exchange/QueryBySort/")' + para);
             xhrSearch.send();
         }
         function GetCount(keyword) {
@@ -344,7 +417,7 @@
                 GeneratePageButton(itemCount);
             });
             let para = `?sortName=${keyword}`;
-            xhrCount.open('GET', '@Url.Content("~/Auction/GetCount/")' + para);
+            xhrCount.open('GET', '@Url.Content("~/Exchange/GetCount/")' + para);
             xhrCount.send();
         }
         function GeneratePageButton(itemCount) {

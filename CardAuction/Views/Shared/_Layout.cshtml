@@ -5,62 +5,60 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="~/Content/LayoutCss/cssUserLayout.css" type="text/css" />
     <link href="~/Content/Bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/LayoutCss/cssUserLayout.css" type="text/css" />
     @RenderSection("styles", required: false)
 </head>
 
 <body>
-    <div id="fullPage">
+    <div class="container">
         <div id="header">
-
-            @{
-                var userAcc = Session[CDictionary.SK_UserAccount];
-                if (userAcc == null)
-                {
-                    @Html.ActionLink("登入", "Login", "Member")
+            <div id="divLogin">
+                @{
+                    var userAcc = Session[CDictionary.SK_UserAccount];
+                    if (userAcc == null)
+                    {
+                        @Html.ActionLink("登入", "Login", "Member")
+                    }
+                    else
+                    {
+                <span id="greeting">您好，</span> @Html.ActionLink(userAcc.ToString(), "MyPage", "Member", null,new { id = "aMyPage"})
+                        @Html.ActionLink("登出","Logout","Home",null,new { id="aLogout"})
+                    }
                 }
-                else
-                {
-                    @Html.ActionLink(userAcc.ToString(), "Index", "Member")
-                }
-            }
-            @Html.ActionLink("Admin","","Admin")
-
-            @Html.ActionLink("關於我們", "About", "Member")
-            @Html.ActionLink("使用說明", "Information", "Member")
-            @Html.ActionLink("聯絡我們", "Contact", "Member")
-           
+            </div>
+            <div id="divAbout">
+                @Html.ActionLink("關於我們", "About", "Member")
+            </div>
+            <div id="divContact">
+                @Html.ActionLink("聯絡我們", "Contact", "Member")
+            </div>
         </div>
-        <div id="nav" class="row">
-            <div id="catalog1" class="col-12 col-sm-12 col-md-4">
-                <div class="row justify-content-around">
-                    <div class="col-6 col-sm-6 col-md-3"><a href="~/"><img src="~/images/site/iconWebsite.png" id="webIcon" /></a></div>
-                    <div class="col-2 col-sm-2 col-md-3">@Html.ActionLink("競標", "List", "Auction")</div>
-                    <div class="col-2 col-sm-2 col-md-3">@Html.ActionLink("交換", "List", "Exchange")</div>
-                    <div class="col-2 col-sm-2 col-md-3">@Html.ActionLink("上架", "Post", "Home")</div>
-
+        <div id="nav">
+            <div id="catalog">
+                <div id="divIcon">
+                    <a href="~/">
+                        <img src="~/Images/site/iconWebsite.png" id="imgIcon"/>
+                    </a>
+                </div>
+                <div id="divAuction">
+                    @Html.ActionLink("競標", "List", "Auction")
+                </div>
+                <div id="divExchange">
+                    @Html.ActionLink("交換", "List", "Exchange")
+                </div>
+                <div id="divPost">
+                    @Html.ActionLink("上架商品", "Post", "Home")
                 </div>
             </div>
-            <div id="catalog2" class="col-12 col-sm-12 col-md-4">
-                <div class="row justify-content-around">
-                    <div class="col-2"><a href="cataPokemon.html"><img src="~/Images/site/iconPokemon.png" /></a></div>
-                    <div class="col-2"><a href="cataYuGiOh.html"><img src="~/Images/site/iconYuGiOh.png" /></a></div>
-                    <div class="col-2"><a href="cataMTG.html"><img src="~/Images/site/iconMTG.png" /></a></div>
-                    <div class="col-2"><a href="cataNBA.html"><img src="~/Images/site/iconNBA.png" /></a></div>
-                    <div class="col-2"><a href="cataMLB.html"><img src="~/Images/site/iconMLB.png" /></a></div>
-                </div>
-            </div>
-            <div id="search" class="col-sm-12 col-md-4">
-                <div class="row">
-                    <div class="col-10" id="divSearch">
-                        <input type="search" id="txtSearch" placeholder="    搜尋品牌、價格、等" />
-                        <div id="iconMag">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-                    </div>
-                    <div class="col-2"><img src="~/Images/site/iconCart.jpg" id="imgCart" /></div>
+            <div id="divSearch">
+                <input type="search" id="txtSearch" placeholder="    搜尋品牌、價格、等" />
+                <div id="iconMag">
+                    <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
             </div>
         </div>

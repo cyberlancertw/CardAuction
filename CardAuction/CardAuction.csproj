@@ -354,9 +354,11 @@
     <Content Include="Images\site\nbapanini.png" />
     <Content Include="Images\site\pkmcharizard.png" />
     <Content Include="Images\site\yugiohprismatic.png" />
-    <Content Include="Images\User\Index\SlideShowAD\CuteDog_01.jpeg" />
-    <Content Include="Images\User\Index\SlideShowAD\CuteDog_02.jpeg" />
-    <Content Include="Images\User\Index\SlideShowAD\CuteDog_03.jpg" />
+    <Content Include="Images\User\Index\SlideShowAD\0.jpg" />
+    <Content Include="Images\User\Index\SlideShowAD\1.jpg" />
+    <Content Include="Images\User\Index\SlideShowAD\2.jpg" />
+    <Content Include="Images\User\Index\SlideShowAD\3.jpg" />
+    <Content Include="Images\User\Index\SlideShowAD\4.jpg" />
     <Content Include="Models\dbCardAuction.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
