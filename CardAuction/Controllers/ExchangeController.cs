@@ -142,7 +142,93 @@ namespace CardAuction.Controllers
             return RedirectToAction("List");
 
         }
+        [HttpGet]
+        public ActionResult Couple()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Couple(CExchangePostViewModel vModel)
+        {
+            if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
+            {
+                TempData[CDictionary.SK_RedirectToAction] = "Post";
+                TempData[CDictionary.SK_RedirectToController] = "Exchange";
+                return RedirectToAction("Login", "Member");
+            }
 
+            tExchangeItem createItem = new tExchangeItem();
+            DateTime nowTime = DateTime.Now;
+            Random rnd = new Random();
+            string fileNameInitial = nowTime.ToString("yyyyMMddHHmmss") + Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6) + rnd.Next(100, 1000).ToString();
+            createItem.fItemId = fileNameInitial;
+            List<HttpPostedFileBase> photos = new List<HttpPostedFileBase>();
+
+            if (vModel.Photo0 != null)                 // 無視沒上傳圖片的位置，全部往前推
+            {
+                photos.Add(vModel.Photo0);
+            }
+            if (vModel.Photo1 != null)
+            {
+                photos.Add(vModel.Photo1);
+            }
+            if (vModel.Photo2 != null)
+            {
+                photos.Add(vModel.Photo2);
+            }
+            if (vModel.Photo3 != null)
+            {
+                photos.Add(vModel.Photo3);
+            }
+            if (photos.Count == 0)
+            {
+                ViewData["errorMessage"] = "請上傳圖片";
+                return View();
+            }
+            int count = 0;
+            foreach (HttpPostedFileBase photo in photos)
+            {
+                // 檔名組成：日期、時間、6數字組成字串、編號.副檔名
+                string newFileName = fileNameInitial + count + Path.GetExtension(photo.FileName);
+
+                switch (count)
+                {
+                    case 0: createItem.fPhoto0 = newFileName; break;
+                    case 1: createItem.fPhoto1 = newFileName; break;
+                    case 2: createItem.fPhoto2 = newFileName; break;
+                    case 3: createItem.fPhoto3 = newFileName; break;
+                    default: break;
+                }
+                // 存入 ~/Images/ExchangeItemImages 資料夾內
+                photo.SaveAs(Server.MapPath("~/Images/ExchangeItemImages/") + newFileName);
+                count++;
+            }
+            createItem.fItemName = vModel.fItemName;
+            createItem.fSort = vModel.fSort;
+            createItem.fPostUserId = vModel.fPostUserId;
+            createItem.fItemDescription = vModel.fItemDescription;
+            createItem.fItemLocation = vModel.fItemLocation;
+            createItem.fItemLevel = vModel.fItemLevel;
+            createItem.fHopeItemName = vModel.fHopeItemName;
+            createItem.fHopeItemLocation = vModel.fHopeItemLocation;
+            createItem.fUserInfo = vModel.fUserInfo;
+            createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結束時間
+            createItem.fClick = 0;
+            createItem.fDelete = false;
+            createItem.fReport = 0;
+
+            db.tExchangeItem.Add(createItem);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Exchange", ToAction = "List" });
+            }
+            return RedirectToAction("List");
+
+        }
         [HttpGet]
         public ActionResult List()
         {

@@ -1,0 +1,172 @@
+﻿@model CardAuction.Models.tExchangeItem
+@using CardAuction.Models
+@{
+    ViewBag.Title = "交換商品";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string filepath0 = Model.fPhoto0;
+    string filepath1 = Model.fPhoto1;
+    string filepath2 = Model.fPhoto2;
+    string filepath3 = Model.fPhoto3;
+    //int leastBid = Model.fMoneyNow + Model.fMoneyStep;
+    int secondTotalRemain = Convert.ToInt32((Model.fEndTime - DateTime.Now).TotalSeconds);
+
+}
+@section styles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/Content/Bootstrap/bootstrap.min.css" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/Content/ExchangeCss/cssExchangeItem.css" type="text/css" />
+}
+
+
+    <div class="container-fluid table">
+        <article>
+            <div class="row">
+                <div id="sellDetail">
+                    <div class="col-sm-12 ">
+                        <!-- <div class="divTitle">
+                            基本資訊  <span class="errMsg">@ViewData["errorMessage"]</span>
+                        </div> -->
+                        <input type="hidden" name="fPostUserId" value="" />
+                        <div class="row divContent" id="divImgSelect">
+                            <div class="contentHead col-12 col-md-3">
+                                交換圖片
+                            </div>
+                            <div class="content col-12 col-md-12">
+                                <div class="row picBlockList">
+                                    <div class="col-12 col-sm-6 col-md-3">
+                                        <div class="picBlock dragNone" id="picBlock0">
+                                        </div>
+                                        *交換圖片
+                                        <input type="file" name="Photo0" id="inputFile0">
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-3">
+                                        <div class="picBlock dragNone" id="picBlock1">
+                                        </div>
+                                        圖片二
+                                        <input type="file" name="Photo1" id="inputFile1">
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-3">
+                                        <div class="picBlock dragNone" id="picBlock2">
+                                        </div>
+                                        圖片三
+                                        <input type="file" name="Photo2" id="inputFile2">
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-3">
+                                        <div class="picBlock dragNone" id="picBlock3">
+                                        </div>
+                                        圖片四
+                                        <input type="file" name="Photo3" id="inputFile3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 ">
+                        <div class="row divContent" id="divItemplace">
+                            <div class="contentHead col-12 col-md-3">
+                                <label for="Sort">*所在地點</label>
+                            </div>
+                            <div class="content col-12 col-md-9">
+                                <select name="fItemLocation" id="selectItemplace">
+                                    <option value="none"></option>
+                                    <option value="基隆市">基隆市</option>
+                                    <option value="新北市">新北市</option>
+                                    <option value="臺北市">臺北市</option>
+                                    <option value="桃園市">桃園市</option>
+                                    <option value="新竹縣">新竹縣</option>
+                                    <option value="新竹市">新竹市</option>
+                                    <option value="苗栗縣">苗栗縣</option>
+                                    <option value="臺中市">臺中市</option>
+                                    <option value="彰化縣">彰化縣</option>
+                                    <option value="南投縣">南投縣</option>
+                                    <option value="雲林縣">雲林縣</option>
+                                    <option value="嘉義縣">嘉義縣</option>
+                                    <option value="嘉義市">嘉義市</option>
+                                    <option value="臺南市">臺南市</option>
+                                    <option value="高雄市">高雄市</option>
+                                    <option value="屏東縣">屏東縣</option>
+                                    <option value="宜蘭縣">宜蘭縣</option>
+                                    <option value="花蓮縣">花蓮縣</option>
+                                    <option value="臺東縣">臺東縣</option>
+                                    <option value="澎湖縣">澎湖縣</option>
+                                    <option value="綠島">綠島</option>
+                                    <option value="蘭嶼">蘭嶼</option>
+                                    <option value="金門縣">金門縣</option>
+                                    <option value="馬祖">馬祖</option>
+                                    <option value="連江縣">連江縣</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row divContent" id="divItemName">
+                            <div class="contentHead col-12 col-md-3">
+                                <label for="ItemName">*物品名稱</label>
+                            </div>
+                            <div class="content col-12 col-md-9">
+                                <input type="text" name="fItemName" id="ItemName" maxlength="60" required />
+                                <p id="countItemName">
+                                    0/60
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row divContent" id="divSort">
+                            <div class="contentHead col-12 col-md-3 ">
+                                <label for="Sort">*類別</label>
+                            </div>
+                            <div class="content col-12 col-md-9">
+                                <select name="fSort" id="seleSort">
+                                    <option value="寶可夢 (Pokemon)">寶可夢 (Pokemon)</option>
+                                    <option value="遊戲王 (Yu-Gi-Oh!)">遊戲王 (Yu-Gi-Oh!)</option>
+                                    <option value="魔法風雲會 (MTG)">魔法風雲會 (MTG)</option>
+                                    <option value="黑與白 (Weiß Schwarz)">黑與白 (Weiß Schwarz)</option>
+                                    <option value="七龍珠 (DragonBallHeroes)">七龍珠 (DragonBallHeroes)</option>
+                                    <option value="鋼彈大戰 (GUNDAM WAR)">鋼彈大戰 (GUNDAM WAR)</option>
+                                    <option value="聖火降魔錄 (FE0)">聖火降魔錄 (FE0)</option>
+                                    <option value="運動卡 (Sport)">運動卡 (Sport)</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                            </div>
+                            <div class="row divContent" id="divGrading">
+                                <div class="contentHead col-12 col-md-3 ">
+                                    <label for="Sort">*鑑定級別</label>
+                                </div>
+                                <div class="content col-12 col-md-9">
+                                    <select name="fItemLevel" id="seleGrading">
+                                        <option value="none">沒有鑑定</option>
+                                        <option value="鑑定GEM MT 10 (Gem Mint)">GEM MT 10 (Gem Mint)</option>
+                                        <option value="鑑定Mint 9 (Mint)">Mint 9 (Mint)</option>
+                                        <option value="鑑定NM-MT 8 (Near Mint-Mint)">NM-MT 8 (Near Mint-Mint)</option>
+                                        <option value="鑑定NM 7 (Near Mint)">NM 7 (Near Mint)</option>
+                                        <option value="鑑定EX-MT 6 (Excellent-Mint)">EX-MT 6 (Excellent-Mint)</option>
+                                        <option value="鑑定EX 5 (Excellent)">EX 5 (Excellent)</option>
+                                        <option value="鑑定VG-EX 4 (Very Good-Excellent)">VG-EX 4 (Very Good-Excellent)</option>
+                                        <option value="鑑定VG 3 (Very Good)">VG 3 (Very Good)</option>
+                                        <option value="鑑定Good 2 (Good)">Good 2 (Good)</option>
+                                        <option value="鑑定Fr 1.5 (Fair)">Fr 1.5 (Fair)</option>
+                                        <option value="鑑定PR 1 (Poor)">PR 1 (Poor)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row divContent" id="divItemDescription">
+                                <div class="contentHead col-12 col-md-3">
+                                    <label for="ItemDescription">*物品描述</label>
+                                </div>
+                                <div class="content col-12 col-md-9">
+                                    <textarea name="fItemDescription" id="ItemDescription" maxlength="800" required></textarea>
+                                    <p id="countDescription">
+                                        0/800
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="buttons">
+                    <button id="btnCancel">取消</button>
+                    <button id="btnPost">確定</button>
+                </div>
+            </div>
+        </article>
+    </div>
+
