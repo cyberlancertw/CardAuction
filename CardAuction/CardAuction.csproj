@@ -168,6 +168,7 @@
     <Content Include="Content\AdminCss\cssPsnCreate.css" />
     <Content Include="Content\AdminCss\cssPsnEdit.css" />
     <Content Include="Content\AdminCss\cssPsnManage.css" />
+    <Content Include="Content\ExchangeCss\cssExchangeList.css" />
     <Content Include="Content\ExchangeCss\cssExchange.css" />
     <Content Include="Content\HomeCss\cssHomePost.css" />
     <Content Include="Content\HomeCss\cssHomeSearch.css" />
@@ -197,7 +198,6 @@
     <Content Include="Content\cssHomeIndex.css" />
     <Content Include="Content\cssNormalize.css" />
     <Content Include="Content\cssReset.css" />
-    <Content Include="Content\ExchangeCss\cssExchangeList.css" />
     <Content Include="Content\ExchangeCss\cssExchangeItem.css" />
     <Content Include="Content\cssRWDtemplate.css" />
     <Content Include="Content\HomeCss\cssHomeError.css" />
