@@ -261,8 +261,7 @@ namespace CardAuction.Controllers
             if (item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
             {
                 UpdateBid(item, amount, userId, itemId);
-
-                // 開新的結算紀錄
+                HandleWinBid(item, amount, userId, itemId);
             }
 
             return;
@@ -366,6 +365,25 @@ namespace CardAuction.Controllers
                 Console.WriteLine(e.ToString());
             }
             return;
+        }
+
+        public void HandleWinBid(tAuctionItem item, int amount, string userId, string itemId)
+        {
+
+            tAuctionResult newResult = new tAuctionResult
+            {
+                fResultId = itemId,
+                fPostUserId = item.fPostUserId,
+                fWinUserId = userId,
+                fTotalMoney = amount,
+                fBidCount = item.fBidCount,
+                fWinTime = DateTime.Now,
+                fBidMoney = item.fMoneyNow,
+                fDeliveryInfo = string.Empty
+            };
+
+            db.tAuctionResult.Add(newResult);
+            db.SaveChanges();
         }
     }
 

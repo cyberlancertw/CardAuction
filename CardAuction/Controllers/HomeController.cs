@@ -16,7 +16,7 @@ namespace CardAuction.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();              // 之後塞AuctionItem和ExchangeItem，也可以不用，搜尋用 Ajax 撈出來放不用 vModel
+            return View();
         }
 
         public ActionResult Logout()
