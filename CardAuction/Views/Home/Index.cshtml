@@ -14,17 +14,21 @@
     <img src="~/Images/User/Index/SlideShowAD/4.jpg" id="imgAd4" hidden />
 
     <div id="divLeft">
-        <i class="fa-solid fa-circle-chevron-left"></i>
+        <a href="" id="arrowLinkLeft">
+            <i class="fa-solid fa-circle-chevron-left"></i>
+        </a>
     </div>
     <div id="divRight">
-        <i class="fa-solid fa-circle-chevron-right"></i>
+        <a href="" id="arrowLinkRight">
+            <i class="fa-solid fa-circle-chevron-right"></i>
+        </a>
     </div>
     <div id="divCurrent">
-        <i id="dot0" class="fa-solid fa-circle-dot"></i>
-        <i id="dot1" class="fa-solid fa-circle"></i>
-        <i id="dot2" class="fa-solid fa-circle"></i>
-        <i id="dot3" class="fa-solid fa-circle"></i>
-        <i id="dot4" class="fa-solid fa-circle"></i>
+        <a href="" id="dotLink0"><i id="dot0" class="fa-solid fa-circle-dot"></i></a>
+        <a href="" id="dotLink1"><i id="dot1" class="fa-solid fa-circle"></i></a>
+        <a href="" id="dotLink2"><i id="dot2" class="fa-solid fa-circle"></i></a>
+        <a href="" id="dotLink3"><i id="dot3" class="fa-solid fa-circle"></i></a>
+        <a href="" id="dotLink4"><i id="dot4" class="fa-solid fa-circle"></i></a>
     </div>
 </div>
     <div id="mainContent">
@@ -51,32 +55,35 @@
         var img4 = document.getElementById('imgAd4'); var dot4 = document.getElementById('dot4');
         var imgList = [img0, img1, img2, img3, img4];
         var dotList = [dot0, dot1, dot2, dot3, dot4];
-        var arrowLeft = document.getElementById('divLeft');
-        var arrowRight = document.getElementById('divRight');
+        var arrowLeft = document.getElementById('arrowLinkLeft');
+        var arrowRight = document.getElementById('arrowLinkRight');
         var arrowList = [arrowLeft, arrowRight];
         var imgNow = 0;
-        var carouselAuto = window.setInterval(() => arrowRight.click(), 3000);
+        var carouselAuto = window.setInterval(() => arrowRight.click(), 3000);      // 3秒換一張圖
 
-        dotList.forEach(dom => {
-            dom.addEventListener('click', function () {
-                imgNow = parseInt(this.id.slice(-1));
+        document.querySelectorAll('[id^="dotLink"]').forEach(dom => {
+            dom.addEventListener('click', event => {
+                event.preventDefault();
+                imgNow = parseInt(dom.id.slice(-1));
                 carouselJump(imgNow);
             });
             dom.addEventListener('mouseover', () => window.clearInterval(carouselAuto));
             dom.addEventListener('mouseout', () => carouselAuto = window.setInterval(() => arrowRight.click(), 3000));
         });
 
-        arrowList.forEach((dom) => {
+        arrowList.forEach(dom => {
             dom.addEventListener('mouseover', () => window.clearInterval(carouselAuto));
             dom.addEventListener('mouseout', () => carouselAuto = window.setInterval(() => arrowRight.click(), 3000));
         });
 
-        arrowLeft.addEventListener('click', function () {
+        arrowLeft.addEventListener('click', event => {
+            event.preventDefault();
             imgNow = imgNow == 0 ? 4 : imgNow - 1;
             carouselJump(imgNow);
         });
 
-        arrowRight.addEventListener('click', function () {
+        arrowRight.addEventListener('click', event => {
+            event.preventDefault();
             imgNow = imgNow == 4 ? 0 : imgNow + 1;
             carouselJump(imgNow);
         });

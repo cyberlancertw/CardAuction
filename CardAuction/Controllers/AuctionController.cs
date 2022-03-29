@@ -218,6 +218,37 @@ namespace CardAuction.Controllers
                             });
                         return Json(queryResult, JsonRequestBehavior.AllowGet);
                     }
+                case "Newest":
+                    {
+                        var queryAuctionResult = db.tAuctionItem
+                            .Where(m => m.fEndTime > DateTime.Now)
+                            .OrderBy(p => p.fEndTime)
+                            .Take(4)
+                            .Select(n => new QueryResult
+                            {
+                                fItemId = n.fItemId,
+                                fEndTime = n.fEndTime,
+                                fItemName = n.fItemName,
+                                fPhoto = n.fPhoto0,
+                                fMoneyNow = n.fMoneyNow,
+                                fBidCount = n.fBidCount
+                            });
+                        var queryExchangeResult = db.tExchangeItem
+                            .Where(m => m.fEndTime > DateTime.Now)
+                            .OrderBy(p => p.fEndTime)
+                            .Take(4)
+                            .Select(n => new QueryResult
+                            {
+                                fItemId = n.fItemId,
+                                fItemName = n.fItemName,
+                                fEndTime = n.fEndTime,
+                                fPhoto = n.fPhoto0
+                            });
+                        List<QueryResult> queryResult = new List<QueryResult>();
+                        queryResult.AddRange(queryAuctionResult);
+                        queryResult.AddRange(queryExchangeResult);
+                        return Json(queryResult, JsonRequestBehavior.AllowGet);
+                    }
                 default:
                     break;
             }

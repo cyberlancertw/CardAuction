@@ -160,13 +160,19 @@
 
 #divLeft, #divRight {
     position: absolute;
+}
+#arrowLinkLeft, #arrowLinkRight {
+    text-decoration: none;
     color: #ced3d8;
 }
-#divCurrent{
+#divCurrent {
     position: absolute;
     text-align: center;
     color: #ffffff;
 }
-#divCurrent>i{
+#divCurrent>a{
+    text-decoration: none;
+    color: #ffffff;
     margin: 0 0.6rem;
 }
+
