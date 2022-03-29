@@ -19,6 +19,12 @@ namespace CardAuction.Controllers
             return View();              // 之後塞AuctionItem和ExchangeItem，也可以不用，搜尋用 Ajax 撈出來放不用 vModel
         }
 
+        public ActionResult Logout()
+        {
+            Session[CDictionary.SK_UserAccount] = null;
+            Session[CDictionary.SK_UserUserId] = null;
+            return RedirectToAction("Index");
+        }
         [HttpGet]
         public ActionResult Error(string ErrorMessage, string ToController, string ToAction)
         {
@@ -113,6 +119,44 @@ namespace CardAuction.Controllers
             return View();
         }
 
+        public ActionResult QueryNewest()
+        {
+            var queryAuctionResult = db.tAuctionItem
+                .Where(m => m.fEndTime > DateTime.Now)
+                .OrderByDescending(p => p.fCreateTime)
+                .Take(4)
+                .Select(n => new QueryResult
+                {
+                    fItemId = n.fItemId,
+                    fEndTime = n.fEndTime,
+                    fItemName = n.fItemName,
+                    fPhoto = n.fPhoto0,
+                    fMoneyNow = n.fMoneyNow,
+                    fBidCount = n.fBidCount
+                });
+            var queryExchangeResult = db.tExchangeItem
+                .Where(m => m.fEndTime > DateTime.Now)
+                .OrderByDescending(p => p.fCreateTime)
+                .Take(4)
+                .Select(n => new QueryResult
+                {
+                    fItemId = n.fItemId,
+                    fItemName = n.fItemName,
+                    fEndTime = n.fEndTime,
+                    fPhoto = n.fPhoto0,
+                    fChangeCount = n.fChangeCount
+                });
+            QueryNewestList queryResult = new QueryNewestList();
+            queryResult.newestAuctionItem = queryAuctionResult.ToArray();
+            queryResult.newestExchangeItem = queryExchangeResult.ToArray();
+            return Json(queryResult, JsonRequestBehavior.AllowGet);
+        }
+    }
+
+    public class QueryNewestList
+    {
+        public QueryResult[] newestAuctionItem { get; set; }
+        public QueryResult[] newestExchangeItem { get; set; }
     }
 
     public class QueryItem

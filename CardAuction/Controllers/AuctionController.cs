@@ -218,6 +218,7 @@ namespace CardAuction.Controllers
                             });
                         return Json(queryResult, JsonRequestBehavior.AllowGet);
                     }
+                
                 default:
                     break;
             }
