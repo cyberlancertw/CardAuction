@@ -19,18 +19,14 @@ namespace CardAuction.Controllers
             return View();
         }
 
-        public ActionResult Logout()
-        {
-            Session[CDictionary.SK_UserAccount] = null;
-            Session[CDictionary.SK_UserUserId] = null;
-            return RedirectToAction("Index");
-        }
+
         [HttpGet]
-        public ActionResult Error(string ErrorMessage, string ToController, string ToAction)
+        public ActionResult Error(string ErrorMessage, string ToController, string ToAction, string ToId)
         {
             TempData["ErrorMessage"] = ErrorMessage;
             TempData["ToController"] = ToController;
             TempData["ToAction"] = ToAction;
+            TempData["ToId"] = ToId;
             return View();
         }
         [HttpGet]

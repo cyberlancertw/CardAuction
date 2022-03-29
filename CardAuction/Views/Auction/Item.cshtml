@@ -282,57 +282,60 @@
             TempData[CDictionary.SK_RedirectToAction] = "Item";
             TempData[CDictionary.SK_RedirectToController] = "Auction";
             TempData[CDictionary.SK_RedirectToId] = Model.fItemId;
+        <text>
+        btnFavorite.addEventListener('click', function (event) {
+            event.preventDefault();
+            location.href = '@Url.Content("~/Member/Login")';
+        });
 
-        @:btnFavorite.addEventListener('click', function (event) {
-            @:event.preventDefault();
-            @:location.href = '@Url.Content("~/Member/Login")';
-        @:});
+        btnBid.addEventListener('click', function () {
+            location.href = '@Url.Content("~/Member/Login")';
+        });
 
-        @:btnBid.addEventListener('click', function () {
-            @:location.href = '@Url.Content("~/Member/Login")';
-        @:});
-
-        @:btnCommentSend.addEventListener('click', function () {
-            @:location.href = '@Url.Content("~/Member/Login")';
-        @:});
+        btnCommentSend.addEventListener('click', function () {
+            location.href = '@Url.Content("~/Member/Login")';
+        });
+        </text>
         }
         else
         {
-        @:btnFavorite.addEventListener('click', function (event) {
-            @:event.preventDefault();
-            @:let xhr = new XMLHttpRequest();
-                @:xhr.addEventListener('load', function() {
-                    @:let isFavorite = xhr.response;
-                    @:toggleFavorite(isFavorite);
-                @:});
-            @:let para = `?ItemId=${fItemId}`;
-            @:xhr.open('GET', '@Url.Content("~/Member/FavoriteAuction")' + para);
-            @:xhr.send();
-        @:});
-
-        @:btnBid.addEventListener('click', function () {
-            @:let amount = parseInt(txtBid.value);
-
-            @:if (amount >= @leastBid) {
-            @:    sendBid(amount);
-            @:}
-            @:txtBid.value = '';
-            @:txtBid.focus();
-        @:});
-
-        @:btnCommentSend.addEventListener('click', function () {
-            @:let content = txtComment.value;
-            @:if (content != '') {
-            @:    sendComment(content);
-            @:}
-            @:txtComment.value = '';
-            @:countComment.textContent = '0/100';
-            @:txtComment.focus();
-        @:});
-
-        @:btnBuy.addEventListener('click', function () {
-            @: 
+            <text>
+        btnFavorite.addEventListener('click', function (event) {
+            event.preventDefault();
+            let xhr = new XMLHttpRequest();
+                xhr.addEventListener('load', function() {
+                    let isFavorite = xhr.response;
+                    toggleFavorite(isFavorite);
+                });
+            let para = `?ItemId=${fItemId}`;
+            xhr.open('GET', '@Url.Content("~/Member/FavoriteAuction")' + para);
+            xhr.send();
         });
+
+        btnBid.addEventListener('click', function () {
+            let amount = parseInt(txtBid.value);
+
+            if (amount >= @leastBid) {
+                sendBid(amount);
+            }
+            txtBid.value = '';
+            txtBid.focus();
+        });
+
+        btnCommentSend.addEventListener('click', function () {
+            let content = txtComment.value;
+            if (content != '') {
+                sendComment(content);
+            }
+            txtComment.value = '';
+            countComment.textContent = '0/100';
+            txtComment.focus();
+        });
+
+        btnBuy.addEventListener('click', function () {
+            sendBid(@Model.fBuyPrice);
+        });
+        </text>
         }
 
 

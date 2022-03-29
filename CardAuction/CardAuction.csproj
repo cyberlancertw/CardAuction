@@ -539,6 +539,7 @@
     <Content Include="Views\Admin\AdvEdit.cshtml" />
     <Content Include="Views\Admin\AdvCreate.cshtml" />
     <Content Include="Views\Home\Post.cshtml" />
+    <Content Include="Views\Auction\Result.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

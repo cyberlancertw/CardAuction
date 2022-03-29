@@ -92,7 +92,12 @@ namespace CardAuction.Controllers
                 return View();
             }
         }
-
+        public ActionResult Logout()
+        {
+            Session[CDictionary.SK_UserAccount] = null;
+            Session[CDictionary.SK_UserUserId] = null;
+            return RedirectToAction("Index");
+        }
         [HttpGet]
         public ActionResult Register()
         {
