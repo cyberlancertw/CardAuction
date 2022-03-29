@@ -182,7 +182,57 @@ namespace CardAuction.Controllers
 
         }
 
-
+        public ActionResult ReceiveComments(string itemId) //評論區
+        {
+            bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId);
+            if (isExist)
+            {
+                var queryResult = db.tCommentAuction
+                    .Where(p => p.fItemId == itemId)
+                    .Join(db.tMember,
+                          c => c.fFromUserId,
+                          m => m.fUserId,
+                          (c, m) => new
+                          {
+                              postAcc = m.fAccount,
+                              content = c.fContent,
+                              postTime = c.fPostTime
+                          })
+                    .OrderBy(n => n.postTime); ;
+                return Json(queryResult, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+        public void WriteComment(string itemId, string message)//寫評論
+        {
+            if (Session[CDictionary.SK_UserUserId] == null)
+            {
+                return;
+            }
+            string userId = Session[CDictionary.SK_UserUserId].ToString();
+            bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId && m.fContent == message && m.fFromUserId == userId);
+            if (isExist)
+            {
+                return;
+            }
+            tCommentAuction newComment = new tCommentAuction
+            {
+                fItemId = itemId,
+                fFromUserId = userId,
+                fPostTime = DateTime.Now,
+                fContent = message
+            };
+            db.tCommentAuction.Add(newComment);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return;
+        }
 
     }
 }

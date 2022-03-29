@@ -22,7 +22,7 @@
 <div class="container">
     <div class="mt-5" id="divMainContent">
         <div class="mb-3" id="divSort">
-            競標 / @Model.fSort
+            交換 / @Model.fSort
         </div>
         <div class="mb-4 ">ID：@ViewBag.PostUserAccount</div>
         <div class="row">
@@ -97,11 +97,8 @@
                             <p>@Model.fUserInfo</p>
                         </div>
                         <div class="col-sm-12">
-                            <button class="btnSize btn-dark floatR btncheng">我要交換</button>
+                            <button id="iwantexchange" class="btnSize btn-dark floatR btncheng">我要交換</button>
                         </div>
-                    </div>
-                    <div class="row" id="divHistory">
-
                     </div>
                 </div>
 
@@ -119,9 +116,40 @@
                     </div>
                 </div>
 
+
                 <div class="row" id="divComment">
-                    <div class="col-6 col-sm-5 col-md-3 titleTopic">
-                        留言(留言跟問與答擇一放)
+                    <div class="col-12 ">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-3 ">
+                                <img src="~/images/ExchangeItemImages/picture01.png" alt="" class="col-1 col-sm-3 col-md-2  avatar">
+                                <span>(其他交換者ID)@ViewBag.UserAccount</span><br>
+                                @*<span class="spanmargin">★★★★☆(其他交換者評價)</span>*@
+                                <br><br>
+                                <p>您好(其他交換者留言)</p>
+                            </div>
+                            <div class="col-sm-4 col-md-5 ">
+                                <!-- 放img(交換者照片位置fPhoto 0-3) -->
+                                <img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
+                                <img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
+                                <img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
+                            </div>
+                            <div class="col-sm-4 col-md-4 ">
+                                <h5>
+                                    鑑定級別: (交換者fItemLevel)
+                                </h5>
+                                <h5>
+                                    物品所在地:台南市 (交換者物品所在地fItemLocation)
+                                </h5>
+                                <div class="col-sm-12">
+                                    <button type="button" class="btnSize btn-dark btncheng btnright">確定交換</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="divComment">
+                    <div class="col-6 col-sm-5 col-md-3 titleTopicGold ">
+                        問與答
                     </div>
                     <div id="divCommentContent">
 
@@ -141,54 +169,202 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 ">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img src="~/images/ExchangeItemImages/picture01.png" alt="其他交換者頭像" class="avatar">
-                            <span>(其他交換者ID)@ViewBag.UserAccount</span><br>
-                            <span class="spanmargin">★★★★☆(其他交換者評價)</span>
-                            <br><br>
-                            <p>我這些牌你要換嗎?(其他交換者留言)</p>
-                        </div>
-                        <div class="col-sm-4 ">
-                            <!-- 放img -->(交換者照片位置fPhoto 0-3)
-                        </div>
-                        <div class="col-sm-3 ">
-                            <h5>
-                                鑑定級別: (交換者fItemLevel)
-                            </h5>
-                            <h5>
-                                物品所在地:台南市 (交換者物品所在地fItemLocation)
-                            </h5>
-                            <div class="col-sm-12">
-                                <button type="button" class="btnSize btn-dark btncheng"><img src="image/icon/change.png" alt="" class="imgwidth15"> 我要交換</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" id="divComment">
-                    <div class="col-6 col-sm-5 col-md-3 QuestionColor">
-                        問與答
-                    </div>
-                    <div id="divCommentContent">
-
-                    </div>
-                    <div id="inputSend">
-                        <div id="commentHere">
-                            <!-- comment result -->
-                        </div>
-
-                        <div class="row commentRecord">
-                            <div class="col-9 col-sm-9 col-md-10">
-                                <input type="text" id="txtComment" />
-                            </div>
-                            <div class="col-3 col-sm-3 col-md-2">
-                                <button id="btnCommentSendGold">留言</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
+@section scripts{
+    <script>
+        var domTime = document.getElementById('stampTime');//加入行事曆
+        var domShow = document.getElementById('imgShow');//圖片
+        var btnFavorite = document.getElementById('btnFavorite');//加入追蹤
+        var iconFavorite = document.getElementById('iconFavorite');//追蹤icon變換
+        var txtFavorite = document.getElementById('txtFavorite');//收藏
+        var txtComment = document.getElementById('txtComment');//評論
+        var countComment = document.getElementById('countComment');//評論次數
+        var btnCommentSend = document.getElementById('btnCommentSend');//發送評論
+        var commentHere = document.getElementById('commentHere');//交換評論
+
+        var fItemId = '@Model.fItemId';//物品ID
+
+        var timer = window.setInterval(function () {
+            secondRemain -= 7;
+            refreshStampTime(secondRemain);
+        }, 7000);
+        //計時器 每7秒更新
+        function refreshStampTime(t) {
+            if (t <= 0) {
+                domTime.textContent = '交換已結束';
+                clearInterval(timer);
+                return;
+            }
+            let day = Math.floor(t / 86400);
+            t %= 86400;
+            let hr = Math.floor(t / 3600);
+            t %= 3600;
+            let min = Math.floor(t / 60);
+            domTime.textContent = `${day} 天 ${hr} 時 ${min} 分 結束`;
+        }//刷新時間，如果剩餘時間小於0秒則結束交換
+
+        document.querySelectorAll('.imgSmall').forEach(function (dom) {
+            dom.addEventListener('mouseover', function () {
+                this.classList.remove('imageOut');
+                this.classList.add('imageHover');
+                domShow.src = this.src;
+            });
+            dom.addEventListener('mouseleave', function () {
+                this.classList.remove('imageHover');
+                this.classList.add('imageOut');
+            });
+            dom.addEventListener('click', function () {
+                this.classList.remove('imageOut');
+                this.classList.add('imageHover');
+                domShow.src = this.src;
+            });
+        });//照片效果
+
+        txtComment.addEventListener('keyup', function () {
+            let letters = txtComment.value;
+            countComment.textContent = `${letters.length}/100`;
+        });//評論字數不超過100字
+
+        refreshStampTime(secondRemain);
+        @if(Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString().Equals(Model.fPostUserId))
+        {
+        @:btnFavorite.disabled = true;
+        }
+
+
+        @if (Session[CDictionary.SK_UserUserId] == null)
+        {
+            TempData[CDictionary.SK_RedirectToAction] = "Item";
+            TempData[CDictionary.SK_RedirectToController] = "Exchange";
+            TempData[CDictionary.SK_RedirectToId] = Model.fItemId;
+
+        @:btnFavorite.addEventListener('click', function (event) {
+            @:event.preventDefault();
+            @:location.href = '@Url.Content("~/Member/Login")';
+        @:});
+        //追蹤未登入跳轉登入畫面
+
+        @:btnCommentSend.addEventListener('click', function () {
+            @:location.href = '@Url.Content("~/Member/Login")';
+        @:});
+        //評論未登入跳轉登入畫面
+        }
+        else
+        {
+        @:btnFavorite.addEventListener('click', function (event) {
+            @:event.preventDefault();
+            @:let xhr = new XMLHttpRequest();
+                @:xhr.addEventListener('load', function() {
+                    @:let isFavorite = xhr.response;
+                    @:toggleFavorite(isFavorite);
+                @:});
+            @:let para = `?ItemId=${fItemId}`;
+            @:xhr.open('GET', '@Url.Content("~/Member/FavoriteExchange")' + para);
+            @:xhr.send();
+        @:});
+
+        @:btnCommentSend.addEventListener('click', function () {
+            @:let content = txtComment.value;
+            @:if (content != '') {
+            @:    sendComment(content);
+            @:}
+            @:txtComment.value = '';
+            @:countComment.textContent = '0/100';
+            @:txtComment.focus();
+        @:});
+        }
+
+
+        checkFavorite();
+        receiveComments();
+
+
+        document.getElementById('btnComment').addEventListener('click', function () {
+            location.href += '#divComment';
+            txtComment.focus();
+        });
+
+        function sendComment(content) {
+            let xhr = new XMLHttpRequest();
+            let para = `?itemId=${fItemId}&message=${content}`;
+            xhr.addEventListener('load', receiveComments);
+            xhr.open('GET', '@Url.Content("~/Exchange/WriteComment")' + para);
+            xhr.send();
+        };
+
+
+        function receiveComments() {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', function () {
+                if (this.responseText != '') {
+                    let datas = JSON.parse(this.responseText);
+                    refreshComments(datas);
+                }
+            });
+            let para = `?ItemId=${fItemId}`;
+            xhr.open('GET', '@Url.Content("~/Exchange/ReceiveComments")' + para);
+            xhr.send();
+        }
+
+        function refreshComments(datas) {
+            commentHere.innerHTML = '';
+            let docFrag = document.createDocumentFragment();
+
+            for (let comment of datas) {
+                let commentTime = new Date(parseInt(comment.postTime.substr(6))).toLocaleString();
+                let domRow = document.createElement('div');
+                domRow.className = 'row commentRecord';
+                let domAccount = document.createElement('div');
+                domAccount.className = 'col-6 col-sm-6 col-md-2 commentAccount';
+                domAccount.textContent = comment.postAcc;
+                let domContent = document.createElement('div');
+                domContent.className = 'col-6 col-sm-12 col-md-8 commentContent';
+                domContent.textContent = comment.content;
+                let domTime = document.createElement('div');
+                domTime.className = 'col-6 col-sm-6 col-md-2 commentTime';
+                domTime.textContent = commentTime;
+                domRow.appendChild(domAccount);
+                domRow.appendChild(domContent);
+                domRow.appendChild(domTime);
+
+                docFrag.appendChild(domRow);
+            }
+
+            commentHere.appendChild(docFrag);
+
+        }
+        function checkFavorite() {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', function () {
+                let isFavorite = xhr.response;
+                toggleFavorite(isFavorite);
+
+            });
+            let para = `?ItemId=${fItemId}`;
+            xhr.open('GET', '@Url.Content("~/Member/IsFavorite")' + para);
+            xhr.send();
+        };
+
+        function toggleFavorite(isFavorite) {
+            if (isFavorite == 'True') {
+
+                txtFavorite.textContent = '已追蹤';
+                iconFavorite.classList.add('fa-heart-circle-check');
+                iconFavorite.classList.remove('fa-heart-circle-plus');
+                btnFavorite.classList.add('following');
+                btnFavorite.classList.remove('notFollowing');
+            }
+            else {
+                txtFavorite.textContent = '加入追蹤';
+                iconFavorite.classList.add('fa-heart-circle-plus');
+                iconFavorite.classList.remove('fa-heart-circle-check');
+
+                btnFavorite.classList.remove('following');
+                btnFavorite.classList.add('notFollowing');
+            }
+        }
+    </script>
+}
