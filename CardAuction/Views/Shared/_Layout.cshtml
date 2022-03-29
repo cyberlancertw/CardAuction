@@ -17,7 +17,7 @@
 <body>
     <div class="container">
         <div id="header">
-            <div>
+            <div id="divLogin">
                 @{
                     var userAcc = Session[CDictionary.SK_UserAccount];
                     if (userAcc == null)
@@ -26,14 +26,15 @@
                     }
                     else
                     {
-                        @:您好， @Html.ActionLink(userAcc.ToString(), "Index", "Member")
+                <span id="greeting">您好，</span> @Html.ActionLink(userAcc.ToString(), "MyPage", "Member", null,new { id = "aMyPage"})
+                        @Html.ActionLink("登出","Logout","Home",null,new { id="aLogout"})
                     }
                 }
             </div>
-            <div>
+            <div id="divAbout">
                 @Html.ActionLink("關於我們", "About", "Member")
             </div>
-            <div>
+            <div id="divContact">
                 @Html.ActionLink("聯絡我們", "Contact", "Member")
             </div>
         </div>
