@@ -1,108 +1,152 @@
-﻿body {
-    font-family: 'Noto Sans TC Medium', '微軟正黑體';
+﻿/*  淡灰 ced3d8   ebebeb    
+    深灰 6b6b6b   
+    黑 333333    
+    藏青 1f3444    
+    金  ab8f4e    
+    白ffffff */
+@media (max-width: 575px) {
+    html {
+        font-size: 10px;
+    }
+    #header{
+        justify-content: center;
+    }
+    #catalog{
+        width: 100%;
+    }
+    #divSearch {
+        width: 100%;
+    }
 }
 
-#fullPage{
-    width: 100%;
-    margin: auto;
+@media (min-width: 576px) and (max-width: 767px) {
+    html {
+        font-size: 11px;
+    }
+    #header {
+        justify-content: flex-end;
+    }
+    #catalog {
+        width: 57%;
+    }
+    #divSearch {
+        width: 43%;
+    }
 }
-#header{
+
+@media (min-width: 768px) and (max-width: 991px) {
+    html {
+        font-size: 12px;
+    }
+    #header {
+        justify-content: flex-end;
+    }
+    #catalog {
+        width: 57%;
+    }
+    #divSearch {
+        width: 43%;
+    }
+}
+
+@media (min-width: 992px) and (max-width:1199px) {
+    html {
+        font-size: 13px;
+    }
+    #header {
+        justify-content: flex-end;
+    }
+    #catalog {
+        width: 57%;
+    }
+    #divSearch {
+        width: 43%;
+    }
+}
+
+@media (min-width: 1200px) {
+    html {
+        font-size: 14px;
+    }
+    #header {
+        justify-content: flex-end;
+    }
+    #catalog {
+        width: 57%;
+    }
+    #divSearch {
+        width: 43%;
+    }
+}
+
+
+body {
+    font-family: 'Noto Sans TC';
+}
+
+#header {
+    display: flex;
     background-color: #ffffff;
     padding: 4px;
-    text-align: right;
     border-bottom: 3px solid #ebebeb;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #6b6b6b;
 }
-#header>a{
+#header>div{
+    margin: 0rem 2.4rem;
+}
+#header > div > a {
     text-decoration: none;
-    font-size: 18px;
-    color: #333333;
-    margin-right: 40px;
+    color: #6b6b6b;
 }
 #nav{
-    margin-top: 15px;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     border-bottom: 3px solid #ebebeb;
+    padding: 1rem;
 }
 
-#webIcon{
-    width: 90%;
-    margin-left: 10px;
+#catalog{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1.2rem;
 }
-#catalog1{
-    padding-top: 5px;
+#divIcon, #divAuction, #divExchange, #divPost{
+    width: 25%;
+    text-align: center;
 }
-#catalog1 a{
+#imgIcon{
+    width: 100%;
+}
+#catalog > div > a {
     text-decoration: none;
-    font-size: 18px;
+    font-size: 2rem;
     color: #333333;
+    font-weight: 700;
 }
 
-#catalog2 {
-    
-}
-#catalog2 img{
-    padding: 3px;
-    height: 33px;
-}
-
-#divSearch{
+#divSearch {
     position: relative;
+    text-align: center;
+    margin-bottom: 1.2rem;
 }
 
-#iconMag{
+#iconMag {
     position: absolute;
     color: #6b6b6b;
     font-size: 1rem;
     width: 25px;
-    right: 30px;
+    right: 12%;
     top: 8px;
 }
-#txtSearch{
-    width: 100%;
+
+#txtSearch {
+    width: 90%;
     height: 40px;
     border-radius: 5px;
     border: 3px solid #ebebeb;
 }
-#imgCart{
-    margin-left: 10px;
-    margin-top: 8px;
-    height: 20px;
-}
-#adCarosel{
-    position: relative;
-}
-#adMain {
-    width: 100%;
-    height: 500px;
-    background-color: #1F3444;
-}
-#adArrowLeft{
-    position: absolute;
-    top: 220px;
-    left: 25px;
-}
-#adArrowLeft>img{
-    width: 60px;
-}
 
-#adArrowRight{
-    position: absolute;
-    top: 220px;
-    right: 25px;
-}
-#adArrowRight>img{
-    width: 60px;
-}
-
-#adPosition{
-    width: 8vw;
-    position: absolute;
-    left: 46vw;
-    bottom: 20px;
-}
-
-#adPosition>img{
-    width: 1vw;
-
-}

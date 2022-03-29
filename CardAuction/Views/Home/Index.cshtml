@@ -4,63 +4,33 @@
 }
 @section styles{
     <link rel="stylesheet" href="~/Content/HomeCss/cssHomeIndex.css" type="text/css" />
-    <link rel="stylesheet" href="~/Content/HomeCss/cssUserIndexAD.css" />
 }
 
+<div id="carouselArea">
+    <img src="~/Images/User/Index/SlideShowAD/0.jpg" id="imgAd0" />
+    <img src="~/Images/User/Index/SlideShowAD/1.jpg" id="imgAd1" hidden />
+    <img src="~/Images/User/Index/SlideShowAD/2.jpg" id="imgAd2" hidden />
+    <img src="~/Images/User/Index/SlideShowAD/3.jpg" id="imgAd3" hidden />
+    <img src="~/Images/User/Index/SlideShowAD/4.jpg" id="imgAd4" hidden />
 
-
-    <div class="slideshow-container">
-
-        <div class="mySlides">
-            <div class="numbertext">1 / 3</div>
-            <img src="~/images/User/Index/SlideShowAD/CuteDog_01.jpeg" style="width:100%">
-            <div class="text">Caption Text</div>
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">2 / 3</div>
-            <img src="~/images/User/Index/SlideShowAD/CuteDog_02.jpeg" style="width:100%">
-            <div class="text">Caption Two</div>
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">3 / 3</div>
-            <img src="~/images/User/Index/SlideShowAD/CuteDog_03.jpg" style="width:100%">
-            <div class="text">Caption Three</div>
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    <div id="divLeft">
+        <a href="" id="arrowLinkLeft">
+            <i class="fa-solid fa-circle-chevron-left"></i>
+        </a>
     </div>
-
-    <br>
-
-    <div style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
+    <div id="divRight">
+        <a href="" id="arrowLinkRight">
+            <i class="fa-solid fa-circle-chevron-right"></i>
+        </a>
     </div>
-
-    <div id="adCarosel">
-        <div id="adMain">
-        </div>
-        <div id="adArrowLeft">
-            9
-            <img src="~/images/site/iconArrowLeft.png" />
-        </div>
-        <div id="adArrowRight">
-            <img src="~/images/site/iconArrowRight.png" />
-        </div>
-        <div id="adPosition">
-            <img src="~/Images/site/iconPositionFalse.png" />
-            <img src="~/Images/site/iconPositionFalse.png" />
-            <img src="~/Images/site/iconPositionFalse.png" />
-            <img src="~/Images/site/iconPositionFalse.png" />
-            <img src="~/Images/site/iconPositionTrue.png" />
-        </div>
+    <div id="divCurrent">
+        <a href="" id="dotLink0"><i id="dot0" class="fa-solid fa-circle-dot"></i></a>
+        <a href="" id="dotLink1"><i id="dot1" class="fa-solid fa-circle"></i></a>
+        <a href="" id="dotLink2"><i id="dot2" class="fa-solid fa-circle"></i></a>
+        <a href="" id="dotLink3"><i id="dot3" class="fa-solid fa-circle"></i></a>
+        <a href="" id="dotLink4"><i id="dot4" class="fa-solid fa-circle"></i></a>
     </div>
-    <div id="betweenBar"></div>
-
+</div>
     <div id="mainContent">
         <div id="contentInfo" class="row">
             <div id="newArrival" class="col-6 col-md-3">
@@ -74,76 +44,61 @@
     </div>
 
     <div id="cardList">
-        <div class="row">
-            <div class="content1 col-sm-12 col-md-6 col-lg-3">
-                <div class="divPicture"><img src="~/Images/site/pkmcharizard.png" /></div>
-                <div class="divTitle">Charizard V 2020 Pokemon TCG Sword & Shield</div>
-                <div class="divPrice">$1388</div>
-                <div class="divButton"><button class="btnCheck" type="button" onclick="location.href='sale/pkmcharizard.html'">查看拍賣</button></div>
-            </div>
-            <div class="content2 col-sm-12 col-md-6 col-lg-3">
-                <div class="divPicture"><img src="~/Images/site/nbapanini.png" /></div>
-                <div class="divTitle">2020-21 Panini Illusions Basketball Blaster Box</div>
-                <div class="divPrice">$4000</div>
-                <div class="divButton"><button class="btnCheck" type="button" onclick="location.href='sale/nbapanini.html'">查看拍賣</button></div>
-            </div>
-            <div class="content3 col-sm-12 col-md-6 col-lg-3">
-                <div class="divPicture"><img src="~/Images/site/yugiohprismatic.png" /></div>
-                <div class="divTitle">Yu-Gi-Oh! OCG Prismatic Collection</div>
-                <div class="divPrice">$3210</div>
-                <div class="divButton"><button class="btnCheck" type="button" onclick="location.href='sale/yugiohprismatic.html'">查看拍賣</button></div>
-            </div>
-            <div class="content4 col-sm-12 col-md-6 col-lg-3">
-                <div class="divPicture"><img src="~/Images/site/mtgesika.png" /></div>
-                <div class="divTitle">Esika, God of the Tree (Foil) Magic: The Gathering TCG</div>
-                <div class="divPrice">$640</div>
-                <div class="divButton"><button class="btnCheck" type="button" onclick="location.href='sale/mtgesika.html'">查看拍賣</button></div>
-            </div>
-        </div>
     </div>
 
-    <!-- 首頁幻燈片廣告圖片功能 JS -->
+@section scripts{
     <script>
-        var slideIndex = 1;
-        showSlides(slideIndex);
+        var img0 = document.getElementById('imgAd0'); var dot0 = document.getElementById('dot0');
+        var img1 = document.getElementById('imgAd1'); var dot1 = document.getElementById('dot1');
+        var img2 = document.getElementById('imgAd2'); var dot2 = document.getElementById('dot2');
+        var img3 = document.getElementById('imgAd3'); var dot3 = document.getElementById('dot3');
+        var img4 = document.getElementById('imgAd4'); var dot4 = document.getElementById('dot4');
+        var imgList = [img0, img1, img2, img3, img4];
+        var dotList = [dot0, dot1, dot2, dot3, dot4];
+        var arrowLeft = document.getElementById('arrowLinkLeft');
+        var arrowRight = document.getElementById('arrowLinkRight');
+        var arrowList = [arrowLeft, arrowRight];
+        var imgNow = 0;
+        var carouselAuto = window.setInterval(() => arrowRight.click(), 3000);      // 3秒換一張圖
 
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-        function showSlides(n) {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("dot");
-            if (n > slides.length) { slideIndex = 1 }
-            if (n < 1) { slideIndex = slides.length }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
+        document.querySelectorAll('[id^="dotLink"]').forEach(dom => {
+            dom.addEventListener('click', event => {
+                event.preventDefault();
+                imgNow = parseInt(dom.id.slice(-1));
+                carouselJump(imgNow);
+            });
+            dom.addEventListener('mouseover', () => window.clearInterval(carouselAuto));
+            dom.addEventListener('mouseout', () => carouselAuto = window.setInterval(() => arrowRight.click(), 3000));
+        });
+
+        arrowList.forEach(dom => {
+            dom.addEventListener('mouseover', () => window.clearInterval(carouselAuto));
+            dom.addEventListener('mouseout', () => carouselAuto = window.setInterval(() => arrowRight.click(), 3000));
+        });
+
+        arrowLeft.addEventListener('click', event => {
+            event.preventDefault();
+            imgNow = imgNow == 0 ? 4 : imgNow - 1;
+            carouselJump(imgNow);
+        });
+
+        arrowRight.addEventListener('click', event => {
+            event.preventDefault();
+            imgNow = imgNow == 4 ? 0 : imgNow + 1;
+            carouselJump(imgNow);
+        });
+
+        function carouselJump(n) {
+            imgList.forEach(d => d.hidden = true);
+            imgList[n].hidden = false;
+            let toDot = dotList[n];
+            dotList.forEach(dom => {
+                dom.classList.remove('fa-circle-dot');
+                dom.classList.add('fa-circle');
+            });
+            toDot.classList.remove('fa-circle');
+            toDot.classList.add('fa-circle-dot');
         }
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 

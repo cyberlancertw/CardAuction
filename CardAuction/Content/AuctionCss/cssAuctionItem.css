@@ -3,6 +3,7 @@
     #btnReport, #btnFavorite, #btnComment {
         height: 60px;
         border-radius: 30px;
+        font-weight: 700;
     }
     .moneyRow {
         padding-top: 10px;
@@ -10,9 +11,11 @@
     }
     .titleMoney {
         font-size: 1.5rem;
+        font-weight: 700;
     }
     .goldMoney {
         font-size: 1.8rem;
+        font-weight: 700;
     }
     #btnBuy, #btnBid {
         height: 40px;
@@ -28,9 +31,6 @@
     }
 }
 @media (min-width: 992px) and (max-width:1199px){
-    html{
-        font-size: 13px;
-    }
     #btnReport, #btnFavorite, #btnComment {
         height: 60px;
         border-radius: 30px;
@@ -59,9 +59,6 @@
     }
 }
 @media (min-width: 768px) and (max-width:991px){
-    html{
-        font-size: 12px;
-    }
     #btnReport,#btnFavorite,#btnComment{
         height: 40px;
         border-radius: 20px;
@@ -92,9 +89,6 @@
 }
 
 @media (min-width: 576px) and (max-width:767px) {
-    html{
-        font-size: 16px;
-    }
     #btnReport, #btnFavorite, #btnComment {
         height: 60px;
         border-radius: 30px;
@@ -126,9 +120,6 @@
     }
 }
 @media (max-width: 575px){
-    html{
-        font-size: 14px;
-    }
     #btnReport, #btnFavorite, #btnComment {
         height: 40px;
         border-radius: 20px;
@@ -159,14 +150,7 @@
         order: 1;
     }
 }
-body {
-    font-family: 'Noto Sans TC Medium','Noto Sans CJK TC Midium','Noto Sans TC', 'Noto Sans CJK TC', '微軟正黑體';
-    
-}
-#divMainContent{
-    margin-left: auto;
-    margin-right: auto;
-}
+
 #divSort{
     color: #6b6b6b;
     font-size: 1.2rem;
@@ -176,7 +160,7 @@ body {
     font-size: 1.9rem;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 #divButtons {
