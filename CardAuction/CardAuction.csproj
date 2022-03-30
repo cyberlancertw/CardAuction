@@ -443,6 +443,9 @@
     <Compile Include="Models\tExchangeItem.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tExchangeItemTable.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tMember.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
@@ -496,6 +499,7 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="Images\ExchangeItemImages\.gitkeep" />
     <EntityDeploy Include="Models\dbCardAuction.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbCardAuction.Designer.cs</LastGenOutput>
@@ -503,7 +507,6 @@
     <Content Include="Models\dbCardAuction.edmx.diagram">
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Content>
-    <Content Include="Images\ExchangeItemImages\.gitkeep" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LayoutCOPY.cshtml" />
@@ -541,6 +544,7 @@
     <Content Include="Views\Admin\AdvCreate.cshtml" />
     <Content Include="Views\Home\Post.cshtml" />
     <Content Include="Views\Exchange\Couple.cshtml" />
+    <Content Include="Views\Auction\Result.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

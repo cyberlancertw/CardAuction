@@ -32,15 +32,23 @@
     </div>
 </div>
 <div id="cardList">
-    <div id="divLabel">
+    <div class="divLabel">
         <div class="newest">
             最新商品
         </div>
         <div class="findall">
-            查看全部<i class="fa-solid fa-arrow-right-long"></i>
+            <a href="~/Auction/List">查看全部<i class="fa-solid fa-arrow-right-long"></i></a>
         </div>
     </div>
     <div class="row" id="auctionRow"></div>
+    <div class="divLabel">
+        <div class="newest">
+            最新商品
+        </div>
+        <div class="findall">
+            <a href="~/Exchange/List">查看全部<i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+    </div>
     <div class="row" id="exchangeRow"></div>
 </div>
 
@@ -95,7 +103,7 @@
 
         function generateNewestItem(datas) {
             let auctionItems = datas.newestAuctionItem;
-            
+
 
             auctionRow.innerHTML = '';
 
@@ -152,11 +160,65 @@
 
 
             let exchangeItems = datas.newestExchangeItem;
+            exchangeRow.innerHTML = '';
 
+            docFrag = document.createDocumentFragment();
 
+            for (let item of exchangeItems) {
+                let secondRemain = Math.floor((new Date(parseInt(item.fEndTime.substr(6))) - new Date()) / 1000);
+                let dayRemain = Math.floor(secondRemain / 86400);
+                secondRemain %= 86400;
+                let hourRemain = Math.floor(secondRemain / 3600);
+                secondRemain %= 3600;
+                let minuteRemain = Math.floor(secondRemain / 60);
+
+                let domDiv = document.createElement('div');
+                domDiv.className = 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
+                let domBorder = document.createElement('div');
+                domBorder.className = 'cardBorder';
+                let domA = document.createElement('a');
+                domA.href = '@Url.Content("~/Auction/Item/")' + item.fItemId;
+                let domImgWrap = document.createElement('div');
+                domImgWrap.className = 'imgWrap';
+                let domImg = document.createElement('img');
+                domImg.src = '@Url.Content("~/Images/AuctionItemImages/")' + item.fPhoto;
+                domImg.className = 'cardImg';
+                domImgWrap.appendChild(domImg);
+                let domCardBody = document.createElement('div');
+                domCardBody.className = 'cardBody';
+                let domPname = document.createElement('p');
+                domPname.className = 'pName';
+                domPname.textContent = item.fItemName;
+                domCardBody.appendChild(domPname);
+                let domPcount = document.createElement('p');
+                domPcount.className = 'pCount';
+                domPcount.textContent = `${item.fChangeCount}人交換`;
+                domCardBody.appendChild(domPcount);
+                let domPtime = document.createElement('p');
+                domPtime.className = 'pTime';
+                let domI = document.createElement('i');
+                domI.className = 'fa-solid fa-clock';
+                domPtime.textContent = `  ${dayRemain} 天 ${hourRemain} 時 ${minuteRemain} 分`;
+                domPtime.prepend(domI);
+                domCardBody.appendChild(domPtime);
+                domA.appendChild(domImgWrap);
+                domA.appendChild(domCardBody);
+                domBorder.appendChild(domA);
+                domDiv.appendChild(domBorder);
+                docFrag.appendChild(domDiv);
+            }
+            exchangeRow.appendChild(docFrag);
 
             addHoverCard();
         }
+        function addHoverCard() {
+            document.querySelectorAll('.cardBorder').forEach(dom => {
+                dom.addEventListener('mouseover', () => dom.classList.add('cardSelect'));
+                dom.addEventListener('mouseout', () => dom.classList.remove('cardSelect'));
+            });
+            console.log('hello kitty');
+        }
+
         function carouselJump(n) {
             imgList.forEach(d => d.hidden = true);
             imgList[n].hidden = false;

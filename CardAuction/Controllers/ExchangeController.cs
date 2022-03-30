@@ -145,14 +145,23 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult Couple()
         {
-            return View();
+            if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
+            {
+                TempData[CDictionary.SK_RedirectToAction] = "Item";
+                TempData[CDictionary.SK_RedirectToController] = "Exchange";
+                return RedirectToAction("Login", "Member");
+            }
+            else
+            {
+                return View();
+            }
         }
         [HttpPost]
         public ActionResult Couple(CExchangePostViewModel vModel)
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                TempData[CDictionary.SK_RedirectToAction] = "Post";
+                TempData[CDictionary.SK_RedirectToAction] = "Item";
                 TempData[CDictionary.SK_RedirectToController] = "Exchange";
                 return RedirectToAction("Login", "Member");
             }
@@ -209,11 +218,7 @@ namespace CardAuction.Controllers
             createItem.fItemDescription = vModel.fItemDescription;
             createItem.fItemLocation = vModel.fItemLocation;
             createItem.fItemLevel = vModel.fItemLevel;
-            createItem.fHopeItemName = vModel.fHopeItemName;
-            createItem.fHopeItemLocation = vModel.fHopeItemLocation;
-            createItem.fUserInfo = vModel.fUserInfo;
-            createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結束時間
-            createItem.fClick = 0;
+            
             createItem.fDelete = false;
             createItem.fReport = 0;
 

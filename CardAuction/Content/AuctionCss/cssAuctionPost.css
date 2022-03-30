@@ -116,6 +116,7 @@
     font-size: 22px;
     color: #6b6b6b;
 }
+
 #divImgSelect{
     margin-bottom: 70px;
 }
@@ -131,7 +132,7 @@ div.content{
     border: 2px solid #ced3d8;
     border-radius: 6px;
 }
-#ItemDescription{
+#ItemDescription, #UserInfo{
     width: 100%;
     height: 250px;
     border: 2px solid #ced3d8;
@@ -149,17 +150,21 @@ div.content{
     width: 80%;
 }
 #divTrans{
-    padding-top: 20px;
-    padding-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
     border: 2px solid #ced3d8;
     border-radius: 5px;
+}
+#divTrans>div{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 [id^="txt"]{
     width: 100%;
 }
-#divTrans>div.row{
-    padding: 10px;
-}
+
 label[for^="chk"]{
     color: #333333;
 }
@@ -191,7 +196,7 @@ label[for^="chk"]{
 [id^="inputFile"]{
     display: none;
 }
-#countItemName, #countDescription{
+#countItemName, #countDescription, #countUserInfo{
     text-align: right;
     margin-right: 10px;
 }
