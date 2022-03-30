@@ -30,9 +30,9 @@ namespace CardAuction.Models
         public System.DateTime fCreateTime { get; set; }
         public string fUserInfo { get; set; }
         public System.DateTime fEndTime { get; set; }
+        public int fChangeCount { get; set; }
         public Nullable<int> fClick { get; set; }
         public Nullable<int> fReport { get; set; }
         public Nullable<bool> fDelete { get; set; }
-        public int fChangeCount { get; set; }
     }
 }

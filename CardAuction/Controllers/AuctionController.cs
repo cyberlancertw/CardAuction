@@ -172,6 +172,7 @@ namespace CardAuction.Controllers
             createItem.fTransSeven = vModel.isSeven ? vModel.fTransSeven : -1;
             createItem.fTransFami = vModel.isFami ? vModel.fTransFami : -1;
             createItem.fTransLogi = vModel.isLogi ? vModel.fTransLogi : -1;
+            createItem.fUserInfo = vModel.fUserInfo;
 
             createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結標時間
             createItem.fCreateTime = nowTime;                                                       // 現在時間為建立時間

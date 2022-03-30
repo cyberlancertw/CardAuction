@@ -499,6 +499,7 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="Images\ExchangeItemImages\.gitkeep" />
     <EntityDeploy Include="Models\dbCardAuction.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbCardAuction.Designer.cs</LastGenOutput>
@@ -506,7 +507,6 @@
     <Content Include="Models\dbCardAuction.edmx.diagram">
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Content>
-    <Content Include="Images\ExchangeItemImages\.gitkeep" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LayoutCOPY.cshtml" />

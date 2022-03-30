@@ -213,7 +213,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-4 col-md-4">
+                                <div class="content col-4 col-md-4" id="divUserInfo">
                                     <label class="fomr-check-label" for="chkLogi">物流</label>
                                 </div>
                                 <div class="col-4 offset-md-1 col-md-4">
@@ -226,6 +226,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row divContent">
+                        <div class="contentHead col-12 col-md-3">
+                            <label for="UserInfo">*聯絡資訊</label>
+                        </div>
+                        <div class=" col-12 col-md-9">
+                            <textarea name="fUserInfo" id="UserInfo" maxlength="300" placeholder="聯絡電話、E-mail" required></textarea>
+                            <p id="countUserInfo">
+                                0/300
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
                 <div id="buttons">
                     <button id="btnCancel">取消</button>
@@ -296,6 +309,11 @@
         var countDescription = document.getElementById('countDescription');
         domItemDescription.addEventListener('keyup', function () {
             countDescription.textContent = `${domItemDescription.value.length}/800`;
+        });
+        var domUserInfo = document.getElementById('UserInfo');
+        var countUserInfo = document.getElementById('countUserInfo');
+        domUserInfo.addEventListener('keyup', function () {
+            countUserInfo.textContent = `${domUserInfo.value.length}/300`;
         });
 
         let arySwitch = ['BuyPrice','chkPerson','chkSeven','chkFami','chkLogi'];

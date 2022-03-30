@@ -131,7 +131,7 @@ div.content{
     border: 2px solid #ced3d8;
     border-radius: 6px;
 }
-#ItemDescription{
+#ItemDescription, #UserInfo{
     width: 100%;
     height: 250px;
     border: 2px solid #ced3d8;
@@ -191,7 +191,7 @@ label[for^="chk"]{
 [id^="inputFile"]{
     display: none;
 }
-#countItemName, #countDescription{
+#countItemName, #countDescription, #countUserInfo{
     text-align: right;
     margin-right: 10px;
 }

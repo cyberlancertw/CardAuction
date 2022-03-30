@@ -145,6 +145,7 @@ namespace CardAuction.Controllers
             QueryNewestList queryResult = new QueryNewestList();
             queryResult.newestAuctionItem = queryAuctionResult.ToArray();
             queryResult.newestExchangeItem = queryExchangeResult.ToArray();
+
             return Json(queryResult, JsonRequestBehavior.AllowGet);
         }
     }
