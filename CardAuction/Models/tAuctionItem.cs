@@ -19,7 +19,7 @@ namespace CardAuction.Models
         public string fItemDescription { get; set; }
         public string fSort { get; set; }
         public string fPostUserId { get; set; }
-        public Nullable<int> fTopBidUserId { get; set; }
+        public string fTopBidUserId { get; set; }
         public int fMoneyNow { get; set; }
         public int fMoneyStep { get; set; }
         public int fMoneyStart { get; set; }
@@ -35,6 +35,7 @@ namespace CardAuction.Models
         public int fTransSeven { get; set; }
         public int fTransFami { get; set; }
         public int fTransLogi { get; set; }
+        public string fUserInfo { get; set; }
         public int fBidCount { get; set; }
         public int fClick { get; set; }
         public int fReport { get; set; }

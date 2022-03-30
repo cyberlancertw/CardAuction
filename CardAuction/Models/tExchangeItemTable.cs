@@ -12,7 +12,7 @@ namespace CardAuction.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tExchangeItem
+    public partial class tExchangeItemTable
     {
         public string fItemId { get; set; }
         public string fItemName { get; set; }
@@ -25,13 +25,6 @@ namespace CardAuction.Models
         public string fPhoto3 { get; set; }
         public string fItemLocation { get; set; }
         public string fItemLevel { get; set; }
-        public string fHopeItemName { get; set; }
-        public string fHopeItemLocation { get; set; }
-        public System.DateTime fCreateTime { get; set; }
-        public string fUserInfo { get; set; }
-        public System.DateTime fEndTime { get; set; }
-        public int fChangeCount { get; set; }
-        public Nullable<int> fClick { get; set; }
         public Nullable<int> fReport { get; set; }
         public Nullable<bool> fDelete { get; set; }
     }

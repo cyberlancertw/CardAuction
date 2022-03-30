@@ -295,7 +295,7 @@ namespace CardAuction.Controllers
             {
                 return;
             }
-            //  無直購                 有直購但出不到直購價
+            //  無直購             ||       有直購但出不到直購價
             if (item.fBuyPrice < 0 || amount < item.fBuyPrice)
             {
                 UpdateBid(item, amount, userId, itemId);
@@ -306,7 +306,7 @@ namespace CardAuction.Controllers
             if (item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
             {
                 UpdateBid(item, amount, userId, itemId);
-                HandleWinBid(item, amount, userId, itemId);
+                WinBid(item, amount, userId, itemId);
             }
 
             return;
@@ -412,7 +412,7 @@ namespace CardAuction.Controllers
             return;
         }
 
-        public void HandleWinBid(tAuctionItem item, int amount, string userId, string itemId)
+        public void WinBid(tAuctionItem item, int amount, string userId, string itemId)
         {
             tAuctionResult query = db.tAuctionResult.Find(itemId);
             if(query != null)               // 已有結果，什麼都不做
@@ -443,6 +443,57 @@ namespace CardAuction.Controllers
                 Console.WriteLine(ex.StackTrace.ToString());
             }
             catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return;
+        }
+
+        public void TimeUp(string itemId)
+        {
+            tAuctionItem item = db.tAuctionItem.Find(itemId);
+            if (item == null || item.fEndTime > DateTime.Now)           // 查不到商品 或 有商品但時間未結束
+            {
+                return;
+            }
+            if(item.fBidCount == 0)                                 // 時間到，但無人出價
+            {
+                item.fDelete = true;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                return;
+            }
+            
+            tAuctionResult newResult = new tAuctionResult           // 時間到，有人出價
+            {
+                fResultId = itemId,
+                fPostUserId = item.fPostUserId,
+                fWinUserId = item.fTopBidUserId,
+                fTotalMoney = item.fMoneyNow,
+                fBidCount = item.fBidCount,
+                fWinTime = item.fEndTime,
+                fBidMoney = item.fMoneyNow,
+                fDeliveryInfo = string.Empty
+            };
+
+            db.tAuctionResult.Add(newResult);              // 結果存入 tAuctionResult
+            item.fDelete = true;                           // tAuctionItem 設為結束
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.StackTrace.ToString());
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
