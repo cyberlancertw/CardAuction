@@ -29,10 +29,14 @@
             {
                 @:location.href = '@Url.Content("~/")';
             }
-            else
+            else if(TempData["ToId"] == null || string.IsNullOrEmpty(TempData["ToId"].ToString()))
             {
                 @:location.href = '@Url.Content($"~/{TempData["ToController"]}/{TempData["ToAction"]}")';
             }
-        }, 2000);
+            else
+            {
+                @:location.href = '@Url.Content($"~/{TempData["ToController"]}/{TempData["ToAction"]}/{TempData["ToId"]}")';
+            }
+        }, 2500);
     </script>
 }

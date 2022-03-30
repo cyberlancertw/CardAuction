@@ -34,6 +34,12 @@ namespace CardAuction.Controllers
             {
                 return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction", ToAction = "List" });
             }
+
+            if (db.tAuctionResult.Find(id) != null)
+            {
+                return RedirectToAction("Result", new { id = id });
+            }
+
             string postUserId = result.fPostUserId;
             ViewBag.PostUserAccount = db.tMember.Find(postUserId).fAccount;
 
@@ -52,6 +58,40 @@ namespace CardAuction.Controllers
             return View(result);
         }
 
+        public ActionResult Result(string id)
+        {
+            if(id == null)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "需要商品編號", ToController = "Auction", ToAction = "List" });
+            }
+            tAuctionItem item = db.tAuctionItem.Find(id);
+            if(item == null)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction", ToAction = "List" });
+            }
+            tAuctionResult result = db.tAuctionResult.Find(id);
+            if(result == null)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品還未結速競標", ToController = "Auction", ToAction = "Item", ToId = id });
+            }
+            string postUserId = result.fPostUserId;
+            string winUserId = result.fWinUserId;
+            
+            if (Session[CDictionary.SK_UserUserId] == null)
+            {
+                TempData[CDictionary.SK_RedirectToController] = "Auction";
+                TempData[CDictionary.SK_RedirectToAction] = "Result";
+                TempData[CDictionary.SK_RedirectToId] = id;
+                return RedirectToAction("Login", "Member");
+            }
+
+            if(Session[CDictionary.SK_UserUserId].ToString() != postUserId || Session[CDictionary.SK_UserUserId].ToString() != winUserId)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "您非得標者或商品主人", ToController = "Auction", ToAction = "List" });
+            }
+
+            return View(result);
+        }
         [HttpGet]
         public ActionResult Post()
         {
@@ -261,8 +301,7 @@ namespace CardAuction.Controllers
             if (item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
             {
                 UpdateBid(item, amount, userId, itemId);
-
-                // 開新的結算紀錄
+                HandleWinBid(item, amount, userId, itemId);
             }
 
             return;
@@ -362,6 +401,41 @@ namespace CardAuction.Controllers
                 db.SaveChanges();
             }
             catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return;
+        }
+
+        public void HandleWinBid(tAuctionItem item, int amount, string userId, string itemId)
+        {
+            tAuctionResult query = db.tAuctionResult.Find(itemId);
+            if(query != null)
+            {
+                return;
+            }
+            tAuctionResult newResult = new tAuctionResult
+            {
+                fResultId = itemId,
+                fPostUserId = item.fPostUserId,
+                fWinUserId = userId,
+                fTotalMoney = amount,
+                fBidCount = item.fBidCount,
+                fWinTime = DateTime.Now,
+                fBidMoney = item.fMoneyNow,
+                fDeliveryInfo = string.Empty
+            };
+
+            db.tAuctionResult.Add(newResult);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.StackTrace.ToString());
+            }
+            catch(Exception e)
             {
                 Console.WriteLine(e.ToString());
             }

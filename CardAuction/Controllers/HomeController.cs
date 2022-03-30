@@ -16,21 +16,17 @@ namespace CardAuction.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();              // 之後塞AuctionItem和ExchangeItem，也可以不用，搜尋用 Ajax 撈出來放不用 vModel
+            return View();
         }
 
-        public ActionResult Logout()
-        {
-            Session[CDictionary.SK_UserAccount] = null;
-            Session[CDictionary.SK_UserUserId] = null;
-            return RedirectToAction("Index");
-        }
+
         [HttpGet]
-        public ActionResult Error(string ErrorMessage, string ToController, string ToAction)
+        public ActionResult Error(string ErrorMessage, string ToController, string ToAction, string ToId)
         {
             TempData["ErrorMessage"] = ErrorMessage;
             TempData["ToController"] = ToController;
             TempData["ToAction"] = ToAction;
+            TempData["ToId"] = ToId;
             return View();
         }
         [HttpGet]
