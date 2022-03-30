@@ -280,7 +280,7 @@ namespace CardAuction.Controllers
                     {
                         var queryResult = db.tExchangeItem
                             .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
-                            .OrderBy(p => p.fCreateTime)
+                            .OrderByDescending(p => p.fCreateTime)
                             .Skip(page * 12)
                             .Take(12)
                             .Select(n => new QueryResult 
