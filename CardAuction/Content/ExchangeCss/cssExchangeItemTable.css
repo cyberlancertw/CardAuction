@@ -18,9 +18,11 @@
         height: 90vw;
     }
 }
-
+.contentCenter{
+    text-align:center;
+}
 .contentHead{
-    text-align: right;
+    text-align: center;
 }
 .content > input, #seleSort, #seleGrading, #selectItemplace {
     width: 100%;
@@ -43,7 +45,7 @@
     border: 4px dashed #6b6b6b;
 }
 .picBlockList{
-    display: flex;
+    display:inline-flex;
     flex-wrap: wrap;
 }
 .picBlock {
@@ -66,7 +68,10 @@
     margin-top: 30px;
     background-color: white;
 }/*背景*/
-#buttons{
+.text-center{
+    text-align:center;
+}
+#buttons {
     margin-top: 10px;
     margin-bottom: 30px;
     text-align: right;
