@@ -19,7 +19,7 @@ namespace CardAuction.Models
         public string fItemDescription { get; set; }
         public string fSort { get; set; }
         public string fPostUserId { get; set; }
-        public Nullable<int> fTopBidUserId { get; set; }
+        public string fTopBidUserId { get; set; }
         public int fMoneyNow { get; set; }
         public int fMoneyStep { get; set; }
         public int fMoneyStart { get; set; }

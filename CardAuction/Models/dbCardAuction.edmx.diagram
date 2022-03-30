@@ -4,7 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+<<<<<<< HEAD
       <Diagram DiagramId="9f5c1a9a94ea46a7827ba17d98f29ee7" Name="Diagram1">
+=======
+      <Diagram DiagramId="d62a978426244ed18f2be7975fbfa229" Name="Diagram1">
+>>>>>>> cyber
         <EntityTypeShape EntityType="dbCardAuctionModel.tAdminAd" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionBid" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionFavorite" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />

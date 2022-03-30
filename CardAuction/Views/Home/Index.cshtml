@@ -177,11 +177,11 @@
                 let domBorder = document.createElement('div');
                 domBorder.className = 'cardBorder';
                 let domA = document.createElement('a');
-                domA.href = '@Url.Content("~/Auction/Item/")' + item.fItemId;
+                domA.href = '@Url.Content("~/Exchange/Item/")' + item.fItemId;
                 let domImgWrap = document.createElement('div');
                 domImgWrap.className = 'imgWrap';
                 let domImg = document.createElement('img');
-                domImg.src = '@Url.Content("~/Images/AuctionItemImages/")' + item.fPhoto;
+                domImg.src = '@Url.Content("~/Images/ExchangeItemImages/")' + item.fPhoto;
                 domImg.className = 'cardImg';
                 domImgWrap.appendChild(domImg);
                 let domCardBody = document.createElement('div');

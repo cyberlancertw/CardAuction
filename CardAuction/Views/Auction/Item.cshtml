@@ -238,6 +238,9 @@
                 domBuy.setAttribute('disabled', 'true');
                 domBid.setAttribute('disabled', 'true');
                 domTxtBid.setAttribute('disabled', 'true');
+
+                let para = `?itemId=${fIemId}`;
+                
                 return;
             }
             let day = Math.floor(t / 86400);
@@ -403,7 +406,7 @@
                 domAccount.className = 'col-4 historyAccount';
                 domAccount.textContent = history.bidAcc;
                 let domTime = document.createElement('div');
-                domTime.className = 'col-6 historyTime';
+                dUrlmTime.className = 'col-6 historyTime';
                 domTime.textContent = historyTime;
                 let domMoney = document.createElement('div');
                 domMoney.className = 'col-2 historyMoney';
