@@ -18,6 +18,7 @@
         <EntityTypeShape EntityType="dbCardAuctionModel.tReportExchange" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbCardAuctionModel.tAuctionItem" Width="1.5" PointX="8.75" PointY="0.75" />
         <EntityTypeShape EntityType="dbCardAuctionModel.tExchangeItem" Width="1.5" PointX="2.875" PointY="3.625" />
+        <EntityTypeShape EntityType="dbCardAuctionModel.tExchangeItemTable" Width="1.5" PointX="0.75" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -138,6 +138,24 @@
           <Property Name="fReport" Type="int" />
           <Property Name="fDelete" Type="bit" />
         </EntityType>
+        <EntityType Name="tExchangeItemTable">
+          <Key>
+            <PropertyRef Name="fItemId" />
+          </Key>
+          <Property Name="fItemId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fItemName" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="fItemDescription" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="fSort" Type="nvarchar" MaxLength="35" Nullable="false" />
+          <Property Name="fPostUserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fPhoto0" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fPhoto1" Type="varchar" MaxLength="30" />
+          <Property Name="fPhoto2" Type="varchar" MaxLength="30" />
+          <Property Name="fPhoto3" Type="varchar" MaxLength="30" />
+          <Property Name="fItemLocation" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="fItemLevel" Type="nvarchar" MaxLength="35" Nullable="false" />
+          <Property Name="fReport" Type="int" />
+          <Property Name="fDelete" Type="bit" />
+        </EntityType>
         <EntityType Name="tMember">
           <Key>
             <PropertyRef Name="fUserId" />
@@ -184,6 +202,7 @@
           <EntitySet Name="tExchangeDetail" EntityType="Self.tExchangeDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tExchangeFavorite" EntityType="Self.tExchangeFavorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tExchangeItem" EntityType="Self.tExchangeItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tExchangeItemTable" EntityType="Self.tExchangeItemTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tMember" EntityType="Self.tMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tReportAuction" EntityType="Self.tReportAuction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tReportExchange" EntityType="Self.tReportExchange" Schema="dbo" store:Type="Tables" />
@@ -344,6 +363,7 @@
           <EntitySet Name="tReportAuction" EntityType="Self.tReportAuction" />
           <EntitySet Name="tReportExchange" EntityType="Self.tReportExchange" />
           <EntitySet Name="tAuctionItem" EntityType="dbCardAuctionModel.tAuctionItem" />
+          <EntitySet Name="tExchangeItemTable" EntityType="dbCardAuctionModel.tExchangeItemTable" />
         </EntityContainer>
         <EntityType Name="tAuctionItem">
           <Key>
@@ -374,6 +394,24 @@
           <Property Name="fClick" Type="Int32" Nullable="false" />
           <Property Name="fReport" Type="Int32" Nullable="false" />
           <Property Name="fDelete" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tExchangeItemTable">
+          <Key>
+            <PropertyRef Name="fItemId" />
+          </Key>
+          <Property Name="fItemId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fItemName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="fItemDescription" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="fSort" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="fPostUserId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto0" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fItemLocation" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="fItemLevel" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="fReport" Type="Int32" />
+          <Property Name="fDelete" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -554,6 +592,25 @@
                 <ScalarProperty Name="fMoneyStep" ColumnName="fMoneyStep" />
                 <ScalarProperty Name="fMoneyNow" ColumnName="fMoneyNow" />
                 <ScalarProperty Name="fTopBidUserId" ColumnName="fTopBidUserId" />
+                <ScalarProperty Name="fPostUserId" ColumnName="fPostUserId" />
+                <ScalarProperty Name="fSort" ColumnName="fSort" />
+                <ScalarProperty Name="fItemDescription" ColumnName="fItemDescription" />
+                <ScalarProperty Name="fItemName" ColumnName="fItemName" />
+                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tExchangeItemTable">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tExchangeItemTable">
+              <MappingFragment StoreEntitySet="tExchangeItemTable">
+                <ScalarProperty Name="fDelete" ColumnName="fDelete" />
+                <ScalarProperty Name="fReport" ColumnName="fReport" />
+                <ScalarProperty Name="fItemLevel" ColumnName="fItemLevel" />
+                <ScalarProperty Name="fItemLocation" ColumnName="fItemLocation" />
+                <ScalarProperty Name="fPhoto3" ColumnName="fPhoto3" />
+                <ScalarProperty Name="fPhoto2" ColumnName="fPhoto2" />
+                <ScalarProperty Name="fPhoto1" ColumnName="fPhoto1" />
+                <ScalarProperty Name="fPhoto0" ColumnName="fPhoto0" />
                 <ScalarProperty Name="fPostUserId" ColumnName="fPostUserId" />
                 <ScalarProperty Name="fSort" ColumnName="fSort" />
                 <ScalarProperty Name="fItemDescription" ColumnName="fItemDescription" />

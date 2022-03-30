@@ -443,6 +443,9 @@
     <Compile Include="Models\tExchangeItem.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tExchangeItemTable.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tMember.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
