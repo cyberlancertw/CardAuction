@@ -16,11 +16,11 @@ namespace CardAuction.Controllers
 
         dbCardAuctionEntities db = new dbCardAuctionEntities();
 
-        // GET: Auction
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        //GET: Auction
+        public ActionResult Index()
+        {
+            return RedirectToAction("List");
+        }
 
         [HttpGet]
         public ActionResult Item(string id)
@@ -35,11 +35,16 @@ namespace CardAuction.Controllers
                 return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction", ToAction = "List" });
             }
 
-            if (db.tAuctionResult.Find(id) != null)
+            if (db.tAuctionResult.Find(id) != null)     // tAuctionResult 有東西表示此商品已結結標
             {
                 return RedirectToAction("Result", new { id = id });
             }
+            if (result.fDelete && result.fEndTime > DateTime.Now)            // 被檢舉下架或不明原因
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction", ToAction = "List" });
+            }
 
+            
             string postUserId = result.fPostUserId;
             ViewBag.PostUserAccount = db.tMember.Find(postUserId).fAccount;
 
@@ -72,7 +77,7 @@ namespace CardAuction.Controllers
             tAuctionResult result = db.tAuctionResult.Find(id);
             if(result == null)
             {
-                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品還未結速競標", ToController = "Auction", ToAction = "Item", ToId = id });
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品還未結束競標", ToController = "Auction", ToAction = "Item", ToId = id });
             }
             string postUserId = result.fPostUserId;
             string winUserId = result.fWinUserId;
@@ -410,7 +415,7 @@ namespace CardAuction.Controllers
         public void HandleWinBid(tAuctionItem item, int amount, string userId, string itemId)
         {
             tAuctionResult query = db.tAuctionResult.Find(itemId);
-            if(query != null)
+            if(query != null)               // 已有結果，什麼都不做
             {
                 return;
             }
@@ -426,7 +431,9 @@ namespace CardAuction.Controllers
                 fDeliveryInfo = string.Empty
             };
 
-            db.tAuctionResult.Add(newResult);
+            db.tAuctionResult.Add(newResult);              // 結果存入 tAuctionResult
+            item.fDelete = true;                           // tAuctionItem 設為結束
+
             try
             {
                 db.SaveChanges();
