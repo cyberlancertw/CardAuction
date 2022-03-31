@@ -120,8 +120,9 @@
 
                 <div class="row" id="divComment">
                     <div class="col-12 ">
-                        <div class="row" id="contentRow">
+                        <div class="row" id="EIB">
                             <!-- result here-->
+
                             <!--<div class="col-sm-4 col-md-3 ">
                                 <img src="~/images/ExchangeItemImages/picture01.png" alt="" class="col-1 col-sm-3 col-md-2  avatar">
                                 <span>@ViewBag.PostUserAccount</span><br>
@@ -181,7 +182,7 @@
 @section scripts{
     <script>
         var secondRemain = @secondTotalRemain ;
-        var contentRow = document.getElementById('contentRow');//我要交換列表
+
         var domTime = document.getElementById('stampTime');//加入行事曆
         var domShow = document.getElementById('imgShow');//圖片
         var btnFavorite = document.getElementById('btnFavorite');//加入追蹤
@@ -191,6 +192,7 @@
         /*var countComment = document.getElementById('countComment');*///評論字數
         var btnCommentSend = document.getElementById('btnCommentSend');//發送評論
         var commentHere = document.getElementById('commentHere');//交換評論
+        var EIB = document.getElementById('EIB');//ExchangItemB
 
         var fItemId = '@Model.fItemId';//物品ID
         var IWantExchange = document.getElementById('IWantExchange');
@@ -207,20 +209,7 @@
             location.href = '@Url.Content("~/Exchange/Couple")';
         });
 
-        function ShowSearchResultCard(queryResult) {
-            contentRow.innerHTML = '';
 
-            let docFrag = document.createDocumentFragment();
-            for (let item of BTable) {
-                let domDiv = document.createElement('div');
-                domDiv.className = 'col-sm-4 col-md-3 ';
-                let domA = document.createElement('a');
-                domA.href = '@Url.Content("~/Exchange/Couple/")' + item.fItemId;
-                let domuserimg = document.createElement('userimg')
-                domUserimg.src = '@Url.Content("~/Images/ExchangeItemImages/")' + item.fPhoto;
-            }
-
-        }
 
         function refreshStampTime(t) {
             if (t <= 0) {
@@ -261,7 +250,11 @@
         refreshStampTime(secondRemain);
         @if(Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString().Equals(Model.fPostUserId))
         {
-        @:btnFavorite.disabled = true;
+        <text>
+        btnFavorite.disabled = true;                                          // 有登入而且就是上架者自己
+        IWantExchange.disabled = true;                                               // 則不給按追蹤、我要交換、檢舉
+        btnReport.disabled = true;
+        </text>
         }
 
 
@@ -403,58 +396,32 @@
         //    };
         //}
 
-        document.getElementById('btnPost').addEventListener('click', function () {
-            location.href += '#divTable';
-            txtComment.focus();
-        });
-
-        function sendCopule(content) {
-            let xhr = new XMLHttpRequest();
-            let para = `?itemId=${fItemId}&message=${content}`;
-            xhr.addEventListener('load', receiveComments);
-            xhr.open('GET', '@Url.Content("~/Exchange/Copule")' + para);
-            xhr.send();
-        };
-
-
-        function receiveCopules() {
-            let xhr = new XMLHttpRequest();
-            xhr.addEventListener('load', function () {
-                if (this.responseText != '') {
-                    let datas = JSON.parse(this.responseText);
-                    refreshComments(datas);
-                }
-            });
-            let para = `?ItemId=${fItemId}`;
-            xhr.open('GET', '@Url.Content("~/Exchange/ReceiveComments")' + para);
-            xhr.send();
-        }
-
-        function refreshCouple(datas) {
-            commentHere.innerHTML = '';
+        //EIB
+        function refreshEIB(datas) {
+            EIB.innerHTML = '';
             let docFrag = document.createDocumentFragment();
 
             for (let comment of datas) {
                 let commentTime = new Date(parseInt(comment.postTime.substr(6))).toLocaleString();
-                let domRow = document.createElement('div');
-                domRow.className = 'row commentRecord';
-                let domAccount = document.createElement('div');
-                domAccount.className = 'col-6 col-sm-6 col-md-2 commentAccount';
-                domAccount.textContent = comment.postAcc;
-                let domContent = document.createElement('div');
-                domContent.className = 'col-6 col-sm-12 col-md-8 commentContent';
-                domContent.textContent = comment.content;
+                let EIBRow = document.createElement('div');
+                EIBRow.className = 'row avatar';
+                let EIBAccount = document.createElement('div');
+                EIBAccount.className = 'col-6 col-sm-6 col-md-2 commentAccount';
+                EIBAccount.textContent = comment.postAcc;
+                let EIBContent = document.createElement('div');
+                EIBContent.className = 'col-6 col-sm-12 col-md-8 commentContent';
+                EIBContent.textContent = comment.content;
                 let domTime = document.createElement('div');
                 domTime.className = 'col-6 col-sm-6 col-md-2 commentTime';
                 domTime.textContent = commentTime;
-                domRow.appendChild(domSort);
-                domRow.appendChild(domItemLevel);
-                domRow.appendChild(domItemLocation);
+                EIBRow.appendChild(EIBAccount);
+                EIBRow.appendChild(EIBContent);
+                EIBRow.appendChild(domTime);
 
-                docFrag.appendChild(domRow);
+                docFrag.appendChild(EIBRow);
             }
 
-            commentHere.appendChild(docFrag);
+            EIB.appendChild(docFrag);
 
         }
     </script>

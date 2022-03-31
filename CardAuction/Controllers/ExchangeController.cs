@@ -220,7 +220,8 @@ namespace CardAuction.Controllers
                 photo.SaveAs(Server.MapPath("~/Images/ExchangeItemImages/") + newFileName);
                 count++;
             }
-            //createItem.fItemTableId = vModel.fItemTableId;
+            createItem.fItemTableId = vModel.fItemTableId;
+            createItem.fItemId = vModel.itemId;
             createItem.fItemName = vModel.fItemName;
             createItem.fSort = vModel.fSort;
             createItem.fPostUserId = vModel.fPostUserId;
@@ -369,7 +370,34 @@ namespace CardAuction.Controllers
             return db.tExchangeItem.Where(m => m.fSort.Contains(sortName)).Count();
         }
 
-        
+        public ActionResult ExchangeItemUserB (string itemId)
+        {
+            bool isExist = db.tExchangeItemTable.Any(m => m.fItemId == itemId);
+            if (isExist)
+            {
+                var queryResult = db.tExchangeItemTable
+                    .Where(p => p.fItemId == itemId)
+                    .Join(db.tMember,
+                          c => c.fItemTableId,
+                          m => m.fUserId,
+                          (c, m) => new
+                          {
+                              postAcc = m.fAccount,   //帳戶
+                              ItemDescription = c.fItemDescription,   //內容
+                              img0 = c.fPhoto0,
+                              img1 = c.fPhoto1,
+                              img2 = c.fPhoto2,
+                              img3 = c.fPhoto3,
+                              Sort = c.fSort,
+                              ItemLevel = c.fItemLevel,
+                              ItemLocation = c.fItemLocation
+                              //postTime = c.fPostTime  //發布時間
+                          });
+                    //.OrderBy(n => n.postTime); ;
+                return Json(queryResult, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
 
 
     }
