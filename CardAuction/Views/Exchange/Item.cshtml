@@ -191,12 +191,21 @@
         var commentHere = document.getElementById('commentHere');//交換評論
 
         var fItemId = '@Model.fItemId';//物品ID
+        var IWantExchange = document.getElementById('IWantExchange');
 
         var timer = window.setInterval(function () {
             secondRemain -= 7;
             refreshStampTime(secondRemain);
         }, 7000);
         //計時器 每7秒更新
+
+
+        IWantExchange.addEventListener('click', function () {
+            let para = `?id=${fItemId}`;
+            location.href = '@Url.Content("~/Exchange/Couple")';
+        });
+
+
         function refreshStampTime(t) {
             if (t <= 0) {
                 domTime.textContent = '交換已結束';
@@ -370,6 +379,67 @@
                 btnFavorite.classList.remove('following');
                 btnFavorite.classList.add('notFollowing');
             }
+        }
+
+        //function ItemTable(){
+        //    if (isButton == 'True') {
+        //        btnPost.btnPost
+        //    };
+        //}
+
+        document.getElementById('btnPost').addEventListener('click', function () {
+            location.href += '#divTable';
+            txtComment.focus();
+        });
+
+        function sendCopule(content) {
+            let xhr = new XMLHttpRequest();
+            let para = `?itemId=${fItemId}&message=${content}`;
+            xhr.addEventListener('load', receiveComments);
+            xhr.open('GET', '@Url.Content("~/Exchange/Copule")' + para);
+            xhr.send();
+        };
+
+
+        function receiveCopules() {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', function () {
+                if (this.responseText != '') {
+                    let datas = JSON.parse(this.responseText);
+                    refreshComments(datas);
+                }
+            });
+            let para = `?ItemId=${fItemId}`;
+            xhr.open('GET', '@Url.Content("~/Exchange/ReceiveComments")' + para);
+            xhr.send();
+        }
+
+        function refreshComments(datas) {
+            commentHere.innerHTML = '';
+            let docFrag = document.createDocumentFragment();
+
+            for (let comment of datas) {
+                let commentTime = new Date(parseInt(comment.postTime.substr(6))).toLocaleString();
+                let domRow = document.createElement('div');
+                domRow.className = 'row commentRecord';
+                let domAccount = document.createElement('div');
+                domAccount.className = 'col-6 col-sm-6 col-md-2 commentAccount';
+                domAccount.textContent = comment.postAcc;
+                let domContent = document.createElement('div');
+                domContent.className = 'col-6 col-sm-12 col-md-8 commentContent';
+                domContent.textContent = comment.content;
+                let domTime = document.createElement('div');
+                domTime.className = 'col-6 col-sm-6 col-md-2 commentTime';
+                domTime.textContent = commentTime;
+                domRow.appendChild(domAccount);
+                domRow.appendChild(domContent);
+                domRow.appendChild(domTime);
+
+                docFrag.appendChild(domRow);
+            }
+
+            commentHere.appendChild(docFrag);
+
         }
     </script>
 }

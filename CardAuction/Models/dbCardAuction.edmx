@@ -24,6 +24,16 @@
           <Property Name="fMoney" Type="int" Nullable="false" />
           <Property Name="fTime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="tAuctionDetail">
+          <Key>
+            <PropertyRef Name="fDetailId" />
+          </Key>
+          <Property Name="fDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fItemId" Type="int" />
+          <Property Name="fUserId" Type="int" />
+          <Property Name="fBidTime" Type="datetime" />
+          <Property Name="fBidMoney" Type="int" />
+        </EntityType>
         <EntityType Name="tAuctionFavorite">
           <Key>
             <PropertyRef Name="fFavId" />
@@ -141,8 +151,9 @@
         </EntityType>
         <EntityType Name="tExchangeItemTable">
           <Key>
-            <PropertyRef Name="fItemId" />
+            <PropertyRef Name="fItemTableId" />
           </Key>
+          <Property Name="fItemTableId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="fItemId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="fItemName" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="fItemDescription" Type="nvarchar" MaxLength="300" Nullable="false" />
@@ -195,6 +206,7 @@
         <EntityContainer Name="dbCardAuctionModelStoreContainer">
           <EntitySet Name="tAdminAd" EntityType="Self.tAdminAd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionBid" EntityType="Self.tAuctionBid" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tAuctionDetail" EntityType="Self.tAuctionDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionFavorite" EntityType="Self.tAuctionFavorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAuctionResult" EntityType="Self.tAuctionResult" Schema="dbo" store:Type="Tables" />
@@ -231,6 +243,16 @@
           <Property Name="fUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fMoney" Type="Int32" Nullable="false" />
           <Property Name="fTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tAuctionDetail">
+          <Key>
+            <PropertyRef Name="fDetailId" />
+          </Key>
+          <Property Name="fDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fItemId" Type="Int32" />
+          <Property Name="fUserId" Type="Int32" />
+          <Property Name="fBidTime" Type="DateTime" Precision="3" />
+          <Property Name="fBidMoney" Type="Int32" />
         </EntityType>
         <EntityType Name="tAuctionFavorite">
           <Key>
@@ -349,8 +371,9 @@
         </EntityType>
         <EntityType Name="tExchangeItemTable">
           <Key>
-            <PropertyRef Name="fItemId" />
+            <PropertyRef Name="fItemTableId" />
           </Key>
+          <Property Name="fItemTableId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fItemName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fItemDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
@@ -403,6 +426,7 @@
         <EntityContainer Name="dbCardAuctionEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tAdminAd" EntityType="Self.tAdminAd" />
           <EntitySet Name="tAuctionBid" EntityType="Self.tAuctionBid" />
+          <EntitySet Name="tAuctionDetail" EntityType="Self.tAuctionDetail" />
           <EntitySet Name="tAuctionFavorite" EntityType="Self.tAuctionFavorite" />
           <EntitySet Name="tAuctionItem" EntityType="Self.tAuctionItem" />
           <EntitySet Name="tAuctionResult" EntityType="Self.tAuctionResult" />
@@ -440,6 +464,17 @@
                 <ScalarProperty Name="fUserId" ColumnName="fUserId" />
                 <ScalarProperty Name="fMoney" ColumnName="fMoney" />
                 <ScalarProperty Name="fTime" ColumnName="fTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tAuctionDetail">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tAuctionDetail">
+              <MappingFragment StoreEntitySet="tAuctionDetail">
+                <ScalarProperty Name="fDetailId" ColumnName="fDetailId" />
+                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
+                <ScalarProperty Name="fUserId" ColumnName="fUserId" />
+                <ScalarProperty Name="fBidTime" ColumnName="fBidTime" />
+                <ScalarProperty Name="fBidMoney" ColumnName="fBidMoney" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -569,6 +604,7 @@
           <EntitySetMapping Name="tExchangeItemTable">
             <EntityTypeMapping TypeName="dbCardAuctionModel.tExchangeItemTable">
               <MappingFragment StoreEntitySet="tExchangeItemTable">
+                <ScalarProperty Name="fItemTableId" ColumnName="fItemTableId" />
                 <ScalarProperty Name="fItemId" ColumnName="fItemId" />
                 <ScalarProperty Name="fItemName" ColumnName="fItemName" />
                 <ScalarProperty Name="fItemDescription" ColumnName="fItemDescription" />

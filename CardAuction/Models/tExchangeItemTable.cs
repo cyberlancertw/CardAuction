@@ -14,6 +14,7 @@ namespace CardAuction.Models
     
     public partial class tExchangeItemTable
     {
+        public string fItemTableId { get; set; }
         public string fItemId { get; set; }
         public string fItemName { get; set; }
         public string fItemDescription { get; set; }

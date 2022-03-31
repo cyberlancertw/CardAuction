@@ -149,11 +149,12 @@ namespace CardAuction.Controllers
 
         }
         [HttpGet]
-        public ActionResult Couple()
+        public ActionResult Couple(string id)
         {
+            ViewBag.itemId = id;
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                TempData[CDictionary.SK_RedirectToAction] = "Item";
+                TempData[CDictionary.SK_RedirectToAction] = "Couple";
                 TempData[CDictionary.SK_RedirectToController] = "Exchange";
                 return RedirectToAction("Login", "Member");
             }
@@ -165,6 +166,7 @@ namespace CardAuction.Controllers
         [HttpPost]
         public ActionResult Couple(CExchangePostViewModel vModel)
         {
+            
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
                 TempData[CDictionary.SK_RedirectToAction] = "Item";
@@ -172,7 +174,7 @@ namespace CardAuction.Controllers
                 return RedirectToAction("Login", "Member");
             }
 
-            tExchangeItem createItem = new tExchangeItem();
+            tExchangeItemTable createItem = new tExchangeItemTable();
             DateTime nowTime = DateTime.Now;
             Random rnd = new Random();
             string fileNameInitial = nowTime.ToString("yyyyMMddHHmmss") + Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6) + rnd.Next(100, 1000).ToString();
@@ -218,6 +220,7 @@ namespace CardAuction.Controllers
                 photo.SaveAs(Server.MapPath("~/Images/ExchangeItemImages/") + newFileName);
                 count++;
             }
+            //createItem.fItemTableId = vModel.fItemTableId;
             createItem.fItemName = vModel.fItemName;
             createItem.fSort = vModel.fSort;
             createItem.fPostUserId = vModel.fPostUserId;
@@ -228,7 +231,7 @@ namespace CardAuction.Controllers
             createItem.fDelete = false;
             createItem.fReport = 0;
 
-            db.tExchangeItem.Add(createItem);
+            db.tExchangeItemTable.Add(createItem);
             try
             {
                 db.SaveChanges();
@@ -237,8 +240,7 @@ namespace CardAuction.Controllers
             {
                 return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Exchange", ToAction = "List" });
             }
-            return RedirectToAction("List");
-
+            return RedirectToAction("Item", new { id =  vModel.itemId});
         }
         [HttpGet]
         public ActionResult List()
@@ -367,7 +369,68 @@ namespace CardAuction.Controllers
             return db.tExchangeItem.Where(m => m.fSort.Contains(sortName)).Count();
         }
 
+        public ActionResult ExchangeItemCouple(string sortName, string filter = "EndTime", int page = 0)
+        {
+            switch (filter)
+            {
+                case "EndTime":
+                    {
+                        var queryResult = db.tExchangeItem
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .OrderBy(p => p.fEndTime)
+                            .Skip(page * 12)
+                            .Take(12)
+                            .Select(n => new QueryResult
+                            {
+                                fItemId = n.fItemId,
+                                fEndTime = n.fEndTime,
+                                fItemName = n.fItemName,
+                                fPhoto = n.fPhoto0,
+                                fChangeCount = n.fChangeCount,
+                            });
+                        return Json(queryResult, JsonRequestBehavior.AllowGet);
+                    }
 
+                case "HotClick":
+                    {
+                        var queryResult = db.tExchangeItem
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .OrderBy(p => p.fClick).ThenBy(q => q.fEndTime)
+                            .Skip(page * 12)
+                            .Take(12)
+                            .Select(n => new QueryResult
+                            {
+                                fItemId = n.fItemId,
+                                fEndTime = n.fEndTime,
+                                fItemName = n.fItemName,
+                                fPhoto = n.fPhoto0,
+                                fChangeCount = n.fChangeCount,
+                            });
+                        return Json(queryResult, JsonRequestBehavior.AllowGet);
+                    }
+
+                case "JustPost":
+                    {
+                        var queryResult = db.tExchangeItem
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .OrderByDescending(p => p.fCreateTime)
+                            .Skip(page * 12)
+                            .Take(12)
+                            .Select(n => new QueryResult
+                            {
+                                fItemId = n.fItemId,
+                                fEndTime = n.fEndTime,
+                                fItemName = n.fItemName,
+                                fPhoto = n.fPhoto0,
+                                fChangeCount = n.fChangeCount,
+                            });
+                        return Json(queryResult, JsonRequestBehavior.AllowGet);
+                    }
+                default:
+                    break;
+            }
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
 
 
     }
