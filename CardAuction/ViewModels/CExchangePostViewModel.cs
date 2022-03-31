@@ -7,6 +7,7 @@ namespace CardAuction.ViewModels
 {
     public class CExchangePostViewModel
     {
+        public string itemId { get; set; }
         public string fPostUserId { get; set; }
         public HttpPostedFileBase Photo0 { get; set; }
         public HttpPostedFileBase Photo1 { get; set; }

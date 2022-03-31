@@ -21,6 +21,7 @@
 }
 
 <form action="#" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="itemId" value="@ViewBag.itemId" />
     <div class="container-fluid table">
         <article id="">
             <div class="row">
@@ -231,7 +232,8 @@
 
     document.getElementById('btnCancel').addEventListener('click', function (event) {
         event.preventDefault();
-        location.href = '@Url.Content("~/Exchange/Item")';
+        let para = '/' + '@ViewBag.itemId';
+        location.href = '@Url.Content("~/Exchange/Item")' + para;
     });
     </script>
 }
