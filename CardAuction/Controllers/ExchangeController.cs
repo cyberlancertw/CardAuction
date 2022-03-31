@@ -14,6 +14,12 @@ namespace CardAuction.Controllers
         dbCardAuctionEntities db = new dbCardAuctionEntities();
 
         // GET: Exchange
+        public ActionResult Index()
+        {
+            return RedirectToAction("List");
+        }
+
+
         [HttpGet]
         public ActionResult Item(string id)
         {
@@ -327,6 +333,7 @@ namespace CardAuction.Controllers
             }
             return Json(null, JsonRequestBehavior.AllowGet);
         }
+
         public void WriteComment(string itemId, string message)//寫評論
         {
             if (Session[CDictionary.SK_UserUserId] == null)
@@ -334,19 +341,19 @@ namespace CardAuction.Controllers
                 return;
             }
             string userId = Session[CDictionary.SK_UserUserId].ToString();
-            bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId && m.fContent == message && m.fFromUserId == userId);
+            bool isExist = db.tCommentExchange.Any(m => m.fItemId == itemId && m.fContent == message && m.fFromUserId == userId);
             if (isExist)
             {
                 return;
             }
-            tCommentAuction newComment = new tCommentAuction
+            tCommentExchange newComment = new tCommentExchange
             {
                 fItemId = itemId,
                 fFromUserId = userId,
                 fPostTime = DateTime.Now,
                 fContent = message
             };
-            db.tCommentAuction.Add(newComment);
+            db.tCommentExchange.Add(newComment);
             try
             {
                 db.SaveChanges();
