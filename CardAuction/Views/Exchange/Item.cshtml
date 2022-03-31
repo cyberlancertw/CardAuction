@@ -120,17 +120,18 @@
 
                 <div class="row" id="divComment">
                     <div class="col-12 ">
-                        <div class="row">
-                            <div class="col-sm-4 col-md-3 ">
+                        <div class="row" id="contentRow">
+                            <!-- result here-->
+                            <!--<div class="col-sm-4 col-md-3 ">
                                 <img src="~/images/ExchangeItemImages/picture01.png" alt="" class="col-1 col-sm-3 col-md-2  avatar">
                                 <span>@ViewBag.PostUserAccount</span><br>
-                                
+
                                 <br><br>
                                 <p>@Model.fItemDescription</p>
                             </div>
-                            <div class="col-sm-4 col-md-5 ">
+                            <div class="col-sm-4 col-md-5 ">-->
                                 <!-- 放img(交換者照片位置fPhoto 0-3) -->
-                                <img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
+                                <!--<img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
                                 <img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
                                 <img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
                             </div>
@@ -147,7 +148,7 @@
                                 <div class="col-sm-12">
                                     <button type="button" id="BossWantExchange" class="btnSize btn-dark btncheng btnright">確定交換</button>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -180,6 +181,7 @@
 @section scripts{
     <script>
         var secondRemain = @secondTotalRemain ;
+        var contentRow = document.getElementById('contentRow');//我要交換列表
         var domTime = document.getElementById('stampTime');//加入行事曆
         var domShow = document.getElementById('imgShow');//圖片
         var btnFavorite = document.getElementById('btnFavorite');//加入追蹤
@@ -205,6 +207,20 @@
             location.href = '@Url.Content("~/Exchange/Couple")';
         });
 
+        function ShowSearchResultCard(queryResult) {
+            contentRow.innerHTML = '';
+
+            let docFrag = document.createDocumentFragment();
+            for (let item of BTable) {
+                let domDiv = document.createElement('div');
+                domDiv.className = 'col-sm-4 col-md-3 ';
+                let domA = document.createElement('a');
+                domA.href = '@Url.Content("~/Exchange/Couple/")' + item.fItemId;
+                let domuserimg = document.createElement('userimg')
+                domUserimg.src = '@Url.Content("~/Images/ExchangeItemImages/")' + item.fPhoto;
+            }
+
+        }
 
         function refreshStampTime(t) {
             if (t <= 0) {
@@ -414,7 +430,7 @@
             xhr.send();
         }
 
-        function refreshComments(datas) {
+        function refreshCouple(datas) {
             commentHere.innerHTML = '';
             let docFrag = document.createDocumentFragment();
 
@@ -431,9 +447,9 @@
                 let domTime = document.createElement('div');
                 domTime.className = 'col-6 col-sm-6 col-md-2 commentTime';
                 domTime.textContent = commentTime;
-                domRow.appendChild(domAccount);
-                domRow.appendChild(domContent);
-                domRow.appendChild(domTime);
+                domRow.appendChild(domSort);
+                domRow.appendChild(domItemLevel);
+                domRow.appendChild(domItemLocation);
 
                 docFrag.appendChild(domRow);
             }
