@@ -99,9 +99,9 @@
             <div class="row" id="filterArrangeBar">
                 <div id="divFilter">
                     &nbsp;&nbsp;篩選&nbsp;&nbsp;
-                    <button class="btnSelect" id="btnEndTime">結束時間</button>
+                    <button class="btnSelect" id="btnJustPost">最新上架</button>
                     <button class="btnNotSelect" id="btnHotClick">熱門</button>
-                    <button class="btnNotSelect" id="btnJustPost">最新上架</button>
+                    <button class="btnNotSelect" id="btnEndTime">結束時間</button>
                 </div>
                 <div id="divArrange" class="d-none d-sm-block">
                     <button class="btnSelect" id="btnCard">
@@ -135,7 +135,7 @@
         var btnList = document.getElementById('btnList');
         var arrangeBtns = [btnCard, btnList];
         var loading = false, datas;
-        var keyword = '', filter = 'EndTime', arrange = 'Card', pageNow = 0, pageCount = 0;
+        var keyword = '', filter = 'JustPost', arrange = 'Card', pageNow = 0, pageCount = 0;
 
         document.querySelectorAll('.searchSort').forEach(function (dom) {
             dom.addEventListener('click', function (event) {
@@ -175,6 +175,8 @@
                 this.className = 'btnSelect';
             })
         })
+
+
         function ShowSearchResultCard(queryResult) {
 
             contentRow.innerHTML = '';
