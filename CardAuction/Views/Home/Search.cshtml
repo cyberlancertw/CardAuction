@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="~/Content/HomeCss/cssHomeSearch.css" type="text/css" />
 }
 <h1>關鍵字：@Model.keyword</h1>
-<h2>完全符合：</h2>
+<h2>競標完全符合：</h2>
 <div class="container">
     <div class="row">
-        @foreach (var item in Model.fullMatch)
+        @foreach (var item in Model.auctionFullMatch)
         {
             int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
             int dayRemain = secondRemain / 86400;
@@ -35,12 +35,40 @@
         }
     </div>
 </div>
-<hr />
-<h2>部份符合</h2>
+<h2>交換完全符合：</h2>
 <div class="container">
-    <div class ="row">
+    <div class="row">
+        @foreach (var item in Model.exchangeFullMatch)
+        {
+            int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
+            int dayRemain = secondRemain / 86400;
+            secondRemain %= 86400;
+            int hourRemain = secondRemain / 3600;
+            secondRemain %= 3600;
+            int minuteRemain = secondRemain / 60;
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="cardBorder">
+                    <a href="~/Exchange/Item/@item.fItemId">
+                        <div class="imgWrap">
+                            <img class="cardImg" src="~/Images/ExchangeItemImages/@item.fPhoto" />
+                        </div>
+                        <div class="cardBody">
+                            <p class="pName">@item.fItemName</p>
+                            <p class="pMoney">$ @item.fChangeCount 人</p>
+                            <p class="pTime"><i class="fa-solid fa-clock"></i> @dayRemain 天 @hourRemain 時 @minuteRemain 分</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<h2>競標部份符合</h2>
+<div class="container">
+    <div class="row">
 
-        @foreach (var item in Model.partialMatch)
+        @foreach (var item in Model.auctionPartialMatch)
         {
             int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
             int dayRemain = secondRemain / 86400;
@@ -57,6 +85,35 @@
                         <div class="">
                             <p class="pName">@item.fItemName</p>
                             <p class="pMoney">$ @item.fMoneyNow 元</p>
+                            <p class="pTime"><i class="fa-solid fa-clock"></i> @dayRemain 天 @hourRemain 時 @minuteRemain 分</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<h2>交換部份符合</h2>
+<div class="container">
+    <div class="row">
+
+        @foreach (var item in Model.exchangePartialMatch)
+        {
+            int secondRemain = Convert.ToInt32((item.fEndTime - DateTime.Now).TotalSeconds);
+            int dayRemain = secondRemain / 86400;
+            secondRemain %= 86400;
+            int hourRemain = secondRemain / 3600;
+            secondRemain %= 3600;
+            int minuteRemain = secondRemain / 60;
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="cardBorder">
+                    <a href="~/Exchange/@item.fItemId">
+                        <div class="imgWrap">
+                            <img class="cardImg" src="~/Images/ExchangeItemImages/@item.fPhoto" />
+                        </div>
+                        <div class="">
+                            <p class="pName">@item.fItemName</p>
+                            <p class="pMoney">$ @item.fChangeCount 人</p>
                             <p class="pTime"><i class="fa-solid fa-clock"></i> @dayRemain 天 @hourRemain 時 @minuteRemain 分</p>
                         </div>
                     </a>

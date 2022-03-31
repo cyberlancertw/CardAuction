@@ -96,7 +96,7 @@ namespace CardAuction.Controllers
         {
             Session[CDictionary.SK_UserAccount] = null;
             Session[CDictionary.SK_UserUserId] = null;
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
         [HttpGet]
         public ActionResult Register()
