@@ -99,9 +99,9 @@
             <div class="row" id="filterArrangeBar">
                 <div id="divFilter">
                     &nbsp;&nbsp;篩選&nbsp;&nbsp;
-                    <button class="btnSelect" id="btnEndTime">結束時間</button>
+                    <button class="btnSelect" id="btnJustPost">最新上架</button>
                     <button class="btnNotSelect" id="btnHotClick">熱門</button>
-                    <button class="btnNotSelect" id="btnJustPost">最新上架</button>
+                    <button class="btnNotSelect" id="btnEndTime">結束時間</button>
                 </div>
                 <div id="divArrange" class="d-none d-sm-block">
                     <button class="btnSelect" id="btnCard">
@@ -135,7 +135,7 @@
         var btnList = document.getElementById('btnList');
         var arrangeBtns = [btnCard, btnList];
         var loading = false, datas;
-        var keyword = '', filter = 'EndTime', arrange = 'Card', pageNow = 0, pageCount = 0;
+        var keyword = '', filter = 'JustPost', arrange = 'Card', pageNow = 0, pageCount = 0;
 
         document.querySelectorAll('.searchSort').forEach(function (dom) {
             dom.addEventListener('click', function (event) {
@@ -175,6 +175,8 @@
                 this.className = 'btnSelect';
             })
         })
+
+
         function ShowSearchResultCard(queryResult) {
 
             contentRow.innerHTML = '';
@@ -196,11 +198,11 @@
                 let domBorder = document.createElement('div');
                 domBorder.className = 'cardBorder';
                 let domA = document.createElement('a');
-                domA.href = '@Url.Content("~/Auction/Item/")' + item.fItemId;
+                domA.href = '@Url.Content("~/Exchange/Item/")' + item.fItemId;
                 let domImgWrap = document.createElement('div');
                 domImgWrap.className = 'imgWrap';
                 let domImg = document.createElement('img');
-                domImg.src = '@Url.Content("~/Images/AuctionItemImages/")' + item.fPhoto;
+                domImg.src = '@Url.Content("~/Images/ExchangeItemImages/")' + item.fPhoto;
                 domImg.className = 'cardImg';
                 domImgWrap.appendChild(domImg);
                 let domCardBody = document.createElement('div');
@@ -209,13 +211,13 @@
                 domPname.className = 'pName';
                 domPname.textContent = item.fItemName;
                 domCardBody.appendChild(domPname);
-                let domPmoney = document.createElement('p');
-                domPmoney.className = 'pMoney';
-                domPmoney.textContent = `$ ${item.fMoneyNow} 元`;
-                domCardBody.appendChild(domPmoney);
                 let domPcount = document.createElement('p');
                 domPcount.className = 'pCount';
-                domPcount.textContent = `${item.fBidCount}次出價`;
+                let domSpancount = document.createElement('span');
+                domSpancount.className = 'spanCount';
+                domSpancount.textContent = '提交人數'
+                domPcount.textContent = `  / ${item.fChangeCount} 人`;
+                domPcount.prepend(domSpancount);
                 domCardBody.appendChild(domPcount);
                 let domPtime = document.createElement('p');
                 domPtime.className = 'pTime';
@@ -251,13 +253,13 @@
                 let minuteRemain = Math.floor(secondRemain / 60);
 
                 let domA = document.createElement('a');
-                domA.href = '@Url.Content("~/Auction/Item/")' + item.fItemId;
+                domA.href = '@Url.Content("~/Exchange/Item/")' + item.fItemId;
                 let domBorder = document.createElement('div');
                 domBorder.className = 'listBorder';
                 let domImgWrap = document.createElement('div');
                 domImgWrap.className = 'listImgWrap';
                 let domImg = document.createElement('img');
-                domImg.src = '@Url.Content("~/Images/AuctionItemImages/")' + item.fPhoto;
+                domImg.src = '@Url.Content("~/Images/ExchangeItemImages/")' + item.fPhoto;
                 domImg.className = 'listImg';
                 domImgWrap.appendChild(domImg);
                 domBorder.appendChild(domImgWrap);
@@ -265,13 +267,14 @@
                 divName.className = 'listName';
                 divName.textContent = item.fItemName;
                 domBorder.appendChild(divName);
-                let divMoney = document.createElement('div');
-                divMoney.className = 'listMoney';
-                divMoney.textContent = `$ ${item.fMoneyNow} 元`;
-                domBorder.appendChild(divMoney);
                 let divCount = document.createElement('div');
                 divCount.className = 'listCount';
-                divCount.textContent = `${item.fBidCount}次出價`;
+                divCount.textContent = `  / ${item.fChangeCount} 人`;
+                let domSpancount = document.createElement('span');
+                domSpancount.className = 'spanCount';
+                domSpancount.textContent = '提交人數'
+                divCount.prepend(domSpancount);
+                domBorder.appendChild(divCount);
                 domBorder.appendChild(divCount);
                 let divTime = document.createElement('div');
                 divTime.className = 'listTime';
@@ -332,7 +335,7 @@
             });
             let para = `?sortName=${keyword}&filter=${filter}&page=${page}`;
 
-            xhrSearch.open('GET', '@Url.Content("~/Auction/QueryBySort/")' + para);
+            xhrSearch.open('GET', '@Url.Content("~/Exchange/QueryBySort/")' + para);
             xhrSearch.send();
         }
         function GetCount(keyword) {
@@ -344,7 +347,7 @@
                 GeneratePageButton(itemCount);
             });
             let para = `?sortName=${keyword}`;
-            xhrCount.open('GET', '@Url.Content("~/Auction/GetCount/")' + para);
+            xhrCount.open('GET', '@Url.Content("~/Exchange/GetCount/")' + para);
             xhrCount.send();
         }
         function GeneratePageButton(itemCount) {

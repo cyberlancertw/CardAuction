@@ -78,7 +78,7 @@ namespace CardAuction.Controllers
                 return View();
             }
             string cypher = Service.getCypher(vModel.Password);
-
+            Console.WriteLine(cypher);
             tMember queryResult = db.tMember
                 .Where(m => m.fAccount == vModel.Account && m.fPassword == cypher)
                 .FirstOrDefault();
@@ -118,7 +118,12 @@ namespace CardAuction.Controllers
                 return View();
             }
         }
-
+        public ActionResult Logout()
+        {
+            Session[CDictionary.SK_UserAccount] = null;
+            Session[CDictionary.SK_UserUserId] = null;
+            return RedirectToAction("Index","Home");
+        }
         [HttpGet]
         public ActionResult Register()
         {

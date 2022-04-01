@@ -168,6 +168,7 @@
     <Content Include="Content\AdminCss\cssPsnCreate.css" />
     <Content Include="Content\AdminCss\cssPsnEdit.css" />
     <Content Include="Content\AdminCss\cssPsnManage.css" />
+    <Content Include="Content\ExchangeCss\cssExchangeItemTable.css" />
     <Content Include="Content\ExchangeCss\cssExchangeList.css" />
     <Content Include="Content\ExchangeCss\cssExchange.css" />
     <Content Include="Content\HomeCss\cssHomePost.css" />
@@ -459,13 +460,16 @@
     <Content Include="Images\site\iconYuGiOh.png" />
     <Content Include="Images\site\imgSelectFrame.png" />
     <Content Include="Images\site\imgSelectFrameEmpty.png" />
+    <Content Include="Images\site\logo.svg" />
     <Content Include="Images\site\mtgesika.png" />
     <Content Include="Images\site\nbapanini.png" />
     <Content Include="Images\site\pkmcharizard.png" />
     <Content Include="Images\site\yugiohprismatic.png" />
-    <Content Include="Images\User\Index\SlideShowAD\CuteDog_01.jpeg" />
-    <Content Include="Images\User\Index\SlideShowAD\CuteDog_02.jpeg" />
-    <Content Include="Images\User\Index\SlideShowAD\CuteDog_03.jpg" />
+    <Content Include="Images\User\Index\SlideShowAD\0.jpg" />
+    <Content Include="Images\User\Index\SlideShowAD\1.jpg" />
+    <Content Include="Images\User\Index\SlideShowAD\2.jpg" />
+    <Content Include="Images\User\Index\SlideShowAD\3.jpg" />
+    <Content Include="Images\User\Index\SlideShowAD\4.jpg" />
     <Content Include="Models\dbCardAuction.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
@@ -526,6 +530,9 @@
     <Compile Include="Models\tAuctionBid.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tAuctionDetail.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tAuctionFavorite.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
@@ -548,6 +555,9 @@
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tExchangeItem.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tExchangeItemTable.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tMember.cs">
@@ -604,6 +614,7 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="Images\ExchangeItemImages\.gitkeep" />
     <EntityDeploy Include="Models\dbCardAuction.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbCardAuction.Designer.cs</LastGenOutput>
@@ -611,7 +622,6 @@
     <Content Include="Models\dbCardAuction.edmx.diagram">
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Content>
-    <Content Include="Images\ExchangeItemImages\.gitkeep" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LayoutCOPY.cshtml" />
@@ -649,6 +659,8 @@
     <Content Include="Views\Admin\AdvCreate.cshtml" />
     <Content Include="Views\Home\Post.cshtml" />
     <Content Include="Views\Member\MyPage.cshtml" />
+    <Content Include="Views\Exchange\Couple.cshtml" />
+    <Content Include="Views\Auction\Result.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

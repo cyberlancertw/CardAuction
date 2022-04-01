@@ -16,11 +16,11 @@ namespace CardAuction.Controllers
 
         dbCardAuctionEntities db = new dbCardAuctionEntities();
 
-        // GET: Auction
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        //GET: Auction
+        public ActionResult Index()
+        {
+            return RedirectToAction("List");
+        }
 
         [HttpGet]
         public ActionResult Item(string id)
@@ -34,6 +34,17 @@ namespace CardAuction.Controllers
             {
                 return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction", ToAction = "List" });
             }
+
+            if (db.tAuctionResult.Find(id) != null)     // tAuctionResult 有東西表示此商品已結結標
+            {
+                return RedirectToAction("Result", new { id = id });
+            }
+            if (result.fDelete && result.fEndTime > DateTime.Now)            // 被檢舉下架或不明原因
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction", ToAction = "List" });
+            }
+
+            
             string postUserId = result.fPostUserId;
             ViewBag.PostUserAccount = db.tMember.Find(postUserId).fAccount;
 
@@ -52,6 +63,40 @@ namespace CardAuction.Controllers
             return View(result);
         }
 
+        public ActionResult Result(string id)
+        {
+            if(id == null)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "需要商品編號", ToController = "Auction", ToAction = "List" });
+            }
+            tAuctionItem item = db.tAuctionItem.Find(id);
+            if(item == null)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品不存在", ToController = "Auction", ToAction = "List" });
+            }
+            tAuctionResult result = db.tAuctionResult.Find(id);
+            if(result == null)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "商品還未結束競標", ToController = "Auction", ToAction = "Item", ToId = id });
+            }
+            string postUserId = result.fPostUserId;
+            string winUserId = result.fWinUserId;
+            
+            if (Session[CDictionary.SK_UserUserId] == null)
+            {
+                TempData[CDictionary.SK_RedirectToController] = "Auction";
+                TempData[CDictionary.SK_RedirectToAction] = "Result";
+                TempData[CDictionary.SK_RedirectToId] = id;
+                return RedirectToAction("Login", "Member");
+            }
+
+            if(Session[CDictionary.SK_UserUserId].ToString() != postUserId || Session[CDictionary.SK_UserUserId].ToString() != winUserId)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = "您非得標者或商品主人", ToController = "Auction", ToAction = "List" });
+            }
+
+            return View(result);
+        }
         [HttpGet]
         public ActionResult Post()
         {
@@ -132,6 +177,7 @@ namespace CardAuction.Controllers
             createItem.fTransSeven = vModel.isSeven ? vModel.fTransSeven : -1;
             createItem.fTransFami = vModel.isFami ? vModel.fTransFami : -1;
             createItem.fTransLogi = vModel.isLogi ? vModel.fTransLogi : -1;
+            createItem.fUserInfo = vModel.fUserInfo;
 
             createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結標時間
             createItem.fCreateTime = nowTime;                                                       // 現在時間為建立時間
@@ -218,6 +264,7 @@ namespace CardAuction.Controllers
                             });
                         return Json(queryResult, JsonRequestBehavior.AllowGet);
                     }
+                
                 default:
                     break;
             }
@@ -249,7 +296,7 @@ namespace CardAuction.Controllers
             {
                 return;
             }
-            //  無直購                 有直購但出不到直購價
+            //  無直購             ||       有直購但出不到直購價
             if (item.fBuyPrice < 0 || amount < item.fBuyPrice)
             {
                 UpdateBid(item, amount, userId, itemId);
@@ -260,8 +307,7 @@ namespace CardAuction.Controllers
             if (item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
             {
                 UpdateBid(item, amount, userId, itemId);
-
-                // 開新的結算紀錄
+                //WinBid(item, amount, userId, itemId);
             }
 
             return;
@@ -271,6 +317,7 @@ namespace CardAuction.Controllers
         {
             item.fMoneyNow = amount;
             item.fBidCount++;
+            item.fTopBidUserId = userId;
             tAuctionBid newBid = new tAuctionBid
             {
                 fItemId = itemId,
@@ -365,6 +412,121 @@ namespace CardAuction.Controllers
                 Console.WriteLine(e.ToString());
             }
             return;
+        }
+
+        public void WinBid(tAuctionItem item, int amount, string userId, string itemId)
+        {
+            tAuctionResult query = db.tAuctionResult.Find(itemId);
+            if(query != null)               // 已有結果，什麼都不做
+            {
+                return;
+            }
+            tAuctionResult newResult = new tAuctionResult
+            {
+                fResultId = itemId,
+                fPostUserId = item.fPostUserId,
+                fWinUserId = userId,
+                fTotalMoney = amount,
+                fBidCount = item.fBidCount,
+                fWinTime = DateTime.Now,
+                fBidMoney = item.fMoneyNow,
+                fDeliveryInfo = string.Empty
+            };
+
+            db.tAuctionResult.Add(newResult);              // 結果存入 tAuctionResult
+            item.fDelete = true;                           // tAuctionItem 設為結束
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.StackTrace.ToString());
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return;
+        }
+
+        public void TimeUp(string itemId)
+        {
+            tAuctionItem item = db.tAuctionItem.Find(itemId);
+            if (item == null || item.fEndTime > DateTime.Now)           // 查不到商品 或 有商品但時間未結束
+            {
+                return;
+            }
+            if(item.fBidCount == 0)                                 // 時間到，但無人出價
+            {
+                item.fDelete = true;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                return;
+            }
+            
+            tAuctionResult newResult = new tAuctionResult           // 時間到，有人出價
+            {
+                fResultId = itemId,
+                fPostUserId = item.fPostUserId,
+                fWinUserId = item.fTopBidUserId,
+                fTotalMoney = item.fMoneyNow,
+                fBidCount = item.fBidCount,
+                fWinTime = item.fEndTime,
+                fBidMoney = item.fMoneyNow,
+                fDeliveryInfo = string.Empty
+            };
+
+            db.tAuctionResult.Add(newResult);              // 結果存入 tAuctionResult
+            item.fDelete = true;                           // tAuctionItem 設為結束
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.StackTrace.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return;
+        }
+
+        public ActionResult FinishInfo(string itemId)
+        {
+            if(itemId == null)
+            {
+                return Json(new { msg = "null itemId" }, JsonRequestBehavior.AllowGet);
+            }
+            tAuctionItem item = db.tAuctionItem.Find(itemId);
+            if(item == null)
+            {
+                return Json(new { msg = "nullItem" }, JsonRequestBehavior.AllowGet);
+            }
+            if (string.IsNullOrEmpty(item.fTopBidUserId))
+            {
+                return Json(new { msg = "notTop"}, JsonRequestBehavior.AllowGet);
+            }
+            string winUserAcc = db.tMember.Find(item.fTopBidUserId).fAccount;
+            return Json(new { 
+                winUserAcc = winUserAcc,
+                winMoney = item.fMoneyNow,
+                transPerson = item.fTransPerson,
+                transSeven = item.fTransSeven,
+                tranFami = item.fTransFami,
+                tranLogi = item.fTransLogi
+            }, JsonRequestBehavior.AllowGet);
+
         }
     }
 

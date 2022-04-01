@@ -1,6 +1,6 @@
 ﻿@using CardAuction.Models
 @{
-    Layout = "~/Views/Shared/_LayoutShort.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "上架";
     ViewBag.pageTitle = "新增競標商品";
     string username = null;
@@ -176,56 +176,64 @@
                             *買家支付運費
                         </div>
                         <div class="content col-12 col-md-9" id="divTrans">
-                            <div class="row">
-                                <div class="col-4 col-md-4">
-                                    <label class="fomr-check-label" for="chkPerson">面交</label>
-                                </div>
-                                <div class="col-4 offset-md-1 col-md-4">
-                                    <input type="number" name="fTransPerson" id="txtPerson" min="0" value="0" disabled />
-                                </div>
-                                <div class="form-check form-switch col-4 col-md-3">
-                                    <input type="checkbox" class="form-check-input" id="chkPerson" name="isPerson" value="true" />
-                                    <input type="hidden" name="isPerson" value="false" />
-                                </div>
+                            <div class="col-4">
+                                <label class="fomr-check-label" for="chkPerson">面交</label>
                             </div>
-                            <div class="row">
-                                <div class="col-4 col-md-4">
-                                    <label class="fomr-check-label" for="chkSeven">7-11</label>
-                                </div>
-                                <div class="col-4 offset-md-1 col-md-4">
-                                    <input type="number" name="fTransSeven" id="txtSeven" min="0" value="0" disabled />
-                                </div>
-                                <div class="form-check form-switch col-4 col-md-3">
-                                    <input type="checkbox" class="form-check-input" id="chkSeven" name="isSeven" value="true" />
-                                    <input type="hidden" name="isSeven" value="false" />
-                                </div>
+                            <div class="col-4">
+                                <input type="number" name="fTransPerson" id="txtPerson" min="0" value="0" disabled />
                             </div>
-                            <div class="row">
-                                <div class="col-4 col-md-4">
-                                    <label class="fomr-check-label" for="chkFami">全家</label>
-                                </div>
-                                <div class="col-4 offset-md-1 col-md-4">
-                                    <input type="number" name="fTransFami" id="txtFami" min="0" value="0" disabled />
-                                </div>
-                                <div class="form-check form-switch col-4 col-md-3">
-                                    <input type="checkbox" class="form-check-input" id="chkFami" name="isFami" value="true" />
-                                    <input type="hidden" name="isFami" value="false" />
-                                </div>
+                            <div class="form-check form-switch col-4 col-md-3">
+                                <input type="checkbox" class="form-check-input" id="chkPerson" name="isPerson" value="true" />
+                                <input type="hidden" name="isPerson" value="false" />
                             </div>
-                            <div class="row">
-                                <div class="col-4 col-md-4">
-                                    <label class="fomr-check-label" for="chkLogi">物流</label>
-                                </div>
-                                <div class="col-4 offset-md-1 col-md-4">
-                                    <input type="number" name="fTransLogi" id="txtLogi" min="0" value="0" disabled />
-                                </div>
-                                <div class="form-check form-switch col-4 col-md-3">
-                                    <input type="checkbox" class="form-check-input" id="chkLogi" name="isLogi" value="true" />
-                                    <input type="hidden" name="isLogi" value="false" />
-                                </div>
+
+                            <div class="col-4">
+                                <label class="fomr-check-label" for="chkSeven">7-11</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="number" name="fTransSeven" id="txtSeven" min="0" value="0" disabled />
+                            </div>
+                            <div class="form-check form-switch col-4 col-md-3">
+                                <input type="checkbox" class="form-check-input" id="chkSeven" name="isSeven" value="true" />
+                                <input type="hidden" name="isSeven" value="false" />
+                            </div>
+
+                            <div class="col-4">
+                                <label class="fomr-check-label" for="chkFami">全家</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="number" name="fTransFami" id="txtFami" min="0" value="0" disabled />
+                            </div>
+                            <div class="form-check form-switch col-4 col-md-3">
+                                <input type="checkbox" class="form-check-input" id="chkFami" name="isFami" value="true" />
+                                <input type="hidden" name="isFami" value="false" />
+                            </div>
+
+                            <div class="col-4">
+                                <label class="fomr-check-label" for="chkLogi">物流</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="number" name="fTransLogi" id="txtLogi" min="0" value="0" disabled />
+                            </div>
+                            <div class="form-check form-switch col-4 col-md-3">
+                                <input type="checkbox" class="form-check-input" id="chkLogi" name="isLogi" value="true" />
+                                <input type="hidden" name="isLogi" value="false" />
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="row divContent">
+                        <div class="contentHead col-12 col-md-3">
+                            <label for="UserInfo">*聯絡資訊</label>
+                        </div>
+                        <div class="col-12 col-md-9" id="divUserInfo">
+                            <textarea name="fUserInfo" id="UserInfo" maxlength="300" placeholder="聯絡電話、E-mail" required></textarea>
+                            <p id="countUserInfo">
+                                0/300
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
                 <div id="buttons">
                     <button id="btnCancel">取消</button>
@@ -234,14 +242,14 @@
             </div>
         </div>
     </form>
+@section scripts{
     <script>
 
         var domItemName = document.getElementById('ItemName');
         var countName = document.getElementById('countItemName');
         domItemName.addEventListener('change', function () {
             countName.textContent = `${domItemName.value.length}/60`;
-        })
-
+        });
 
         for (let i = 0; i < 4; i++) {
             let picBlock = document.getElementById('picBlock' + i);
@@ -263,7 +271,7 @@
                 reader.readAsDataURL(file);
                 reader.addEventListener('load', function () {
                     picBlock.style.backgroundImage = `url('${reader.result}')`;
-                })
+                });
             });
             picBlock.addEventListener('click', function () {
                 inputFile.click();
@@ -287,9 +295,6 @@
             })
         }
 
-        function addPicture(i, a) {
-
-        }
         var domItemName = document.getElementById('ItemName');
         var countName = document.getElementById('countItemName');
         domItemName.addEventListener('keyup', function () {
@@ -299,6 +304,11 @@
         var countDescription = document.getElementById('countDescription');
         domItemDescription.addEventListener('keyup', function () {
             countDescription.textContent = `${domItemDescription.value.length}/800`;
+        });
+        var domUserInfo = document.getElementById('UserInfo');
+        var countUserInfo = document.getElementById('countUserInfo');
+        domUserInfo.addEventListener('keyup', function () {
+            countUserInfo.textContent = `${domUserInfo.value.length}/300`;
         });
 
         let arySwitch = ['BuyPrice','chkPerson','chkSeven','chkFami','chkLogi'];
@@ -314,5 +324,6 @@
         document.getElementById('btnCancel').addEventListener('click', function (event) {
             event.preventDefault();
             location.href = '@Url.Content("~/")';
-        })
+        });
     </script>
+}

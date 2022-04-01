@@ -14,6 +14,12 @@ namespace CardAuction.Controllers
         dbCardAuctionEntities db = new dbCardAuctionEntities();
 
         // GET: Exchange
+        public ActionResult Index()
+        {
+            return RedirectToAction("List");
+        }
+
+
         [HttpGet]
         public ActionResult Item(string id)
         {
@@ -142,7 +148,101 @@ namespace CardAuction.Controllers
             return RedirectToAction("List");
 
         }
+        [HttpGet]
+        public ActionResult Couple(string id)
+        {
+            ViewBag.itemId = id;
+            if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
+            {
+                TempData[CDictionary.SK_RedirectToAction] = "Couple";
+                TempData[CDictionary.SK_RedirectToController] = "Exchange";
+                return RedirectToAction("Login", "Member");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult Couple(CExchangePostViewModel vModel)
+        {
+            
+            if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
+            {
+                TempData[CDictionary.SK_RedirectToAction] = "Item";
+                TempData[CDictionary.SK_RedirectToController] = "Exchange";
+                return RedirectToAction("Login", "Member");
+            }
 
+            tExchangeItemTable createItem = new tExchangeItemTable();
+            DateTime nowTime = DateTime.Now;
+            Random rnd = new Random();
+            string fileNameInitial = nowTime.ToString("yyyyMMddHHmmss") + Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6) + rnd.Next(100, 1000).ToString();
+            createItem.fItemTableId = fileNameInitial;
+            List<HttpPostedFileBase> photos = new List<HttpPostedFileBase>();
+
+            if (vModel.Photo0 != null)                 // 無視沒上傳圖片的位置，全部往前推
+            {
+                photos.Add(vModel.Photo0);
+            }
+            if (vModel.Photo1 != null)
+            {
+                photos.Add(vModel.Photo1);
+            }
+            if (vModel.Photo2 != null)
+            {
+                photos.Add(vModel.Photo2);
+            }
+            if (vModel.Photo3 != null)
+            {
+                photos.Add(vModel.Photo3);
+            }
+            if (photos.Count == 0)
+            {
+                ViewData["errorMessage"] = "請上傳圖片";
+                return View();
+            }
+            int count = 0;
+            foreach (HttpPostedFileBase photo in photos)
+            {
+                // 檔名組成：日期、時間、6數字組成字串、編號.副檔名
+                string newFileName = fileNameInitial + count + Path.GetExtension(photo.FileName);
+
+                switch (count)
+                {
+                    case 0: createItem.fPhoto0 = newFileName; break;
+                    case 1: createItem.fPhoto1 = newFileName; break;
+                    case 2: createItem.fPhoto2 = newFileName; break;
+                    case 3: createItem.fPhoto3 = newFileName; break;
+                    default: break;
+                }
+                // 存入 ~/Images/ExchangeItemImages 資料夾內
+                photo.SaveAs(Server.MapPath("~/Images/ExchangeItemImages/") + newFileName);
+                count++;
+            }
+            createItem.fItemTableId = vModel.fItemTableId;
+            createItem.fItemId = vModel.itemId;
+            createItem.fItemName = vModel.fItemName;
+            createItem.fSort = vModel.fSort;
+            createItem.fPostUserId = vModel.fPostUserId;
+            createItem.fItemDescription = vModel.fItemDescription;
+            createItem.fItemLocation = vModel.fItemLocation;
+            createItem.fItemLevel = vModel.fItemLevel;
+            
+            createItem.fDelete = false;
+            createItem.fReport = 0;
+
+            db.tExchangeItemTable.Add(createItem);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Exchange", ToAction = "List" });
+            }
+            return RedirectToAction("ItemTable", new { id =  vModel.itemId});
+        }
         [HttpGet]
         public ActionResult List()
         {
@@ -194,7 +294,7 @@ namespace CardAuction.Controllers
                     {
                         var queryResult = db.tExchangeItem
                             .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
-                            .OrderBy(p => p.fCreateTime)
+                            .OrderByDescending(p => p.fCreateTime)
                             .Skip(page * 12)
                             .Take(12)
                             .Select(n => new QueryResult 
@@ -234,6 +334,7 @@ namespace CardAuction.Controllers
             }
             return Json(null, JsonRequestBehavior.AllowGet);
         }
+
         public void WriteComment(string itemId, string message)//寫評論
         {
             if (Session[CDictionary.SK_UserUserId] == null)
@@ -241,19 +342,19 @@ namespace CardAuction.Controllers
                 return;
             }
             string userId = Session[CDictionary.SK_UserUserId].ToString();
-            bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId && m.fContent == message && m.fFromUserId == userId);
+            bool isExist = db.tCommentExchange.Any(m => m.fItemId == itemId && m.fContent == message && m.fFromUserId == userId);
             if (isExist)
             {
                 return;
             }
-            tCommentAuction newComment = new tCommentAuction
+            tCommentExchange newComment = new tCommentExchange
             {
                 fItemId = itemId,
                 fFromUserId = userId,
                 fPostTime = DateTime.Now,
                 fContent = message
             };
-            db.tCommentAuction.Add(newComment);
+            db.tCommentExchange.Add(newComment);
             try
             {
                 db.SaveChanges();
@@ -269,7 +370,34 @@ namespace CardAuction.Controllers
             return db.tExchangeItem.Where(m => m.fSort.Contains(sortName)).Count();
         }
 
-
+        public ActionResult ExchangeItemUserB (string itemId)
+        {
+            bool isExist = db.tExchangeItemTable.Any(m => m.fItemId == itemId);
+            if (isExist)
+            {
+                var queryResult = db.tExchangeItemTable
+                    .Where(p => p.fItemId == itemId)
+                    .Join(db.tMember,
+                          c => c.fItemTableId,
+                          m => m.fUserId,
+                          (c, m) => new
+                          {
+                              postAcc = m.fAccount,   //帳戶
+                              ItemDescription = c.fItemDescription,   //內容
+                              img0 = c.fPhoto0,
+                              img1 = c.fPhoto1,
+                              img2 = c.fPhoto2,
+                              img3 = c.fPhoto3,
+                              Sort = c.fSort,
+                              ItemLevel = c.fItemLevel,
+                              ItemLocation = c.fItemLocation
+                              //postTime = c.fPostTime  //發布時間
+                          });
+                    //.OrderBy(n => n.postTime); ;
+                return Json(queryResult, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
 
 
     }

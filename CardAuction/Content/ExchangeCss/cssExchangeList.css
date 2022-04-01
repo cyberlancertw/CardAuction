@@ -105,14 +105,14 @@ a{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.listMoney {
+/*.listMoney {
     text-align: center;
     width: 15%;
     font-weight: bold;
     font-size: 1.5rem;
     color: #ab8f4e;
 }
-.listCount {
+*/.listCount {
     text-align: center;
     width: 12%;
     font-size: 1.3rem;
@@ -145,13 +145,18 @@ a{
     overflow: hidden;
     text-overflow:ellipsis;
 }
-.pMoney{
+/*.pMoney{
     font-weight: bold;
     font-size: 1.5rem;
     color: #ab8f4e;
 }
-.pCount{
+*/.pCount{
 
+}
+.spanCount {
+    color: #ab8f4e;
+    font-size:1.3rem;
+    font-weight:600;
 }
 .pTime{
     font-size: 1.1rem;

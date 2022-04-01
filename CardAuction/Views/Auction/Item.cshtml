@@ -9,16 +9,14 @@
     string filepath3 = Model.fPhoto3;
     int leastBid = Model.fMoneyNow + Model.fMoneyStep;
     int secondTotalRemain = Convert.ToInt32((Model.fEndTime - DateTime.Now).TotalSeconds);
-
+    string grading = Model.fGrading == "None" ? "沒有鑑定" : Model.fGrading.Substring(2);
 }
 
 @section styles{
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="~/Content/Bootstrap/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/AuctionCss/cssAuctionItem.css" type="text/css" />
 }
-<div class="container">
-    <div class="mt-5" id="divMainContent">
+
+    <div class="mt-5">
         <div class="mb-3" id="divSort">
             競標 / @Model.fSort
         </div>        
@@ -149,7 +147,7 @@
                             商品說明
                         </div>
                         <div id="divDescriptContent">
-                            <div class="mt-2 mb-4">鑑定公司： @Model.fGrading</div>
+                            <div class="mt-2 mb-4">鑑定公司：@grading</div>
                             <div class="mb-4">賣家：@ViewBag.PostUserAccount</div>
                             <div class="mb-4">
                                 @Model.fItemDescription
@@ -204,7 +202,7 @@
             </div>
         </div>
     </div>
-</div>
+
 @section scripts{
     <script>
 
@@ -212,6 +210,7 @@
         var secondRemain = @secondTotalRemain ;
         var leastBid = @leastBid;
         var domTime = document.getElementById('stampTime');
+        var btnReport = document.getElementById('btnReport');
         var btnBuy = document.getElementById('btnBuy');
         var btnBid = document.getElementById('btnBid');
         var txtBid = document.getElementById('txtBid');
@@ -226,29 +225,14 @@
         var bidHere = document.getElementById('bidHere');
 
 
-        var fItemId = '@Model.fItemId';
+        var itemId = '@Model.fItemId';
 
         var timer = window.setInterval(function () {
             secondRemain -= 7;
             refreshStampTime(secondRemain);
         }, 7000);
 
-        function refreshStampTime(t) {
-            if (t <= 0) {
-                domTime.textContent = '競標已結束';
-                clearInterval(timer);
-                domBuy.setAttribute('disabled', 'true');
-                domBid.setAttribute('disabled', 'true');
-                domTxtBid.setAttribute('disabled', 'true');
-                return;
-            }
-            let day = Math.floor(t / 86400);
-            t %= 86400;
-            let hr = Math.floor(t / 3600);
-            t %= 3600;
-            let min = Math.floor(t / 60);
-            domTime.textContent = `${day} 天 ${hr} 時 ${min} 分 結束`;
-        }
+
         document.querySelectorAll('.imgSmall').forEach(function (dom) {
             dom.addEventListener('mouseover', function () {
                 this.classList.remove('imageOut');
@@ -274,8 +258,16 @@
         refreshStampTime(secondRemain);
         @if(Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString().Equals(Model.fPostUserId))
         {
-        @:btnFavorite.disabled = true;
-        @:btnBid.disabled = true;
+        <text>
+        btnFavorite.disabled = true;                                          // 有登入而且就是上架者自己
+        btnReport.disabled = true;                                            // 則不給按追蹤、檢舉、購買和出價
+        txtBid.disabled = true;
+        btnBid.disabled = true;
+        if (btnBuy) {
+            btnBuy.disabled = true;                                           // 購買鍵可能不存在，另外處理
+        }
+        
+        </text>
         }
 
 
@@ -284,53 +276,62 @@
             TempData[CDictionary.SK_RedirectToAction] = "Item";
             TempData[CDictionary.SK_RedirectToController] = "Auction";
             TempData[CDictionary.SK_RedirectToId] = Model.fItemId;
-
-        @:btnFavorite.addEventListener('click', function (event) {
-            @:event.preventDefault();
-            @:location.href = '@Url.Content("~/Member/Login")';
-        @:});
-
-        @:btnBid.addEventListener('click', function () {
-            @:location.href = '@Url.Content("~/Member/Login")';
-        @:});
-
-        @:btnCommentSend.addEventListener('click', function () {
-            @:location.href = '@Url.Content("~/Member/Login")';
-        @:});
+        <text>
+        let btns = [btnFavorite, btnReport, btnBid, btnCommentSend];                   // 無登入者，若點擊這些按鈕，送去登入頁
+        btns.forEach(dom => {
+            dom.addEventListener('click', event => {
+                event.preventDefault();
+                location.href = '@Url.Content("~/Member/Login")';
+            });
+        });
+        if (btnBuy) {                                                                   // 購買鍵可能不存在，另外處理
+            btnBuy.addEventListener('click', event => {
+                event.preventDefault();
+                location.href = '@Url.Content("~/Member/Login")';
+            });
+        }
+        </text>
         }
         else
         {
-        @:btnFavorite.addEventListener('click', function (event) {
-            @:event.preventDefault();
-            @:let xhr = new XMLHttpRequest();
-                @:xhr.addEventListener('load', function() {
-                    @:let isFavorite = xhr.response;
-                    @:toggleFavorite(isFavorite);
-                @:});
-            @:let para = `?ItemId=${fItemId}`;
-            @:xhr.open('GET', '@Url.Content("~/Member/FavoriteAuction")' + para);
-            @:xhr.send();
-        @:});
+        <text>
+        btnFavorite.addEventListener('click', function (event) {                // 無登入者，或非主人的帳號登入，可按功能
+            event.preventDefault();                                             // 有追蹤、出價
+            let xhr = new XMLHttpRequest();
+                xhr.addEventListener('load', function() {
+                    let isFavorite = xhr.response;
+                    toggleFavorite(isFavorite);
+                });
+            let para = `?ItemId=${itemId}`;
+            xhr.open('GET', '@Url.Content("~/Member/FavoriteAuction")' + para);
+            xhr.send();
+        });
 
-        @:btnBid.addEventListener('click', function () {
-            @:let amount = parseInt(txtBid.value);
+        btnBid.addEventListener('click', function () {
+            let amount = parseInt(txtBid.value);
 
-            @:if (amount >= @leastBid) {
-            @:    sendBid(amount);
-            @:}
-            @:txtBid.value = '';
-            @:txtBid.focus();
-        @:});
+            if (amount >= leastBid) {
+                sendBid(amount);
+            }
+            txtBid.value = '';
+            txtBid.focus();
+        });
 
-        @:btnCommentSend.addEventListener('click', function () {
-            @:let content = txtComment.value;
-            @:if (content != '') {
-            @:    sendComment(content);
-            @:}
-            @:txtComment.value = '';
-            @:countComment.textContent = '0/100';
-            @:txtComment.focus();
-        @:});
+        btnCommentSend.addEventListener('click', function () {
+            let content = txtComment.value;
+            if (content != '') {
+                sendComment(content);
+            }
+            txtComment.value = '';
+            countComment.textContent = '0/100';
+            txtComment.focus();
+        });
+
+        btnBuy.addEventListener('click', function () {
+            sendBid(@Model.fBuyPrice);          // 直購
+            Finish();
+        });
+        </text>
         }
 
 
@@ -344,10 +345,35 @@
             txtComment.focus();
         });
 
+        function refreshStampTime(t) {
+            if (t <= 0) {
+                domTime.textContent = '競標已結束';
+                window.clearInterval(timer);
+                if (btnBuy) {
+                    btnBuy.disabled = true;
+                }
+                btnBid.disabled = true;
+                txtBid.disabled = true;
+                txtComment.disabled = true;
+                btnCommentSend.disabled = true;
+                btnReport.disabled = true;
+
+                let para = `?itemId=${iemId}`;
+
+                return;
+            }
+            let day = Math.floor(t / 86400);
+            t %= 86400;
+            let hr = Math.floor(t / 3600);
+            t %= 3600;
+            let min = Math.floor(t / 60);
+            domTime.textContent = `${day} 天 ${hr} 時 ${min} 分 結束`;
+        }
+
         function sendBid(amount) {
             let xhr = new XMLHttpRequest();
             xhr.addEventListener('load', receiveBidRecords);
-            let para = `?itemId=${fItemId}&amount=${amount}`;
+            let para = `?itemId=${itemId}&amount=${amount}`;
             xhr.open('GET', '@Url.Content("~/Auction/Bid")' + para);
             xhr.send();
         }
@@ -360,13 +386,13 @@
                     refreshBidRecord(datas);
                 }
             });
-            let para = `?itemId=${fItemId}`;
+            let para = `?itemId=${itemId}`;
             xhr.open('GET', '@Url.Content("~/Auction/ReceiveBidRecords")' + para);
             xhr.send();
         }
         function sendComment(content) {
             let xhr = new XMLHttpRequest();
-            let para = `?itemId=${fItemId}&message=${content}`;
+            let para = `?itemId=${itemId}&message=${content}`;
             xhr.addEventListener('load', receiveComments);
             xhr.open('GET', '@Url.Content("~/Auction/WriteComment")' + para);
             xhr.send();
@@ -381,7 +407,7 @@
                     refreshComments(datas);
                 }
             });
-            let para = `?ItemId=${fItemId}`;
+            let para = `?ItemId=${itemId}`;
             xhr.open('GET', '@Url.Content("~/Auction/ReceiveComments")' + para);
             xhr.send();
         }
@@ -411,8 +437,9 @@
                 docFrag.appendChild(domRow);
             }
             bidHere.appendChild(docFrag);
-            document.getElementById('MoneyNow').textContent = '$ ' + datas[0].bidMoney + ' 元';
-
+            leastBid = parseInt(datas[0].bidMoney);
+            document.getElementById('MoneyNow').textContent = '$ ' + leastBid + ' 元';
+            txtBid.min = leastBid;
         }
 
         function refreshComments(datas) {
@@ -449,7 +476,7 @@
                 toggleFavorite(isFavorite);
 
             });
-            let para = `?ItemId=${fItemId}`;
+            let para = `?itemId=${itemId}`;
             xhr.open('GET', '@Url.Content("~/Member/IsFavorite")' + para);
             xhr.send();
         };
@@ -472,6 +499,25 @@
                 btnFavorite.classList.add('notFollowing');
             }
         }
+        function Finish() {
+            window.clearInterval(timer);
+            domTime.textContent = '競標已結束';
+            let area = document.getElementById('divMoney');
+            //area.innerHTML = '';
 
+            let para = `/?itemId=${itemId}`;
+            fetch('@Url.Content("~/Auction/FinishInfo")' + para, { method: 'GET' })
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response);
+                });
+
+        }
+        function FinishInfo() {
+            let docFrag = document.createDocumentFragment();
+            let domWinInfo = document.createElement('div');
+            domWinInfo.className = 'row moneyRow rowBuy';
+            domWinInfo.textContent = '';
+        }
     </script>
 }

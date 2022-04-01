@@ -1,22 +1,41 @@
 ﻿/*  淡灰 ced3d8   ebebeb    深灰 6b6b6b   黑 333333    藏青 1f3444    金  ab8f4e    白ffffff */
-@media only screen and (min-width: 769px) {
+@media (max-width: 575px) {
     .picBlock {
-        width: 13vw;
-        height: 13vw    
+        width: 20rem;
+        height: 24rem;
+        background-size: 20rem;
     }
 }
 
-@media only screen and (min-width: 321px) and (max-width: 768px) {
+@media (min-width: 576px) and (max-width: 767px) {
     .picBlock {
-        width: 30vw;
-        height: 30vw;
+        width: 14rem;
+        height: 18rem;
+        background-size: 14rem;
     }
 }
 
-@media only screen and (min-width: 0px) and (max-width: 320px) {
+@media (min-width: 768px) and (max-width: 991px) {
     .picBlock {
-        width: 90vw;
-        height: 90vw;
+        width: 6.8rem;
+        height: 10rem;
+        background-size: 6.8rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width:1199px) {
+    .picBlock {
+        width: 9rem;
+        height: 13rem;
+        background-size: 9rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .picBlock {
+        width: 11rem;
+        height: 15rem;
+        background-size: 11rem;
     }
 }
 
@@ -52,7 +71,6 @@
     border-radius: 14px;
     vertical-align: central;
     background-image: url("../../images/site/imgSelectFrameEmpty.png");
-    background-size: 14vw;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -98,6 +116,7 @@
     font-size: 22px;
     color: #6b6b6b;
 }
+
 #divImgSelect{
     margin-bottom: 70px;
 }
@@ -113,7 +132,7 @@ div.content{
     border: 2px solid #ced3d8;
     border-radius: 6px;
 }
-#ItemDescription{
+#ItemDescription, #UserInfo{
     width: 100%;
     height: 250px;
     border: 2px solid #ced3d8;
@@ -131,17 +150,21 @@ div.content{
     width: 80%;
 }
 #divTrans{
-    padding-top: 20px;
-    padding-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
     border: 2px solid #ced3d8;
     border-radius: 5px;
+}
+#divTrans>div{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 [id^="txt"]{
     width: 100%;
 }
-#divTrans>div.row{
-    padding: 10px;
-}
+
 label[for^="chk"]{
     color: #333333;
 }
@@ -173,7 +196,7 @@ label[for^="chk"]{
 [id^="inputFile"]{
     display: none;
 }
-#countItemName, #countDescription{
+#countItemName, #countDescription, #countUserInfo{
     text-align: right;
     margin-right: 10px;
 }

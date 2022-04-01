@@ -16,15 +16,17 @@ namespace CardAuction.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();              // 之後塞AuctionItem和ExchangeItem，也可以不用，搜尋用 Ajax 撈出來放不用 vModel
+            return View();
         }
 
+
         [HttpGet]
-        public ActionResult Error(string ErrorMessage, string ToController, string ToAction)
+        public ActionResult Error(string ErrorMessage, string ToController, string ToAction, string ToId)
         {
             TempData["ErrorMessage"] = ErrorMessage;
             TempData["ToController"] = ToController;
             TempData["ToAction"] = ToAction;
+            TempData["ToId"] = ToId;
             return View();
         }
         [HttpGet]
@@ -34,41 +36,57 @@ namespace CardAuction.Controllers
             vModel.keyword = id;
             if (string.IsNullOrEmpty(id))                               // 空的
             {
-                vModel.fullMatch = new List<QueryResult>();
-                vModel.partialMatch = new List<QueryResult>();
+                vModel.auctionFullMatch = new List<QueryResult>();
+                vModel.auctionPartialMatch = new List<QueryResult>();
+                vModel.exchangeFullMatch = new List<QueryResult>();
+                vModel.exchangePartialMatch = new List<QueryResult>();
                 return View(vModel);
             }
 
             string[] keywordList = id.Split(' ');
             int keywordCount = keywordList.Length;
 
-            IQueryable<QueryItem> informations = db.tAuctionItem        // 撈商品名、描述、分類、鑑定 成待查字串
+            IQueryable<QueryItem> auctionInformations = db.tAuctionItem        // 撈商品名、描述、分類、鑑定 成索引
                 .Select(m => new QueryItem
                 {
                     itemId = m.fItemId,
                     information = m.fItemName + m.fItemDescription + m.fSort + m.fGrading
                 });
-            List<List<string>> queryResultItemId = new List<List<string>>();
+            IQueryable<QueryItem> exchangeInformations = db.tExchangeItem        // 撈商品名、描述、分類、鑑定 成索引
+                .Select(m => new QueryItem
+                {
+                    itemId = m.fItemId,
+                    information = m.fItemName + m.fItemDescription + m.fSort + m.fItemLevel + m.fItemLocation
+                });
+            List<List<string>> auctionQueryResultItemId = new List<List<string>>();
+            List<List<string>> exchangeQueryResultItemId = new List<List<string>>();
 
             foreach (string queryKey in keywordList)
             {
-                var resultStrings = informations.Where(m => m.information.Contains(queryKey)).Select(r => r.itemId).ToList();
-                queryResultItemId.Add(resultStrings);
+                var auctionResultStrings = auctionInformations.Where(m => m.information.Contains(queryKey)).Select(r => r.itemId).ToList();
+                var exchangeResultStrings = exchangeInformations.Where(m => m.information.Contains(queryKey)).Select(r => r.itemId).ToList();
+                auctionQueryResultItemId.Add(auctionResultStrings);
+                exchangeQueryResultItemId.Add(exchangeResultStrings);
             }
 
-            
-            List<QueryResult> andQueryResult = new List<QueryResult>();
-            
+            List<QueryResult> auctionAndQueryResult = new List<QueryResult>();
+            List<QueryResult> exchangeAndQueryResult = new List<QueryResult>();
 
-            List<string> AndResult = queryResultItemId[0];
-            for(int i=1; i < queryResultItemId.Count; i++)
+            List<string> auctionAndResult = auctionQueryResultItemId[0];
+            List<string> exchangeAndResult = exchangeQueryResultItemId[0];
+
+            for (int i = 1; i < auctionQueryResultItemId.Count; i++)
             {
-                AndResult = AndResult.Intersect(queryResultItemId[i]).ToList();
+                auctionAndResult = auctionAndResult.Intersect(auctionQueryResultItemId[i]).ToList();
             }
-            foreach(string str in AndResult)
+            for (int i = 1; i < exchangeQueryResultItemId.Count; i++)
+            {
+                exchangeAndResult = exchangeAndResult.Intersect(exchangeQueryResultItemId[i]).ToList();
+            }
+            foreach (string str in auctionAndResult)
             {
                 tAuctionItem item = db.tAuctionItem.Find(str);
-                andQueryResult.Add(new QueryResult
+                auctionAndQueryResult.Add(new QueryResult
                 {
                     fItemId = item.fItemId,
                     fEndTime = item.fEndTime,
@@ -77,25 +95,46 @@ namespace CardAuction.Controllers
                     fPhoto = item.fPhoto0
                 });
             }
-            vModel.fullMatch = andQueryResult;
-
-            if(queryResultItemId.Count == 1)                        // 若只有一個關鍵字，就無部份符合的list要做，直接傳View
+            foreach (string str in exchangeAndResult)
             {
-                vModel.partialMatch = new List<QueryResult>();
-                return View(vModel);
+                tExchangeItem item = db.tExchangeItem.Find(str);
+                exchangeAndQueryResult.Add(new QueryResult
+                {
+                    fItemId = item.fItemId,
+                    fEndTime = item.fEndTime,
+                    fItemName = item.fItemName,
+                    fChangeCount = item.fChangeCount,
+                    fPhoto = item.fPhoto0
+                });
             }
+            vModel.auctionFullMatch = auctionAndQueryResult;
+            vModel.exchangeFullMatch = exchangeAndQueryResult;
 
-            List<QueryResult> orQueryResult = new List<QueryResult>();
-            List<string> OrResult = new List<string>();
-            foreach(List<string> result in queryResultItemId)
+            //if (auctionQueryResultItemId.Count == 1)                        // 若只有一個關鍵字，就無部份符合的list要做，直接傳View
+            //{
+            //    vModel.auctionPartialMatch = new List<QueryResult>();
+            //    return View(vModel);
+            //}
+
+            List<QueryResult> auctionOrQueryResult = new List<QueryResult>();
+            List<string> auctionOrResult = new List<string>();
+            List<QueryResult> exchangeOrQueryResult = new List<QueryResult>();
+            List<string> exchangeOrResult = new List<string>();
+
+            foreach (List<string> result in auctionQueryResultItemId)
             {
-                List<string> temp = result.Except(AndResult).Except(OrResult).ToList();         // 差集掉交集結果和前面已蒐集的部分
-                OrResult.AddRange(temp);
+                List<string> temp = result.Except(auctionAndResult).Except(auctionOrResult).ToList();         // 差集掉交集結果和前面已蒐集的部分
+                auctionOrResult.AddRange(temp);
             }
-            foreach (string str in OrResult)
+            foreach (List<string> result in exchangeQueryResultItemId)
+            {
+                List<string> temp = result.Except(exchangeAndResult).Except(exchangeOrResult).ToList();         // 差集掉交集結果和前面已蒐集的部分
+                exchangeOrResult.AddRange(temp);
+            }
+            foreach (string str in auctionOrResult)
             {
                 tAuctionItem item = db.tAuctionItem.Find(str);
-                orQueryResult.Add(new QueryResult
+                auctionOrQueryResult.Add(new QueryResult
                 {
                     fItemId = item.fItemId,
                     fEndTime = item.fEndTime,
@@ -104,7 +143,21 @@ namespace CardAuction.Controllers
                     fPhoto = item.fPhoto0
                 });
             }
-            vModel.partialMatch = orQueryResult;
+            vModel.auctionPartialMatch = auctionOrQueryResult;
+
+            foreach (string str in exchangeOrResult)
+            {
+                tExchangeItem item = db.tExchangeItem.Find(str);
+                exchangeOrQueryResult.Add(new QueryResult
+                {
+                    fItemId = item.fItemId,
+                    fEndTime = item.fEndTime,
+                    fItemName = item.fItemName,
+                    fChangeCount = item.fChangeCount,
+                    fPhoto = item.fPhoto0
+                });
+            }
+            vModel.exchangePartialMatch = exchangeOrQueryResult;
             return View(vModel);
         }
         [HttpGet]
@@ -113,6 +166,45 @@ namespace CardAuction.Controllers
             return View();
         }
 
+        public ActionResult QueryNewest()
+        {
+            var queryAuctionResult = db.tAuctionItem
+                .Where(m => m.fEndTime > DateTime.Now)
+                .OrderByDescending(p => p.fCreateTime)
+                .Take(4)
+                .Select(n => new QueryResult
+                {
+                    fItemId = n.fItemId,
+                    fEndTime = n.fEndTime,
+                    fItemName = n.fItemName,
+                    fPhoto = n.fPhoto0,
+                    fMoneyNow = n.fMoneyNow,
+                    fBidCount = n.fBidCount
+                });
+            var queryExchangeResult = db.tExchangeItem
+                .Where(m => m.fEndTime > DateTime.Now)
+                .OrderByDescending(p => p.fCreateTime)
+                .Take(4)
+                .Select(n => new QueryResult
+                {
+                    fItemId = n.fItemId,
+                    fItemName = n.fItemName,
+                    fEndTime = n.fEndTime,
+                    fPhoto = n.fPhoto0,
+                    fChangeCount = n.fChangeCount
+                });
+            QueryNewestList queryResult = new QueryNewestList();
+            queryResult.newestAuctionItem = queryAuctionResult.ToArray();
+            queryResult.newestExchangeItem = queryExchangeResult.ToArray();
+
+            return Json(queryResult, JsonRequestBehavior.AllowGet);
+        }
+    }
+
+    public class QueryNewestList
+    {
+        public QueryResult[] newestAuctionItem { get; set; }
+        public QueryResult[] newestExchangeItem { get; set; }
     }
 
     public class QueryItem

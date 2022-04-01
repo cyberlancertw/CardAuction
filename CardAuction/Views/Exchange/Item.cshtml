@@ -1,4 +1,5 @@
 ﻿@model CardAuction.Models.tExchangeItem
+
 @using CardAuction.Models
 @{
     ViewBag.Title = "交換商品";
@@ -97,7 +98,7 @@
                             <p>@Model.fUserInfo</p>
                         </div>
                         <div class="col-sm-12">
-                            <button id="iwantexchange" class="btnSize btn-dark floatR btncheng">我要交換</button>
+                            <button id="IWantExchange" class="btnSize btn-dark floatR btncheng">我要交換</button>
                         </div>
                     </div>
                 </div>
@@ -119,31 +120,36 @@
 
                 <div class="row" id="divComment">
                     <div class="col-12 ">
-                        <div class="row">
-                            <div class="col-sm-4 col-md-3 ">
+                        <div class="row" id="EIB">
+                            <!-- result here-->
+
+                            <!--<div class="col-sm-4 col-md-3 ">
                                 <img src="~/images/ExchangeItemImages/picture01.png" alt="" class="col-1 col-sm-3 col-md-2  avatar">
-                                <span>(其他交換者ID)@ViewBag.UserAccount</span><br>
-                                @*<span class="spanmargin">★★★★☆(其他交換者評價)</span>*@
+                                <span>@ViewBag.PostUserAccount</span><br>
+
                                 <br><br>
-                                <p>您好(其他交換者留言)</p>
+                                <p>@Model.fItemDescription</p>
                             </div>
-                            <div class="col-sm-4 col-md-5 ">
+                            <div class="col-sm-4 col-md-5 ">-->
                                 <!-- 放img(交換者照片位置fPhoto 0-3) -->
-                                <img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
+                                <!--<img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
                                 <img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
                                 <img src="~/images/ExchangeItemImages/WS Tachibana Hibiki  Konohanamiku.jpg" alt="" class="col-3 col-sm-4 col-md-3  ">
                             </div>
                             <div class="col-sm-4 col-md-4 ">
                                 <h5>
-                                    鑑定級別: (交換者fItemLevel)
+                                    物品類別:@Model.fSort
                                 </h5>
                                 <h5>
-                                    物品所在地:台南市 (交換者物品所在地fItemLocation)
+                                    鑑定級別: @Model.fItemLevel
+                                </h5>
+                                <h5>
+                                    物品所在地:@Model.fItemLocation
                                 </h5>
                                 <div class="col-sm-12">
-                                    <button type="button" class="btnSize btn-dark btncheng btnright">確定交換</button>
+                                    <button type="button" id="BossWantExchange" class="btnSize btn-dark btncheng btnright">確定交換</button>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -175,23 +181,36 @@
 </div>
 @section scripts{
     <script>
+        var secondRemain = @secondTotalRemain ;
+
         var domTime = document.getElementById('stampTime');//加入行事曆
         var domShow = document.getElementById('imgShow');//圖片
         var btnFavorite = document.getElementById('btnFavorite');//加入追蹤
         var iconFavorite = document.getElementById('iconFavorite');//追蹤icon變換
         var txtFavorite = document.getElementById('txtFavorite');//收藏
         var txtComment = document.getElementById('txtComment');//評論
-        var countComment = document.getElementById('countComment');//評論次數
+        /*var countComment = document.getElementById('countComment');*///評論字數
         var btnCommentSend = document.getElementById('btnCommentSend');//發送評論
         var commentHere = document.getElementById('commentHere');//交換評論
+        var EIB = document.getElementById('EIB');//ExchangItemB
 
         var fItemId = '@Model.fItemId';//物品ID
+        var IWantExchange = document.getElementById('IWantExchange');
 
         var timer = window.setInterval(function () {
             secondRemain -= 7;
             refreshStampTime(secondRemain);
         }, 7000);
         //計時器 每7秒更新
+
+
+        IWantExchange.addEventListener('click', function () {
+            let para = `?id=${fItemId}`;
+            location.href = '@Url.Content("~/Exchange/Couple")';
+        });
+
+
+
         function refreshStampTime(t) {
             if (t <= 0) {
                 domTime.textContent = '交換已結束';
@@ -223,15 +242,19 @@
             });
         });//照片效果
 
-        txtComment.addEventListener('keyup', function () {
-            let letters = txtComment.value;
-            countComment.textContent = `${letters.length}/100`;
-        });//評論字數不超過100字
+        //txtComment.addEventListener('keyup', function () {
+        //    let letters = txtComment.value;
+        //    countComment.textContent = `${letters.length}/100`;
+        //});//評論字數不超過100字
 
         refreshStampTime(secondRemain);
         @if(Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString().Equals(Model.fPostUserId))
         {
-        @:btnFavorite.disabled = true;
+        <text>
+        btnFavorite.disabled = true;                                          // 有登入而且就是上架者自己
+        IWantExchange.disabled = true;                                               // 則不給按追蹤、我要交換、檢舉
+        btnReport.disabled = true;
+        </text>
         }
 
 
@@ -272,7 +295,7 @@
             @:    sendComment(content);
             @:}
             @:txtComment.value = '';
-            @:countComment.textContent = '0/100';
+            @*@:countComment.textContent = '0/100';*@
             @:txtComment.focus();
         @:});
         }
@@ -365,6 +388,41 @@
                 btnFavorite.classList.remove('following');
                 btnFavorite.classList.add('notFollowing');
             }
+        }
+
+        //function ItemTable(){
+        //    if (isButton == 'True') {
+        //        btnPost.btnPost
+        //    };
+        //}
+
+        //EIB
+        function refreshEIB(datas) {
+            EIB.innerHTML = '';
+            let docFrag = document.createDocumentFragment();
+
+            for (let comment of datas) {
+                let commentTime = new Date(parseInt(comment.postTime.substr(6))).toLocaleString();
+                let EIBRow = document.createElement('div');
+                EIBRow.className = 'row avatar';
+                let EIBAccount = document.createElement('div');
+                EIBAccount.className = 'col-6 col-sm-6 col-md-2 commentAccount';
+                EIBAccount.textContent = comment.postAcc;
+                let EIBContent = document.createElement('div');
+                EIBContent.className = 'col-6 col-sm-12 col-md-8 commentContent';
+                EIBContent.textContent = comment.content;
+                let domTime = document.createElement('div');
+                domTime.className = 'col-6 col-sm-6 col-md-2 commentTime';
+                domTime.textContent = commentTime;
+                EIBRow.appendChild(EIBAccount);
+                EIBRow.appendChild(EIBContent);
+                EIBRow.appendChild(domTime);
+
+                docFrag.appendChild(EIBRow);
+            }
+
+            EIB.appendChild(docFrag);
+
         }
     </script>
 }
