@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using CardAuction.Models;
 using CardAuction.ViewModels;
+using System.Data.Entity.Validation;
 
 namespace CardAuction.Controllers
 {
@@ -160,6 +161,7 @@ namespace CardAuction.Controllers
             }
             else
             {
+                //ViewBag.ItemTableIdB = id;
                 return View();
             }
         }
@@ -220,7 +222,6 @@ namespace CardAuction.Controllers
                 photo.SaveAs(Server.MapPath("~/Images/ExchangeItemImages/") + newFileName);
                 count++;
             }
-            createItem.fItemTableId = vModel.fItemTableId;
             createItem.fItemId = vModel.itemId;
             createItem.fItemName = vModel.fItemName;
             createItem.fSort = vModel.fSort;
@@ -237,11 +238,15 @@ namespace CardAuction.Controllers
             {
                 db.SaveChanges();
             }
+            catch(DbEntityValidationException ex)
+            {
+
+            }
             catch (Exception e)
             {
                 return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Exchange", ToAction = "List" });
             }
-            return RedirectToAction("ItemTable", new { id =  vModel.itemId});
+            return RedirectToAction("Item", new { id =  vModel.itemId});
         }
         [HttpGet]
         public ActionResult List()
@@ -315,10 +320,10 @@ namespace CardAuction.Controllers
 
         public ActionResult ReceiveComments(string itemId) //評論區
         {
-            bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId);
+            bool isExist = db.tCommentExchange.Any(m => m.fItemId == itemId);
             if (isExist)
             {
-                var queryResult = db.tCommentAuction
+                var queryResult = db.tCommentExchange
                     .Where(p => p.fItemId == itemId)
                     .Join(db.tMember,
                           c => c.fFromUserId,
@@ -375,19 +380,20 @@ namespace CardAuction.Controllers
             bool isExist = db.tExchangeItemTable.Any(m => m.fItemId == itemId);
             if (isExist)
             {
+
                 var queryResult = db.tExchangeItemTable
                     .Where(p => p.fItemId == itemId)
                     .Join(db.tMember,
-                          c => c.fItemTableId,
+                          c => c.fPostUserId,
                           m => m.fUserId,
                           (c, m) => new
                           {
                               postAcc = m.fAccount,   //帳戶
                               ItemDescription = c.fItemDescription,   //內容
-                              img0 = c.fPhoto0,
-                              img1 = c.fPhoto1,
-                              img2 = c.fPhoto2,
-                              img3 = c.fPhoto3,
+                              fPhoto0 = c.fPhoto0,
+                              fPhoto1 = c.fPhoto1,
+                              fPhoto2 = c.fPhoto2,
+                              fPhoto3 = c.fPhoto3,
                               Sort = c.fSort,
                               ItemLevel = c.fItemLevel,
                               ItemLocation = c.fItemLocation

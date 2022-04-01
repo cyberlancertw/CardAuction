@@ -42,14 +42,6 @@
         padding-top: 10px;
         padding-bottom: 10px;
     }
-    .titleTopicGold {
-        background-color: #ab8f4e;
-        color: #ffffff;
-        font-size: 24px;
-        text-align: center;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
      /*=======================================================================*/
     .moneyRow {
         padding-top: 10px;
@@ -479,4 +471,23 @@ body {
 
 .commentRecord:nth-child(2n+1) {
     background-color: #ebebeb;
+}
+.titleTopicGold {
+    background-color: #ab8f4e;
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.Msgbr {
+    margin-top: 20px;
+}
+.IMG100{
+    width: 10rem;
+    height:13rem;
+}
+.IMG100>IMG{
+    width:100%;
+    height:100%;
 }
