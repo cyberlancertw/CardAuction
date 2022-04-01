@@ -60,6 +60,9 @@ namespace CardAuction.Controllers
                     return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "List" });
                 }
             }
+            Session[CDictionary.SK_RedirectToController] = "Auction";
+            Session[CDictionary.SK_RedirectToAction] = "Item";
+            Session[CDictionary.SK_RedirectToId] = id;
             return View(result);
         }
 
@@ -102,8 +105,9 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                TempData[CDictionary.SK_RedirectToAction] = "Post";
-                TempData[CDictionary.SK_RedirectToController] = "Auction";
+                Session[CDictionary.SK_RedirectToController] = "Auction";
+                Session[CDictionary.SK_RedirectToAction] = "Post";
+                Session[CDictionary.SK_RedirectToId] = string.Empty;
 
                 return RedirectToAction("Login", "Member");
             }
@@ -117,8 +121,9 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                TempData[CDictionary.SK_RedirectToAction] = "Post";
-                TempData[CDictionary.SK_RedirectToController] = "Auction";
+                Session[CDictionary.SK_RedirectToController] = "Auction";
+                Session[CDictionary.SK_RedirectToAction] = "Post";
+                Session[CDictionary.SK_RedirectToId] = string.Empty;
                 return RedirectToAction("Login", "Member");
             }
 
@@ -203,6 +208,9 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult List()
         {
+            Session[CDictionary.SK_RedirectToController] = "Auction";
+            Session[CDictionary.SK_RedirectToAction] = "List";
+            Session[CDictionary.SK_RedirectToId] = string.Empty;
             return View();
         }
 

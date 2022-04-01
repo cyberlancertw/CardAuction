@@ -1,6 +1,17 @@
-﻿
+﻿@using CardAuction.Models
 @{
     Layout = null;
+    string toController = string.Empty, toAction = string.Empty, toId = string.Empty;
+    if(Session[CDictionary.SK_RedirectToController] != null)
+    {
+        toController = Session[CDictionary.SK_RedirectToController].ToString();
+        toAction = Session[CDictionary.SK_RedirectToAction].ToString();
+        if (Session[CDictionary.SK_RedirectToId] != null)
+        {
+            toId = Session[CDictionary.SK_RedirectToId].ToString();
+        }
+    }
+
 }
 <!DOCTYPE html>
 
@@ -14,8 +25,37 @@
 </head>
 <body>
     <div id="fullPage">
-        <div id="iconTop">
-            <img id="webIcon" src="~/images/site/iconWebsite.png" />
+        <div id="header">
+            <div id="divHidden">
+            </div>
+            <div id="divIcon">
+                <a href="~/">
+                    <img id="webIcon" src="~/images/site/logo.svg" />
+                </a>
+            </div>
+            <div id="divBack">
+                @if (string.IsNullOrEmpty(toController))
+                {
+                    <i class="fa-solid fa-xmark"></i>
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(toId))
+                    {
+                <a href="~/@toController/@toAction">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+                    }
+                    else
+                    {
+                <a href="~/@toController/@toAction/@toId">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+                    }
+                }
+
+            </div>
+
         </div>
         <div class="row align-items-center">
             <div id="formLogin" class="col-6 col-sm-6 col-md-4 col-lg-3">
@@ -51,6 +91,7 @@
         var inputPwd = document.getElementById('password');
         var pwdEye = document.getElementById('pwdEye');
         var btnSend = document.getElementById('btnSend');
+        var btnBack = document.getElementById('divBack');
 
         pwdEye.addEventListener('click', togglePassword);
         inputAcc.addEventListener('keyup', checkButton);
