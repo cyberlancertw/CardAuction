@@ -225,7 +225,7 @@
         var bidHere = document.getElementById('bidHere');
 
 
-        var fItemId = '@Model.fItemId';
+        var itemId = '@Model.fItemId';
 
         var timer = window.setInterval(function () {
             secondRemain -= 7;
@@ -260,10 +260,13 @@
         {
         <text>
         btnFavorite.disabled = true;                                          // 有登入而且就是上架者自己
-        btnBuy.disabled = true;                                               // 則不給按追蹤、檢舉、購買和出價
+        btnReport.disabled = true;                                            // 則不給按追蹤、檢舉、購買和出價
         txtBid.disabled = true;
         btnBid.disabled = true;
-        btnReport.disabled = true;
+        if (btnBuy) {
+            btnBuy.disabled = true;                                           // 購買鍵可能不存在，另外處理
+        }
+        
         </text>
         }
 
@@ -299,7 +302,7 @@
                     let isFavorite = xhr.response;
                     toggleFavorite(isFavorite);
                 });
-            let para = `?ItemId=${fItemId}`;
+            let para = `?ItemId=${itemId}`;
             xhr.open('GET', '@Url.Content("~/Member/FavoriteAuction")' + para);
             xhr.send();
         });
@@ -325,7 +328,8 @@
         });
 
         btnBuy.addEventListener('click', function () {
-            sendBid(@Model.fBuyPrice);
+            sendBid(@Model.fBuyPrice);          // 直購
+            Finish();
         });
         </text>
         }
@@ -344,12 +348,17 @@
         function refreshStampTime(t) {
             if (t <= 0) {
                 domTime.textContent = '競標已結束';
-                clearInterval(timer);
-                domBuy.setAttribute('disabled', 'true');
-                domBid.setAttribute('disabled', 'true');
-                domTxtBid.setAttribute('disabled', 'true');
+                window.clearInterval(timer);
+                if (btnBuy) {
+                    btnBuy.disabled = true;
+                }
+                btnBid.disabled = true;
+                txtBid.disabled = true;
+                txtComment.disabled = true;
+                btnCommentSend.disabled = true;
+                btnReport.disabled = true;
 
-                let para = `?itemId=${fIemId}`;
+                let para = `?itemId=${iemId}`;
 
                 return;
             }
@@ -364,7 +373,7 @@
         function sendBid(amount) {
             let xhr = new XMLHttpRequest();
             xhr.addEventListener('load', receiveBidRecords);
-            let para = `?itemId=${fItemId}&amount=${amount}`;
+            let para = `?itemId=${itemId}&amount=${amount}`;
             xhr.open('GET', '@Url.Content("~/Auction/Bid")' + para);
             xhr.send();
         }
@@ -377,13 +386,13 @@
                     refreshBidRecord(datas);
                 }
             });
-            let para = `?itemId=${fItemId}`;
+            let para = `?itemId=${itemId}`;
             xhr.open('GET', '@Url.Content("~/Auction/ReceiveBidRecords")' + para);
             xhr.send();
         }
         function sendComment(content) {
             let xhr = new XMLHttpRequest();
-            let para = `?itemId=${fItemId}&message=${content}`;
+            let para = `?itemId=${itemId}&message=${content}`;
             xhr.addEventListener('load', receiveComments);
             xhr.open('GET', '@Url.Content("~/Auction/WriteComment")' + para);
             xhr.send();
@@ -398,7 +407,7 @@
                     refreshComments(datas);
                 }
             });
-            let para = `?ItemId=${fItemId}`;
+            let para = `?ItemId=${itemId}`;
             xhr.open('GET', '@Url.Content("~/Auction/ReceiveComments")' + para);
             xhr.send();
         }
@@ -467,7 +476,7 @@
                 toggleFavorite(isFavorite);
 
             });
-            let para = `?ItemId=${fItemId}`;
+            let para = `?itemId=${itemId}`;
             xhr.open('GET', '@Url.Content("~/Member/IsFavorite")' + para);
             xhr.send();
         };
@@ -490,6 +499,25 @@
                 btnFavorite.classList.add('notFollowing');
             }
         }
+        function Finish() {
+            window.clearInterval(timer);
+            domTime.textContent = '競標已結束';
+            let area = document.getElementById('divMoney');
+            //area.innerHTML = '';
 
+            let para = `/?itemId=${itemId}`;
+            fetch('@Url.Content("~/Auction/FinishInfo")' + para, { method: 'GET' })
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response);
+                });
+
+        }
+        function FinishInfo() {
+            let docFrag = document.createDocumentFragment();
+            let domWinInfo = document.createElement('div');
+            domWinInfo.className = 'row moneyRow rowBuy';
+            domWinInfo.textContent = '';
+        }
     </script>
 }

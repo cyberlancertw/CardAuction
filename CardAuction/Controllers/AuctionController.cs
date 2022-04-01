@@ -307,7 +307,7 @@ namespace CardAuction.Controllers
             if (item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
             {
                 UpdateBid(item, amount, userId, itemId);
-                WinBid(item, amount, userId, itemId);
+                //WinBid(item, amount, userId, itemId);
             }
 
             return;
@@ -317,6 +317,7 @@ namespace CardAuction.Controllers
         {
             item.fMoneyNow = amount;
             item.fBidCount++;
+            item.fTopBidUserId = userId;
             tAuctionBid newBid = new tAuctionBid
             {
                 fItemId = itemId,
@@ -499,6 +500,33 @@ namespace CardAuction.Controllers
                 Console.WriteLine(e.ToString());
             }
             return;
+        }
+
+        public ActionResult FinishInfo(string itemId)
+        {
+            if(itemId == null)
+            {
+                return Json(new { msg = "null itemId" }, JsonRequestBehavior.AllowGet);
+            }
+            tAuctionItem item = db.tAuctionItem.Find(itemId);
+            if(item == null)
+            {
+                return Json(new { msg = "nullItem" }, JsonRequestBehavior.AllowGet);
+            }
+            if (string.IsNullOrEmpty(item.fTopBidUserId))
+            {
+                return Json(new { msg = "notTop"}, JsonRequestBehavior.AllowGet);
+            }
+            string winUserAcc = db.tMember.Find(item.fTopBidUserId).fAccount;
+            return Json(new { 
+                winUserAcc = winUserAcc,
+                winMoney = item.fMoneyNow,
+                transPerson = item.fTransPerson,
+                transSeven = item.fTransSeven,
+                tranFami = item.fTransFami,
+                tranLogi = item.fTransLogi
+            }, JsonRequestBehavior.AllowGet);
+
         }
     }
 

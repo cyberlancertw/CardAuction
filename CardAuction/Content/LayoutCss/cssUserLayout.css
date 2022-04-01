@@ -51,7 +51,7 @@
         justify-content: flex-end;
     }
     #catalog > div > a {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
     #catalog {
         width: 57%;
@@ -139,8 +139,12 @@ body {
     align-items: center;
     margin-bottom: 1.2rem;
 }
-#divIcon, #divAuction, #divExchange, #divPost{
-    width: 25%;
+#divIcon{
+    width: 34%;
+    text-align: center;
+}
+#divAuction, #divExchange, #divPost {
+    width: 22%;
     text-align: center;
 }
 #imgIcon{

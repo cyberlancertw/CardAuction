@@ -350,6 +350,7 @@
     <Content Include="Images\site\iconYuGiOh.png" />
     <Content Include="Images\site\imgSelectFrame.png" />
     <Content Include="Images\site\imgSelectFrameEmpty.png" />
+    <Content Include="Images\site\logo.svg" />
     <Content Include="Images\site\mtgesika.png" />
     <Content Include="Images\site\nbapanini.png" />
     <Content Include="Images\site\pkmcharizard.png" />
