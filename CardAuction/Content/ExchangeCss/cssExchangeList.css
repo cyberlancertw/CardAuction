@@ -150,8 +150,9 @@ a{
     font-size: 1.5rem;
     color: #ab8f4e;
 }
-*/.pCount{
-
+*/
+.pCount{
+    font-size:1rem;
 }
 .spanCount {
     color: #ab8f4e;
