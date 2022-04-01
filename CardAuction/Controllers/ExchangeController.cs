@@ -56,8 +56,9 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                TempData[CDictionary.SK_RedirectToAction] = "Post";
-                TempData[CDictionary.SK_RedirectToController] = "Exchange";
+                Session[CDictionary.SK_RedirectToController] = "Exchange";
+                Session[CDictionary.SK_RedirectToAction] = "Post";
+                Session[CDictionary.SK_RedirectToId] = string.Empty;
                 return RedirectToAction("Login", "Member");
             }
             else
@@ -71,8 +72,9 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                TempData[CDictionary.SK_RedirectToAction] = "Post";
-                TempData[CDictionary.SK_RedirectToController] = "Exchange";
+                Session[CDictionary.SK_RedirectToController] = "Exchange";
+                Session[CDictionary.SK_RedirectToAction] = "Post";
+                Session[CDictionary.SK_RedirectToId] = string.Empty;
                 return RedirectToAction("Login", "Member");
             }
 
@@ -155,8 +157,9 @@ namespace CardAuction.Controllers
             ViewBag.itemId = id;
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                TempData[CDictionary.SK_RedirectToAction] = "Couple";
-                TempData[CDictionary.SK_RedirectToController] = "Exchange";
+                Session[CDictionary.SK_RedirectToController] = "Exchange";
+                Session[CDictionary.SK_RedirectToAction] = "Couple";
+                Session[CDictionary.SK_RedirectToId] = id;
                 return RedirectToAction("Login", "Member");
             }
             else
@@ -171,8 +174,9 @@ namespace CardAuction.Controllers
             
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                TempData[CDictionary.SK_RedirectToAction] = "Item";
-                TempData[CDictionary.SK_RedirectToController] = "Exchange";
+                Session[CDictionary.SK_RedirectToController] = "Exchange";
+                Session[CDictionary.SK_RedirectToAction] = "Couple";
+                Session[CDictionary.SK_RedirectToId] = string.Empty;
                 return RedirectToAction("Login", "Member");
             }
 
