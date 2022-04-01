@@ -28,6 +28,9 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            ViewBag.toAction = TempData[CDictionary.SK_RedirectToAction];
+            ViewBag.toController = TempData[CDictionary.SK_RedirectToController];
+            ViewBag.toId = TempData[CDictionary.SK_RedirectToId];
             if(Session[CDictionary.SK_UserAccount] == null)        // 無登入，進登入頁
             {
                 return View();

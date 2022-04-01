@@ -2,13 +2,31 @@
     font-family: 'Noto Sans TC Medium','微軟正黑體';
 }
 
-#iconTop {
-    padding: 15px;
+#header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 3px solid #ebebeb;
+}
+#divHidden{
+    visibility: hidden;
+}
+#divIcon {
+    padding: 15px;
     text-align: center;
 }
 #webIcon{
-    width: 130px;
+    width: 14rem;
+}
+#divBack {
+    text-align: right;
+    font-size: 1.6rem;
+}
+#divHidden,#divBack{
+    width: 20%;
+}
+#divBack > i{
+    margin-right: 3rem;
 }
 #formLogin{
     margin: auto;
