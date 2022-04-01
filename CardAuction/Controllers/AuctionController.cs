@@ -306,7 +306,7 @@ namespace CardAuction.Controllers
             if (item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
             {
                 UpdateBid(item, amount, userId, itemId);
-                WinBid(item, amount, userId, itemId);
+                //WinBid(item, amount, userId, itemId);
             }
 
             return;
