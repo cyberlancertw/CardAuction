@@ -46,10 +46,10 @@
         height: 20rem;
     }
 }
-#fullListPage{
-    width: 86%;
-    margin: auto;
-    
+#fullListPage {
+    height: 200px;
+    background-color: #ebebeb;
+    font-size: 50px;
 }
 #banner{
     height: 200px;
