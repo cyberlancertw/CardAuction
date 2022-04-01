@@ -1,0 +1,572 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#menu_control{
+    position: absolute;
+    opacity: 0;
+    display: flex;
+}
+.header{
+    height: 50px;
+    position: relative;
+}
+
+.menu_btn{
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+    background-color:#fff;
+    /* border: 1px solid gray; */
+    display: block;
+    border-radius: 5px;
+    position: absolute;
+    top: -5px;
+    right: 10px;
+}
+
+.menu_btn span{
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    display: block;
+    overflow: hidden;
+}
+
+.menu_btn::before{
+    content: '';
+    position: absolute;
+    border-radius: 5px;
+    height: 2px;
+    left: 6px;
+    width: 28px;
+    background-color: black;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    box-shadow: 0px 8px 0px black,
+    0px -8px 0px black;
+}
+
+nav{
+    width: 80%;
+    height: 100vh ;
+    z-index: 1;
+    background-color: #fff;
+    position: absolute;
+    left: -100%;
+    /* border-right: 1px solid gray; */
+    padding-top: 50px;
+    transition: .5s;
+    /* margin-left: 50px; */
+}
+
+nav a{
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.dropdown-btn{
+    width: 100%;
+   border: none;
+   margin-left:10px ;
+   margin-right: auto;
+   color: black;
+   font-size: 16px;
+}
+
+.fa-caret-down{
+    padding-left: 10px;
+}
+
+nav a:hover,.dropdown-btn:hover a,.fa-caret-down:hover{
+    text-decoration: none;
+    color:#ab8f4e;
+}
+
+.dropdown-container{
+    display: none;
+    padding-left: 50px;
+}
+
+#menu_control:checked ~ .header nav{
+    left: 0;
+}
+
+.page1{
+    position: relative;
+    top: 50px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0px 50px;
+}
+
+h1{
+    font-size: larger;
+    font-weight: bolder;
+}
+
+hr{
+    border: 0.5px solid lightgray;
+}
+
+h6{
+    font-size: medium;
+    font-weight: bolder;
+    margin: 10px 0px;
+}
+
+.middle1{
+    display: flex;
+
+}
+
+.middle1 img{
+    margin: 10px 0px;
+    border-radius: 999em;
+    padding: 10px;
+}
+
+.middle1 .name-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+}
+
+.middle1 img,.middle1 .name-info{
+    width: 50%;
+}
+
+.name-info p{
+    color: gray;
+    font-size: small;
+}
+
+label{
+    margin: 10px 0px;
+    font-weight: bolder;
+    color: gray;
+}
+
+input{
+    margin-bottom: 10px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding: 5px;
+    font-family: '微軟正黑體';
+    font-weight: normal;
+}
+
+.bottomleft p{
+    display: flex;
+    flex-direction: column;
+}
+
+.bottomright p{
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    display: flex;
+    margin: 10px auto;
+    background-color: #1f3344;
+    color: #fff;
+    padding: 0px 50px;
+}
+
+.page2{
+    position: relative;
+    top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin:auto;
+    padding: 25px 50px;
+}
+
+.page2 input[type="radio"]{
+    display: none;
+}
+
+.page2 label{
+  width: 50%;
+    background-color:#ccc;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
+.page2 .tab{
+    width: 100%;
+    background-color: #fff;
+    order: 1;
+    display: none;
+}
+
+.page2 input[type='radio']:checked + label + .tab{
+    display: block;
+}
+
+.page2 input[type="radio"]:checked+label{
+    background: #1f3344;
+    color: #fff;
+}
+
+.searchbar{
+    color: #fff;
+    background-color: gray;
+    border-radius: 5px;
+    margin: 5px 0px;
+}
+
+.searchbar i{
+    margin:10px ;
+}
+
+.searchbar input{
+    font-size:7px;
+    background-color: gray;
+    color: white;
+    margin:0px ;
+    width: 80%;
+}
+
+.searchbar input::placeholder{
+    color: white;
+}
+
+.block{
+    display: flex;
+    width: 100%;
+    height:185px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 15px 0px;
+    transform: translateX(0px);
+    transition: 1s;
+}
+/* .card-img{
+    width: 50%;
+} */
+
+ .block img{
+    padding: 10px;
+    width: 125px;
+    height:175px;
+}
+.card-info{
+   width: 100%; 
+   padding: 10px 0px;
+   overflow:hidden;
+}
+
+.info-top{
+    display: flex;
+}
+
+.info-top h5{
+    width: 50%;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.info-top a{
+    padding-left:0px;
+}
+
+.card-info h5{
+    font-size: 15px;
+}
+
+.card-info a{
+    color: #1f3344;
+    position: absolute;
+    right: 10px;
+    font-size: 5px;
+    border:solid 1px gray;
+    border-radius: 2px;
+}
+
+.block hr{
+    margin: 0 10px 8px 0px;
+    border: 0.5px solid black;
+}
+
+.info-bottom h5 {
+    font-size: 20px;
+    font-weight: bolder;
+    margin: 0px 0px 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.info-time h6{
+    margin:0px;
+}
+
+.info-price{
+    display: flex;
+}
+
+.info-price h4{
+    font-size: 20px;
+    font-weight: bolder;
+    color: #ab8f4e;
+}
+
+.info-price h6{
+    font-size: 15px;
+    margin: 5px 0 0;
+    font-weight: bolder;
+}
+
+.block:hover{
+  transform: translateX(-10px);
+    box-shadow: 1px 1px 20px 1px gray;
+}
+
+.page3{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    /* max-width: 600px; */
+    margin:auto;
+    padding: 20px 50px ;
+}
+
+.page4{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    /* max-width: 600px; */
+    margin:auto;
+    padding: 10px 50px;
+}
+.page5{
+    display: flex;
+    flex-wrap: wrap;
+    /* max-width: 600px; */
+    margin:auto;
+    padding: 10px 50px;
+}
+.page5 td{
+    text-align: center;
+    color: #1f3344;
+}
+
+
+
+.page5 td:nth-child(2){
+    color: #ab8f4e;
+}
+
+
+.new{
+    position: absolute;
+    right: 40px;
+    background-color: #1f3344;
+    color: white;
+    border-radius:5px ;
+    font-weight: bolder;
+    font-size: small;
+    padding: 5px 20px;
+
+}
+
+.ptable{
+    margin: 50px auto 0px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+}
+
+.ptable thead{
+    background:#ccc;
+    border: 1px solid #ccc;
+}
+
+.ptable th{
+    padding: 5px 0px;
+    font-size: small;
+    text-align: center;
+}
+
+table input{
+    margin: 0;
+}
+
+.ptable td{
+    padding: 6px 5px;
+    text-align: center;
+    font-size: x-small;
+    font-weight: bolder;
+
+}
+
+.ptable td img{
+    width: 65px;
+    height:95px;
+}
+
+.ptable td:nth-child(4){
+    color: #ab8f4e;
+}
+
+.page5 td:nth-child(4){
+    color: #1f3344;
+}
+
+.ptable a{
+    background-color: #1f3344;
+    color: white;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+.pagination{
+    margin: 0px 10px;
+    float: right;
+}
+
+.pagination a{
+    background:#fff;
+    color: #1f3344;
+}
+
+
+
+@media screen and (min-width:768px) {
+   .menu_btn{display: none;}
+   .header{display: flex;}
+   nav{
+       width: 30%;
+       position: relative;
+       left: 0;
+       border: none;
+   } 
+   .page1{
+       width: 50%;
+       height: 750px;
+       margin: auto 20px;
+   }
+
+    .btn {
+        display: flex;
+        align-items: center;
+        padding: 0px 70px;
+        margin: 20px auto;
+        text-align: center;
+        background-color: #1f3344;
+        color: #fff;
+    }
+
+
+   .middle1 img{
+    margin: 10px 0px;
+    border-radius: 999em;
+    padding: 50px;
+}
+
+.bottomleft{
+    float: left;
+    width: 40%;
+}
+
+.bottomright{
+    float: right;
+    width: 40%;
+}
+
+.page2{
+    min-width: 600px;
+    padding: 50px;
+}
+
+.block img{
+padding: 20px 15px;
+width: 125px;
+height: 175px;
+}
+
+.card-info{
+  width: 100%;
+  padding-top: 20px;
+}
+
+.page3{
+    padding: 50px;
+}
+
+.page4{
+    padding: 50px;
+}
+
+.bottom-info p{
+    display: inline-block;
+    margin: 10px 10px 0px 550px;
+}
+
+.page5{
+    padding: 50px;
+}
+
+
+.new:hover{
+    text-decoration: none;
+    color: #fff;
+}
+
+.new{
+    right: 20px;
+    text-decoration: none;
+}
+
+.ptable{
+width: 600px;
+}
+
+.ptable th{
+background:#ccc;
+border: 1px solid #ccc;
+width: 650px;
+}
+
+.ptable td{
+    font-size:medium;
+}
+
+.ptable a{
+background-color: #1f3344;
+color: white;
+border-radius: 3px;
+padding: 5px 5px; 
+text-decoration: none;
+}
+
+table input{
+margin: 0;
+padding: 0px 20px;
+}
+
+.pagination{
+padding-left: 150px;
+}
+
+.pagination a{
+background:#fff;
+color: #1f3344;
+}
+
+
+}

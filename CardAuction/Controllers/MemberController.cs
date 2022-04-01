@@ -22,7 +22,33 @@ namespace CardAuction.Controllers
                 return RedirectToAction("Login");
             }
 
-            return View();          // Member / Index 要有 View 嗎? 取代 mypage?
+            return RedirectToAction("MyPage");          // Member / Index 要有 View 嗎? 取代 mypage?
+        }
+
+        public ActionResult MyPage()
+        {
+            if (Session[CDictionary.SK_UserAccount] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            CMemberMypageViewModel MyInfo = new CMemberMypageViewModel();
+
+            string userId = Session[CDictionary.SK_UserUserId].ToString();
+
+            MyInfo.MyAccount = db.tMember.Find(userId);
+
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).ToList();
+
+            MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList();
+
+            List<string> tempAuctionFavorite = db.tAuctionFavorite.Where(m => m.fFromUserId == userId).Select(m=>m.fToItemId).ToList();
+            MyInfo.MyAuctionFavorite = db.tAuctionItem.Where(m => tempAuctionFavorite.Contains(m.fItemId)).ToList();
+
+            List<string> tempExchangeFavorite = db.tExchangeFavorite.Where(m => m.fFromUserId == userId).Select(m => m.fToItemId).ToList();
+            MyInfo.MyExchangeFavorite = db.tExchangeItem.Where(m => tempExchangeFavorite.Contains(m.fItemId)).ToList();
+
+            return View(MyInfo);          // Member / Index 要有 View 嗎? 取代 mypage?
         }
 
         [HttpGet]
