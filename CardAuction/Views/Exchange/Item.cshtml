@@ -206,7 +206,7 @@
 
         IWantExchange.addEventListener('click', function () {
             let para = `?id=${fItemId}`;
-            location.href = '@Url.Content("~/Exchange/Couple")';
+            location.href = '@Url.Content("~/Exchange/Couple")' + para;
         });
 
 
@@ -303,7 +303,8 @@
 
         checkFavorite();
         receiveComments();
-
+        receiveEIB();
+        refreshEIB();
 
         document.getElementById('btnComment').addEventListener('click', function () {
             location.href += '#divComment';
@@ -327,7 +328,7 @@
                     refreshComments(datas);
                 }
             });
-            let para = `?ItemId=${fItemId}`;
+            let para = `?itemId=${fItemId}`;
             xhr.open('GET', '@Url.Content("~/Exchange/ReceiveComments")' + para);
             xhr.send();
         }
@@ -390,39 +391,86 @@
             }
         }
 
-        //function ItemTable(){
-        //    if (isButton == 'True') {
-        //        btnPost.btnPost
-        //    };
-        //}
+        //EIB(ExchangeItemB)
 
-        //EIB
         function refreshEIB(datas) {
             EIB.innerHTML = '';
             let docFrag = document.createDocumentFragment();
-
+            console.log(datas);
             for (let comment of datas) {
-                let commentTime = new Date(parseInt(comment.postTime.substr(6))).toLocaleString();
+                //let commentTime = new Date(parseInt(comment.postTime.substr(6))).toLocaleString();
                 let EIBRow = document.createElement('div');
-                EIBRow.className = 'row avatar';
+                
+                EIBRow.className = 'row';
                 let EIBAccount = document.createElement('div');
-                EIBAccount.className = 'col-6 col-sm-6 col-md-2 commentAccount';
-                EIBAccount.textContent = comment.postAcc;
+                EIBAccount.className = ' col-sm-2 col-md-2 ';
+                let dompMsg = document.createElement('p');
+                dompMsg.className = 'Msgbr';
+                EIBAccount.textContent = `ID:${comment.postAcc}`;
+                dompMsg.textContent = `商品敘述:${comment.ItemDescription}`;
+
                 let EIBContent = document.createElement('div');
-                EIBContent.className = 'col-6 col-sm-12 col-md-8 commentContent';
-                EIBContent.textContent = comment.content;
-                let domTime = document.createElement('div');
-                domTime.className = 'col-6 col-sm-6 col-md-2 commentTime';
-                domTime.textContent = commentTime;
+                EIBContent.className = ' col-sm-6 col-md-6 IMG100';
+                let domImg0 = document.createElement('img');
+                if (comment.fPhoto0 != null) {
+                    domImg0.src = '@Url.Content("~/Images/ExchangeItemImages/")' + comment.fPhoto0;
+                    EIBContent.appendChild(domImg0);
+                }
+
+                let domImg1 = document.createElement('img');            //   <img />
+                if (comment.fPhoto1 != null) {
+                    domImg1.src = '@Url.Content("~/Images/ExchangeItemImages/")' + comment.fPhoto1;       // <img src="20220401123456.jpg" />
+
+
+                    EIBContent.appendChild(domImg1);
+                }
+                let domImg2 = document.createElement('img');
+                if (comment.fPhoto2 != null) {
+                    domImg2.src = comment.fPhoto2;
+                    EIBContent.appendChild(domImg2);
+                }
+                let domImg3 = document.createElement('img');
+                if (comment.fPhoto3 != null) {
+                    domImg3.src = comment.fPhoto3;
+                    EIBContent.appendChild(domImg3);
+                }
+
+                let domH3 = document.createElement('div');
+                domH3.className = ' col-sm-2 col-md-2 ';
+                let domh301 = document.createElement('h3');
+                domh301.textContent = `物品類別:${comment.Sort}`;
+                let domh302 = document.createElement('h3');
+                domh302.textContent = `鑑定等級:${comment.ItemLevel}`;
+                let domh303 = document.createElement('h3');
+                domh303.textContent = `物品所在地點${comment.ItemLocation}`;
+
+                //domTime.textContent = commentTime;
                 EIBRow.appendChild(EIBAccount);
                 EIBRow.appendChild(EIBContent);
-                EIBRow.appendChild(domTime);
-
+                EIBRow.appendChild(domH3);
+                EIBAccount.appendChild(dompMsg);
                 docFrag.appendChild(EIBRow);
+                domH3.appendChild(domh301);
+                domH3.appendChild(domh302);
+                domH3.appendChild(domh303);
             }
 
             EIB.appendChild(docFrag);
 
+        }
+
+        function receiveEIB() {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', function () {
+                //console.log(this.responseText);
+                if (this.responseText != '') {
+                    let datas = JSON.parse(this.responseText);
+                    refreshEIB(datas);
+                }
+            });
+            let para = `?itemId=${fItemId}`;
+            xhr.open('GET', '@Url.Content("~/Exchange/ExchangeItemUserB")' + para);
+            xhr.send();
         }
     </script>
 }
