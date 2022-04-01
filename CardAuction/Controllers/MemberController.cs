@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -24,9 +25,11 @@ namespace CardAuction.Controllers
 
             return RedirectToAction("MyPage");          // Member / Index 要有 View 嗎? 取代 mypage?
         }
-
+        [HttpGet]
         public ActionResult MyPage()
         {
+
+
             if (Session[CDictionary.SK_UserAccount] == null)
             {
                 return RedirectToAction("Login");
@@ -48,7 +51,48 @@ namespace CardAuction.Controllers
             List<string> tempExchangeFavorite = db.tExchangeFavorite.Where(m => m.fFromUserId == userId).Select(m => m.fToItemId).ToList();
             MyInfo.MyExchangeFavorite = db.tExchangeItem.Where(m => tempExchangeFavorite.Contains(m.fItemId)).ToList();
 
+
+
             return View(MyInfo);          // Member / Index 要有 View 嗎? 取代 mypage?
+        }
+        [HttpPost]
+        public ActionResult MyPage(CRegisterViewModel vModel)
+        {
+            string userId = Session[CDictionary.SK_UserUserId].ToString();
+            tMember member = db.tMember.Find(userId);
+            member.fName = vModel.Name;
+            member.fPhone = vModel.Phone;
+            member.fAddress = vModel.Address;
+            member.fEmail = vModel.Email;
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(DbEntityValidationException ex)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {ex.ToString()}", ToController = "Member", ToAction = "MyPage" });
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {ex.ToString()}", ToController = "Member", ToAction = "MyPage" });
+            }
+
+
+            CMemberMypageViewModel MyInfo = new CMemberMypageViewModel();
+
+            MyInfo.MyAccount = db.tMember.Find(userId);
+
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).ToList();
+
+            MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList();
+
+            List<string> tempAuctionFavorite = db.tAuctionFavorite.Where(m => m.fFromUserId == userId).Select(m => m.fToItemId).ToList();
+            MyInfo.MyAuctionFavorite = db.tAuctionItem.Where(m => tempAuctionFavorite.Contains(m.fItemId)).ToList();
+
+            List<string> tempExchangeFavorite = db.tExchangeFavorite.Where(m => m.fFromUserId == userId).Select(m => m.fToItemId).ToList();
+            MyInfo.MyExchangeFavorite = db.tExchangeItem.Where(m => tempExchangeFavorite.Contains(m.fItemId)).ToList();
+
+            return View(MyInfo);
         }
 
         [HttpGet]

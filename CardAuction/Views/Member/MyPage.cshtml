@@ -39,7 +39,7 @@
         </nav>
 
         <div class="page1" id="pages1">
-            <form action="" class="form1">
+            <form action="" method="post" class="form1">
                 <div class="top1">
                     <h1>帳戶檔案</h1>
                     <h6>管理您的檔案以保護您的帳戶</h6>
@@ -55,29 +55,29 @@
                 <div class="bottomleft">
                     <p>
                         <label for="uaccount">使用者帳號</label>
-                        <input type="text" name="account" id="uaccount" value="@Model.MyAccount.fAccount">
+                        <input type="text" name="account" id="uaccount" disabled value="@Model.MyAccount.fAccount">
                     </p>
                     <p>
                         <label for="uname">姓名</label>
-                        <input type="text" id="uname" value="@Model.MyAccount.fName">
+                        <input type="text" id="uname" value="@Model.MyAccount.fName" name="Name">
                     </p>
                     <p>
                         <label for="uemail">Email帳號</label>
-                        <input type="text" id="uemail" value="@Model.MyAccount.fEmail">
+                        <input type="email" id="uemail" value="@Model.MyAccount.fEmail" name="Email">
                     </p>
                 </div>
                 <div class="bottomright">
                     <p>
                         <label for="fnumber">手機號碼</label>
-                        <input type="text" id="fnumber" value="@Model.MyAccount.fPhone">
+                        <input type="tel" id="fnumber" value="@Model.MyAccount.fPhone" name="Phone">
                     </p>
                     <p>
                         <label for="fbirth">生日</label>
-                        <input type="text" id="fbirth" value="@Model.MyAccount.fBirthday.ToShortDateString()">
+                        <input type="text" disabled id="fbirth" value="@Model.MyAccount.fBirthday.ToShortDateString()">
                     </p>
                     <p>
                         <label for="flive">居住地</label>
-                        <input type="text" id="flive" value="@Model.MyAccount.fAddress">
+                        <input type="text" id="flive" value="@Model.MyAccount.fAddress" name="Address">
                     </p>
                 </div>
                 <input type="submit" value="儲存" class="btn">
@@ -104,12 +104,13 @@
                     string resetday = $"{day}天{hour}時{min}分";
 
 
-                    <div class="block">
+                   
+                        <div class="block">
                         <img src="~/images/AuctionItemImages/@favoritem.fPhoto0">
                         <div class="card-info">
                             <div class="info-top">
                                 <h5>@favoritem.fItemId</h5>
-                                <a href="#">聯絡買家</a>
+                                <a href="@Url.Content("~/Auction/Item/" + favoritem.fItemId)">聯絡買家</a>
                             </div>
                             <hr>
                             <div class="info-bottom">
@@ -123,6 +124,7 @@
                             </div>
                         </div>
                     </div>
+                  
                 }
             </div>
 
@@ -150,7 +152,7 @@
                         <div class="card-info">
                             <div class="info-top">
                                 <h5>@favorexitem.fItemId</h5>
-                                <a href="#">聯絡買家</a>
+                                <a href="@Url.Content("~/Exchange/Item/" + favorexitem.fItemId)">聯絡買家</a>
                             </div>
                             <hr>
                             <div class="info-bottom">
@@ -249,9 +251,9 @@
                             string resetday = $"{day}天{hour}時{min}分";
 
                         <tr>
-                            <td><img src="~/images/AuctionItemImages/@myeitem.fPhoto0"></td>
+                            <td><img src="~/images/ExchangeItemImages/@myeitem.fPhoto0"></td>
                             <td>@myeitem.fItemName</td>
-                            <td>幾 @myeitem.fChangeCount 則</td>
+                            <td>@myeitem.fChangeCount 則</td>
                             <td>@resetday</td>
                         </tr>
             }
