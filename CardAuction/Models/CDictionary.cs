@@ -12,6 +12,9 @@ namespace CardAuction.Models
         public const string SK_RedirectToId = "SK_RedirectToId";
         public const string SK_RedirectToAction = "SK_RedirectToAction";
         public const string SK_RedirectToController = "SK_RedirectToController";
+        public const string SK_BackToId = "SK_BackToId";
+        public const string SK_BackToAction = "SK_BackToAction";
+        public const string SK_BackToController = "SK_BackToController";
         public const string SK_ValidationNumber = "SK_ValidationNumber";
         public const string SK_ValidationAccount = "SK_ValidationAccount";
         public const string SK_ValidationEmail = "SK_ValidationEmail";

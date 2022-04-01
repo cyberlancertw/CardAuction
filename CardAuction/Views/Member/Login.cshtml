@@ -1,14 +1,14 @@
 ﻿@using CardAuction.Models
 @{
     Layout = null;
-    string toController = string.Empty, toAction = string.Empty, toId = string.Empty;
-    if(Session[CDictionary.SK_RedirectToController] != null)
+    string BackToController = string.Empty, BackToAction = string.Empty, BackToId = string.Empty;
+    if(Session[CDictionary.SK_BackToController] != null)
     {
-        toController = Session[CDictionary.SK_RedirectToController].ToString();
-        toAction = Session[CDictionary.SK_RedirectToAction].ToString();
-        if (Session[CDictionary.SK_RedirectToId] != null)
+        BackToController = Session[CDictionary.SK_BackToController].ToString();
+        BackToAction = Session[CDictionary.SK_BackToAction].ToString();
+        if (Session[CDictionary.SK_BackToId] != null)
         {
-            toId = Session[CDictionary.SK_RedirectToId].ToString();
+            BackToId = Session[CDictionary.SK_BackToId].ToString();
         }
     }
 
@@ -34,21 +34,21 @@
                 </a>
             </div>
             <div id="divBack">
-                @if (string.IsNullOrEmpty(toController))
+                @if (string.IsNullOrEmpty(BackToController))
                 {
                     <i class="fa-solid fa-xmark"></i>
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(toId))
+                    if (string.IsNullOrEmpty(BackToId))
                     {
-                <a href="~/@toController/@toAction">
+                <a href="~/@BackToController/@BackToAction">
                     <i class="fa-solid fa-xmark"></i>
                 </a>
                     }
                     else
                     {
-                <a href="~/@toController/@toAction/@toId">
+                <a href="~/@BackToController/@BackToAction/@BackToId">
                     <i class="fa-solid fa-xmark"></i>
                 </a>
                     }

@@ -60,9 +60,9 @@ namespace CardAuction.Controllers
                     return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "List" });
                 }
             }
-            Session[CDictionary.SK_RedirectToController] = "Auction";
-            Session[CDictionary.SK_RedirectToAction] = "Item";
-            Session[CDictionary.SK_RedirectToId] = id;
+            Session[CDictionary.SK_BackToController] = "Auction";
+            Session[CDictionary.SK_BackToAction] = "Item";
+            Session[CDictionary.SK_BackToId] = id;
             return View(result);
         }
 
@@ -113,6 +113,9 @@ namespace CardAuction.Controllers
             }
             else
             {
+                Session[CDictionary.SK_BackToController] = "Auction";
+                Session[CDictionary.SK_BackToAction] = "Post";
+                Session[CDictionary.SK_BackToId] = string.Empty;
                 return View();
             }
         }
@@ -202,15 +205,18 @@ namespace CardAuction.Controllers
             {
                 return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "Post" });
             }
+            Session[CDictionary.SK_BackToController] = "Auction";
+            Session[CDictionary.SK_BackToAction] = "List";
+            Session[CDictionary.SK_BackToId] = string.Empty;
             return RedirectToAction("List");
         }
 
         [HttpGet]
         public ActionResult List()
         {
-            Session[CDictionary.SK_RedirectToController] = "Auction";
-            Session[CDictionary.SK_RedirectToAction] = "List";
-            Session[CDictionary.SK_RedirectToId] = string.Empty;
+            Session[CDictionary.SK_BackToController] = "Auction";
+            Session[CDictionary.SK_BackToAction] = "List";
+            Session[CDictionary.SK_BackToId] = string.Empty;
             return View();
         }
 

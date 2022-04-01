@@ -16,6 +16,9 @@ namespace CardAuction.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            Session[CDictionary.SK_BackToController] = "Home";
+            Session[CDictionary.SK_BackToAction] = "Index";
+            Session[CDictionary.SK_BackToId] = string.Empty;
             return View();
         }
 
@@ -27,11 +30,18 @@ namespace CardAuction.Controllers
             TempData["ToController"] = ToController;
             TempData["ToAction"] = ToAction;
             TempData["ToId"] = ToId;
+            Session[CDictionary.SK_BackToController] = ToController;
+            Session[CDictionary.SK_BackToAction] = ToAction;
+            Session[CDictionary.SK_BackToId] = ToId;
             return View();
         }
         [HttpGet]
         public ActionResult Search(string id)
         {
+            Session[CDictionary.SK_BackToController] = "Home";
+            Session[CDictionary.SK_BackToAction] = "Search";
+            Session[CDictionary.SK_BackToId] = string.Empty;
+
             CHomeSearchViewModel vModel = new CHomeSearchViewModel();
             vModel.keyword = id;
             if (string.IsNullOrEmpty(id))                               // 空的
@@ -110,12 +120,6 @@ namespace CardAuction.Controllers
             vModel.auctionFullMatch = auctionAndQueryResult;
             vModel.exchangeFullMatch = exchangeAndQueryResult;
 
-            //if (auctionQueryResultItemId.Count == 1)                        // 若只有一個關鍵字，就無部份符合的list要做，直接傳View
-            //{
-            //    vModel.auctionPartialMatch = new List<QueryResult>();
-            //    return View(vModel);
-            //}
-
             List<QueryResult> auctionOrQueryResult = new List<QueryResult>();
             List<string> auctionOrResult = new List<string>();
             List<QueryResult> exchangeOrQueryResult = new List<QueryResult>();
@@ -163,6 +167,9 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult Post()
         {
+            Session[CDictionary.SK_BackToController] = "Home";
+            Session[CDictionary.SK_BackToAction] = "Post";
+            Session[CDictionary.SK_BackToId] = string.Empty;
             return View();
         }
 

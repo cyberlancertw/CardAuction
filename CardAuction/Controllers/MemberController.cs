@@ -98,9 +98,6 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            ViewBag.toAction = TempData[CDictionary.SK_RedirectToAction];
-            ViewBag.toController = TempData[CDictionary.SK_RedirectToController];
-            ViewBag.toId = TempData[CDictionary.SK_RedirectToId];
             if(Session[CDictionary.SK_UserAccount] == null)        // 無登入，進登入頁
             {
                 return View();
@@ -140,22 +137,22 @@ namespace CardAuction.Controllers
                     return RedirectToAction("Index", "Admin");
                 }
 
-                if(TempData[CDictionary.SK_RedirectToAction] == null)
+                if(Session[CDictionary.SK_RedirectToAction] == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    string toAction = TempData[CDictionary.SK_RedirectToAction].ToString();
-                    string toController = TempData[CDictionary.SK_RedirectToController].ToString();
-                    if (TempData[CDictionary.SK_RedirectToId] == null)
+                    string redirectToAction = Session[CDictionary.SK_RedirectToAction].ToString();
+                    string redirectToController = Session[CDictionary.SK_RedirectToController].ToString();
+                    if (Session[CDictionary.SK_RedirectToId] == null)
                     {
-                        return RedirectToAction(toAction, toController);
+                        return RedirectToAction(redirectToAction, redirectToController);
                     }
                     else
                     {
-                        string toId = TempData[CDictionary.SK_RedirectToId].ToString();
-                        return RedirectToAction(toAction, toController, new { id = toId });
+                        string redirectToId = Session[CDictionary.SK_RedirectToId].ToString();
+                        return RedirectToAction(redirectToAction, redirectToController, new { id = redirectToId });
                     }
                 }
             }
