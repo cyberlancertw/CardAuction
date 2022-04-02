@@ -62,13 +62,15 @@ nav{
     /* margin-left: 50px; */
 }
 
-nav a{
-    display: block;
-    text-decoration: none;
-    color: black;
-    padding: 10px 20px;
-    text-align: center;
-}
+    nav a {
+        display: block;
+        text-decoration: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: small;
+        font-weight: bold;
+    }
 
 .dropdown-btn{
     width: 100%;
@@ -146,6 +148,11 @@ h6{
 .name-info p{
     color: gray;
     font-size: small;
+}
+
+.name-info h5 {
+    font-size: x-large;
+    font-weight: bold;
 }
 
 label{
@@ -359,17 +366,36 @@ input{
     margin:auto;
     padding: 10px 50px;
 }
+
+.page6 {
+    display: flex;
+    flex-wrap: wrap;
+    /* max-width: 600px; */
+    margin: auto;
+    padding: 10px 50px;
+}
+
 .page5 td{
     text-align: center;
     color: #1f3344;
 }
 
 
-
-.page5 td:nth-child(2){
-    color: #ab8f4e;
+.page5 .ptable td:nth-child(3) {
+    color:#1f3344;
 }
 
+.page5 .ptable td:nth-child(4) {
+    color:#ab8f4e;
+}
+
+.page6 .ptable td:nth-child(3) {
+    color: #1f3344;
+}
+
+.page6 .ptable td:nth-child(4) {
+    color: #ab8f4e;
+}
 
 .new{
     position: absolute;
@@ -418,12 +444,8 @@ table input{
     height:95px;
 }
 
-.ptable td:nth-child(4){
+.ptable td:nth-child(3){
     color: #ab8f4e;
-}
-
-.page5 td:nth-child(4){
-    color: #1f3344;
 }
 
 .ptable a{
@@ -456,7 +478,7 @@ table input{
    } 
    .page1{
        width: 50%;
-       height: 750px;
+       height: 715px;
        margin: auto 20px;
    }
 
@@ -517,6 +539,10 @@ height: 175px;
 }
 
 .page5{
+    padding: 50px;
+}
+
+.page6 {
     padding: 50px;
 }
 

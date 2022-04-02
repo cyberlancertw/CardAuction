@@ -32,9 +32,10 @@
                 <a href="#">我的管理<i class="fa-solid fa-caret-down"></i></a>
             </button>
             <div class="dropdown-container">
-                <a href="#" id="btn3">·我的商品</a>
+                <a href="#" id="btn3">·我的競標</a>
                 <a href="#" id="btn4">·我的交換</a>
-                <a href="#" id="btn5">·交易紀錄</a>
+                <a href="#" id="btn5">·競標紀錄</a>
+                <a href="#" id="btn6">.交換紀錄</a>
             </div>
         </nav>
 
@@ -104,8 +105,8 @@
                     string resetday = $"{day}天{hour}時{min}分";
 
 
-                   
-                        <div class="block">
+
+                    <div class="block">
                         <img src="~/images/AuctionItemImages/@favoritem.fPhoto0">
                         <div class="card-info">
                             <div class="info-top">
@@ -124,7 +125,7 @@
                             </div>
                         </div>
                     </div>
-                  
+
                 }
             </div>
 
@@ -192,13 +193,13 @@
                             int min = secondTotalRemain / 60;
                             string resetday = $"{day}天{hour}時{min}分";
 
-                        <tr>
-                            <td><img src="~/images/AuctionItemImages/@myaitem.fPhoto0"></td>
-                            <td>@myaitem.fItemName</td>
-                            <td>$ @myaitem.fMoneyNow 元</td>
-                            <td>@resetday</td>
-                        </tr>
-            }
+                            <tr>
+                                <td><img src="~/images/AuctionItemImages/@myaitem.fPhoto0"></td>
+                                <td>@myaitem.fItemName</td>
+                                <td>$ @myaitem.fMoneyNow 元</td>
+                                <td>@resetday</td>
+                            </tr>
+                        }
                     </tbody>
                     <hr>
                     <tfoot>
@@ -250,13 +251,13 @@
                             int min = secondTotalRemain / 60;
                             string resetday = $"{day}天{hour}時{min}分";
 
-                        <tr>
-                            <td><img src="~/images/ExchangeItemImages/@myeitem.fPhoto0"></td>
-                            <td>@myeitem.fItemName</td>
-                            <td>@myeitem.fChangeCount 則</td>
-                            <td>@resetday</td>
-                        </tr>
-            }
+                            <tr>
+                                <td><img src="~/images/ExchangeItemImages/@myeitem.fPhoto0"></td>
+                                <td>@myeitem.fItemName</td>
+                                <td>@myeitem.fChangeCount 則</td>
+                                <td>@resetday</td>
+                            </tr>
+                        }
                     </tbody>
                     <hr>
                     <tfoot>
@@ -290,35 +291,98 @@
                     <thead>
                         <tr>
                             <th colspan="1">商品</th>
-                            <th colspan="1">訂單編號</th>
-                            <th colspan="1">購買日期</th>
-                            <th colspan="1">購買價格</th>
+                            <th colspan="1">商品名稱</th>
+                            <th colspan="1">結標日期</th>
+                            <th colspan="1">結標價格</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>訂單編號</td>
-                            <td>購買日期</td>
-                            <td>購買價格</td>
+                            <td>商品名稱</td>
+                            <td>結標日期</td>
+                            <td>結標價格</td>
                         </tr>
                         <tr>
                             <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>訂單編號</td>
-                            <td>購買日期</td>
-                            <td>購買價格</td>
+                            <td>商品名稱</td>
+                            <td>結標日期</td>
+                            <td>結標價格</td>
                         </tr>
                         <tr>
                             <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>訂單編號</td>
-                            <td>購買日期</td>
-                            <td>購買價格</td>
+                            <td>商品名稱</td>
+                            <td>結標日期</td>
+                            <td>結標價格</td>
                         </tr>
                         <tr>
                             <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>訂單編號</td>
-                            <td>購買日期</td>
-                            <td>購買價格</td>
+                            <td>商品名稱</td>
+                            <td>結標日期</td>
+                            <td>結標價格</td>
+                        </tr>
+                    </tbody>
+                    <hr>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="page6" id="pages6" style="display:none">
+            <div class="ptable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="1">商品</th>
+                            <th colspan="1">商品名稱</th>
+                            <th colspan="1">交換日期</th>
+                            <th colspan="1">交換狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
+                            <td>商品名稱</td>
+                            <td>交換日期</td>
+                            <td>交換狀態</td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
+                            <td>商品名稱</td>
+                            <td>交換日期</td>
+                            <td>交換狀態</td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
+                            <td>商品名稱</td>
+                            <td>交換日期</td>
+                            <td>交換狀態</td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
+                            <td>商品名稱</td>
+                            <td>交換日期</td>
+                            <td>交換狀態</td>
                         </tr>
                     </tbody>
                     <hr>
@@ -347,14 +411,14 @@
             </div>
         </div>
     </div>
-    </div>
 
     <script>
-        var btn1 = document.getElementById('btn1'); var pa1 = document.getElementById('p1');
-        var btn2 = document.getElementById('btn2'); var pa2 = document.getElementById('p2');
-        var btn3 = document.getElementById('btn3'); var pa3 = document.getElementById('p3');
-        var btn4 = document.getElementById('btn4'); var pa4 = document.getElementById('p4');
-        var btn5 = document.getElementById('btn5'); var pa5 = document.getElementById('p5');
+        var btn1 = document.getElementById('btn1'); var pa1 = document.getElementById('pages1');
+        var btn2 = document.getElementById('btn2'); var pa2 = document.getElementById('pages2');
+        var btn3 = document.getElementById('btn3'); var pa3 = document.getElementById('pages3');
+        var btn4 = document.getElementById('btn4'); var pa4 = document.getElementById('pages4');
+        var btn5 = document.getElementById('btn5'); var pa5 = document.getElementById('pages5');
+        var btn6 = document.getElementById('btn6'); var pa5 = document.getElementById('pages6');
 
         document.querySelectorAll('[id^="btn"]').forEach(function (dom) {
             dom.addEventListener('click', function () {
