@@ -62,13 +62,15 @@ nav{
     /* margin-left: 50px; */
 }
 
-nav a{
-    display: block;
-    text-decoration: none;
-    color: black;
-    padding: 10px 20px;
-    text-align: center;
-}
+    nav a {
+        display: block;
+        text-decoration: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: small;
+        font-weight: bold;
+    }
 
 .dropdown-btn{
     width: 100%;
@@ -146,6 +148,11 @@ h6{
 .name-info p{
     color: gray;
     font-size: small;
+}
+
+.name-info h5 {
+    font-size: x-large;
+    font-weight: bold;
 }
 
 label{
@@ -456,7 +463,7 @@ table input{
    } 
    .page1{
        width: 50%;
-       height: 750px;
+       height: 715px;
        margin: auto 20px;
    }
 
