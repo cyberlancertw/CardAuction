@@ -520,27 +520,98 @@ namespace CardAuction.Controllers
         {
             if(itemId == null)
             {
-                return Json(new { msg = "null itemId" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "EmptyItemId" }, JsonRequestBehavior.AllowGet);
             }
+
             tAuctionItem item = db.tAuctionItem.Find(itemId);
+
             if(item == null)
             {
-                return Json(new { msg = "nullItem" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "ItemNotExist" }, JsonRequestBehavior.AllowGet);
             }
-            if (string.IsNullOrEmpty(item.fTopBidUserId))
+            if (item.fDelete)
             {
-                return Json(new { msg = "notTop"}, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "Deleted" }, JsonRequestBehavior.AllowGet);
             }
+
+            if(item.fEndTime > DateTime.Now && item.fBuyPrice < 0)
+            {
+                return Json(new { statusMessage = "NotFinish" }, JsonRequestBehavior.AllowGet);
+            }
+
+            if (item.fEndTime > DateTime.Now && item.fBuyPrice > 0 && item.fMoneyNow < item.fBuyPrice)
+            {
+                return Json(new { statusMessage = "NotFinish" }, JsonRequestBehavior.AllowGet);
+            }
+
+            if (item.fEndTime < DateTime.Now && string.IsNullOrEmpty(item.fTopBidUserId))
+            {
+                return Json(new { statusMessage = "NoTopFinish"}, JsonRequestBehavior.AllowGet);
+            }
+
             string winUserAcc = db.tMember.Find(item.fTopBidUserId).fAccount;
+            string statusMessage = "EndTimeFinish";
+
+            if (item.fBuyPrice > 0 && item.fMoneyNow >= item.fBuyPrice)
+            {
+                statusMessage = "BuyFinish";
+            }
+
             return Json(new { 
+                statusMessage = statusMessage,
                 winUserAcc = winUserAcc,
                 winMoney = item.fMoneyNow,
                 transPerson = item.fTransPerson,
                 transSeven = item.fTransSeven,
-                tranFami = item.fTransFami,
-                tranLogi = item.fTransLogi
+                transFami = item.fTransFami,
+                transLogi = item.fTransLogi
             }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        public void DeleteItem(string itemId)
+        {
+            if(itemId == null)
+            {
+                return;
+            }
+            
+            tAuctionItem item = db.tAuctionItem.Find(itemId);
+            
+            if(item == null || item.fDelete)
+            {
+                return;
+            }
+
+            item.fDelete = true;
+
+            tAuctionResult newResult = new tAuctionResult
+            {
+                fResultId = itemId,
+                fPostUserId = item.fPostUserId,
+                fWinUserId = item.fTopBidUserId,
+                fTotalMoney = item.fMoneyNow,
+                fBidCount = item.fBidCount,
+                fWinTime = item.fEndTime,
+                fBidMoney = item.fMoneyNow,
+                fDeliveryInfo = string.Empty
+            };
+            db.tAuctionResult.Add(newResult);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return;
+            }
         }
     }
 

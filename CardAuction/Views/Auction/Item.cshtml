@@ -223,8 +223,16 @@
         var btnCommentSend = document.getElementById('btnCommentSend');
         var commentHere = document.getElementById('commentHere');
         var bidHere = document.getElementById('bidHere');
-
-
+        var MoneyNow = document.getElementById('MoneyNow');
+        @if (Session[CDictionary.SK_UserAccount] == null)
+    {
+        @:var userAcc = '', userId = '';
+    }
+    else
+    {
+        @:var userAcc = '@Session[CDictionary.SK_UserAccount].ToString()';
+        @:var userId = '@Session[CDictionary.SK_UserUserId]';
+    }
         var itemId = '@Model.fItemId';
 
         var timer = window.setInterval(function () {
@@ -261,12 +269,16 @@
         <text>
         btnFavorite.disabled = true;                                          // 有登入而且就是上架者自己
         btnReport.disabled = true;                                            // 則不給按追蹤、檢舉、購買和出價
-        txtBid.disabled = true;
-        btnBid.disabled = true;
+        if (txtBid) {
+            txtBid.disabled = true;
+        }
+        if (btnBid) {
+            btnBid.disabled = true;
+        }
         if (btnBuy) {
             btnBuy.disabled = true;                                           // 購買鍵可能不存在，另外處理
         }
-        
+
         </text>
         }
 
@@ -279,10 +291,12 @@
         <text>
         let btns = [btnFavorite, btnReport, btnBid, btnCommentSend];                   // 無登入者，若點擊這些按鈕，送去登入頁
         btns.forEach(dom => {
-            dom.addEventListener('click', event => {
-                event.preventDefault();
-                location.href = '@Url.Content("~/Member/Login")';
-            });
+            if (dom) {
+                dom.addEventListener('click', event => {
+                    event.preventDefault();
+                    location.href = '@Url.Content("~/Member/Login")';
+                });
+            }
         });
         if (btnBuy) {                                                                   // 購買鍵可能不存在，另外處理
             btnBuy.addEventListener('click', event => {
@@ -307,15 +321,17 @@
             xhr.send();
         });
 
-        btnBid.addEventListener('click', function () {
-            let amount = parseInt(txtBid.value);
+        if (btnBid) {
+            btnBid.addEventListener('click', function () {
+                let amount = parseInt(txtBid.value);
 
-            if (amount >= leastBid) {
-                sendBid(amount);
-            }
-            txtBid.value = '';
-            txtBid.focus();
-        });
+                if (amount >= leastBid) {
+                    sendBid(amount);
+                }
+                txtBid.value = '';
+                txtBid.focus();
+            });
+        }
 
         btnCommentSend.addEventListener('click', function () {
             let content = txtComment.value;
@@ -327,10 +343,13 @@
             txtComment.focus();
         });
 
-        btnBuy.addEventListener('click', function () {
-            sendBid(@Model.fBuyPrice);          // 直購
-            Finish();
-        });
+        if (btnBuy) {
+          btnBuy.addEventListener('click', function () {
+                sendBid(@Model.fBuyPrice);          // 直購
+                Finish();
+            });
+        }
+
         </text>
         }
 
@@ -352,14 +371,17 @@
                 if (btnBuy) {
                     btnBuy.disabled = true;
                 }
-                btnBid.disabled = true;
-                txtBid.disabled = true;
+                if (btnBid) {
+                    btnBid.disabled = true;
+                }
+                if (txtBid) {
+                    txtBid.disabled = true;
+                }
                 txtComment.disabled = true;
                 btnCommentSend.disabled = true;
                 btnReport.disabled = true;
 
-                let para = `?itemId=${iemId}`;
-
+                Finish();
                 return;
             }
             let day = Math.floor(t / 86400);
@@ -438,7 +460,9 @@
             }
             bidHere.appendChild(docFrag);
             leastBid = parseInt(datas[0].bidMoney);
-            document.getElementById('MoneyNow').textContent = '$ ' + leastBid + ' 元';
+            if (MoneyNow) {
+                MoneyNow.textContent = '$ ' + leastBid + ' 元';
+            }
             txtBid.min = leastBid;
         }
 
@@ -502,22 +526,177 @@
         function Finish() {
             window.clearInterval(timer);
             domTime.textContent = '競標已結束';
-            let area = document.getElementById('divMoney');
-            //area.innerHTML = '';
 
             let para = `/?itemId=${itemId}`;
             fetch('@Url.Content("~/Auction/FinishInfo")' + para, { method: 'GET' })
                 .then(response => response.json())
                 .then(response => {
-                    console.log(response);
-                });
 
+                    let statusMessage = response.statusMessage;
+
+                    if (statusMessage == 'BuyFinish' || statusMessage == 'EndTimeFinish') {
+                        if (userAcc == response.winUserAcc) {
+                            GenerateFinishlUI(
+                                response.winUserAcc,
+                                response.winMoney,
+                                response.transPerson,
+                                response.transSeven,
+                                response.transFami,
+                                response.transLogi);
+                        }
+                        else {
+                            GenerateFinishNotWinner(response.winUserAcc, response.winMoney);
+                        }
+                    }
+                    else if (statusMessage == 'NoTopFinish' || statusMessage == 'Deleted') {
+                        GenerateNoTopFinishUI();
+                    }
+                });
         }
-        function FinishInfo() {
+        function GenerateFinishNotWinner(acc, money) {
+            let area = document.getElementById('divMoney');
+
             let docFrag = document.createDocumentFragment();
             let domWinInfo = document.createElement('div');
-            domWinInfo.className = 'row moneyRow rowBuy';
-            domWinInfo.textContent = '';
+            domWinInfo.className = 'finishRow moneyRow titleMoney rowBuy';
+            domWinInfo.textContent = `${acc} 已得標`;
+            docFrag.appendChild(domWinInfo);
+
+            let domWinMoney = document.createElement('div');
+            domWinMoney.className = 'finishRow moneyRow';
+            let spanMoneyTitle = document.createElement('span');
+            spanMoneyTitle.className = 'titleMoney';
+            spanMoneyTitle.textContent = '購買價格：';
+            let spanMoneyAmount = document.createElement('span');
+            spanMoneyAmount.className = 'goldMoney';
+            spanMoneyAmount.textContent = '$ ' + money + ' 元';
+            domWinMoney.appendChild(spanMoneyTitle);
+            domWinMoney.appendChild(spanMoneyAmount);
+            docFrag.appendChild(domWinMoney);
+
+            let domEndInfo = document.createElement('div');
+            domEndInfo.className = 'finishRow finishTitle gold ';
+            domEndInfo.textContent = '請點擊下方連結繼續瀏覽其他商品';
+            docFrag.appendChild(domEndInfo);
+
+            let domContinueRow = document.createElement('div');
+            domContinueRow.className = 'finishRow moneyRow';
+            let btnContinue = document.createElement('button');
+            btnContinue.textContent = '繼續瀏覽其他商品';
+            btnContinue.id = 'btnContinue';
+            domContinueRow.appendChild(btnContinue);
+            docFrag.appendChild(domContinueRow);
+
+            area.innerHTML = '';
+            area.appendChild(docFrag);
+
+            btnContinue.addEventListener('click', () => location.href = '@Url.Content("~/Auction/List")');
+        }
+        function GenerateNoTopFinishUI() {
+            let area = document.getElementById('divMoney');
+
+            let docFrag = document.createDocumentFragment();
+            let domWinInfo = document.createElement('div');
+            domWinInfo.className = 'finishRow finishTitle moneyRow gold rowBuy';
+            domWinInfo.textContent = `很抱歉，此商品已結束，無人得標`;
+            docFrag.appendChild(domWinInfo);
+
+            let domEndInfo = document.createElement('div');
+            domEndInfo.className = 'finishRow finishTitle gold ';
+            domEndInfo.textContent = '請點擊下方連結繼續瀏覽其他商品';
+            docFrag.appendChild(domEndInfo);
+
+            let domContinueRow = document.createElement('div');
+            domContinueRow.className = 'finishRow moneyRow';
+            let btnContinue = document.createElement('button');
+            btnContinue.textContent = '繼續瀏覽其他商品';
+            btnContinue.id = 'btnContinue';
+            domContinueRow.appendChild(btnContinue);
+            docFrag.appendChild(domContinueRow);
+
+            area.innerHTML = '';
+            area.appendChild(docFrag);
+
+            btnContinue.addEventListener('click', () => {
+                let para = `/?itemId=${itemId}`;
+                fetch('@Url.Content("~/Auction/DeleteItem")' + para, { method: 'GET' })
+                    .then(function () {
+                        location.href = '@Url.Content("~/Auction/List")';
+                    });
+            });
+        }
+
+
+        function GenerateFinishlUI(acc,money,person,seven,fami,logi) {
+            let area = document.getElementById('divMoney');
+
+            let docFrag = document.createDocumentFragment();
+            let domWinInfo = document.createElement('div');
+            domWinInfo.className = 'finishRow moneyRow titleMoney rowBuy';
+            domWinInfo.textContent = `${acc} 已得標`;
+            docFrag.appendChild(domWinInfo);
+
+            let domWinMoney = document.createElement('div');
+            domWinMoney.className = 'finishRow moneyRow';
+            let spanMoneyTitle = document.createElement('span');
+            spanMoneyTitle.className = 'titleMoney';
+            spanMoneyTitle.textContent = '購買價格：';
+            let spanMoneyAmount = document.createElement('span');
+            spanMoneyAmount.className = 'goldMoney';
+            spanMoneyAmount.textContent = '$ ' + money + ' 元';
+            domWinMoney.appendChild(spanMoneyTitle);
+            domWinMoney.appendChild(spanMoneyAmount);
+            docFrag.appendChild(domWinMoney);
+            let domTransRow = document.createElement('div');
+            domTransRow.className = 'finishRow  moneyRow';
+            let spanTransTitle = document.createElement('span');
+            spanTransTitle.className = 'titleMoney';
+            spanTransTitle.textContent = '運送方式：'
+
+            let selectTrans = document.createElement('select');
+            selectTrans.className = 'selectTrans finishTitle';
+            let transName = ['面交', '7-11', '全家', '物流'];
+            let transMoney = [person, seven, fami, logi];
+            for (let i in transName) {
+                if (transMoney[i] > -1) {
+                    let opt = document.createElement('option');
+                    opt.textContent = transName[i];
+                    opt.value = transMoney[i];
+                    selectTrans.appendChild(opt);
+                }
+            }
+            domTransRow.appendChild(spanTransTitle);
+            domTransRow.appendChild(selectTrans);
+            docFrag.appendChild(domTransRow);
+
+
+            let domTransFeeRow = document.createElement('div');
+            domTransFeeRow.className = 'finishRow moneyRow';
+            let spanTransFeeTitle = document.createElement('span');
+            spanTransFeeTitle.className = 'titleMoney';
+            spanTransFeeTitle.textContent = '運費：';
+            let spanTransFeeAmount = document.createElement('span');
+            spanTransFeeAmount.className = 'goldMoney';
+            spanTransFeeAmount.textContent = '$ ' + selectTrans.value + ' 元';
+            domTransFeeRow.appendChild(spanTransFeeTitle);
+            domTransFeeRow.appendChild(spanTransFeeAmount);
+            docFrag.appendChild(domTransFeeRow);
+
+            let domCheckRow = document.createElement('div');
+            domCheckRow.className = 'finishRow moneyRow';
+            let btnCheck = document.createElement('button');
+            btnCheck.textContent = '前往結賑';
+            btnCheck.id = 'btnCheck';
+            domCheckRow.appendChild(btnCheck);
+            docFrag.appendChild(domCheckRow);
+
+            area.innerHTML = '';
+            area.appendChild(docFrag);
+
+            selectTrans.addEventListener('change', () => spanTransFeeAmount.textContent = '$ ' + selectTrans.value + ' 元');
+            btnCheck.addEventListener('click', () => {
+                console.log('!');
+            })
         }
     </script>
 }

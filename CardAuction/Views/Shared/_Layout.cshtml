@@ -75,14 +75,13 @@
     <script>
         var txtSearch = document.getElementById('txtSearch');
 
-        txtSearch.addEventListener('keypress', function (event) {
+        txtSearch.addEventListener('keypress', () => {
             if (event.code == 'Enter' || event.code == 'NumpadEnter') {
                 searchBy(this.value);
             }
         });
-        document.getElementById('iconMag').addEventListener('click', function () {
-            searchBy(txtSearch.value);
-        })
+        document.getElementById('iconMag').addEventListener('click', () => searchBy(txtSearch.value));
+
         function searchBy(keyword) {
             location.href = '@Url.Content("~/Home/Search/")' + keyword;
         }
