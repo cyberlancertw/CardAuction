@@ -4,44 +4,7 @@
         height: 60px;
         border-radius: 30px;
     }
-    .avatar {
-        vertical-align: middle;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-    }
-    .btncheng {
-        margin-top: 25%;
-    }
-    .btnright {
-        float: right;
-    }
-    /*會員頭像*/
-    .depictionG {
-        color: #ffffff;
-        background-color: #ab8f4e;
-        margin-left: 5%;
-    }/*商品敘述*/
-    .floatR {
-        float: right;
-    }
-    .pmsg2 {
-        margin: auto;
-        border: 1px solid #ab8f4e;
-        font-size: 20px;
-        width: 90%;
-        height: 130px;
-        background-color: #DDDDDD;
-        color: #000;
-    }
-    .QuestionColor {
-        background-color: #ab8f4e;
-        color: #ffffff;
-        font-size: 24px;
-        text-align: center;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
+    
      /*=======================================================================*/
     .moneyRow {
         padding-top: 10px;
@@ -483,11 +446,72 @@ body {
 .Msgbr {
     margin-top: 20px;
 }
-.IMG100{
-    width: 10rem;
-    height:13rem;
+.IMG100 {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-inline: inherit;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-.IMG100>IMG{
-    width:100%;
-    height:100%;
+.ImgWrap>IMG{
+
+    width:90%;
+    margin-inline:auto;
+
+}
+.ImgWrap {
+    width: 22%;
+    margin-left:5px;
+    max-height: 20rem;
+}
+.eibrow {
+    border-bottom: 1px solid #ced3d8;
+}
+.floatR {
+    margin-left: 10px;
+    /*margin-inline: auto;*/
+}
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.btncheng {
+    margin-top: 25%;
+}
+
+.btnright {
+    float: right;
+}
+/*會員頭像*/
+.depictionG {
+    color: #ffffff;
+    background-color: #ab8f4e;
+    margin-left: 5%;
+}
+/*商品敘述*/
+.floatR {
+    float: right;
+}
+
+.pmsg2 {
+    margin: auto;
+    border: 1px solid #ab8f4e;
+    font-size: 20px;
+    width: 90%;
+    height: 130px;
+    background-color: #DDDDDD;
+    color: #000;
+}
+
+.QuestionColor {
+    background-color: #ab8f4e;
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
