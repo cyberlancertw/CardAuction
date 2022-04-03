@@ -1,6 +1,10 @@
 ﻿/*  淡灰 ced3d8   ebebeb    深灰 6b6b6b   黑 333333    藏青 1f3444    金  ab8f4e    白ffffff */
 @media (min-width: 1200px) {
+    html{
+        font-size: 14px;
+    }
     #btnReport, #btnFavorite, #btnComment {
+        font-size: 1.3rem;
         height: 60px;
         border-radius: 30px;
         font-weight: 700;
@@ -10,16 +14,19 @@
         padding-bottom: 10px;
     }
     .titleMoney {
-        font-size: 1.5rem;
-        font-weight: 700;
+        font-size: 1.6rem;
     }
     .goldMoney {
         font-size: 1.8rem;
-        font-weight: 700;
     }
-    #btnBuy, #btnBid {
+    #btnBuy, #btnBid{
         height: 40px;
         width: 80%;
+        font-size: 1.4rem;
+    }
+    #btnCheck, #btnContinue {
+        height: 40px;
+        width: 50%;
         font-size: 1.4rem;
     }
     .imgSmall {
@@ -29,10 +36,23 @@
         height: 3.2rem;
         font-size: 1.4rem;
     }
+    .finishRow{
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    .finishTitle {
+        font-size: 1.6rem;
+    }
+    .selectTrans {
+    }
 }
 @media (min-width: 992px) and (max-width:1199px){
+    html {
+        font-size: 13px;
+    }
     #btnReport, #btnFavorite, #btnComment {
-        height: 60px;
+        font-size: 1.1rem;
+        height: 3.6rem;
         border-radius: 30px;
     }
     .moneyRow {
@@ -40,14 +60,19 @@
         padding-bottom: 8px;
     }
     .titleMoney {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
     .goldMoney {
         font-size: 1.8rem;
     }
-    #btnBuy, #btnBid {
+    #btnBuy, #btnBid, #btnCheck {
         height: 40px;
         width: 80%;
+        font-size: 1.4rem;
+    }
+    #btnCheck, #btnContinue {
+        height: 40px;
+        width: 50%;
         font-size: 1.4rem;
     }
     .imgSmall {
@@ -57,10 +82,20 @@
         height: 3.2rem;
         font-size: 1.4rem;
     }
+    .finishRow {
+        padding-top: 1.2rem;
+        padding-bottom: 1.2rem;
+    }
+    .finishTitle {
+        font-size: 1.6rem;
+    }
 }
 @media (min-width: 768px) and (max-width:991px){
-    #btnReport,#btnFavorite,#btnComment{
-        height: 40px;
+    html {
+        font-size: 12px;
+    }
+    #btnReport, #btnFavorite,#btnComment{
+        height: 3rem;
         border-radius: 20px;
     }
     .moneyRow {
@@ -68,7 +103,7 @@
         padding-bottom: 7px;
     }
     .titleMoney {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
     }
     .goldMoney {
         font-size: 1.6rem;
@@ -78,6 +113,11 @@
         width: 85%;
         font-size: 1.2rem;
     }
+    #btnCheck, #btnContinue {
+        height: 40px;
+        width: 50%;
+        font-size: 1.4rem;
+    }
     .imgSmall {
         height: 60px;
     }
@@ -85,12 +125,22 @@
         height: 2.6rem;
         font-size: 1.2rem;
     }
-    
+    .finishRow {
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
+    }
+    .finishTitle {
+        font-size: 1.25rem;
+    }
 }
 
 @media (min-width: 576px) and (max-width:767px) {
+    html {
+        font-size: 11px;
+    }
     #btnReport, #btnFavorite, #btnComment {
-        height: 60px;
+        font-size: 1.6rem;
+        height: 5rem;
         border-radius: 30px;
     }
     .moneyRow {
@@ -98,7 +148,7 @@
         padding-bottom: 8px;
     }
     .titleMoney {
-        font-size: 1.25rem;
+        font-size: 1.4rem;
     }
     .goldMoney {
         font-size: 1.8rem;
@@ -107,6 +157,11 @@
         height: 38px;
         width: 85%;
         font-size: 1.2rem;
+    }
+    #btnCheck, #btnContinue {
+        height: 40px;
+        width: 50%;
+        font-size: 1.4rem;
     }
     .imgSmall {
         height: 60px;
@@ -118,8 +173,18 @@
     .commentContent {
         order: 1;
     }
+    .finishRow {
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
+    }
+    .finishTitle {
+        font-size: 1.6rem;
+    }
 }
 @media (max-width: 575px){
+    html {
+        font-size: 10px;
+    }
     #btnReport, #btnFavorite, #btnComment {
         height: 40px;
         border-radius: 20px;
@@ -129,15 +194,20 @@
         padding-bottom: 8px;
     }
     .titleMoney {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
     .goldMoney {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
     #btnBuy, #btnBid {
         height: 38px;
         width: 85%;
         font-size: 1.6rem;
+    }
+    #btnCheck, #btnContinue {
+        height: 40px;
+        width: 50%;
+        font-size: 1.4rem;
     }
     .imgSmall {
         height: 6rem;
@@ -148,6 +218,13 @@
     }
     .commentContent {
         order: 1;
+    }
+    .finishRow {
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
+    }
+    .finishTitle {
+        font-size: 1.8rem;
     }
 }
 
@@ -174,8 +251,10 @@
 
 }
 #imgShow{
-    max-width: 90%;
-    height: 40rem;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    
 }
 
 #divSmallList{
@@ -236,10 +315,11 @@
  }
 .titleMoney {
     text-align: left;
-    font-weight: bold;
+    font-weight: 700;
     color: #1f3444;
 }
 .goldMoney {
+    font-weight: 700;
     color: #ab8f4e;
 }
 
@@ -257,7 +337,7 @@
     width: 90%;
     border: 1px solid #6b6b6b;
 }
-#btnBuy, #btnBid{
+#btnBuy, #btnBid, #btnCheck, #btnContinue {
     background-color: #1f3444;
     color: #ffffff;
     border: none;
@@ -355,7 +435,6 @@
 }
 
 #btnReport, #btnFavorite, #btnComment {
-    font-size: 1.2rem;
     color: #1f3444;
     font-weight: bold;
     width: 100%;
@@ -373,4 +452,17 @@
 }
 .commentRecord:nth-child(2n+1) {
     background-color: #ebebeb;
+}
+.finishRow {
+    text-align: center;
+    font-weight: 700;
+}
+.finishTitle {
+    font-weight: 700;
+}
+.navyBlue {
+    color: #1f3444;
+}
+.gold {
+    color: #ab8f4e;
 }

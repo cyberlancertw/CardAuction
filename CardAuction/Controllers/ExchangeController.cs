@@ -244,7 +244,7 @@ namespace CardAuction.Controllers
             }
             catch(DbEntityValidationException ex)
             {
-
+                return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {ex.ToString()}", ToController = "Exchange", ToAction = "List" });
             }
             catch (Exception e)
             {
