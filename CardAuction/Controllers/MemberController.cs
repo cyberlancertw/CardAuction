@@ -424,7 +424,7 @@ namespace CardAuction.Controllers
         {
             string UserId = Session[CDictionary.SK_UserUserId].ToString();
             tExchangeFavorite result = db.tExchangeFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
-            if(result == null)
+            if(result != null)
             {
                 db.tExchangeFavorite.Remove(result);
                 db.SaveChanges();
