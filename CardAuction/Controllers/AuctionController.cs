@@ -520,41 +520,41 @@ namespace CardAuction.Controllers
         {
             if(itemId == null)
             {
-                return Json(new { statusMessage = "EmptyItemId" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "EmptyItemId" }, JsonRequestBehavior.AllowGet);       // 空argument
             }
 
             tAuctionItem item = db.tAuctionItem.Find(itemId);
 
             if(item == null)
             {
-                return Json(new { statusMessage = "ItemNotExist" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "ItemNotExist" }, JsonRequestBehavior.AllowGet);      // 不存在競標商品
             }
             if (item.fDelete)
             {
-                return Json(new { statusMessage = "Deleted" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "Deleted" }, JsonRequestBehavior.AllowGet);           // 已刪除
             }
 
             if(item.fEndTime > DateTime.Now && item.fBuyPrice < 0)
             {
-                return Json(new { statusMessage = "NotFinish" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "NotFinish" }, JsonRequestBehavior.AllowGet);         // 時間未到，無直購，未結束
             }
 
             if (item.fEndTime > DateTime.Now && item.fBuyPrice > 0 && item.fMoneyNow < item.fBuyPrice)
             {
-                return Json(new { statusMessage = "NotFinish" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "NotFinish" }, JsonRequestBehavior.AllowGet);         // 時間未到，有直購，但還未出到，未結束
             }
 
             if (item.fEndTime < DateTime.Now && string.IsNullOrEmpty(item.fTopBidUserId))
             {
-                return Json(new { statusMessage = "NoTopFinish"}, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "NoTopFinish"}, JsonRequestBehavior.AllowGet);        // 時間到，無人得標的結束
             }
 
             string winUserAcc = db.tMember.Find(item.fTopBidUserId).fAccount;
-            string statusMessage = "EndTimeFinish";
+            string statusMessage = "EndTimeFinish";                                                     // 時間到，有人得標的結束
 
             if (item.fBuyPrice > 0 && item.fMoneyNow >= item.fBuyPrice)
             {
-                statusMessage = "BuyFinish";
+                statusMessage = "BuyFinish";                                                            // 直購結束
             }
 
             return Json(new { 
@@ -571,21 +571,21 @@ namespace CardAuction.Controllers
 
         public void DeleteItem(string itemId)
         {
-            if(itemId == null)
+            if(itemId == null)                              // 無arguement
             {
                 return;
             }
             
             tAuctionItem item = db.tAuctionItem.Find(itemId);
             
-            if(item == null || item.fDelete)
+            if(item == null || item.fDelete)                // 查無競標商品 或 已結束
             {
                 return;
             }
 
-            item.fDelete = true;
+            item.fDelete = true;                            // 結束此競標商品
 
-            tAuctionResult newResult = new tAuctionResult
+            tAuctionResult newResult = new tAuctionResult   // 新增 result 紀錄
             {
                 fResultId = itemId,
                 fPostUserId = item.fPostUserId,
