@@ -1,55 +1,95 @@
-@media only screen and (min-width: 769px) {
+
+@media (max-width: 575px) {
     .picBlock {
-        width: 13vw;
-        height: 13vw
+        width: 20rem;
+        height: 24rem;
+        background-size: 20rem;
     }
 }
 
-@media only screen and (min-width: 321px) and (max-width: 768px) {
+@media (min-width: 576px) and (max-width: 767px) {
     .picBlock {
-        width: 30vw;
-        height: 30vw;
+        width: 14rem;
+        height: 18rem;
+        background-size: 14rem;
     }
 }
 
-@media only screen and (min-width: 0px) and (max-width: 320px) {
+@media (min-width: 768px) and (max-width: 991px) {
     .picBlock {
-        width: 90vw;
-        height: 90vw;
+        width: 6.8rem;
+        height: 10rem;
+        background-size: 6.8rem;
     }
 }
-.contentCenter{
-    text-align:center;
+
+@media (min-width: 992px) and (max-width:1199px) {
+    .picBlock {
+        width: 9rem;
+        height: 13rem;
+        background-size: 9rem;
+    }
 }
-.contentHead{
+
+@media (min-width: 1200px) {
+    .picBlock {
+        width: 11rem;
+        height: 15rem;
+        background-size: 11rem;
+    }
+}
+
+body {
+    font-family: 'Noto Sans TC Medium', '微軟正黑體';
+    background-color: #f6f6f6;
+}
+
+#webIcon {
+    width: 100px;
+    margin-right: 10px;
+}
+
+#header {
+    margin-top: 8px;
+    padding-left: 20px;
+    font-size: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ced3d8;
+}
+
+#greeting {
+    text-align: right;
+    padding-right: 50px;
+}
+
+#mainBox {
+    margin-top: 5px;
+}
+
+.errMsg {
+    color: red;
+}
+
+#basicInfo, #sellDetail /*,#transFee*/ {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    background-color: #ffffff;
+    border-radius: 10px 10px;
+    border: 2px solid lightgray;
+    padding: 40px;
+    box-shadow: 0px 0px 6px 2px lightgray;
+}
+
+.picBlockList {
+    display: -webkit-inline-box;
+    flex-wrap: wrap;
     text-align: center;
 }
-.content > input, #seleSort, #seleGrading, #selectItemplace {
-    width: 100%;
-    height: 40px;
-    border: 2px solid #ced3d8;
-    border-radius: 6px;
-}
-.divContent{
-    margin-top: 20px;
-    margin-right: 30px;
-    margin-left: 0px;
-    font-size: 22px;
-    color: #3b3b3b;
-}
-.divTitle{
-    font-size: 24px;
-    color: #333333;
-}
-.dragNone {
-    border: 4px dashed #6b6b6b;
-}
-.picBlockList{
-    display:inline-flex;
-    flex-wrap: wrap;
-}
+
 .picBlock {
-    position:relative;
+    position: relative;
     margin-bottom: 20px;
     margin-right: 5px;
     margin-left: 5px;
@@ -61,73 +101,105 @@
     background-repeat: no-repeat;
     background-position: center;
 }
-.table {
-    display:block;
-    width: 100%;
-    margin: auto;
-    margin-top: 30px;
-    background-color: white;
-}/*背景*/
-.text-center{
-    text-align:center;
+
+/*
+.txtBlock{
+    width: 100px;
+    position: absolute;
+    left:50%;
+    transform: translate(-50%,0);
+    bottom: 10px;
 }
-#buttons {
-    margin-top: 10px;
-    margin-bottom: 30px;
+*/
+
+.imgSelect {
+    width: 100%;
+}
+
+.dragNone {
+    border: 4px dashed #6b6b6b;
+}
+
+.dragOver {
+    border: 3px solid #ced3d8;
+}
+
+.divTitle {
+    font-size: 24px;
+    color: #333333;
+}
+
+.contentHead {
     text-align: right;
 }
-#btnCancel{
-    margin-right: 20px;
-    color: #333333;
-    background-color: #ffffff;
-    box-shadow: 0px 0px 3px 2px lightgray;
+
+.divContent {
+    margin-top: 35px;
+    margin-right: 30px;
+    margin-left: 10px;
+    font-size: 22px;
+    color: #6b6b6b;
 }
-#btnPost{
-    margin-right: 150px;
-    color: #ffffff;
-    background-color: #1f3444;
-}
-#basicInfo,#sellDetail,#transFee{
-    width: 85%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 25px;
-    background-color: #ffffff;
-    border-radius: 10px 10px;
-    border: 2px solid rgb(80, 80, 80);
-    padding: 40px;
-    box-shadow: 0px 0px 6px 2px lightgray;
-}
+
 #divImgSelect {
     margin-bottom: 70px;
 }
+
+#divItemName, #divItemDescription, #divGrading, #divItemplace, #divhope-name, #divhope-place, #divUserInfo {
+    margin-bottom: 20px;
+}
+
+div.content {
+    text-align: center;
+}
+
+.content > input, #seleSort, #seleGrading, #selectItemplace, #selecthope-class, #selecthope-place {
+    width: 100%;
+    height: 40px;
+    border: 2px solid #ced3d8;
+    border-radius: 6px;
+}
+
+#ItemDescription, #UserInfo {
+    width: 100%;
+    height: 250px;
+    border: 2px solid #ced3d8;
+    border-radius: 6px;
+}
+
+#dateTimeContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#endTimeDate, #endTimeTime {
+    flex: none;
+    width: 55%;
+}
+
+#EndTimeDate, #EndTimeTime {
+    width: 80%;
+}
+
 #divTrans {
     padding-top: 20px;
     padding-bottom: 20px;
     border: 2px solid #ced3d8;
     border-radius: 5px;
 }
-#divTrans>div.row{
+
+[id^="txt"] {
+    width: 100%;
+}
+
+#divTrans > div.row {
     padding: 10px;
 }
-#ItemDescription{
-    width: 100%;
-    height: 250px;
-    border: 2px solid #ced3d8;
-    border-radius: 6px;
-}
-#mainBox {
-    margin-top: 5px;
-}
-div.content {
-    text-align: right;
-}
+
 label[for^="chk"] {
     color: #333333;
 }
-[id^="inputFile"] {
-    display: none;
-}
+
 [id^="btn"] {
     width: 240px;
     height: 40px;
@@ -136,6 +208,32 @@ label[for^="chk"] {
     border: none;
     border-radius: 3px;
 }
-[id^="txt"] {
-    width: 100%;
+
+#buttons {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-align: right;
+    margin:auto;
+}
+
+#btnCancel {
+    margin-right: 20px;
+    color: #333333;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 3px 2px lightgray;
+}
+
+#btnPost {
+    margin-right: 150px;
+    color: #ffffff;
+    background-color: #1f3444;
+}
+
+[id^="inputFile"] {
+    display: none;
+}
+
+#countItemName, #countDescription, #countUserInfo, #counthope-name {
+    text-align: right;
+    margin-right: 10px;
 }

@@ -514,6 +514,9 @@
     <Compile Include="Models\CExchangeItem.cs" />
     <Compile Include="Models\CMember.cs" />
     <Compile Include="Models\CMemberFactory.cs" />
+    <Compile Include="Models\ComplexType1.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\dbCardAuction.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -565,6 +568,9 @@
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tExchangeItemTable.cs">
+      <DependentUpon>dbCardAuction.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tExchangeResult.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tMember.cs">
