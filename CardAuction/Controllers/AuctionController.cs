@@ -87,13 +87,13 @@ namespace CardAuction.Controllers
             
             if (Session[CDictionary.SK_UserUserId] == null)
             {
-                TempData[CDictionary.SK_RedirectToController] = "Auction";
-                TempData[CDictionary.SK_RedirectToAction] = "Result";
-                TempData[CDictionary.SK_RedirectToId] = id;
+                Session[CDictionary.SK_RedirectToController] = "Auction";
+                Session[CDictionary.SK_RedirectToAction] = "List";
+                Session[CDictionary.SK_RedirectToId] = string.Empty;
                 return RedirectToAction("Login", "Member");
             }
-
-            if(Session[CDictionary.SK_UserUserId].ToString() != postUserId || Session[CDictionary.SK_UserUserId].ToString() != winUserId)
+            string loginUserId = Session[CDictionary.SK_UserUserId].ToString();
+            if (!(loginUserId == postUserId || loginUserId == winUserId))
             {
                 return RedirectToAction("Error", "Home", new { ErrorMessage = "您非得標者或商品主人", ToController = "Auction", ToAction = "List" });
             }
@@ -214,6 +214,9 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult List()
         {
+            Session[CDictionary.SK_RedirectToController] = "Auction";
+            Session[CDictionary.SK_RedirectToAction] = "List";
+            Session[CDictionary.SK_RedirectToId] = string.Empty;
             Session[CDictionary.SK_BackToController] = "Auction";
             Session[CDictionary.SK_BackToAction] = "List";
             Session[CDictionary.SK_BackToId] = string.Empty;
@@ -465,96 +468,77 @@ namespace CardAuction.Controllers
             return;
         }
 
-        public void TimeUp(string itemId)
+        public ActionResult GetEndInfo(string itemId)
         {
+            if(itemId == null)
+            {
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
             tAuctionItem item = db.tAuctionItem.Find(itemId);
-            if (item == null || item.fEndTime > DateTime.Now)           // 查不到商品 或 有商品但時間未結束
+            if(item == null)
             {
-                return;
+                return Json(new { }, JsonRequestBehavior.AllowGet);
             }
-            if(item.fBidCount == 0)                                 // 時間到，但無人出價
+            if(Session[CDictionary.SK_UserUserId] == null)
             {
-                item.fDelete = true;
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch(Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
-                return;
+                return Json(new { }, JsonRequestBehavior.AllowGet);
             }
-            
-            tAuctionResult newResult = new tAuctionResult           // 時間到，有人出價
+            string userId = Session[CDictionary.SK_UserUserId].ToString();
+            tMember queryMember = db.tMember.Find(userId);
+            if(queryMember == null || (userId != item.fPostUserId && userId != item.fTopBidUserId))
             {
-                fResultId = itemId,
-                fPostUserId = item.fPostUserId,
-                fWinUserId = item.fTopBidUserId,
-                fTotalMoney = item.fMoneyNow,
-                fBidCount = item.fBidCount,
-                fWinTime = item.fEndTime,
-                fBidMoney = item.fMoneyNow,
-                fDeliveryInfo = string.Empty
-            };
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
 
-            db.tAuctionResult.Add(newResult);              // 結果存入 tAuctionResult
-            item.fDelete = true;                           // tAuctionItem 設為結束
+            return Json(new
+            {
+                topMoney = item.fMoneyNow,
+                postUserInfo = item.fUserInfo
+            }, JsonRequestBehavior.AllowGet);
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Console.WriteLine(ex.StackTrace.ToString());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            return;
         }
+
+        
 
         public ActionResult FinishInfo(string itemId)
         {
             if(itemId == null)
             {
-                return Json(new { statusMessage = "EmptyItemId" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "EmptyItemId" }, JsonRequestBehavior.AllowGet);       // 空argument
             }
 
             tAuctionItem item = db.tAuctionItem.Find(itemId);
 
             if(item == null)
             {
-                return Json(new { statusMessage = "ItemNotExist" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "ItemNotExist" }, JsonRequestBehavior.AllowGet);      // 不存在競標商品
             }
             if (item.fDelete)
             {
-                return Json(new { statusMessage = "Deleted" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "Deleted" }, JsonRequestBehavior.AllowGet);           // 已刪除
             }
 
             if(item.fEndTime > DateTime.Now && item.fBuyPrice < 0)
             {
-                return Json(new { statusMessage = "NotFinish" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "NotFinish" }, JsonRequestBehavior.AllowGet);         // 時間未到，無直購，未結束
             }
 
             if (item.fEndTime > DateTime.Now && item.fBuyPrice > 0 && item.fMoneyNow < item.fBuyPrice)
             {
-                return Json(new { statusMessage = "NotFinish" }, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "NotFinish" }, JsonRequestBehavior.AllowGet);         // 時間未到，有直購，但還未出到，未結束
             }
 
             if (item.fEndTime < DateTime.Now && string.IsNullOrEmpty(item.fTopBidUserId))
             {
-                return Json(new { statusMessage = "NoTopFinish"}, JsonRequestBehavior.AllowGet);
+                return Json(new { statusMessage = "NoTopFinish"}, JsonRequestBehavior.AllowGet);        // 時間到，無人得標的結束
             }
 
             string winUserAcc = db.tMember.Find(item.fTopBidUserId).fAccount;
-            string statusMessage = "EndTimeFinish";
+            string statusMessage = "EndTimeFinish";                                                     // 時間到，有人得標的結束
 
             if (item.fBuyPrice > 0 && item.fMoneyNow >= item.fBuyPrice)
             {
-                statusMessage = "BuyFinish";
+                statusMessage = "BuyFinish";                                                            // 直購結束
             }
 
             return Json(new { 
@@ -571,21 +555,21 @@ namespace CardAuction.Controllers
 
         public void DeleteItem(string itemId)
         {
-            if(itemId == null)
+            if(itemId == null)                              // 無arguement
             {
                 return;
             }
             
             tAuctionItem item = db.tAuctionItem.Find(itemId);
             
-            if(item == null || item.fDelete)
+            if(item == null || item.fDelete)                // 查無競標商品 或 已結束
             {
                 return;
             }
 
-            item.fDelete = true;
+            item.fDelete = true;                            // 結束此競標商品
 
-            tAuctionResult newResult = new tAuctionResult
+            tAuctionResult newResult = new tAuctionResult   // 新增 result 紀錄
             {
                 fResultId = itemId,
                 fPostUserId = item.fPostUserId,
@@ -612,6 +596,137 @@ namespace CardAuction.Controllers
                 Console.WriteLine(e.ToString());
                 return;
             }
+        }
+
+        public void GenerateResult(string itemId, int totalMoney, string deliveryInfo)
+        {
+            if(itemId == null || deliveryInfo == null)
+            {
+                return;
+            }
+            tAuctionItem item = db.tAuctionItem.Find(itemId);
+            if(item == null)
+            {
+                return;
+            }
+            if (db.tAuctionResult.Any(m => m.fResultId == itemId))
+            {
+                return;
+            }
+            if (item.fDelete)
+            {
+                return;
+            }
+            if (item.fEndTime > DateTime.Now && item.fBuyPrice < 0)
+            {
+                return;
+            }
+            if(item.fEndTime > DateTime.Now && item.fBuyPrice > item.fMoneyNow)
+            {
+                return;
+            }
+            item.fDelete = true;
+            tAuctionResult newResult = new tAuctionResult
+            {
+                fResultId = itemId,
+                fPostUserId = item.fPostUserId,
+                fBidCount = item.fBidCount,
+                fBidMoney = item.fMoneyNow,
+            };
+            tMember postUser = db.tMember.Find(item.fPostUserId);
+            string postUserAcc = postUser.fAccount;
+            string postUserEmail = postUser.fEmail;
+
+            if(item.fEndTime < DateTime.Now && item.fBidCount == 0)
+            {
+                newResult.fDeliveryInfo = "無人競標。流標。";
+                string content = $"<h2>您好，您在 {item.fCreateTime.ToString()} 上架的商品「{item.fItemName}」在 {item.fEndTime.ToString()} 時間結束時無人參與競標，故已下架</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+                Service.SendEmail(postUserEmail, "商品流標通知", content);
+                newResult.fWinTime = item.fEndTime;
+                db.tAuctionResult.Add(newResult);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                return;
+            }
+            if(item.fBuyPrice > 0 && item.fBuyPrice <= item.fMoneyNow)
+            {
+                DateTime buyTime = db.tAuctionBid.Where(m => m.fItemId == itemId).Max(m => m.fTime);
+                tMember buyUser = db.tMember.Find(item.fTopBidUserId);
+                if(buyUser == null)
+                {
+                    return;
+                }
+                string buyUserAcc = buyUser.fAccount;
+                string buyUserEmail = buyUser.fEmail;
+                string content = $"<h2>您好，您在 {item.fCreateTime.ToString()} 上架的商品「{item.fItemName}」在 {buyTime.ToString()} 時由 {buyUserAcc} 以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{deliveryInfo}</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+                Service.SendEmail(postUserEmail, "商品標出通知", content);
+                content = $"<h2>您好，您在 {buyTime.ToString()} 對 {postUserAcc} 上架的商品「{item.fItemName}」以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{item.fUserInfo}</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+                Service.SendEmail(buyUserEmail, "商品得標通知", content);
+                newResult.fWinUserId = item.fTopBidUserId;
+                newResult.fWinTime = buyTime;
+                newResult.fDeliveryInfo = deliveryInfo;
+                newResult.fTotalMoney = totalMoney;
+
+                db.tAuctionResult.Add(newResult);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                return;
+            }
+            if (item.fEndTime < DateTime.Now && item.fBidCount > 0)
+            {
+                DateTime bidTime = db.tAuctionBid.Where(m => m.fItemId == itemId).Max(m => m.fTime);
+                tMember bidUser = db.tMember.Find(item.fTopBidUserId);
+                if (bidUser == null)
+                {
+                    return;
+                }
+                string bidUserAcc = bidUser.fAccount;
+                string bidUserEmail = bidUser.fEmail;
+                string content = $"<h2>您好，您在 {item.fCreateTime.ToString()} 上架的商品「{item.fItemName}」在 {bidTime.ToString()} 時由 {bidUserAcc} 以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{deliveryInfo}</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+                Service.SendEmail(postUserEmail, "商品標出通知", content);
+                content = $"<h2>您好，您在 {bidTime.ToString()} 對 {postUserAcc} 上架的商品「{item.fItemName}」以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{item.fUserInfo}</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+                Service.SendEmail(bidUserEmail, "商品得標通知", content);
+                newResult.fWinTime = item.fEndTime;
+                newResult.fDeliveryInfo = deliveryInfo;
+                newResult.fTotalMoney = totalMoney;
+
+                db.tAuctionResult.Add(newResult);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                return;
+            }
+
+            return;
         }
     }
 

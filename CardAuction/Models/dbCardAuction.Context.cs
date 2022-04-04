@@ -36,9 +36,10 @@ namespace CardAuction.Models
         public virtual DbSet<tExchangeDetail> tExchangeDetail { get; set; }
         public virtual DbSet<tExchangeFavorite> tExchangeFavorite { get; set; }
         public virtual DbSet<tExchangeItem> tExchangeItem { get; set; }
-        public virtual DbSet<tExchangeItemTable> tExchangeItemTable { get; set; }
         public virtual DbSet<tMember> tMember { get; set; }
         public virtual DbSet<tReportAuction> tReportAuction { get; set; }
         public virtual DbSet<tReportExchange> tReportExchange { get; set; }
+        public virtual DbSet<tExchangeItemTable> tExchangeItemTable { get; set; }
+        public virtual DbSet<tExchangeResult> tExchangeResult { get; set; }
     }
 }

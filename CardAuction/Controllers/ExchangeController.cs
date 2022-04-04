@@ -233,7 +233,7 @@ namespace CardAuction.Controllers
             createItem.fItemDescription = vModel.fItemDescription;
             createItem.fItemLocation = vModel.fItemLocation;
             createItem.fItemLevel = vModel.fItemLevel;
-            
+            createItem.fUserInfo = vModel.fUserInfo;
             createItem.fDelete = false;
             createItem.fReport = 0;
 
@@ -392,6 +392,7 @@ namespace CardAuction.Controllers
                           m => m.fUserId,
                           (c, m) => new
                           {
+                              fItemTableId = c.fItemTableId,
                               postAcc = m.fAccount,   //帳戶
                               ItemDescription = c.fItemDescription,   //內容
                               fPhoto0 = c.fPhoto0,
@@ -409,6 +410,41 @@ namespace CardAuction.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult btnSureResult(string itemIdA ,string itemIdB)
+        {
+            bool isExist = db.tExchangeItemTable.Any(m => m.fItemId == itemIdA && m.fItemTableId == itemIdB);
+            if (isExist)
+            {
+                tExchangeItem itemA = db.tExchangeItem.Find(itemIdA);
+                itemA.fDelete = true;
+                tExchangeItemTable itemB = db.tExchangeItemTable.Find(itemIdB);
+                string UserAId = itemA.fPostUserId;
+                string UserBId = itemB.fPostUserId;
+                tMember UserA = db.tMember.Find(UserAId);
+                tMember UserB = db.tMember.Find(UserBId);
+                tExchangeResult btnSureResult = new tExchangeResult
+                {
+                    fItemIdA = itemIdA,
+                    fItemIdB = itemIdB,
+                    fItemNameA = itemA.fItemName,
+                    fItemNameB = itemB.fItemName,
+                    fAPhoto0 = itemA.fPhoto0,
+                    fBPhoto0 = itemB.fPhoto0,
+                    fPostUserId = itemA.fPostUserId,
+                    fPostAccount = UserA.fAccount,
+                    fCoupleUserId = itemB.fPostUserId,
+                    fCoupleAccount = UserB.fAccount,
+                    fSubmitTime = DateTime.Now,
+                    fEndTime = itemA.fEndTime,
+                    fStatus = "交易成功"
 
+                    
+                };
+                db.tExchangeResult.Add(btnSureResult);
+                db.SaveChanges();
+            }
+            
+            return View();
+        }
     }
 }

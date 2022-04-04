@@ -34,7 +34,7 @@
                 <div class="row">
 
                     <div class="col-4">
-                        <button id="btnComment"><i class="fa-solid fa-comments"></i> 聯絡賣家</button>
+                        <button id="btnComment"><i class="fa-solid fa-comments"></i> 問與答</button>
                     </div>
 
                     <div class="col-4">
@@ -256,7 +256,7 @@
         </text>
         }
 
-        
+
 
         @if (Session[CDictionary.SK_UserUserId] == null)
         {
@@ -300,11 +300,13 @@
         @:});
         }
 
-        
+
 
         checkFavorite();
         receiveComments();
         receiveEIB();
+        //ExchangeResult();
+
         document.getElementById('btnComment').addEventListener('click', function () {
             location.href += '#divComment';
             txtComment.focus();
@@ -401,11 +403,11 @@
                 //let commentTime = new Date(parseInt(comment.postTime.substr(6))).toLocaleString();
                 let EIBRow = document.createElement('div');
                 EIBRow.className = 'row eibrow';
-                
-                
+
+
 
                 let EIBContent = document.createElement('div');
-                EIBContent.className = ' col-sm-7 col-md-7 IMG100';
+                EIBContent.className = ' col-sm-6 col-md-7 IMG100';
                 //let IMGROW = document.createElement('div');
                 //IMGROW.className = 'row';
                 [comment.fPhoto0, comment.fPhoto1, comment.fPhoto2, comment.fPhoto3].forEach(dom => {
@@ -418,11 +420,11 @@
                         IMGDIV.appendChild(domImg);
                     }
                 });
-                
+
 
 
                 let EIBAccount = document.createElement('div');
-                EIBAccount.className = ' col-sm-2 col-md-2 ';
+                EIBAccount.className = ' col-sm-3 col-md-2 ';
                 let EIBAccountH4 = document.createElement('h4');
                 EIBAccountH4.textContent = `ID:${comment.postAcc}`;
                 EIBAccount.appendChild(EIBAccountH4);
@@ -434,7 +436,7 @@
 
 
                 let domH3 = document.createElement('div');
-                domH3.className = ' col-sm-2 col-md-2 ';
+                domH3.className = ' col-sm-3 col-md-2 ';
                 let domh301 = document.createElement('h6');
                 domh301.textContent = `物品類別:${comment.Sort}`;
                 domH3.appendChild(domh301);
@@ -449,9 +451,10 @@
                 @if (Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString() == Model.fPostUserId) {
                     <text>
                 let AWantExchangediv = document.createElement('div');
-                AWantExchangediv.className = 'col-sm-1 col-md-1 '
+                AWantExchangediv.className = 'col-sm-12 col-md-1 '
                 let AWantExchange = document.createElement('button');
-                AWantExchange.className = ' btnSize btn-dark floatR btncheng'
+                AWantExchange.id = 'btnResult';
+                AWantExchange.className = ' btnSize btn-dark floatR btncheng';
                 AWantExchange.textContent = "確定交換";
                 AWantExchangediv.appendChild(AWantExchange);
                 EIBRow.appendChild(EIBContent);  //照片
@@ -461,6 +464,10 @@
                 EIBRow.appendChild(domH3);  //固定資訊
                 EIBRow.appendChild(AWantExchangediv);
                 docFrag.appendChild(EIBRow);
+                AWantExchange.addEventListener('click', function () {
+                    let para = `?itemIdA=${fItemId}&itemIdB=${comment.fItemTableId}`;
+                    location.href = '@Url.Content("~/Exchange/btnSureResult")' + para;
+                });
                 </text>
                 }
                 else
@@ -477,10 +484,6 @@
             }
             EIB.appendChild(docFrag);
         }
-        function AWantExchange() {
-            alert
-        }
-
 
         function receiveEIB() {
             let xhr = new XMLHttpRequest();
@@ -495,5 +498,33 @@
             xhr.open('GET', '@Url.Content("~/Exchange/ExchangeItemUserB")' + para);
             xhr.send();
         }
+
+        //btnResult.addEventListener('click', function () {
+        //    alert('yes');
+
+            
+        //});
+
+        @*function ExchangeResult() {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', function () {
+                //console.log(this.responseText);
+                if (this.responseText != '') {
+                    let datas = JSON.parse(this.responseText);
+                    refreshEIB(datas);
+                }
+                //if (btnResult) {
+                //    btnResult.addEventListener('click', function () {
+                //        alert("成功");
+                //        Finish();
+                //    });
+                //}
+            });
+            let para = `?itemId=${fItemId}`;
+            xhr.open('GET', '@Url.Content("~/Exchange/btnSureResult")' + para);
+            xhr.send();
+        }*@
+
+
     </script>
 }

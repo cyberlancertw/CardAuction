@@ -447,5 +447,25 @@ namespace CardAuction.Controllers
                 return Content("True");
             }
         }
+
+        public ActionResult GetUserInfo()
+        {
+            if(Session[CDictionary.SK_UserUserId] == null)
+            {
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
+            string userId = Session[CDictionary.SK_UserUserId].ToString();
+            tMember member = db.tMember.Find(userId);
+            if(member == null)
+            {
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new
+            {
+                realName = member.fName,
+                phone = member.fPhone,
+                address = member.fAddress
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
