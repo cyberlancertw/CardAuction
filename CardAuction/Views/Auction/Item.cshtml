@@ -124,6 +124,52 @@
                         </div>
                     </div>
 
+
+                    <div id="transInfo">
+                        <div id="transInputPerson" hidden>
+                            <p>面交資訊：</p>
+                            <label for="txtPerson">*給賣家聯絡訊息：</label>
+                            <textarea id="txtPerson" rows="3"></textarea>
+                        </div>
+                        <div id="transInputSeven" hidden>
+                            <p>
+                                <span>7-11 交貨便：</span>
+                                <a href="https://www.ibon.com.tw/retail_inquiry.aspx" target="_blank">ibon 便利生活站</a>
+                            </p>
+                            <label for="sevenStoreId">*店號：</label>
+                            <input type="number" id="sevenStoreId" />
+                            <label for="sevenStoreName">*店名：</label>
+                            <input type="text" id="sevenStoreName" />
+                            <label for="sevenUserName">*姓名：</label>
+                            <input type="text" id="sevenUserName" />
+                            <label for="sevenUserPhone">*電話：</label>
+                            <input type="tel" id="sevenUserPhone" />
+                        </div>
+                        <div id="transInputFami" hidden>
+                            <p>
+                                <span>全家店到店：</span>
+                                <a href="https://www.famiport.com.tw/Web_Famiport/page/ShopQuery.aspx" target="_blank">Fami Port</a>
+                            </p>
+                            <label for="famiStoreId">*店號：</label>
+                            <input type="number" id="famiStoreId" />
+                            <label for="famiStoreName">*店名：</label>
+                            <input type="text" id="famiStoreName" />
+                            <label for="famiUserName">*姓名：</label>
+                            <input type="text" id="famiUserName" />
+                            <label for="famiUserPhone">*電話：</label>
+                            <input type="tel" id="famiUserPhone" />
+                        </div>
+                        <div id="transInputLogi" hidden>
+                            <p>物流：</p>
+                            <label for="logiUserAddress">*送達地址：</label>
+                            <input type="text" id="logiUserAddress" />
+                            <label for="logiUserName">*姓名：</label>
+                            <input type="text" id="logiUserName" />
+                            <label for="logiUserPhone">*電話：</label>
+                            <input type="tel" id="logiUserPhone" />
+                        </div>
+                    </div>
+
                     <div class="row" id="divHistory">
                         <div class="row historyRecord">
                             <div class="col-4 historyAccount">
@@ -137,9 +183,10 @@
                             </div>
                         </div>
                         <div id="bidHere">
-                            <!-- big History here-->
+                            <!-- bid History here-->
                         </div>
                     </div>
+
                 </div>
                 <div class="container">
                     <div class="row" id="divDescription">
@@ -598,7 +645,7 @@
             let docFrag = document.createDocumentFragment();
             let domWinInfo = document.createElement('div');
             domWinInfo.className = 'finishRow finishTitle moneyRow gold rowBuy';
-            domWinInfo.textContent = `很抱歉，此商品已結束，無人得標`;
+            domWinInfo.textContent = '很抱歉，此商品已結束，無人得標';
             docFrag.appendChild(domWinInfo);
 
             let domEndInfo = document.createElement('div');
@@ -654,13 +701,16 @@
             spanTransTitle.textContent = '運送方式：'
 
             let selectTrans = document.createElement('select');
+            selectTrans.id = 'selectTrans';
             selectTrans.className = 'selectTrans finishTitle';
             let transName = ['面交', '7-11', '全家', '物流'];
+            let transId = ['Person', 'Seven', 'Fami', 'Logi'];
             let transMoney = [person, seven, fami, logi];
             for (let i in transName) {
                 if (transMoney[i] > -1) {
                     let opt = document.createElement('option');
                     opt.textContent = transName[i];
+                    opt.id = transId[i];
                     opt.value = transMoney[i];
                     selectTrans.appendChild(opt);
                 }
@@ -676,6 +726,7 @@
             spanTransFeeTitle.className = 'titleMoney';
             spanTransFeeTitle.textContent = '運費：';
             let spanTransFeeAmount = document.createElement('span');
+            spanTransFeeAmount.id = 'spanTransFeeAmount';
             spanTransFeeAmount.className = 'goldMoney';
             spanTransFeeAmount.textContent = '$ ' + selectTrans.value + ' 元';
             domTransFeeRow.appendChild(spanTransFeeTitle);
@@ -693,10 +744,82 @@
             area.innerHTML = '';
             area.appendChild(docFrag);
 
-            selectTrans.addEventListener('change', () => spanTransFeeAmount.textContent = '$ ' + selectTrans.value + ' 元');
+            selectTransChange();
+
+            selectTrans.addEventListener('change', selectTransChange);
             btnCheck.addEventListener('click', () => {
-                console.log('!');
+                btnCheck.textContent = '處理中，請稍待片刻……';
+                btnCheck.disabled = true;
+                let selectTrans = document.getElementById('selectTrans');
+                let optId = selectTrans.options[selectTrans.selectedIndex].id;
+                let para = `?itemId=${itemId}`;
+                fetch('@Url.Content("~/Auction/GetEndInfo")' + para, { method: 'GET' })
+                    .then(response => response.json())
+                    .then(response => {
+                        //console.log(response);
+                        let totalMoney = parseInt(response.topMoney);           // 最高價
+                        totalMoney += parseInt(selectTrans.value);              // 運費
+                        let deliveryInfo = response.postUserInfo;
+                        switch (optId) {
+                            case "Person":
+                                let txtPerson = document.getElementById('txtPerson').value;
+                                deliveryInfo = `面交\n賣家提供訊息：${deliveryInfo} \n買家提供訊息：${txtPerson}`;
+                                break;
+                            case "Seven":
+                                let sevenStoreId = document.getElementById('sevenStoreId').value;
+                                let sevenStoreName = document.getElementById('sevenStoreName').value;
+                                let sevenUserName = document.getElementById('sevenUserName').value;
+                                let sevenUserPhone = document.getElementById('sevenUserPhone').value;
+                                deliveryInfo = `7-11 交貨便\n7-11門市店號：${sevenStoreId}\n7-11門市店名：${sevenStoreName}\n買家姓名：${sevenUserName}\n買家電話：${sevenUserPhone}`;
+                                break;
+                            case "Fami":
+                                let famiStoreId = document.getElementById('famiStoreId').value;
+                                let famiStoreName = document.getElementById('famiStoreName').value;
+                                let famiUserName = document.getElementById('famiUserName').value;
+                                let famiUserPhone = document.getElementById('famiUserPhone').value;
+                                deliveryInfo = `全家店到店\n全家門市店號：${famiStoreId}\n全家門市店名：${famiStoreName}\n買家姓名：${famiUserName}\n買家電話：${famiUserPhone}`;
+                                break;
+                            case "Logi":
+                                let logiUserAddress = document.getElementById('logiUserAddress').value;
+                                let logiUserName = document.getElementById('logiUserName').value;
+                                let logiUserPhone = document.getElementById('logiUserPhone').value;
+                                deliveryInfo = `物流\n送達地址：${logiUserAddress}\n買家姓名：${logiUserName}\n買家電話：${logiUserPhone}`;
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                        console.log(deliveryInfo);
+                        console.log(totalMoney);
+                        let resultPara = `?itemId=${itemId}&totalMoney=${totalMoney}&deliveryInfo=${deliveryInfo}`;
+                        fetch('@Url.Content("~/Auction/GenerateResult")' + resultPara, { method: 'GET' })
+                            .then(() => {
+                                btnCheck.textContent = '作業完成，頁面轉向中……'
+                                location.href = '@Url.Content("~/Member/MyPage")';
+                            })
+                            .catch(() => {
+                                btnCheck.textContent = '發生不明原因';
+                                btnCheck.disabled = false;
+                            });
+                    });
             });
+        }
+
+        function selectTransChange() {
+            let selectTrans = document.getElementById('selectTrans');
+            
+            let optId = selectTrans.options[selectTrans.selectedIndex].id;
+            document.getElementById('spanTransFeeAmount').textContent = '$ ' + selectTrans.value + ' 元';
+            document.querySelectorAll('[id^="transInput"]').forEach(dom => dom.hidden = true);
+            document.getElementById('transInput' + optId).hidden = false;
+
+            fetch('@Url.Content("~/Member/GetUserInfo")', { method: 'GET' })
+                .then(response => response.json())
+                .then(datas => {
+                    document.querySelectorAll('[id$="UserName"]').forEach(dom => dom.value = datas.realName);
+                    document.querySelectorAll('[id$="UserAddress"]').forEach(dom => dom.value = datas.address);
+                    document.querySelectorAll('[id$="UserPhone"]').forEach(dom => dom.value = datas.phone);
+                });
         }
     </script>
 }

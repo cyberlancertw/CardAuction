@@ -45,6 +45,29 @@
     }
     .selectTrans {
     }
+    #transInfo > div > p {
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+    #transInputPerson > label {
+        width: 35%;
+        font-size: 1.6rem;
+        margin: 0.5rem 0.5rem;
+    }
+    #txtPerson{
+        width: 62%;
+        font-size: 1.6rem;
+    }
+    #transInputSeven > label, #transInputFami > label, #transInputLogi > label{
+        width: 25%;
+        font-size: 1.6rem;
+        margin: 0.5rem 0.5rem;
+    }
+    
+    #transInfo > div > input {
+        width: 70%;
+        font-size: 1.6rem;
+    }
 }
 @media (min-width: 992px) and (max-width:1199px){
     html {
@@ -89,6 +112,32 @@
     .finishTitle {
         font-size: 1.6rem;
     }
+    #transInfo > div > p {
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+
+    #transInputPerson > label {
+        width: 45%;
+        font-size: 1.6rem;
+        margin: 0.5rem 0.5rem;
+    }
+
+    #txtPerson {
+        width: 50%;
+        font-size: 1.6rem;
+    }
+
+    #transInputSeven > label, #transInputFami > label, #transInputLogi > label {
+        width: 30%;
+        font-size: 1.6rem;
+        margin: 0.5rem 0.5rem;
+    }
+
+    #transInfo > div > input {
+        width: 65%;
+        font-size: 1.6rem;
+    }
 }
 @media (min-width: 768px) and (max-width:991px){
     html {
@@ -131,6 +180,32 @@
     }
     .finishTitle {
         font-size: 1.25rem;
+    }
+    #transInfo > div > p {
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    #transInputPerson > label {
+        width: 45%;
+        font-size: 1.2rem;
+        margin: 0.5rem 0.5rem;
+    }
+
+    #txtPerson {
+        width: 50%;
+        font-size: 1.2rem;
+    }
+
+    #transInputSeven > label, #transInputFami > label, #transInputLogi > label {
+        width: 30%;
+        font-size: 1.2rem;
+        margin: 0.8rem 0.5rem;
+    }
+
+    #transInfo > div > input {
+        width: 65%;
+        font-size: 1.6rem;
     }
 }
 
@@ -180,6 +255,32 @@
     .finishTitle {
         font-size: 1.6rem;
     }
+    #transInfo > div > p {
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+
+    #transInputPerson > label {
+        width: 100%;
+        font-size: 1.6rem;
+        margin: 0.5rem 0.5rem;
+    }
+
+    #txtPerson {
+        width: 100%;
+        font-size: 1.6rem;
+    }
+
+    #transInputSeven > label, #transInputFami > label, #transInputLogi > label {
+        width: 100%;
+        font-size: 1.6rem;
+        margin: 0.8rem 0.5rem;
+    }
+
+    #transInfo > div > input {
+        width: 100%;
+        font-size: 1.6rem;
+    }
 }
 @media (max-width: 575px){
     html {
@@ -225,6 +326,32 @@
     }
     .finishTitle {
         font-size: 1.8rem;
+    }
+    #transInfo > div > p {
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+
+    #transInputPerson > label {
+        width: 100%;
+        font-size: 1.6rem;
+        margin: 0.5rem 0.5rem;
+    }
+
+    #txtPerson {
+        width: 100%;
+        font-size: 1.6rem;
+    }
+
+    #transInputSeven > label, #transInputFami > label, #transInputLogi > label {
+        width: 100%;
+        font-size: 1.6rem;
+        margin: 0.8rem 0.5rem;
+    }
+
+    #transInfo > div > input {
+        width: 100%;
+        font-size: 1.6rem;
     }
 }
 
@@ -465,4 +592,36 @@
 }
 .gold {
     color: #ab8f4e;
+}
+#transInfo{
+
+}
+#transInfo > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #ced3d8;
+    border-radius: 0.8rem;
+    margin-top: 1rem;
+    padding: 1.5rem;
+}
+#transInfo > div > p {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: #1f3444;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #ffffff;
+}
+#transInfo > div > p > a {
+    text-decoration: none;
+    
+}
+#transInfo > div > label {
+    color: #1f3444;
+}
+#transInfo > div > input{
+    border-radius: 4px;
 }
