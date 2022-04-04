@@ -676,6 +676,7 @@
     <Content Include="Views\Member\MyPage.cshtml" />
     <Content Include="Views\Exchange\Couple.cshtml" />
     <Content Include="Views\Auction\Result.cshtml" />
+    <Content Include="Views\Exchange\btnSureResult.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

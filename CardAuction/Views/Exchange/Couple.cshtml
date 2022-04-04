@@ -161,6 +161,17 @@
                                     </p>
                                 </div>
                             </div>
+                            <div class="row divContent" id="divUserInfo">
+                                <div class="contentHead col-12 col-md-3">
+                                    <label for="ItemDescription">*聯絡資訊</label>
+                                </div>
+                                <div class="content col-12 col-md-9">
+                                    <textarea name="fUserInfo" id="UserInfo" maxlength="300" placeholder="聯絡電話、E-mail" required></textarea>
+                                    <p id="countUserInfo">
+                                        0/300
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -179,6 +190,11 @@
     domItemName.addEventListener('change', function () {
         countName.textContent = `${domItemName.value.length}/60`;
     })
+        var domUserInfo = document.getElementById('UserInfo');
+        var countUserInfo = document.getElementById('countUserInfo');
+        domUserInfo.addEventListener('keyup', function () {
+            countUserInfo.textContent = `${domUserInfo.value.length}/300`;
+        });
 
 
     for (let i = 0; i < 4; i++) {
