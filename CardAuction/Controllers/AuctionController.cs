@@ -98,7 +98,24 @@ namespace CardAuction.Controllers
                 return RedirectToAction("Error", "Home", new { ErrorMessage = "您非得標者或商品主人", ToController = "Auction", ToAction = "List" });
             }
 
-            return View(result);
+            VMAuctionResult vModel = new VMAuctionResult();
+            vModel.postUserAccount = db.tMember.Find(postUserId).fAccount;
+            vModel.winUserAccount = db.tMember.Find(winUserId).fAccount;
+            vModel.result = result;
+            vModel.history = db.tAuctionBid
+                .Where(m=>m.fItemId == id)
+                .Join(
+                db.tMember,
+                b => b.fUserId,
+                m => m.fUserId,
+                (b, m) => new BidDetail
+                {
+                    bidAccount = m.fAccount,
+                    bidMoney = b.fMoney,
+                    bidTime = b.fTime
+                }).OrderByDescending(p => p.bidTime);
+
+            return View(vModel);
         }
         [HttpGet]
         public ActionResult Post()
