@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "PieCategory";
+    var footerText = DateTime.Now.Year + "年 / " + DateTime.Now.Month + "月 / " + DateTime.Now.Day + "日 統計結果";
+
+    var CategoryValue = Json.Encode(ViewBag.CategoryValue);
+    var CategoryCount = Json.Encode(ViewBag.CategoryCount);
+    var TotalCount = Json.Encode(ViewBag.TotalCount);
+    var CategoryPercent = Json.Encode(ViewBag.CategoryPercent);
+
+    var ExcCategoryValue = Json.Encode(ViewBag.ExcCategoryValue);
+    var ExcCategoryCount = Json.Encode(ViewBag.ExcCategoryCount);
+    var ExcTotalCount = Json.Encode(ViewBag.ExcTotalCount);
+    var ExcCategoryPercent = Json.Encode(ViewBag.ExcCategoryPercent);
+}
+
+
+@* 資料讀取測試 *@
+@*<p>@CategoryValue</p>
+    <p>@CategoryCount</p>
+    <p>@TotalCount</p>
+    <p>@CategoryPercent</p>
+
+    <p>@ExcCategoryValue</p>
+    <p>@ExcCategoryCount</p>
+    <p>@ExcTotalCount</p>
+    <p>@ExcCategoryPercent</p>*@
+
+<br>
+<div class="container">
+    <div class="jumbotron">
+        <h4 class="panel-footer textModify" >商品分類佔比 Percent </h4>
+        <br />
+        <div class="panel-footer">@footerText</div>
+    </div>
+
+    <div class="jumbotron">
+        <div class="panel-heading">
+            <h4 class="MarginModify">目前競標中商品 分類佔比%</h4>
+        </div>        
+        <div class="col-md-12">
+            <canvas id="doughnutChart"></canvas>
+        </div>
+    </div>
+
+    <div class="jumbotron">
+        <div class="panel-heading">
+            <h4 class="MarginModify">目前交換中商品 分類佔比%</h4>
+        </div>
+        <div class="col-md-12">
+            <canvas id="peiChart"></canvas>
+        </div>
+    </div>
+
+</div>
+<br />
+<hr />
+
+
+
+@section scripts{
+   <script>
+    //Doughnut Chart甜甜圈圖
+    var ctxDoughnut = document.getElementById("doughnutChart");
+    var pieChart = new Chart(ctxDoughnut, {
+        type: 'doughnut',
+        data: {
+            labels: @Html.Raw(CategoryValue),
+            datasets: [{
+                data: @Html.Raw(CategoryPercent),
+                backgroundColor: [
+                    'rgba(90, 131, 166, 0.8)', //藏青
+                    'rgba(171, 143, 78, 0.8)', //金色
+                    'rgba(255,99,132, 0.8)', //紅
+                    'rgba(255, 159, 64, 0.8)', //橙
+                    'rgba(255, 206, 86, 0.8)', //黃
+                    'rgba(75, 192, 192, 0.8)', //綠
+                    'rgba(54, 162, 235, 0.8)', //藍
+                    'rgba(153, 102, 255, 0.8)', //紫
+                    'rgba(90, 131, 166, 0.8)', //藏青
+                ]
+            }],
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'bottom',
+                labels: {
+                    fontSize: 16,
+                },
+            }
+        }
+    });
+
+     //Pie Chart圓餅圖
+    var ctxPie = document.getElementById("peiChart");
+    var pieChart = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: @Html.Raw(ExcCategoryValue),
+            datasets: [{
+                data: @Html.Raw(ExcCategoryPercent),
+                backgroundColor: [
+                    'rgba(90, 131, 166, 0.8)', //藏青
+                    'rgba(171, 143, 78, 0.8)', //金色
+                    'rgba(255,99,132, 0.8)', //紅
+                    'rgba(255, 159, 64, 0.8)', //橙
+                    'rgba(255, 206, 86, 0.8)', //黃
+                    'rgba(75, 192, 192, 0.8)', //綠
+                    'rgba(54, 162, 235, 0.8)', //藍
+                    'rgba(153, 102, 255, 0.8)', //紫
+                ]
+            }],
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+                mode: 'point',
+                intersect: true,
+            },
+            legend: {
+                position: 'bottom',
+                labels: {
+                    fontSize: 16,
+                },
+            }
+        }
+    });
+
+
+
+
+
+
+
+    </script>
+
+}
+
+@section styles{
+    <style>
+        .panel {
+            margin-top: 10px;
+        }
+
+        .panel-heading, .panel-footer {
+            text-align: center;
+        }
+
+        .MarginModify {
+            margin-bottom: 50px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f3344;
+        }
+        .textModify {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1f3344;
+        }
+    </style>
+}
+
+

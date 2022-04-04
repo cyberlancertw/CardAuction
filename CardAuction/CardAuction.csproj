@@ -218,6 +218,10 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Admin\DataAnalyze\bar-chart.png" />
+    <Content Include="Images\Admin\DataAnalyze\line-chart.png" />
+    <Content Include="Images\Admin\DataAnalyze\pie-chart.png" />
+    <Content Include="Images\Admin\DataAnalyze\radar-chart.png" />
     <Content Include="Images\Admin\Icon_商品.png" />
     <Content Include="Images\Admin\Icon_廣告.png" />
     <Content Include="Images\Admin\Icon_數據.png" />
@@ -511,6 +515,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BidItem.cs" />
     <Compile Include="Models\CDictionary.cs" />
     <Compile Include="Models\CExchangeItem.cs" />
     <Compile Include="Models\CMember.cs" />
@@ -533,6 +538,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\QueryResult.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\tAdminAd.cs">
@@ -677,6 +683,11 @@
     <Content Include="Views\Exchange\Couple.cshtml" />
     <Content Include="Views\Auction\Result.cshtml" />
     <Content Include="Views\Exchange\btnSureResult.cshtml" />
+    <Content Include="Views\Admin\DataAnalyze.cshtml" />
+    <Content Include="Views\Admin\DataCurve.cshtml" />
+    <Content Include="Views\Admin\DataPercent.cshtml" />
+    <Content Include="Views\Admin\DataRadar.cshtml" />
+    <Content Include="Views\Admin\DataTopTen.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
