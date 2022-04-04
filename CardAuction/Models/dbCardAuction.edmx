@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dbCardAuctionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tAdminAd">
           <Key>
             <PropertyRef Name="fAdId" />
@@ -168,6 +168,21 @@
           <Property Name="fReport" Type="int" />
           <Property Name="fDelete" Type="bit" />
         </EntityType>
+        <EntityType Name="tExchangeResult">
+          <Key>
+            <PropertyRef Name="fItemId" />
+          </Key>
+          <Property Name="fItemId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fItemName" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="fPhoto0" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fPostUserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fPostAccount" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fCoupleUserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fCoupleAccount" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fSubmitTime" Type="datetime" Nullable="false" />
+          <Property Name="fEndTime" Type="datetime" Nullable="false" />
+          <Property Name="fStatus" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="tMember">
           <Key>
             <PropertyRef Name="fUserId" />
@@ -216,12 +231,12 @@
           <EntitySet Name="tExchangeFavorite" EntityType="Self.tExchangeFavorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tExchangeItem" EntityType="Self.tExchangeItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tExchangeItemTable" EntityType="Self.tExchangeItemTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tExchangeResult" EntityType="Self.tExchangeResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tMember" EntityType="Self.tMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tReportAuction" EntityType="Self.tReportAuction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tReportExchange" EntityType="Self.tReportExchange" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbCardAuctionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -439,7 +454,24 @@
           <EntitySet Name="tMember" EntityType="Self.tMember" />
           <EntitySet Name="tReportAuction" EntityType="Self.tReportAuction" />
           <EntitySet Name="tReportExchange" EntityType="Self.tReportExchange" />
+          <EntitySet Name="tExchangeResult" EntityType="dbCardAuctionModel.tExchangeResult" />
         </EntityContainer>
+        <ComplexType Name="ComplexType1" />
+        <EntityType Name="tExchangeResult">
+          <Key>
+            <PropertyRef Name="fItemId" />
+          </Key>
+          <Property Name="fItemId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fItemName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="fPhoto0" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPostUserId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fPostAccount" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fCoupleUserId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fCoupleAccount" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fSubmitTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fEndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fStatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -656,6 +688,22 @@
                 <ScalarProperty Name="tFromUserId" ColumnName="tFromUserId" />
                 <ScalarProperty Name="tItemId" ColumnName="tItemId" />
                 <ScalarProperty Name="fMessage" ColumnName="fMessage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tExchangeResult">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tExchangeResult">
+              <MappingFragment StoreEntitySet="tExchangeResult">
+                <ScalarProperty Name="fStatus" ColumnName="fStatus" />
+                <ScalarProperty Name="fEndTime" ColumnName="fEndTime" />
+                <ScalarProperty Name="fSubmitTime" ColumnName="fSubmitTime" />
+                <ScalarProperty Name="fCoupleAccount" ColumnName="fCoupleAccount" />
+                <ScalarProperty Name="fCoupleUserId" ColumnName="fCoupleUserId" />
+                <ScalarProperty Name="fPostAccount" ColumnName="fPostAccount" />
+                <ScalarProperty Name="fPostUserId" ColumnName="fPostUserId" />
+                <ScalarProperty Name="fPhoto0" ColumnName="fPhoto0" />
+                <ScalarProperty Name="fItemName" ColumnName="fItemName" />
+                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

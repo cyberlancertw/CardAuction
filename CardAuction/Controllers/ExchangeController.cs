@@ -409,6 +409,34 @@ namespace CardAuction.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-
+        public ActionResult btnSureResult(string itemId)
+        {
+            bool isExist = db.tExchangeResult.Any(m => m.fItemId == itemId);
+            if (isExist)
+            {
+                var queryResult = db.tExchangeResult
+                    .Where(p => p.fItemId == itemId)
+                    .Join(db.tMember,
+                          c => c.fPostUserId,
+                          m => m.fUserId,
+                          (c, m) => new
+                          {
+                              postAcc = m.fAccount,   //帳戶
+                              fItemName = c.fItemName,
+                              fPhoto0 = c.fPhoto0,
+                              fPostUserId = c.fPostUserId,
+                              fPostAccount = c.fPostAccount,
+                              fCoupleUserId = c.fCoupleUserId,
+                              fCoupleAccount = c.fCoupleAccount,
+                              fSubmitTime =c.fSubmitTime,
+                              fEndTime = c.fEndTime,
+                              fStatus =c.fStatus
+                              //postTime = c.fPostTime  //發布時間
+                          });
+                //.OrderBy(n => n.postTime); ;
+                return Json(queryResult, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
     }
 }

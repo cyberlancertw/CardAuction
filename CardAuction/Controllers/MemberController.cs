@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using CardAuction.Models;
 using CardAuction.ViewModels;
+using PagedList.Mvc;
+using PagedList;
 
 namespace CardAuction.Controllers
 {
@@ -25,10 +27,13 @@ namespace CardAuction.Controllers
 
             return RedirectToAction("MyPage");          // Member / Index 要有 View 嗎? 取代 mypage?
         }
-        [HttpGet]
-        public ActionResult MyPage()
-        {
 
+        int pageSize = 5;
+        [HttpGet]
+        public ActionResult MyPage(int page = 1,string lead = "MyPage")
+        {
+            int currentPage = page < 1 ? 1 : page;
+            ViewBag.lead = lead;
 
             if (Session[CDictionary.SK_UserAccount] == null)
             {
@@ -41,23 +46,24 @@ namespace CardAuction.Controllers
 
             MyInfo.MyAccount = db.tMember.Find(userId);
 
-            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).ToList();
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage,pageSize);
 
-            MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList();
+            MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 
             List<string> tempAuctionFavorite = db.tAuctionFavorite.Where(m => m.fFromUserId == userId).Select(m=>m.fToItemId).ToList();
-            MyInfo.MyAuctionFavorite = db.tAuctionItem.Where(m => tempAuctionFavorite.Contains(m.fItemId)).ToList();
+            MyInfo.MyAuctionFavorite = db.tAuctionItem.Where(m => tempAuctionFavorite.Contains(m.fItemId)).ToList().ToPagedList(currentPage,pageSize);
 
             List<string> tempExchangeFavorite = db.tExchangeFavorite.Where(m => m.fFromUserId == userId).Select(m => m.fToItemId).ToList();
-            MyInfo.MyExchangeFavorite = db.tExchangeItem.Where(m => tempExchangeFavorite.Contains(m.fItemId)).ToList();
+            MyInfo.MyExchangeFavorite = db.tExchangeItem.Where(m => tempExchangeFavorite.Contains(m.fItemId)).ToList().ToPagedList(currentPage, pageSize);
 
 
 
             return View(MyInfo);          // Member / Index 要有 View 嗎? 取代 mypage?
         }
         [HttpPost]
-        public ActionResult MyPage(CRegisterViewModel vModel)
+        public ActionResult MyPage(CRegisterViewModel vModel,int page= 1)
         {
+            int currentPage = page < 1 ? 1 : page;
             string userId = Session[CDictionary.SK_UserUserId].ToString();
             tMember member = db.tMember.Find(userId);
             member.fName = vModel.Name;
@@ -82,15 +88,15 @@ namespace CardAuction.Controllers
 
             MyInfo.MyAccount = db.tMember.Find(userId);
 
-            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).ToList();
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 
-            MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList();
+            MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 
             List<string> tempAuctionFavorite = db.tAuctionFavorite.Where(m => m.fFromUserId == userId).Select(m => m.fToItemId).ToList();
-            MyInfo.MyAuctionFavorite = db.tAuctionItem.Where(m => tempAuctionFavorite.Contains(m.fItemId)).ToList();
+            MyInfo.MyAuctionFavorite = db.tAuctionItem.Where(m => tempAuctionFavorite.Contains(m.fItemId)).ToList().ToPagedList(currentPage, pageSize);
 
             List<string> tempExchangeFavorite = db.tExchangeFavorite.Where(m => m.fFromUserId == userId).Select(m => m.fToItemId).ToList();
-            MyInfo.MyExchangeFavorite = db.tExchangeItem.Where(m => tempExchangeFavorite.Contains(m.fItemId)).ToList();
+            MyInfo.MyExchangeFavorite = db.tExchangeItem.Where(m => tempExchangeFavorite.Contains(m.fItemId)).ToList().ToPagedList(currentPage, pageSize);
 
             return View(MyInfo);
         }
@@ -424,9 +430,9 @@ namespace CardAuction.Controllers
         {
             string UserId = Session[CDictionary.SK_UserUserId].ToString();
             tExchangeFavorite result = db.tExchangeFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
-            if(result == null)
+            if(result != null)
             {
-                db.tExchangeFavorite.Remove(result);
+                 db.tExchangeFavorite.Remove(result);
                 db.SaveChanges();
                 return Content("False");
             }

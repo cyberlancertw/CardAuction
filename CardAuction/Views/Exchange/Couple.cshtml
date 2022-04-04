@@ -28,12 +28,12 @@
                 <div id="sellDetail">
                     <div class="col-sm-12 ">
                         <div class="divTitle">
-                            交換圖片  <span class="errMsg">@ViewData["errorMessage"]</span>
+                            交換資訊  <span class="errMsg">@ViewData["errorMessage"]</span>
                         </div>
                         <input type="hidden" name="fPostUserId" value="@userId" />
                         <div class="row divContent" id="divImgSelect">
                             <div class="contentHead col-12 col-md-3">
-
+                                交換圖片
                             </div>
                             <div class="contentHead col-12 col-md-12">
                                 <div class="row picBlockList">
@@ -67,10 +67,10 @@
                     </div>
                     <div class="col-sm-12 ">
                         <div class="row divContent" id="divItemplace">
-                            <div class="contentHead col-12 col-md-3">
+                            <div class="contentHead col-6 col-md-3">
                                 <label for="Sort">*所在地點</label>
                             </div>
-                            <div class="content col-12 col-md-9">
+                            <div class="content col-6 col-md-9">
                                 <select name="fItemLocation" id="selectItemplace">
                                     <option value="none"></option>
                                     <option value="基隆市">基隆市</option>
@@ -102,10 +102,10 @@
                             </div>
                         </div>
                         <div class="row divContent" id="divItemName">
-                            <div class="contentHead col-12 col-md-3">
+                            <div class="contentHead col-6 col-md-3">
                                 <label for="ItemName">*物品名稱</label>
                             </div>
-                            <div class="content col-12 col-md-9">
+                            <div class="content col-6 col-md-9">
                                 <input type="text" name="fItemName" id="ItemName" maxlength="60" required />
                                 <p id="countItemName">
                                     0/60
@@ -113,10 +113,10 @@
                             </div>
                         </div>
                         <div class="row divContent" id="divSort">
-                            <div class="contentHead col-12 col-md-3 ">
+                            <div class="contentHead col-6 col-md-3 ">
                                 <label for="Sort">*類別</label>
                             </div>
-                            <div class="content col-12 col-md-9">
+                            <div class="content col-6 col-md-9">
                                 <select name="fSort" id="seleSort">
                                     <option value="寶可夢 (Pokemon)">寶可夢 (Pokemon)</option>
                                     <option value="遊戲王 (Yu-Gi-Oh!)">遊戲王 (Yu-Gi-Oh!)</option>
@@ -130,12 +130,12 @@
                                 </select>
                             </div>
                             <div class="row divContent" id="divGrading">
-                                <div class="contentHead col-12 col-md-3 ">
+                                <div class="contentHead col-6 col-md-3 ">
                                     <label for="Sort">*鑑定級別</label>
                                 </div>
-                                <div class="content col-12 col-md-9">
+                                <div class="content col-6 col-md-9">
                                     <select name="fItemLevel" id="seleGrading">
-                                        <option value="none">沒有鑑定</option>
+                                        <option value="無">沒有鑑定</option>
                                         <option value="鑑定GEM MT 10 (Gem Mint)">GEM MT 10 (Gem Mint)</option>
                                         <option value="鑑定Mint 9 (Mint)">Mint 9 (Mint)</option>
                                         <option value="鑑定NM-MT 8 (Near Mint-Mint)">NM-MT 8 (Near Mint-Mint)</option>
@@ -151,10 +151,10 @@
                                 </div>
                             </div>
                             <div class="row divContent" id="divItemDescription">
-                                <div class="contentHead col-12 col-md-3">
+                                <div class="contentHead col-6 col-md-3">
                                     <label for="ItemDescription">*物品描述</label>
                                 </div>
-                                <div class="content col-12 col-md-9">
+                                <div class="content col-6 col-md-9">
                                     <textarea name="fItemDescription" id="ItemDescription" maxlength="800" required></textarea>
                                     <p id="countDescription">
                                         0/300
@@ -164,7 +164,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="buttons">
+                <div id="buttons" class="col-6 col-md-12">
                     <button id="btnCancel">取消</button>
                     <button id="btnPost">確定</button>
                 </div>

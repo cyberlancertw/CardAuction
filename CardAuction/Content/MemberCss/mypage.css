@@ -108,6 +108,17 @@ nav a:hover,.dropdown-btn:hover a,.fa-caret-down:hover{
     margin: 0px 50px;
 }
 
+.top1 h1{
+    font-size:medium;
+    font-weight:bolder;
+}
+
+.top1 h6 {
+    font-weight:normal;
+    font-size: smaller;
+    margin: 5px 0px 10px;
+}
+
 h1{
     font-size: larger;
     font-weight: bolder;
@@ -288,6 +299,7 @@ input{
 
 .info-top a{
     padding-left:0px;
+    text-decoration:none;
 }
 
 .card-info h5{
@@ -460,11 +472,32 @@ table input{
     float: right;
 }
 
-.pagination a{
-    background:#fff;
+.pagination a {
+    border-radius: 3px;
+    background: #fff;
     color: #1f3344;
 }
 
+.page2 .pagination a{
+    font-weight:bolder;
+    padding:5px;
+}
+
+.pagination .active > a{
+    background-color: #1f3344;
+    color: #fff;
+}
+
+.pagination .active > a:hover {
+    color: #fff;
+}
+
+
+.pagination a:hover{
+    text-decoration:none;
+    background-color: #1f3344;
+    color: #fff;
+}
 
 
 @media screen and (min-width:768px) {

@@ -1,5 +1,8 @@
 ﻿@model CardAuction.ViewModels.CMemberMypageViewModel
 @using CardAuction.Models
+@using PagedList
+@using PagedList.Mvc
+
 
 @{
     ViewBag.Title = "MyPage";
@@ -127,6 +130,8 @@
                     </div>
 
                 }
+                @Html.PagedListPager(Model.MyAuctionFavorite, page => Url.Action("MyPage", new { page, lead = "auctionfavorite" }))
+                
             </div>
 
             <input type="radio" id="tabtwo" name="mytabs">
@@ -168,6 +173,7 @@
                         </div>
                     </div>
                 }
+                @Html.PagedListPager(Model.MyExchangeFavorite, page => Url.Action("MyPage", new { page, lead = "exchangefavorite" }))
             </div>
         </div>
 
@@ -205,21 +211,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="5">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                @Html.PagedListPager(Model.myAuctionItem, page => Url.Action("MyPage", new { page, lead = "auctionitem" }))
                             </td>
                         </tr>
                     </tfoot>
@@ -263,21 +255,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="5">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                @Html.PagedListPager(Model.myExchangeItem, page => Url.Action("MyPage", new { page, lead = "exchangeitem" }))
                             </td>
                         </tr>
                     </tfoot>
@@ -413,6 +391,9 @@
     </div>
 
     <script>
+
+        var lead = '@ViewBag.lead'
+
         var btn1 = document.getElementById('btn1'); var pa1 = document.getElementById('pages1');
         var btn2 = document.getElementById('btn2'); var pa2 = document.getElementById('pages2');
         var btn3 = document.getElementById('btn3'); var pa3 = document.getElementById('pages3');
@@ -460,6 +441,22 @@
                     }
                 });
             }
+        }
+
+        switch (lead) {
+            case "auctionfavorite":
+                btn2.click();
+                break;
+            case "exchangefavorite":
+                btn2.click();
+                break;
+            case "auctionitem":
+                btn3.click();
+                break;
+            case "exchangeitem":
+                btn4.click();
+                break;
+                
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -44,7 +44,6 @@
                     <div class="col-4">
                         <button id="btnReport"><i class="fa-solid fa-triangle-exclamation"></i> 檢舉</button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -252,10 +251,11 @@
         {
         <text>
         btnFavorite.disabled = true;                                          // 有登入而且就是上架者自己
-        IWantExchange.disabled = true;                                               // 則不給按追蹤、我要交換、檢舉
+        IWantExchange.hidden = true;                                               // 則不給按追蹤、我要交換、檢舉
         btnReport.disabled = true;
         </text>
         }
+
 
 
         @if (Session[CDictionary.SK_UserUserId] == null)
@@ -301,15 +301,16 @@
         }
 
 
+
         checkFavorite();
         receiveComments();
         receiveEIB();
-        refreshEIB();
-
+        ExchangeResult();
         document.getElementById('btnComment').addEventListener('click', function () {
             location.href += '#divComment';
             txtComment.focus();
         });
+
 
         function sendComment(content) {
             let xhr = new XMLHttpRequest();
@@ -400,63 +401,83 @@
             for (let comment of datas) {
                 //let commentTime = new Date(parseInt(comment.postTime.substr(6))).toLocaleString();
                 let EIBRow = document.createElement('div');
-                
-                EIBRow.className = 'row';
-                let EIBAccount = document.createElement('div');
-                EIBAccount.className = ' col-sm-2 col-md-2 ';
-                let dompMsg = document.createElement('p');
-                dompMsg.className = 'Msgbr';
-                EIBAccount.textContent = `ID:${comment.postAcc}`;
-                dompMsg.textContent = `商品敘述:${comment.ItemDescription}`;
+                EIBRow.className = 'row eibrow';
+
+
 
                 let EIBContent = document.createElement('div');
-                EIBContent.className = ' col-sm-6 col-md-6 IMG100';
-                let domImg0 = document.createElement('img');
-                if (comment.fPhoto0 != null) {
-                    domImg0.src = '@Url.Content("~/Images/ExchangeItemImages/")' + comment.fPhoto0;
-                    EIBContent.appendChild(domImg0);
-                }
+                EIBContent.className = ' col-sm-6 col-md-7 IMG100';
+                //let IMGROW = document.createElement('div');
+                //IMGROW.className = 'row';
+                [comment.fPhoto0, comment.fPhoto1, comment.fPhoto2, comment.fPhoto3].forEach(dom => {
+                    if (dom != null) {
+                        let IMGDIV = document.createElement('div');
+                        IMGDIV.className = " ImgWrap";
+                        let domImg = document.createElement('img');
+                        domImg.src = '@Url.Content("~/Images/ExchangeItemImages/")' + dom;
+                        EIBContent.appendChild(IMGDIV);
+                        IMGDIV.appendChild(domImg);
+                    }
+                });
 
-                let domImg1 = document.createElement('img');            //   <img />
-                if (comment.fPhoto1 != null) {
-                    domImg1.src = '@Url.Content("~/Images/ExchangeItemImages/")' + comment.fPhoto1;       // <img src="20220401123456.jpg" />
 
 
-                    EIBContent.appendChild(domImg1);
-                }
-                let domImg2 = document.createElement('img');
-                if (comment.fPhoto2 != null) {
-                    domImg2.src = comment.fPhoto2;
-                    EIBContent.appendChild(domImg2);
-                }
-                let domImg3 = document.createElement('img');
-                if (comment.fPhoto3 != null) {
-                    domImg3.src = comment.fPhoto3;
-                    EIBContent.appendChild(domImg3);
-                }
+                let EIBAccount = document.createElement('div');
+                EIBAccount.className = ' col-sm-3 col-md-2 ';
+                let EIBAccountH4 = document.createElement('h4');
+                EIBAccountH4.textContent = `ID:${comment.postAcc}`;
+                EIBAccount.appendChild(EIBAccountH4);
+
+                let dompMsg = document.createElement('p');
+                //dompMsg.className = 'col-sm-2 col-md-2 ';
+                dompMsg.textContent = `商品敘述:${comment.ItemDescription}`;
+                EIBAccount.appendChild(dompMsg);
+
 
                 let domH3 = document.createElement('div');
-                domH3.className = ' col-sm-2 col-md-2 ';
-                let domh301 = document.createElement('h3');
+                domH3.className = ' col-sm-3 col-md-2 ';
+                let domh301 = document.createElement('h6');
                 domh301.textContent = `物品類別:${comment.Sort}`;
-                let domh302 = document.createElement('h3');
-                domh302.textContent = `鑑定等級:${comment.ItemLevel}`;
-                let domh303 = document.createElement('h3');
-                domh303.textContent = `物品所在地點${comment.ItemLocation}`;
-
-                //domTime.textContent = commentTime;
-                EIBRow.appendChild(EIBAccount);
-                EIBRow.appendChild(EIBContent);
-                EIBRow.appendChild(domH3);
-                EIBAccount.appendChild(dompMsg);
-                docFrag.appendChild(EIBRow);
                 domH3.appendChild(domh301);
+                let domh302 = document.createElement('h6');
+                domh302.textContent = `鑑定等級:${comment.ItemLevel}`;
                 domH3.appendChild(domh302);
+                let domh303 = document.createElement('h6');
+                domh303.textContent = `物品所在地:${comment.ItemLocation}`;
                 domH3.appendChild(domh303);
+
+
+                @if (Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString() == Model.fPostUserId) {
+                    <text>
+                let AWantExchangediv = document.createElement('div');
+                AWantExchangediv.className = 'col-sm-12 col-md-1 '
+                let AWantExchange = document.createElement('button');
+                AWantExchange.id = 'btnResult';
+                AWantExchange.className = ' btnSize btn-dark floatR btncheng';
+                AWantExchange.textContent = "確定交換";
+                AWantExchangediv.appendChild(AWantExchange);
+                EIBRow.appendChild(EIBContent);  //照片
+                EIBRow.appendChild(EIBAccount);  //ID
+                //EIBRow.appendChild(dompMsg);  //商品敘述
+                //IMGROW.appendChild(EIBContent);  //照片在包ROW
+                EIBRow.appendChild(domH3);  //固定資訊
+                EIBRow.appendChild(AWantExchangediv);
+                docFrag.appendChild(EIBRow);
+                </text>
+                }
+                else
+                {
+                <text>
+                EIBRow.appendChild(EIBContent);  //照片
+                EIBRow.appendChild(EIBAccount);  //ID
+                //EIBRow.appendChild(dompMsg);  //商品敘述
+                //IMGROW.appendChild(EIBContent);  //照片在包ROW
+                EIBRow.appendChild(domH3);  //固定資訊
+                docFrag.appendChild(EIBRow);
+                </text>
+                }
             }
-
             EIB.appendChild(docFrag);
-
         }
 
         function receiveEIB() {
@@ -470,6 +491,28 @@
             });
             let para = `?itemId=${fItemId}`;
             xhr.open('GET', '@Url.Content("~/Exchange/ExchangeItemUserB")' + para);
+            xhr.send();
+        }
+
+        
+
+        function ExchangeResult() {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', function () {
+                //console.log(this.responseText);
+                if (this.responseText != '') {
+                    let datas = JSON.parse(this.responseText);
+                    refreshEIB(datas);
+                }
+                if (btnResult) {
+                    btnResult.addEventListener('click', function () {
+                        alert("成功");
+                        Finish();
+                    });
+                }
+            });
+            let para = `?itemId=${fItemId}`;
+            xhr.open('GET', '@Url.Content("~/Exchange/btnSureResult")' + para);
             xhr.send();
         }
     </script>
