@@ -316,10 +316,10 @@
         <text>
         btnFavorite.disabled = true;                                          // 有登入而且就是上架者自己
         btnReport.disabled = true;                                            // 則不給按追蹤、檢舉、購買和出價
-        if (txtBid) {
+        if (txtBid) {                                                         // 出價text box 可能不存在，另外處理
             txtBid.disabled = true;
         }
-        if (btnBid) {
+        if (btnBid) {                                                         // 出價按鍵可能不存在，另外處理
             btnBid.disabled = true;
         }
         if (btnBuy) {
