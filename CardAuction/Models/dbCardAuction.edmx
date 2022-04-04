@@ -165,16 +165,20 @@
           <Property Name="fPhoto3" Type="varchar" MaxLength="30" />
           <Property Name="fItemLocation" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="fItemLevel" Type="nvarchar" MaxLength="35" Nullable="false" />
+          <Property Name="fUserInfo" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="fReport" Type="int" />
           <Property Name="fDelete" Type="bit" />
         </EntityType>
         <EntityType Name="tExchangeResult">
           <Key>
-            <PropertyRef Name="fItemId" />
+            <PropertyRef Name="fItemIdB" />
           </Key>
-          <Property Name="fItemId" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="fItemName" Type="nvarchar" MaxLength="60" Nullable="false" />
-          <Property Name="fPhoto0" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fItemIdA" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fItemIdB" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fItemNameA" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="fItemNameB" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="fAPhoto0" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fBPhoto0" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="fPostUserId" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="fPostAccount" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="fCoupleUserId" Type="varchar" MaxLength="20" Nullable="false" />
@@ -384,25 +388,6 @@
           <Property Name="fReport" Type="Int32" />
           <Property Name="fDelete" Type="Boolean" />
         </EntityType>
-        <EntityType Name="tExchangeItemTable">
-          <Key>
-            <PropertyRef Name="fItemTableId" />
-          </Key>
-          <Property Name="fItemTableId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fItemId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fItemName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fItemDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fSort" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fPostUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fPhoto0" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fPhoto1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="fPhoto2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="fPhoto3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="fItemLocation" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fItemLevel" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fReport" Type="Int32" />
-          <Property Name="fDelete" Type="Boolean" />
-        </EntityType>
         <EntityType Name="tMember">
           <Key>
             <PropertyRef Name="fUserId" />
@@ -450,20 +435,43 @@
           <EntitySet Name="tExchangeDetail" EntityType="Self.tExchangeDetail" />
           <EntitySet Name="tExchangeFavorite" EntityType="Self.tExchangeFavorite" />
           <EntitySet Name="tExchangeItem" EntityType="Self.tExchangeItem" />
-          <EntitySet Name="tExchangeItemTable" EntityType="Self.tExchangeItemTable" />
           <EntitySet Name="tMember" EntityType="Self.tMember" />
           <EntitySet Name="tReportAuction" EntityType="Self.tReportAuction" />
           <EntitySet Name="tReportExchange" EntityType="Self.tReportExchange" />
+          <EntitySet Name="tExchangeItemTable" EntityType="dbCardAuctionModel.tExchangeItemTable" />
           <EntitySet Name="tExchangeResult" EntityType="dbCardAuctionModel.tExchangeResult" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
-        <EntityType Name="tExchangeResult">
+        <EntityType Name="tExchangeItemTable">
           <Key>
-            <PropertyRef Name="fItemId" />
+            <PropertyRef Name="fItemTableId" />
           </Key>
+          <Property Name="fItemTableId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="fItemId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="fItemName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="fItemDescription" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="fSort" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="fPostUserId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="fPhoto0" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fPhoto3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fItemLocation" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="fItemLevel" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="fUserInfo" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="fReport" Type="Int32" />
+          <Property Name="fDelete" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tExchangeResult">
+          <Key>
+            <PropertyRef Name="fItemIdB" />
+          </Key>
+          <Property Name="fItemIdA" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fItemIdB" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fItemNameA" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="fItemNameB" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="fAPhoto0" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fBPhoto0" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="fPostUserId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="fPostAccount" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="fCoupleUserId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -633,26 +641,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tExchangeItemTable">
-            <EntityTypeMapping TypeName="dbCardAuctionModel.tExchangeItemTable">
-              <MappingFragment StoreEntitySet="tExchangeItemTable">
-                <ScalarProperty Name="fItemTableId" ColumnName="fItemTableId" />
-                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
-                <ScalarProperty Name="fItemName" ColumnName="fItemName" />
-                <ScalarProperty Name="fItemDescription" ColumnName="fItemDescription" />
-                <ScalarProperty Name="fSort" ColumnName="fSort" />
-                <ScalarProperty Name="fPostUserId" ColumnName="fPostUserId" />
-                <ScalarProperty Name="fPhoto0" ColumnName="fPhoto0" />
-                <ScalarProperty Name="fPhoto1" ColumnName="fPhoto1" />
-                <ScalarProperty Name="fPhoto2" ColumnName="fPhoto2" />
-                <ScalarProperty Name="fPhoto3" ColumnName="fPhoto3" />
-                <ScalarProperty Name="fItemLocation" ColumnName="fItemLocation" />
-                <ScalarProperty Name="fItemLevel" ColumnName="fItemLevel" />
-                <ScalarProperty Name="fReport" ColumnName="fReport" />
-                <ScalarProperty Name="fDelete" ColumnName="fDelete" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tMember">
             <EntityTypeMapping TypeName="dbCardAuctionModel.tMember">
               <MappingFragment StoreEntitySet="tMember">
@@ -691,6 +679,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tExchangeItemTable">
+            <EntityTypeMapping TypeName="dbCardAuctionModel.tExchangeItemTable">
+              <MappingFragment StoreEntitySet="tExchangeItemTable">
+                <ScalarProperty Name="fDelete" ColumnName="fDelete" />
+                <ScalarProperty Name="fReport" ColumnName="fReport" />
+                <ScalarProperty Name="fUserInfo" ColumnName="fUserInfo" />
+                <ScalarProperty Name="fItemLevel" ColumnName="fItemLevel" />
+                <ScalarProperty Name="fItemLocation" ColumnName="fItemLocation" />
+                <ScalarProperty Name="fPhoto3" ColumnName="fPhoto3" />
+                <ScalarProperty Name="fPhoto2" ColumnName="fPhoto2" />
+                <ScalarProperty Name="fPhoto1" ColumnName="fPhoto1" />
+                <ScalarProperty Name="fPhoto0" ColumnName="fPhoto0" />
+                <ScalarProperty Name="fPostUserId" ColumnName="fPostUserId" />
+                <ScalarProperty Name="fSort" ColumnName="fSort" />
+                <ScalarProperty Name="fItemDescription" ColumnName="fItemDescription" />
+                <ScalarProperty Name="fItemName" ColumnName="fItemName" />
+                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
+                <ScalarProperty Name="fItemTableId" ColumnName="fItemTableId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tExchangeResult">
             <EntityTypeMapping TypeName="dbCardAuctionModel.tExchangeResult">
               <MappingFragment StoreEntitySet="tExchangeResult">
@@ -701,9 +710,12 @@
                 <ScalarProperty Name="fCoupleUserId" ColumnName="fCoupleUserId" />
                 <ScalarProperty Name="fPostAccount" ColumnName="fPostAccount" />
                 <ScalarProperty Name="fPostUserId" ColumnName="fPostUserId" />
-                <ScalarProperty Name="fPhoto0" ColumnName="fPhoto0" />
-                <ScalarProperty Name="fItemName" ColumnName="fItemName" />
-                <ScalarProperty Name="fItemId" ColumnName="fItemId" />
+                <ScalarProperty Name="fBPhoto0" ColumnName="fBPhoto0" />
+                <ScalarProperty Name="fAPhoto0" ColumnName="fAPhoto0" />
+                <ScalarProperty Name="fItemNameB" ColumnName="fItemNameB" />
+                <ScalarProperty Name="fItemNameA" ColumnName="fItemNameA" />
+                <ScalarProperty Name="fItemIdB" ColumnName="fItemIdB" />
+                <ScalarProperty Name="fItemIdA" ColumnName="fItemIdA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

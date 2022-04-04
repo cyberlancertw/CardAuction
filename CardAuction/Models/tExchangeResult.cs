@@ -14,9 +14,12 @@ namespace CardAuction.Models
     
     public partial class tExchangeResult
     {
-        public string fItemId { get; set; }
-        public string fItemName { get; set; }
-        public string fPhoto0 { get; set; }
+        public string fItemIdA { get; set; }
+        public string fItemIdB { get; set; }
+        public string fItemNameA { get; set; }
+        public string fItemNameB { get; set; }
+        public string fAPhoto0 { get; set; }
+        public string fBPhoto0 { get; set; }
         public string fPostUserId { get; set; }
         public string fPostAccount { get; set; }
         public string fCoupleUserId { get; set; }

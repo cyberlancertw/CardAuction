@@ -34,7 +34,7 @@
                 <div class="row">
 
                     <div class="col-4">
-                        <button id="btnComment"><i class="fa-solid fa-comments"></i> 聯絡賣家</button>
+                        <button id="btnComment"><i class="fa-solid fa-comments"></i> 問與答</button>
                     </div>
 
                     <div class="col-4">
@@ -305,7 +305,8 @@
         checkFavorite();
         receiveComments();
         receiveEIB();
-        ExchangeResult();
+        //ExchangeResult();
+
         document.getElementById('btnComment').addEventListener('click', function () {
             location.href += '#divComment';
             txtComment.focus();
@@ -463,6 +464,10 @@
                 EIBRow.appendChild(domH3);  //固定資訊
                 EIBRow.appendChild(AWantExchangediv);
                 docFrag.appendChild(EIBRow);
+                AWantExchange.addEventListener('click', function () {
+                    let para = `?itemIdA=${fItemId}&itemIdB=${comment.fItemTableId}`;
+                    location.href = '@Url.Content("~/Exchange/btnSureResult")' + para;
+                });
                 </text>
                 }
                 else
@@ -494,9 +499,13 @@
             xhr.send();
         }
 
-        
+        //btnResult.addEventListener('click', function () {
+        //    alert('yes');
 
-        function ExchangeResult() {
+            
+        //});
+
+        @*function ExchangeResult() {
             let xhr = new XMLHttpRequest();
             xhr.addEventListener('load', function () {
                 //console.log(this.responseText);
@@ -504,16 +513,18 @@
                     let datas = JSON.parse(this.responseText);
                     refreshEIB(datas);
                 }
-                if (btnResult) {
-                    btnResult.addEventListener('click', function () {
-                        alert("成功");
-                        Finish();
-                    });
-                }
+                //if (btnResult) {
+                //    btnResult.addEventListener('click', function () {
+                //        alert("成功");
+                //        Finish();
+                //    });
+                //}
             });
             let para = `?itemId=${fItemId}`;
             xhr.open('GET', '@Url.Content("~/Exchange/btnSureResult")' + para);
             xhr.send();
-        }
+        }*@
+
+
     </script>
 }
