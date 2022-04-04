@@ -120,7 +120,7 @@
                             <div class="info-bottom">
                                 <h5>@favoritem.fItemName</h5>
                                 <div class="info-price">
-                                    <h4>$@favoritem.fMoneyNow 元</h4>/<h6>出價 @favoritem.fBidCount 次</h6>
+                                    <h4>$@favoritem.fMoneyNow 元</h4> <p>/</p> <h6>出價 @favoritem.fBidCount 次</h6>
                                 </div>
                                 <div class="info-time">
                                     <h6>@resetday</h6>
@@ -154,7 +154,7 @@
 
 
                     <div class="block">
-                        <img src="~/images/AuctionItemImages/@favorexitem.fPhoto0">
+                        <img src="~/images/ExchangeItemImages/@favorexitem.fPhoto0">
                         <div class="card-info">
                             <div class="info-top">
                                 <h5>@favorexitem.fItemId</h5>
@@ -164,7 +164,7 @@
                             <div class="info-bottom">
                                 <h5>@favorexitem.fItemName</h5>
                                 <div class="info-price">
-                                    <h4>留言數量</h4>/<h6>XX則</h6>
+                                    <h4>留言數量</h4> <p>/</p> <h6>XX則</h6>
                                 </div>
                                 <div class="info-time">
                                     <h6>@resetday</h6>
@@ -443,12 +443,16 @@
             }
         }
 
+        /*var tab2 = documet.getElementById('tab2');*/
+
         switch (lead) {
             case "auctionfavorite":
                 btn2.click();
+                document.querySelector('label[for="tabone"]').click();
                 break;
             case "exchangefavorite":
                 btn2.click();
+                document.querySelector('label[for="tabtwo"]').click();
                 break;
             case "auctionitem":
                 btn3.click();
