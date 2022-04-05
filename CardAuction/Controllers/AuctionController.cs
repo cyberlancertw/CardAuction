@@ -488,6 +488,7 @@ namespace CardAuction.Controllers
             return;
         }
 
+        
         public ActionResult GetEndInfo(string itemId)
         {
             if(itemId == null)

@@ -393,7 +393,6 @@
         if (btnBuy) {
           btnBuy.addEventListener('click', function () {
                 sendBid(@Model.fBuyPrice);          // 直購
-                Finish();
             });
         }
 
@@ -404,7 +403,7 @@
         checkFavorite();
         receiveComments();
         receiveBidRecords();
-
+        checkFinish();
 
         document.getElementById('btnComment').addEventListener('click', function () {
             location.href += '#divComment';
@@ -428,7 +427,7 @@
                 btnCommentSend.disabled = true;
                 btnReport.disabled = true;
 
-                Finish();
+                checkFinish();
                 return;
             }
             let day = Math.floor(t / 86400);
@@ -440,11 +439,9 @@
         }
 
         function sendBid(amount) {
-            let xhr = new XMLHttpRequest();
-            xhr.addEventListener('load', receiveBidRecords);
             let para = `?itemId=${itemId}&amount=${amount}`;
-            xhr.open('GET', '@Url.Content("~/Auction/Bid")' + para);
-            xhr.send();
+            fetch('@Url.Content("~/Auction/Bid")' + para, { method: 'GET' })
+                .then(checkFinish);
         }
 
         function receiveBidRecords() {
@@ -570,9 +567,7 @@
                 btnFavorite.classList.add('notFollowing');
             }
         }
-        function Finish() {
-            window.clearInterval(timer);
-            domTime.textContent = '競標已結束';
+        function checkFinish() {
 
             let para = `/?itemId=${itemId}`;
             fetch('@Url.Content("~/Auction/FinishInfo")' + para, { method: 'GET' })
@@ -582,6 +577,8 @@
                     let statusMessage = response.statusMessage;
 
                     if (statusMessage == 'BuyFinish' || statusMessage == 'EndTimeFinish') {
+                        window.clearInterval(timer);
+                        domTime.textContent = '競標已結束';
                         if (userAcc == response.winUserAcc) {
                             GenerateFinishlUI(
                                 response.winUserAcc,
@@ -596,6 +593,8 @@
                         }
                     }
                     else if (statusMessage == 'NoTopFinish' || statusMessage == 'Deleted') {
+                        window.clearInterval(timer);
+                        domTime.textContent = '競標已結束';
                         GenerateNoTopFinishUI();
                     }
                 });
@@ -788,7 +787,7 @@
                             default:
                                 break;
                         }
-                        
+
                         console.log(deliveryInfo);
                         console.log(totalMoney);
                         let resultPara = `?itemId=${itemId}&totalMoney=${totalMoney}&deliveryInfo=${deliveryInfo}`;
@@ -807,7 +806,7 @@
 
         function selectTransChange() {
             let selectTrans = document.getElementById('selectTrans');
-            
+
             let optId = selectTrans.options[selectTrans.selectedIndex].id;
             document.getElementById('spanTransFeeAmount').textContent = '$ ' + selectTrans.value + ' 元';
             document.querySelectorAll('[id^="transInput"]').forEach(dom => dom.hidden = true);
@@ -820,6 +819,10 @@
                     document.querySelectorAll('[id$="UserAddress"]').forEach(dom => dom.value = datas.address);
                     document.querySelectorAll('[id$="UserPhone"]').forEach(dom => dom.value = datas.phone);
                 });
+        }
+
+        function finishCheck() {
+            fetch('@Url.Content("~/Auction/")', {})
         }
     </script>
 }
