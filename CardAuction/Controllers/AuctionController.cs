@@ -787,6 +787,10 @@ namespace CardAuction.Controllers
                 return;
             }
             tAuctionItem item = db.tAuctionItem.Find(itemId);
+            if(item == null)
+            {
+                return;
+            }
             tMember topUser = db.tMember.Find(item.fTopBidUserId);
             if (item == null || topUser == null)
             {
