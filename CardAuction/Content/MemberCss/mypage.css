@@ -323,29 +323,38 @@ input{
 .info-bottom h5 {
     font-size: 20px;
     font-weight: bolder;
-    margin: 0px 0px 8px;
+    margin: 5px 0px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.info-time h6{
-    margin:0px;
+.info-time h6 {
+    margin: 5px 0px;
 }
 
-.info-price{
+.info-price {
     display: flex;
+    align-items: center;
+    margin: 5px 0px;
+}
+
+.info-price p{
+    margin:0px;
+    font-size: 20px;
 }
 
 .info-price h4{
     font-size: 20px;
     font-weight: bolder;
     color: #ab8f4e;
+    margin:0;
 }
 
 .info-price h6{
+    padding-top:5px;
     font-size: 15px;
-    margin: 5px 0 0;
+    margin:0;
     font-weight: bolder;
 }
 
@@ -361,6 +370,10 @@ input{
     /* max-width: 600px; */
     margin:auto;
     padding: 20px 50px ;
+}
+
+.ptable td a{
+    font-size:xx-small;
 }
 
 .page4{
@@ -449,7 +462,7 @@ table input{
     text-align: center;
     font-size: x-small;
     font-weight: bolder;
-
+    word-break:keep-all;
 }
 
 .ptable td img{

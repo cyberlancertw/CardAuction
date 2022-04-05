@@ -30,10 +30,10 @@
         font-size: 0.2rem;
     }
     .divLabel > div {
-        width: 20%;
+        width: 25%;
     }
     .newest {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
     }
 
     .findall {
@@ -73,10 +73,10 @@
         font-size: 0.2rem;
     }
     .divLabel > div {
-        width: 20%;
+        width: 25%;
     }
     .newest {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
     }
 
     .findall {
@@ -113,12 +113,11 @@
         font-size: 0.2rem;
     }
     .divLabel > div {
-        width: 20%;
+        width: 22%;
     }
     .newest {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
     }
-
     .findall {
         font-size: 1.4rem;
     }
@@ -241,10 +240,10 @@
     color: #ffffff;
     margin: 0 0.6rem;
 }
-#cardList {
+.cardList {
     margin-top: 1rem;
     background-color: #ced3d8;
-    
+    margin-bottom: 1rem;
 }
 
 .divLabel{

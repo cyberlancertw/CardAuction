@@ -46,7 +46,7 @@ namespace CardAuction.Controllers
 
             MyInfo.MyAccount = db.tMember.Find(userId);
 
-            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage,pageSize);
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId && !m.fDelete).ToList().ToPagedList(currentPage,pageSize);
 
             MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 
@@ -88,7 +88,7 @@ namespace CardAuction.Controllers
 
             MyInfo.MyAccount = db.tMember.Find(userId);
 
-            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId && !m.fDelete).ToList().ToPagedList(currentPage, pageSize);
 
             MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 

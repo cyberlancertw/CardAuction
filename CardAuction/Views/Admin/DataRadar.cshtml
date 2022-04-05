@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "DataRadar";
+    var footerText = DateTime.Now.Year + "年 / " + DateTime.Now.Month + "月 / " + DateTime.Now.Day + "日 統計結果";
+
+    var CategoryValue = Json.Encode(ViewBag.CategoryValue);
+    var CategoryCount = Json.Encode(ViewBag.CategoryCount);
+    var ExcCategoryValue = Json.Encode(ViewBag.ExcCategoryValue);
+    var ExcCategoryCount = Json.Encode(ViewBag.ExcCategoryCount);
+}
+
+ @*資料讀取測試*@ 
+    @*<p>@CategoryValue</p>
+    <p>@CategoryCount</p>
+    <p>@ExcCategoryValue</p>
+    <p>@ExcCategoryCount</p>*@
+
+<br>
+<div class="container">
+    <div class="jumbotron">
+        <h4 class="panel-footer textModify">商品分類筆數 Numbers </h4>
+        <br />
+        <div class="panel-footer">@footerText</div>
+    </div>
+
+    <div class="jumbotron ">
+        <div class="col-md-12 col-md-offset-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="MarginModify">目前競標及交換商品 各分類資料筆數</h4>
+                </div>
+                <div class="panel-body">
+                    <canvas id="RadarChart"></canvas>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />
+<hr />
+
+@section scripts{
+    <script>
+            var ctx = document.getElementById('RadarChart');
+            var chart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: @Html.Raw(CategoryValue),
+                    datasets: [{
+                        label: "競標商品",
+                        backgroundColor: 'rgba(31, 51, 68, 0.2)', //藏青
+                        borderColor: 'rgba(31, 51, 68, 1)',
+                        pointStyle: 'circle',
+                        pointBackgroundColor: 'rgba(31, 51, 68, 0.8)',
+                        pointRadius: 6,
+                        pointHoverRadius: 10,
+                        data: @Html.Raw(CategoryCount)
+                    },
+                    {
+                        label: "交換商品",
+                        backgroundColor: 'rgba(171, 143, 78, 0.2)', //金色
+                        borderColor: 'rgba(171, 143, 78, 1)', 
+                        pointStyle: 'rect',
+                        pointBackgroundColor: 'rgb(171, 143, 78, 0.8)',
+                        pointRadius: 6,
+                        pointHoverRadius: 10,
+                        data: @Html.Raw(ExcCategoryCount)
+                    },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            fontColor: 'black',
+                            fontSize: 18
+                        }
+                    },
+                    scale: {
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        pointLabels: {
+                            fontSize: 16
+                        },
+                    },
+                }
+            });
+    </script>
+
+
+}
+
+@section styles{
+    <style>
+        .panel {
+            margin-top: 10px;
+        }
+        .panel-heading, .panel-footer {
+            text-align: center;
+        }
+        .MarginModify {
+            margin-bottom: 50px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f3344;
+        }
+        .textModify {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1f3344;
+        }
+    </style>
+}

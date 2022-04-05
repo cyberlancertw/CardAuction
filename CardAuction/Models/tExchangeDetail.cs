@@ -16,7 +16,7 @@ namespace CardAuction.Models
     {
         public int fDetailId { get; set; }
         public Nullable<int> fItemId { get; set; }
-        public Nullable<int> fResponseUserId { get; set; }
+        public string fResponseUserId { get; set; }
         public string fContent { get; set; }
         public Nullable<System.DateTime> fPostTime { get; set; }
     }

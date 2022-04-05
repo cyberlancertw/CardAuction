@@ -98,7 +98,24 @@ namespace CardAuction.Controllers
                 return RedirectToAction("Error", "Home", new { ErrorMessage = "您非得標者或商品主人", ToController = "Auction", ToAction = "List" });
             }
 
-            return View(result);
+            VMAuctionResult vModel = new VMAuctionResult();
+            vModel.postUserAccount = db.tMember.Find(postUserId).fAccount;
+            vModel.winUserAccount = db.tMember.Find(winUserId).fAccount;
+            vModel.result = result;
+            vModel.history = db.tAuctionBid
+                .Where(m=>m.fItemId == id)
+                .Join(
+                db.tMember,
+                b => b.fUserId,
+                m => m.fUserId,
+                (b, m) => new BidDetail
+                {
+                    bidAccount = m.fAccount,
+                    bidMoney = b.fMoney,
+                    bidTime = b.fTime
+                }).OrderByDescending(p => p.bidTime);
+
+            return View(vModel);
         }
         [HttpGet]
         public ActionResult Post()
@@ -230,7 +247,7 @@ namespace CardAuction.Controllers
                 case "EndTime":
                     {
                         var queryResult = db.tAuctionItem
-                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName) && !m.fFinish && !m.fDelete)
                             .OrderBy(p => p.fEndTime)
                             .Skip(page * 12)
                             .Take(12)
@@ -248,7 +265,7 @@ namespace CardAuction.Controllers
                 case "HotClick":
                     {
                         var queryResult = db.tAuctionItem
-                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName) && !m.fFinish && !m.fDelete)
                             .OrderByDescending(p=>p.fClick).ThenBy(q=>q.fEndTime)
                             .Skip(page * 12)
                             .Take(12)
@@ -266,7 +283,7 @@ namespace CardAuction.Controllers
                 case "JustPost":
                     {
                         var queryResult = db.tAuctionItem
-                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName) && !m.fFinish && !m.fDelete)
                             .OrderByDescending(p=>p.fCreateTime)
                             .Skip(page * 12)
                             .Take(12)
@@ -289,9 +306,9 @@ namespace CardAuction.Controllers
 
         }
 
-        public int GetCount(string sortName)
+        public int GetCount(string sortName)                        // 做 ~/Auction/List 分頁按鈕用的
         {
-            return db.tAuctionItem.Where(m => m.fSort.Contains(sortName)).Count();
+            return db.tAuctionItem.Where(m => m.fSort.Contains(sortName) && !m.fFinish && !m.fDelete).Count();
         }
 
 
@@ -303,41 +320,67 @@ namespace CardAuction.Controllers
                 return;
             }
             string userId = Session[CDictionary.SK_UserUserId].ToString();
+            
+            tMember user = db.tMember.Find(userId);
+            if (!user.fActive || user.fDelete)                     // 停權、刪除
+            {
+                return;
+            }
+            
             tAuctionItem item = db.tAuctionItem.Find(itemId);
 
-            if (userId.Equals(item.fPostUserId))      // 不給自己商品出價
+            if(item == null || item.fFinish || item.fDelete)       // 錯誤商品、已結束、已刪除
             {
                 return;
             }
-            if (amount < item.fMoneyNow + item.fMoneyStep)         // 防另一人在另一端已出過價，不能只靠前端
+            if (userId.Equals(item.fPostUserId))                   // 不能給自己商品出價
             {
                 return;
             }
-            //  無直購             ||       有直購但出不到直購價
-            if (item.fBuyPrice < 0 || amount < item.fBuyPrice)
+            if(item.fEndTime < DateTime.Now)                       // 時間結束
             {
-                UpdateBid(item, amount, userId, itemId);
                 return;
             }
 
-            //   直購的部份
-            if (item.fBuyPrice > 0 && amount >= item.fMoneyNow + item.fMoneyStep)
+            if(item.fBuyPrice < 0)      // 無直購
             {
-                UpdateBid(item, amount, userId, itemId);
-                //WinBid(item, amount, userId, itemId);
+                if(amount < item.fMoneyNow + item.fMoneyStep)      // 防另一人在另一端已出過價，靠後端判斷不予更新
+                {
+                    return;
+                }
+
+                UpdateBid(item, amount, userId);
+                return;
+            }
+            else                        // 有直購價
+            {
+                if(amount >= item.fBuyPrice)
+                {
+                    UpdateBid(item, item.fBuyPrice, userId);        // 出價大於等於直購價，就以直購價結束
+                    return;
+                }
+                else if(amount < item.fMoneyNow + item.fMoneyStep)  // 防另一人在另一端已出過價，靠後端判斷不予更新
+                {
+                    return;
+                }
+                UpdateBid(item, amount, userId);
+                return;
             }
 
-            return;
         }
-
-        private void UpdateBid(tAuctionItem item, int amount, string userId, string itemId)
+        private void UpdateBid(tAuctionItem item, int amount, string userId)
         {
             item.fMoneyNow = amount;
             item.fBidCount++;
             item.fTopBidUserId = userId;
+
+            if(item.fBuyPrice > 0 && amount >= item.fBuyPrice)
+            {
+                item.fFinish = true;
+            }
             tAuctionBid newBid = new tAuctionBid
             {
-                fItemId = itemId,
+                fItemId = item.fItemId,
                 fTime = DateTime.Now,
                 fUserId = userId,
                 fMoney = amount
@@ -356,6 +399,7 @@ namespace CardAuction.Controllers
             {
                 Console.WriteLine(e.ToString());
             }
+            return;
         }
         public ActionResult ReceiveBidRecords(string itemId)
         {
@@ -407,11 +451,17 @@ namespace CardAuction.Controllers
                 return;
             }
             string userId = Session[CDictionary.SK_UserUserId].ToString();
-            bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId && m.fContent == message && m.fFromUserId == userId);
+            tMember user = db.tMember.Find(userId);
+            if (!user.fActive || user.fDelete)                                                                                          // 停權
+            {
+                return;
+            }
+            bool isExist = db.tCommentAuction.Any(m => m.fItemId == itemId && m.fContent == message && m.fFromUserId == userId);        // 防灌水
             if (isExist)
             {
                 return;
             }
+
             tCommentAuction newComment = new tCommentAuction
             {
                 fItemId = itemId,
@@ -468,6 +518,7 @@ namespace CardAuction.Controllers
             return;
         }
 
+        
         public ActionResult GetEndInfo(string itemId)
         {
             if(itemId == null)
@@ -725,6 +776,39 @@ namespace CardAuction.Controllers
                 }
                 return;
             }
+
+            return;
+        }
+
+        public void InfoBidWinner(string itemId)
+        {
+            if(string.IsNullOrEmpty(itemId))
+            {
+                return;
+            }
+            tAuctionItem item = db.tAuctionItem.Find(itemId);
+            if(item == null)
+            {
+                return;
+            }
+            tMember topUser = db.tMember.Find(item.fTopBidUserId);
+            if (item == null || topUser == null)
+            {
+                return;
+            }
+            string postUserId = item.fPostUserId;
+            if(Session[CDictionary.SK_UserUserId] == null || Session[CDictionary.SK_UserUserId].ToString() != postUserId)
+            {
+                return;
+            }
+            string postAcc = db.tMember.Find(postUserId).fAccount;
+            string userAcc = topUser.fAccount;
+            string userEmail = topUser.fEmail;
+            string subject = "得標通知";
+            string linkTo = CDictionary.WebHost + "Auction/Item/" + item.fItemId;
+            string content = $"<h1>{userAcc}您好，您得標了{postAcc}的競標商品「{item.fItemName}」，請儘速登入個人頁面，或利用以下連結填寫運送資訊：</h1>"
+                + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+            Service.SendEmail(userEmail, subject, content);
 
             return;
         }
