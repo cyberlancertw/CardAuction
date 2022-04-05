@@ -30,6 +30,7 @@
 
 .nav-middle {
     text-align: center;
+
 }
 
 .nav-right {
@@ -57,20 +58,23 @@
     text-decoration: none;
     cursor: pointer;
     margin: 0 16px;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 400;
     color: #1f3344;
     width: 60px;
+    font-family: 'Noto Sans', sans-serif;
 }
 
     .tablink:hover {
         color: #ab8f4e;
-        text-decoration: underline;
+        font-weight: 600;
+        text-decoration: none;
     }
 
 /* footer */
 .footer {
     padding-bottom: 0 !important;
+    padding-top:60px !important;
 }
 
 .row-div {
@@ -82,4 +86,9 @@
 
 .dark-blue {
     background-color: #1f3344;
+}
+
+.imgcss {
+    text-align:center;
+    margin-bottom:100px;
 }

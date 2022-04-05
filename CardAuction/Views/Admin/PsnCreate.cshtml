@@ -1,124 +1,274 @@
 ﻿<!-- CSS -->
-<link rel="stylesheet" href="~/Content/AdminCss/cssPsnCreate.css" />
+@*<link rel="stylesheet" href="~/Content/AdminCss/cssPsnCreate.css" />*@
 
 @model CardAuction.Models.tMember
 
 @{
-    ViewBag.Title = "新增人員";
+    ViewBag.Title = "Members Create";
 }
 
+<div class="container ">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4>人員新增</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-horizontal">
-        <h6>新增員工資料</h6>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            帳號
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fAccount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fAccount, "", new { @class = "text-danger" })
+            <div class="form-group">
+                帳號
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fAccount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fAccount, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            密碼
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fPassword, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fPassword, "", new { @class = "text-danger" })
+            <div class="form-group">
+                密碼
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fPassword, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            姓名
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fName, "", new { @class = "text-danger" })
+            <div class="form-group">
+                姓名
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fName, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            信箱
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fEmail, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fEmail, "", new { @class = "text-danger" })
+            <div class="form-group">
+                信箱
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fEmail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fEmail, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            地址
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fAddress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fAddress, "", new { @class = "text-danger" })
+            <div class="form-group">
+                地址
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fAddress, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            電話
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fPhone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fPhone, "", new { @class = "text-danger" })
+            <div class="form-group">
+                電話
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fPhone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fPhone, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            生日
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fBirthday, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fBirthday, "", new { @class = "text-danger" })
+            <div class="form-group">
+                生日
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fBirthday, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fBirthday, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            訂閱
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.fSubscribe)
-                    @Html.ValidationMessageFor(model => model.fSubscribe, "", new { @class = "text-danger" })
+            <div class="form-group">
+                訂閱
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.fSubscribe)
+                        @Html.ValidationMessageFor(model => model.fSubscribe, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                權限
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.fManager)
+                        @Html.ValidationMessageFor(model => model.fManager, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                驗證
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.fActive)
+                        @Html.ValidationMessageFor(model => model.fActive, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                刪除
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.fDelete)
+                        @Html.ValidationMessageFor(model => model.fDelete, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group text-align-center">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="新增" class="btn btn-outline-secondary btn-sm submitt" id="CreateBtn" />
                 </div>
             </div>
         </div>
+    }
 
-        <div class="form-group">
-            權限
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.fManager)
-                    @Html.ValidationMessageFor(model => model.fManager, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            驗證
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.fActive)
-                    @Html.ValidationMessageFor(model => model.fActive, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            刪除
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.fDelete)
-                    @Html.ValidationMessageFor(model => model.fDelete, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="新增人員" class="btn btn-default" id="CreateBtn" />
-            </div>
-        </div>
+    <div class="padbottom">
+        @Html.ActionLink("返回", "/PsnManage", null, new { @class = "btn btn-outline-secondary btn-sm " })
     </div>
-}
+
+</div>
 
 
+@section styles{
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            border: 1px solid;
+            border-radius: 30px;
+            border-color: #1f3344;
+            padding-top: 5px;
+            width: 800px;
+            margin: 50px auto;
+        }
+
+        .form-horizontal {
+            width: 500px;
+            margin: 10px auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            width: 350px;
+            font-size: 16px;
+            margin: 5px auto;
+            padding: 5px;
+        }
+
+        .col-md-10 {
+            width: auto;
+            display: inline-block;
+            margin: 3px auto;
+            margin-left: 10px;
+            padding: 3px;
+        }
+
+
+            .col-md-10 > input {
+                width: 300px;
+            }
+
+        #CreateBtn {
+            padding: 32px 32px;
+            text-align: center;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+
+
+        .form-control {
+            margin: 0px;
+            padding: 2px 0 2px 10px;
+            font-size: 16px;
+        }
+
+        /**/
+        h4 {
+            margin-top: 30px;
+            font-size: 28px;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        hr {
+            margin-bottom: 50px !important;
+        }
+
+        .btn-sm {
+            padding: 30px 30px 30px 30px;
+            margin-bottom: 100px;
+        }
+
+
+            .btn-sm:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
+
+
+        .submitt {
+            width: 100px !important;
+            padding: 30px 30px 30px 30px;
+            margin: 20px 0 50px 0;
+        }
+
+            .submitt:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
+
+        .padbottom {
+            padding-bottom: 100px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #dcdcdc;
+        }
+
+        .text-align-center {
+            text-align: center;
+        }
+/**/
+
+        hr {
+            margin-bottom: 50px !important;
+        }
+
+        h4 {
+            margin-top: 30px;
+            font-size: 28px;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .btn-sm {
+            padding: 30px 30px 30px 30px;
+            margin-bottom: 100px;
+        }
+
+            .btn-sm:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
+
+
+        .submitt {
+            width: 100px !important;
+            padding: 30px 30px 30px 30px;
+            margin: 20px 0 50px 0;
+        }
+
+            .submitt:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
+
+        .padbottom {
+            padding-bottom: 100px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #dcdcdc;
+        }
+
+        .text-align-center {
+            text-align: center;
+        }
+    </style>
+    }
