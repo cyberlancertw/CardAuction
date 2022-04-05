@@ -395,7 +395,8 @@ namespace CardAuction.Controllers
                 UserId = Session[CDictionary.SK_UserUserId].ToString();
             }
             tAuctionFavorite result = db.tAuctionFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
-            if(result != null)
+            tExchangeFavorite result1 = db.tExchangeFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
+            if (result != null || result1 !=null)
             {
                 return Content("True");
             }
