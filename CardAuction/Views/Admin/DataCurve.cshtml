@@ -1,0 +1,515 @@
+﻿@model IEnumerable<CardAuction.Models.Location>
+
+@{
+    var footerText = DateTime.Now.Year + "年 / " + DateTime.Now.Month + "月 / " + DateTime.Now.Day + "日 統計結果";
+
+    //將物件或資料編碼成JOSN格式資料
+    var jsonMonths = Json.Encode(ViewBag.MonthsLabel);
+    var jsonLocations = Json.Encode(Model);
+    var BidItem = Json.Encode(ViewBag.BidItem);
+    var BidCount = Json.Encode(ViewBag.BidCount);
+    var BidCountList = Json.Encode(ViewBag.BidCountList);
+    var BidValue = Json.Encode(ViewBag.BidValue);
+
+}
+
+@*<p>@BidItem</p>
+    <p>@BidCount</p>
+    <p>@BidCountList</p>
+    <p>@BidValue</p>*@
+
+<div class="container">
+    <br />
+    <div class="jumbotron">
+        <h4 class="panel-footer textModify">競標價格 Curve</h4>
+        <br />
+        <div class="panel-footer">@footerText</div>
+    </div>
+
+    @* B. 動態 雙下拉選單  動態選取 資料庫讀取商品  async await *@
+<div class="jumbotron PaddingModify">
+    <div class="panel-heading">
+        <h4 class="MarginModify">競標商品 投標出價金額 成長曲線</h4>
+    </div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            競標商品分類
+            <div class="col-md-10">
+                <select id="select1" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            競標商品名稱
+            <div class="col-md-10">
+                <select id="select2" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            目前最高投標金額
+            <div class="col-md-10">
+                <select id="select3" class="form-select form-select-sm" aria-label=".form-select-sm example" disabled></select>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary panel-collapse col-md-12" id="carPanel">
+        <div class="panel-body" id="panelBody">
+            <canvas id="LineChartBidMoney"></canvas>
+        </div>
+    </div>
+
+</div>
+
+    @* A. 固定ID的Line Chart *@
+<div class="jumbotron PaddingModify2">
+    <div class="panel-heading">
+        <h4 class="MarginModify2">競標商品 投標出價金額 成長曲線</h4>
+    </div>
+    <div class="container col-md-12">
+        <canvas id="lineChart"></canvas>
+    </div>
+</div>
+
+    @*C. 以Ajax 向後端API 取JSON資料  畫圖*@
+    @*<div class="container col-6">
+            <select id="urlSelect" class="form-control">
+                <option value="/Admin/getBidItemNumber">同專案的JsonDataController</option>
+            </select>
+
+            <button class="btn btn-success" id="post">查看</button>
+            <button class="btn btn-danger" id="reset">Reset</button>
+
+            <div id="urlText" class="alert alert-info"></div>
+
+            <div class="panel panel-primary panel-collapse" id="carPanel2">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body" id="panelBody">
+                    <canvas id="chartCanvas"></canvas>
+                </div>
+            </div>
+
+            <div id="result" class="alert alert-danger"></div>
+
+        </div>*@
+
+</div>
+<br />
+<hr />
+
+    @section scripts{
+        <script>
+        //A. 固定ID的Line Chart
+        var ctx = document.getElementById("lineChart");
+        var chart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels:  @Html.Raw(BidCountList),
+                datasets: [{
+                    label : @Html.Raw(BidItem),
+                    data: @Html.Raw(BidValue),
+                    fill: 'origin',
+                    backgroundColor: 'rgba(171, 143, 78, 0.2)',
+                    borderColor: 'rgba(171, 143, 78)',
+                    pointStyle: "rect",
+                    pointBackgroundColor: 'rgba(171, 143, 78, 0.8)',
+                    pointRadius: 6,
+                    pointHoverRadius: 10
+                }
+                ]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'point',
+                    intersect: true,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: '出價次數',
+                            fontSize: 20
+                        },
+                        ticks: {
+                            fontSize: 16
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: '出價金額',
+                            fontSize : 20
+                        },
+                        ticks: {
+                            fontSize: 16
+                        }
+                    }]
+                },
+                animation: {
+                    duration : 5000
+                }
+            }
+        });
+
+        //B. 動態 雙下拉選單  動態選取 資料庫讀取商品  async await
+        const selSort = document.querySelector('#select1')
+        const selItemName = document.querySelector('#select2')
+        const ItemBIdMoney = document.querySelector('#select3')
+        const LineChart = document.querySelector('#LineChartBidMoney')
+
+        async function LoadingDropDownMenu() {
+            //載入卡片種類
+            const response = await fetch('/Admin/Sort')
+            RenderSort(await response.json())
+
+            //載入選擇的卡片種類 相對商品
+            const SortValue = selSort.options[selSort.selectedIndex].value
+            const response1 = await fetch(`/Admin/ItemName?SortParam=${SortValue}`)
+            RenderItemName(await response1.json())
+
+            //載入選擇的商品 競標價格
+            const ItemNameValue = selItemName.options[selItemName.selectedIndex].value
+            const response2 = await fetch(`/Admin/ItemBidMoney?ItemNameParam=${ItemNameValue}`)
+            const response3 = await fetch(`/Admin/ItemBidMoney?ItemNameParam=${ItemNameValue}`)
+            RenderChart(await response2.json())
+            RenderChart2(await response3.json())
+        }
+
+        //載入
+        LoadingDropDownMenu()
+
+        //載入卡片種類方法
+        function RenderSort(datas) {
+            datas.forEach((item) => {
+                const opt = new Option(item.fSort)
+                selSort.options.add(opt)
+            })
+        }
+        //載入選擇的卡片種類  所有相對商品的方法
+        function RenderItemName(datas) {
+            selItemName.options.length = 0
+            datas.forEach((item) => {
+                const opt = new Option(item.fItemName);
+                selItemName.options.add(opt)
+            })
+        }
+
+        //載入選擇的商品的目前競標價格
+        function RenderChart(datas) {
+             console.log(datas)
+            ItemBIdMoney.options.length = 0
+            let opt = new Option(datas[0].BidMoneyNow)
+            ItemBIdMoney.options.add(opt)
+            }
+
+         //載入選擇的商品的歷史競標價格 畫LineChart的方法
+            var getCanvas = document.getElementById("LineChartBidMoney");
+            //取得<canvas>畫布上的2d渲染環境(rendering context)
+            var ctx2d = getCanvas.getContext("2d");
+
+        function RenderChart2(datas) {
+            document.getElementById("carPanel").style.display = "block";
+            /* console.log(datas)*/
+
+            let result = [];
+            for (let i = 0; i < datas.length; i++) {
+                let money = datas[i].BidMoney;
+                result.push(money);
+            }
+
+          /*console.log(result)*/
+            var chart2 = new Chart(ctx2d, {
+                type: "line",
+                data: {
+                    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    datasets: [{
+                        label: datas[0].BidItemName,
+                        data: result,
+                        lineTension: 0,
+                        fill: 'origin',
+                        backgroundColor: 'rgba(90, 131, 166, 0.2)',
+                        borderColor: 'rgba(90, 131, 166)',
+                        pointStyle: "circle",
+                        pointBackgroundColor: 'rgba(90, 131, 166, 0.8)',
+                        pointRadius: 6,
+                        pointHoverRadius: 10
+                    }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    tooltips: {
+                        mode: 'point',
+                        intersect: true,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '出價次數',
+                                fontSize: 20
+                            },
+                            ticks: {
+                                fontSize: 16
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '出價金額',
+                                fontSize: 20
+                            },
+                            ticks: {
+                                fontSize: 16
+                            }
+                        }]
+                    },
+                    animation: {
+                        duration: 3000
+                    }
+                }
+            });
+        }
+
+        //選擇種類 發生改變動作
+        selSort.addEventListener('change', async function () {
+            const SortValue = selSort.options[selSort.selectedIndex].value
+            const response1 = await fetch(`/Admin/ItemName?SortParam=${SortValue}`)
+            RenderItemName(await response1.json())
+            //
+            const ItemNameValue = selItemName.options[selItemName.selectedIndex].value
+            const response2 = await fetch(`/Admin/ItemBidMoney?ItemNameParam=${ItemNameValue}`)
+            const response3 = await fetch(`/Admin/ItemBidMoney?ItemNameParam=${ItemNameValue}`)
+            RenderChart(await response2.json())
+            RenderChart2(await response3.json())
+        })
+         //選擇商品 發生改變動作
+        selItemName.addEventListener('change', async function () {
+            const SortValue = selSort.options[selSort.selectedIndex].value
+            const ItemNameValue =  selItemName.options[selItemName.selectedIndex].value
+            //
+            const response2 = await fetch(`/Admin/ItemBidMoney?ItemNameParam=${ItemNameValue}`)
+            const response3 = await fetch(`/Admin/ItemBidMoney?ItemNameParam=${ItemNameValue}`)
+            RenderChart(await response2.json())
+            RenderChart2(await response3.json())
+        })
+
+
+
+        //C. 以Ajax 向後端API 取JSON資料  畫圖
+        var result = document.getElementById("result");
+        //取消Ajax快取
+        $.ajaxSetup({ cache: false });
+
+        //apiUrl來自<select>控制項的<option value="...">
+        var apiUrl = "";
+
+        //以jQuery的方法Ajax呼叫遠端Controller API，取回JSON格式資料
+        $().ready(function () {
+            $("#post").click(function () {
+                $.post(apiUrl, JsonDataHandler);
+            });
+
+        });
+
+        //Ajax回呼處理function, 將response回傳的JSON資料指派給jsArray陣列
+        var jsArray = null;
+        function JsonDataHandler(response) {
+            if (response != null) {
+                //將回傳的JSON資料指定給jsArray
+                jsArray = response;
+                showLineChart();    //繪製圖表
+                result.innerHTML = JSON.stringify(response);
+                result.style.display = "block";
+            }
+        }
+
+        //var canvas = document.getElementById("chartCanvas");
+        //取得<canvas>畫布上的2d渲染環境(rendering context)
+        var ctx = canvas.getContext("2d");
+
+        繪製Chart圖表
+        function showLineChart() {
+            //取得<canvas>畫布
+            document.getElementById("carPanel2").style.display = "block";
+
+            var chart3 = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: [1,2,3,4,5,6,7,8,9,10],
+                    datasets: [{
+                        label: jsArray[0].BidItemName,
+                        data: jsArray[0].BidMoney,
+                        lineTension: 0,
+                        fill: 'origin',
+                        backgroundColor: 'rgba(171, 143, 78, 0.2)',
+                        borderColor: 'rgba(171, 143, 78)',
+                        pointStyle: "circle",
+                        pointBackgroundColor: 'rgba(171, 143, 78, 0.8)',
+                        pointRadius: 5,
+                        pointHoverRadius: 10
+                    }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        fontSize: 26,
+                        text: '商品競標拍賣出價金額  成長曲線'
+                    },
+                    tooltips: {
+                        mode: 'point',
+                        intersect: true,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '出價次數',
+                                fontSize: 20
+                            },
+                            ticks: {
+                                fontSize: 15
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '出價金額',
+                                fontSize: 20
+                            },
+                            ticks: {
+                                fontSize: 15
+                            }
+                        }]
+                    },
+                    animation: {
+                        duration: 1000
+                    }
+                }
+            });
+        }
+
+        //Reset Canvas
+        $("#reset").click(function () {
+            clearCanvas();
+        });
+
+        //清除Canvas
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById("carPanel").style.display = "none";
+            result.style.display = "none";
+            result.innerHTML = "";
+            $("#result").text("");
+        }
+
+        $("#urlSelect").ready(function () {
+            setUrl();
+        });
+
+        //select選項變化時 執行  setUrl clearCanvas
+        $("#urlSelect").change(function () {
+            setUrl();
+            clearCanvas();
+        });
+
+        //設定URL文字
+        function setUrl() {
+            var urlValue = $("#urlSelect").val();
+            $("#urlText").text("API URL : " + urlValue);
+            apiUrl = urlValue;
+        }
+
+        window.onload = function () {
+            document.getElementById("post").addEventListener("click", function () {
+                clearCanvas();
+            });
+        };
+
+        </script>
+
+    }
+
+
+    @section styles{
+        <style>
+            .panel {
+                margin-top: 10px;
+            }
+
+            .panel-heading, .panel-footer {
+                text-align: center;
+            }
+
+            .form-horizontal {
+                width: 500px;
+                margin: 40px auto;
+                padding: 10px;
+            }
+
+            .form-group {
+                width: 500px;
+                font-size: 18px;
+                margin: 10px auto;
+                padding: 3px;
+            }
+
+            .col-md-10 {
+                width: auto;
+                display: inline-block;
+                margin: 3px auto;
+                margin-left: 10px;
+                padding: 3px;
+            }
+            
+            .col-md-10 > input {
+                    width: 300px;
+            }
+
+
+            .PaddingModify {
+                padding: 80px 100px 80px 100px;
+            }
+            .PaddingModify2 {
+                padding: 80px 100px 80px 100px;
+            }
+            .MarginModify {
+                margin-bottom: 20px;
+                font-size: 24px;
+                font-weight: 600;
+                color: #1f3344;
+            }
+            .MarginModify2 {
+                margin-bottom: 60px;
+                font-size: 24px;
+                font-weight: 600;
+                color: #1f3344;
+            }
+            .textModify {
+                font-size: 28px;
+                font-weight: 600;
+                color: #1f3344;
+            }
+        </style>
+    }
+

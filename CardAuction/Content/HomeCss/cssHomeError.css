@@ -46,19 +46,10 @@
 
 .errorMsg {
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.4rem;
     color: #333333;
 }
 .iconErr{
     color: #6b6b6b;
-}
-.iconLeft{
-    text-align: right;
-}
-.iconRight{
-    text-align: left;
-}
-.redirect{
-    text-align: center;
-    font-size: 1.8rem;
+    text-align:center;
 }

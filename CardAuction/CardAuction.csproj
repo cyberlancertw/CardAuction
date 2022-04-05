@@ -218,6 +218,10 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Admin\DataAnalyze\bar-chart.png" />
+    <Content Include="Images\Admin\DataAnalyze\line-chart.png" />
+    <Content Include="Images\Admin\DataAnalyze\pie-chart.png" />
+    <Content Include="Images\Admin\DataAnalyze\radar-chart.png" />
     <Content Include="Images\Admin\Icon_商品.png" />
     <Content Include="Images\Admin\Icon_廣告.png" />
     <Content Include="Images\Admin\Icon_數據.png" />
@@ -511,13 +515,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BidItem.cs" />
     <Compile Include="Models\CDictionary.cs" />
     <Compile Include="Models\CExchangeItem.cs" />
     <Compile Include="Models\CMember.cs" />
     <Compile Include="Models\CMemberFactory.cs" />
-    <Compile Include="Models\ComplexType1.cs">
-      <DependentUpon>dbCardAuction.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\dbCardAuction.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -539,9 +541,6 @@
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tAuctionBid.cs">
-      <DependentUpon>dbCardAuction.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tAuctionDetail.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tAuctionFavorite.cs">
@@ -677,6 +676,11 @@
     <Content Include="Views\Exchange\Couple.cshtml" />
     <Content Include="Views\Auction\Result.cshtml" />
     <Content Include="Views\Exchange\btnSureResult.cshtml" />
+    <Content Include="Views\Admin\DataAnalyze.cshtml" />
+    <Content Include="Views\Admin\DataCurve.cshtml" />
+    <Content Include="Views\Admin\DataPercent.cshtml" />
+    <Content Include="Views\Admin\DataRadar.cshtml" />
+    <Content Include="Views\Admin\DataTopTen.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

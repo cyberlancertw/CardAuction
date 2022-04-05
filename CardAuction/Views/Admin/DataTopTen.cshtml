@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "TopTenData";
+    var footerText = DateTime.Now.Year + "年 / " + DateTime.Now.Month + "月 / " + DateTime.Now.Day + "日 統計結果";
+
+    var ItemName = Json.Encode(ViewBag.ItemName);
+    var ItemBuyPrice = Json.Encode(ViewBag.ItemBuyPrice);
+
+    var ItemClickName = Json.Encode(ViewBag.ItemClickName);
+    var ItemClickNum = Json.Encode(ViewBag.ItemClickNum);
+
+}
+ @*讀取資料測試*@
+@*<p>@countries</p>
+<p>@votes</p>*@
+
+<br>
+<div class="container">
+    <div class="jumbotron">
+        <h4 class="panel-footer textModify">直購價 點擊率 Top Ten </h4>
+        <br />
+        <div class="panel-footer">@footerText</div>
+    </div>
+
+    <div class="jumbotron">
+        <div class="col-md-12 ">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="MarginModify">競標直購價金額 前十商品</h4>
+                </div>
+                <div class="panel-body">
+                    <canvas id="horizontalBar"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <br>
+
+    <div class="jumbotron">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h4 class="MarginModify">頁面點擊率筆數 前十商品</h4></div>
+                <div class="panel-body">
+                    <canvas id="verticalBar"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+</div>
+<br />
+<hr />
+
+
+@section scripts{
+    <script>
+    var ctx1 = document.getElementById("horizontalBar");
+    var ctx2 = document.getElementById("verticalBar");
+
+    //定義Enums列舉
+    const barDirection = {
+        vertial: 'bar',
+        horizontal: 'horizontalBar'
+    };
+
+    //競標直購價金額 前十商品 橫向Bar長條圖
+    BarChart(ctx1, barDirection.horizontal, @Html.Raw(ItemName), '卡牌直購價', @Html.Raw(ItemBuyPrice));
+
+    //頁面點擊率筆數 前十商品 直向Bar長條圖
+    BarChart(ctx2, barDirection.vertial, @Html.Raw(ItemClickName), '頁面點擊數', @Html.Raw(ItemClickNum));
+
+    //繪製Bar長條圖方法 匯入參數
+    function BarChart(context, barChartDirection, LabelsParams, LabelParam, DataParams) {
+        if (!(barChartDirection == 'bar' || barChartDirection == 'horizontalBar')) {
+            return;
+        }
+        var myChart = new Chart(context, {
+            type: barChartDirection,
+            data: {
+                labels: LabelsParams,
+                datasets: [{
+                    label: LabelParam,
+                    data: DataParams,
+                    backgroundColor: [
+                        'rgba(90, 131, 166, 0.8)', //藏青
+                        'rgba(171, 143, 78, 0.8)', //金色
+                        'rgba(255,99,132, 0.8)', //紅
+                        'rgba(255, 159, 64, 0.8)', //橙
+                        'rgba(255, 206, 86, 0.8)', //黃
+                        'rgba(75, 192, 192, 0.8)', //綠
+                        'rgba(54, 162, 235, 0.8)', //藍
+                        'rgba(153, 102, 255, 0.8)', //紫
+                        'rgba(76, 87, 81, 0.8)', //紫
+                        'rgba(245,245,220, 0.8)', //紫
+                    ],
+                    borderColor: [
+                        'rgba(90, 131, 166, 1)',
+                        'rgba(171, 143, 78, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(76, 87, 81, 1)',
+                        'rgba(245,245,220, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                barPercentage: 1,
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 16
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 16
+                        }
+                    }],
+                }
+            }
+        });
+    }
+    </script>
+}
+
+@section styles{
+    <style>
+        .panel {
+            margin-top: 10px;
+        }
+        .panel-heading, .panel-footer {
+            text-align: center;
+        }
+        .MarginModify {
+            margin-bottom: 50px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f3344;
+        }
+        .textModify {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1f3344;
+        }
+    </style>
+}

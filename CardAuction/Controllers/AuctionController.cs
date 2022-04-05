@@ -321,7 +321,10 @@ namespace CardAuction.Controllers
             }
             string userId = Session[CDictionary.SK_UserUserId].ToString();
             tAuctionItem item = db.tAuctionItem.Find(itemId);
-
+            if(item == null)
+            {
+                return;
+            }
             if (userId.Equals(item.fPostUserId))      // 不給自己商品出價
             {
                 return;
@@ -485,6 +488,7 @@ namespace CardAuction.Controllers
             return;
         }
 
+        
         public ActionResult GetEndInfo(string itemId)
         {
             if(itemId == null)
@@ -742,6 +746,35 @@ namespace CardAuction.Controllers
                 }
                 return;
             }
+
+            return;
+        }
+
+        public void InfoBidWinner(string itemId)
+        {
+            if(string.IsNullOrEmpty(itemId))
+            {
+                return;
+            }
+            tAuctionItem item = db.tAuctionItem.Find(itemId);
+            tMember topUser = db.tMember.Find(item.fTopBidUserId);
+            if (item == null || topUser == null)
+            {
+                return;
+            }
+            string postUserId = item.fPostUserId;
+            if(Session[CDictionary.SK_UserUserId] == null || Session[CDictionary.SK_UserUserId].ToString() != postUserId)
+            {
+                return;
+            }
+            string postAcc = db.tMember.Find(postUserId).fAccount;
+            string userAcc = topUser.fAccount;
+            string userEmail = topUser.fEmail;
+            string subject = "得標通知";
+            string linkTo = CDictionary.WebHost + "Auction/Item/" + item.fItemId;
+            string content = $"<h1>{userAcc}您好，您得標了{postAcc}的競標商品「{item.fItemName}」，請儘速登入個人頁面，或利用以下連結填寫運送資訊：</h1>"
+                + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+            Service.SendEmail(userEmail, subject, content);
 
             return;
         }

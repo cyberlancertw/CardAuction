@@ -18,6 +18,7 @@
     <link href="~/Content/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
     <!-- CSS -->
     <link rel="stylesheet" href="~/Content/AdminCss/cssAdminLayout.css" />
+    @RenderSection("styles", required: false)
 </head>
 
 <body>
@@ -30,7 +31,7 @@
                     <a class="tablink" href="/Admin/PsnManage">Members</a>
                     <a class="tablink" href="/Admin/">Products</a>
                     <a class="tablink" href="/Admin/AdvManage">Advert</a>
-                    <a class="tablink" href="/Admin/">Analysis</a>
+                    <a class="tablink" href="/Admin/DataAnalyze">Analysis</a>
                 </div>
 
                 <div class="nav-middle">
@@ -40,7 +41,7 @@
                 <div class="nav-right">
                     <a class="tablink" href="/">User</a>
                     <a class="tablink" href="/Admin">Admin</a>
-                    <a class="tablink" href="/">LogOut</a>
+                    <a class="tablink" href="/Member/Login">LogOut</a>
                 </div>
 
             </div>
@@ -51,7 +52,7 @@
         @RenderBody()
     </content>
 
-    <br><br><br><br><br><br><br><br><br><br><br>
+    <br>
 
     <footer class="footer mt-auto py-3 bg-light">
         <div class="container">
@@ -92,5 +93,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
             crossorigin="anonymous"></script>
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-alpha/Chart.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="~/Scripts/Colors.js"></script>
+    <script src="~/Scripts/Utility.js"></script>
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>

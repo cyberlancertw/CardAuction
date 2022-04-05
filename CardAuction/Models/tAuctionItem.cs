@@ -39,6 +39,7 @@ namespace CardAuction.Models
         public int fBidCount { get; set; }
         public int fClick { get; set; }
         public int fReport { get; set; }
+        public bool fFinish { get; set; }
         public bool fDelete { get; set; }
     }
 }
