@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "DataAnalyze";
+}
+
+<main>
+    <div class="container padding paddingModify">
+        <div class="row icon-wrap">
+
+            <div class="card-deck">
+
+                <div class="card" onclick="ToDataOne()">
+                    <img src="~/images/Admin/DataAnalyze/line-chart.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">競標價格</h5>
+                        <p class="card-text">Curve </p>
+                        <p class="card-text"><small class="text-muted">商品競標價 成長曲線</small></p>
+                    </div>
+                </div>
+
+                <div class="card" onclick="ToDataTwo()">
+                    <img src="~/images/Admin/DataAnalyze/bar-chart.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">直購價 點擊率 </h5>
+                        <p class="card-text">Top Ten</p>
+                        <p class="card-text"><small class="text-muted">商品直購價 金額前十名 <br>商品點擊率 筆數前十名</small></p>
+                    </div>
+                </div>
+
+                <div class="card" onclick="ToDataThree()">
+                    <img src="~/images/Admin/DataAnalyze/pie-chart.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">商品分類佔比  </h5>
+                        <p class="card-text">Percent </p>
+                        <p class="card-text"><small class="text-muted">上架競標中商品 分類比例</small></p>
+                    </div>
+                </div>
+
+                <div class="card" onclick="ToDataFour()">
+                    <img src="~/images/Admin/DataAnalyze/radar-chart.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">商品分類筆數</h5>
+                        <p class="card-text">Numbers</p>
+                        <p class="card-text"><small class="text-muted">上架競標中商品 分類筆數</small></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</main>
+<hr />
+
+@section styles{
+    <style>
+        /*cssAdminIndex.css*/
+        .padding {
+            padding: 160px 10px 180px 10px;
+        }
+
+        .position-width {
+            position: relative;
+        }
+
+        .image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .overlay {
+            position: absolute;
+            top: -25%;
+            bottom: 0;
+            left: -25%;
+            right: 0;
+            height: 150%;
+            width: 150%;
+            opacity: 0.01;
+            transition: 0.5s ease;
+            background-color: RGB(31, 51, 68);
+        }
+
+        .img-wrap300:hover .overlay {
+            opacity: 1;
+        }
+
+        .text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 32px;
+            font-weight: 600;
+            font-family: "Lato", sans-serif;
+            color: #ab8f4e; /*rgb(245, 219, 162);*/
+        }
+
+        .img-wrap300 img {
+            width: 100%;
+        }
+
+        .mb-100 {
+            margin-bottom: 100px;
+        }
+
+        .icon-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon-size {
+            height: 200px;
+            width: 200px;
+            margin: 30px;
+            padding: 30px;
+        }
+
+        /**/
+
+        .card-img-top {
+            padding: 50px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f3344;
+        }
+
+        .card-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f3344;
+        }
+
+    </style>
+
+}
+
+@section scripts{
+    <script>
+        function ToDataOne() {
+            window.location.href = "/Admin/DataCurve";
+        }
+        function ToDataTwo() {
+            window.location.href = "/Admin/DataTopTen";
+        }
+        function ToDataThree() {
+            window.location.href = "/Admin/DataPercent";
+        }
+        function ToDataFour() {
+            window.location.href = "/Admin/DataRadar";
+        }
+    </script>
+}

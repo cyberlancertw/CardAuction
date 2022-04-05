@@ -236,15 +236,6 @@ namespace CardAuction.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
         //DataAnalyze //DataAnalyze //數據分析
         public ActionResult DataAnalyze()
         {
@@ -252,6 +243,238 @@ namespace CardAuction.Controllers
 
         }
 
+        public ActionResult DataCurve()
+        {
+            List<string> BidItem = new List<string>();
+            List<int> BidCount = new List<int>();
+            List<int> BidCountLists = new List<int>();
+            List<int> BidCountList = new List<int>();
+            List<int> BidValue = new List<int>();
 
+            //1. 撈資料
+            var LinqBidItem = from item in db.tAuctionItem
+                              where item.fItemId == "20220318232312212776236"
+                              select item.fItemName;
+
+            var LinqBidCount = (from item in db.tAuctionBid
+                                where item.fItemId == "20220318232312212776236"
+                                select item.fMoney).Count();
+
+            var LinqBidValue = from item in db.tAuctionBid
+                               where item.fItemId == "20220318232312212776236"
+                               orderby item.fMoney
+                               select item.fMoney;
+
+            //2. 把資料存成List
+            foreach (var item in LinqBidItem)
+            {
+                BidItem.Add(item);
+            };
+
+            foreach (var item in LinqBidValue)
+            {
+                BidValue.Add(item);
+            };
+
+            for (int i = 1; i <= LinqBidCount + 1; i++)
+            {
+                BidCountLists.Add(i);
+            }
+
+            foreach (var item in BidCountLists)
+            {
+                BidCountList.Add(item);
+            };
+
+            //3. 序列化 用ViewBag傳到View 
+            ViewBag.BidItem = BidItem;
+            ViewBag.BidCount = LinqBidCount;
+            ViewBag.BidCountList = BidCountList;
+            ViewBag.BidValue = BidValue;
+
+            return View();
+        }
+
+        //以Ajax 向後端API 取JSON資料 
+        public ActionResult getBidItemNumber()
+        {
+            List<BidItem> BidItemNumber = new List<BidItem>
+            {
+                new BidItem { ItemID = 1, ItemName = "test", BidMoney = new int[] { 120, 200, 300, 350, 400, 250, 380, 330, 500, 280, 310, 330 } },
+                new BidItem { ItemID = 2,  ItemName = "test2", BidMoney = new int[] { 220, 150, 350, 300, 300, 200, 180, 400, 420, 210, 250, 440 }},
+            };
+
+            //前端如以GET方法呼叫,如jQuery.get()或getJSON(),需開啟JsonRequestBehavior.AllowGet設定
+            return Json(BidItemNumber, JsonRequestBehavior.AllowGet);
+        }
+
+        // 讀出卡片種類 
+        public ActionResult Sort()
+        {
+            var Sorts = db.tAuctionItem.Select(a => new
+            {
+                a.fSort
+            }).Distinct().OrderBy(a => a.fSort);
+
+            return Json(Sorts, JsonRequestBehavior.AllowGet);
+        }
+
+        //根據所選擇的卡片種類的 讀出所有商品卡片
+        public ActionResult ItemName(string SortParam)
+        {
+            var ItemNames = db.tAuctionItem.Where(a => a.fSort == SortParam).Select(a => new
+            {
+                a.fItemName
+            }).Distinct().OrderBy(a => a.fItemName);
+
+            return Json(ItemNames, JsonRequestBehavior.AllowGet);
+        }
+        //根據所選擇的商品卡片  載入競標價格 畫LineChart的方法
+        public ActionResult ItemBidMoney(string ItemNameParam)
+        {
+            var ItemBidMoneys = from item in db.tAuctionItem
+                                join Bid in db.tAuctionBid on item.fItemId equals Bid.fItemId
+                                where item.fItemName == ItemNameParam
+                                select new { BidItemName = item.fItemName, BidMoney = Bid.fMoney, BidMoneyNow = item.fMoneyNow };
+
+            return Json(ItemBidMoneys, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult DataTopTen()
+        {
+            List<string> ItemName = new List<string>();
+            List<int> ItemBuyPrice = new List<int>();
+
+            List<string> ItemClickName = new List<string>();
+            List<int> ItemClickNum = new List<int>();
+
+            //1. 撈資料
+            var TopTen = (from item in db.tAuctionItem
+                          orderby item.fBuyPrice descending
+                          select item).Take(10);
+
+            var ClickTopTen = (from item in db.tAuctionItem
+                               orderby item.fClick descending
+                               select item).Take(10);
+
+            //2. 把資料存成List
+            foreach (var item in TopTen)
+            {
+                ItemName.Add(item.fItemName);
+                ItemBuyPrice.Add(item.fBuyPrice);
+            };
+
+            foreach (var item in ClickTopTen)
+            {
+                ItemClickName.Add(item.fItemName);
+                ItemClickNum.Add(item.fClick);
+            };
+
+            //3. 序列化 用ViewBag傳到View 
+            ViewBag.ItemName = ItemName;
+            ViewBag.ItemBuyPrice = ItemBuyPrice;
+
+            ViewBag.ItemClickName = ItemClickName;
+            ViewBag.ItemClickNum = ItemClickNum;
+
+            return View();
+        }
+
+
+        public ActionResult DataPercent()
+        {
+            List<string> CategoryValue = new List<string>();
+            List<int> CategoryCount = new List<int>();
+            List<double> CategoryPercent = new List<double>();
+
+            List<string> ExcCategoryValue = new List<string>();
+            List<int> ExcCategoryCount = new List<int>();
+            List<double> ExcCategoryPercent = new List<double>();
+
+            //1.撈資料
+            var LinqCategory = from Category in db.tAuctionItem
+                               group Category by Category.fSort into ValueGroup
+                               select new { CategoryValue = ValueGroup.Key, CategoryCount = ValueGroup.Count() };
+
+            var TotalCount = Convert.ToDouble(db.tAuctionItem.Count());
+
+
+            var LinqExcCategory = from Category in db.tExchangeItem
+                                  group Category by Category.fSort into ValueGroup
+                                  select new { CategoryValue = ValueGroup.Key, CategoryCount = ValueGroup.Count() };
+
+            var ExcTotalCount = Convert.ToDouble(db.tExchangeItem.Count());
+
+            //2.把資料存成List
+            foreach (var item in LinqCategory)
+            {
+                CategoryValue.Add(item.CategoryValue);
+                CategoryCount.Add(item.CategoryCount);
+
+                CategoryPercent.Add(Math.Round(item.CategoryCount / TotalCount * 100, 2));
+            };
+
+            foreach (var item in LinqExcCategory)
+            {
+                ExcCategoryValue.Add(item.CategoryValue);
+                ExcCategoryCount.Add(item.CategoryCount);
+
+                ExcCategoryPercent.Add(Math.Round(item.CategoryCount / ExcTotalCount * 100, 2));
+            };
+
+            //3.序列化 用ViewBag傳到View
+            ViewBag.CategoryValue = CategoryValue;
+            ViewBag.CategoryCount = CategoryCount;
+            ViewBag.TotalCount = TotalCount;
+            ViewBag.CategoryPercent = CategoryPercent;
+
+            ViewBag.ExcCategoryValue = ExcCategoryValue;
+            ViewBag.ExcCategoryCount = ExcCategoryCount;
+            ViewBag.ExcTotalCount = ExcTotalCount;
+            ViewBag.ExcCategoryPercent = ExcCategoryPercent;
+
+            return View();
+        }
+
+        public ActionResult DataRadar()
+        {
+            List<string> CategoryValue = new List<string>();
+            List<int> CategoryCount = new List<int>();
+            List<string> ExcCategoryValue = new List<string>();
+            List<int> ExcCategoryCount = new List<int>();
+
+            //1.撈資料
+            var LinqCategory = from Category in db.tAuctionItem
+                               group Category by Category.fSort into ValueGroup
+                               select new { CategoryValue = ValueGroup.Key, CategoryCount = ValueGroup.Count() };
+
+            var LinqExcCategory = from Category in db.tExchangeItem
+                                  group Category by Category.fSort into ValueGroup
+                                  select new { CategoryValue = ValueGroup.Key, CategoryCount = ValueGroup.Count() };
+
+            //2.把資料存成List
+            foreach (var item in LinqCategory)
+            {
+                CategoryValue.Add(item.CategoryValue);
+                CategoryCount.Add(item.CategoryCount);
+            };
+
+            foreach (var item in LinqExcCategory)
+            {
+                ExcCategoryValue.Add(item.CategoryValue);
+                ExcCategoryCount.Add(item.CategoryCount);
+            };
+
+            //3.序列化 用ViewBag傳到View
+            ViewBag.CategoryValue = CategoryValue;
+            ViewBag.CategoryCount = CategoryCount;
+            ViewBag.ExcCategoryValue = ExcCategoryValue;
+            ViewBag.ExcCategoryCount = ExcCategoryCount;
+
+            return View();
+        }
     }
 }
+
+
