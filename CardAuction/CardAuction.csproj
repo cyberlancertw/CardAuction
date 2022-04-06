@@ -438,17 +438,8 @@
     <Content Include="Images\ExchangeItemImages\icon\heart 24px.png" />
     <Content Include="Images\ExchangeItemImages\icon\heart.png" />
     <Content Include="Images\ExchangeItemImages\icon\talk.png" />
-    <Content Include="Images\ExchangeItemImages\maxresdefault.jpg" />
     <Content Include="Images\ExchangeItemImages\Mew.png" />
-    <Content Include="Images\ExchangeItemImages\p1.jpg" />
-    <Content Include="Images\ExchangeItemImages\p2.jpg" />
     <Content Include="Images\ExchangeItemImages\picture01.png" />
-    <Content Include="Images\ExchangeItemImages\slide_工作區域 1.png" />
-    <Content Include="Images\ExchangeItemImages\S__55230489.jpg" />
-    <Content Include="Images\ExchangeItemImages\S__55230493.jpg" />
-    <Content Include="Images\ExchangeItemImages\S__55230501.jpg" />
-    <Content Include="Images\ExchangeItemImages\S__55238662.jpg" />
-    <Content Include="Images\ExchangeItemImages\tw_top_banner_SI_after.png" />
     <Content Include="Images\ExchangeItemImages\WS Tachibana Hibiki  Konohanamiku.jpg" />
     <Content Include="Images\site\cat0.jpg" />
     <Content Include="Images\site\cat1.jpg" />
@@ -492,9 +483,6 @@
       <DependentUpon>dbCardAuction.edmx</DependentUpon>
       <LastGenOutput>dbCardAuction.cs</LastGenOutput>
     </Content>
-    <Content Include="obj\Debug\CardAuction.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\CardAuction.dll" />
-    <Content Include="obj\Debug\CardAuction.pdb" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -582,7 +570,6 @@
     <Compile Include="Models\tReportExchange.cs">
       <DependentUpon>dbCardAuction.tt</DependentUpon>
     </Compile>
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CAuctionPostViewModel.cs" />
     <Compile Include="ViewModels\CExchangePostViewModel.cs" />
@@ -610,13 +597,6 @@
     <Content Include="Content\Bootstrap\bootstrap.min.css.map" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.css.map" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.min.css.map" />
-    <Content Include="obj\Debug\CardAuction.csproj.AssemblyReference.cache" />
-    <Content Include="obj\Debug\CardAuction.csproj.CopyComplete" />
-    <Content Include="obj\Debug\CardAuction.csproj.CoreCompileInputs.cache" />
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\dbCardAuction.csdl" />
-    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\dbCardAuction.msl" />
-    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\dbCardAuction.ssdl" />
     <Content Include="bin\CardAuction.dll.config" />
     <Content Include="bin\roslyn\csc.exe.config" />
     <Content Include="bin\roslyn\csc.rsp" />
@@ -690,7 +670,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -726,6 +705,12 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <!--
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>    
+  </PropertyGroup>
+-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
