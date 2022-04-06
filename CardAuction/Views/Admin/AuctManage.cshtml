@@ -1,0 +1,229 @@
+﻿@model IEnumerable<CardAuction.Models.tAuctionItem>
+
+@{
+    ViewBag.Title = "AuctManage";
+    var footerText = DateTime.Now.Year + "年 / " + DateTime.Now.Month + "月 / " + DateTime.Now.Day + "日 ";
+}
+
+
+<div class="container-fluid padbottom">
+
+    <br />
+    <div class="jumbotron">
+        <h4 class="textModify">商品管理 AuctManage</h4>
+        <br />
+        <div class="textModify fontM">@footerText</div>
+    </div>
+
+    <br>
+    <h2 class="textModify">施工中..</h2>
+    <br>
+
+
+    <table class="table table-hover">
+        <tr class="nohover">
+            <th>編號</th>
+            <th>商品名稱</th>
+            <th>商品描述</th>
+            <th>類別</th>
+            <th>持有者ID</th>
+            <th>最高出價者ID</th>
+            <th>競標價格</th>
+            <th>出價增額</th>
+            <th>起標價格</th>
+            <th>直購價</th>
+            <th>鑑定</th>
+            <th>上架時間</th>
+            <th>結標時間</th>
+            @*<th>圖1</th>
+                <th>圖2</th>
+                <th>圖3</th>
+                <th>圖4</th>*@
+            <th>面交</th>
+            <th>7-11</th>
+            <th>全家</th>
+            <th>物流</th>
+            <th>聯絡資訊</th>
+            <th>投標次數</th>
+            <th>點擊次數</th>
+            <th>檢舉</th>
+            @*<th>刪除</th>*@
+            <th>管理</th>
+        </tr>
+
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td class="wid50">@count</td>
+                    <td class="wid100">
+                        @Html.DisplayFor(modelItem => item.fItemName)
+                    </td>
+                    <td class="wid100">
+                        @Html.DisplayFor(modelItem => item.fItemDescription)
+                    </td>
+                    <td class="wid100">
+                        @Html.DisplayFor(modelItem => item.fSort)
+                    </td>
+                    <td class="wid100">
+                        @Html.DisplayFor(modelItem => item.fPostUserId)
+                    </td>
+                    <td class="wid100">
+                        @Html.DisplayFor(modelItem => item.fTopBidUserId)
+                    </td>
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fMoneyNow)
+                    </td>
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fMoneyStep)
+                    </td>
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fMoneyStart)
+                    </td>
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fBuyPrice)
+                    </td>
+                    <td class="wid100">
+                        @Html.DisplayFor(modelItem => item.fGrading)
+                    </td>
+                    <td class="wid100">
+                        @*@Html.DisplayFor(modelItem => item.fCreateTime)*@
+                        @item.fCreateTime.ToString("yyyy/MM/dd HH:mm:ss")
+                    </td>
+                    <td class="wid100">
+                        @*@Html.DisplayFor(modelItem => item.fEndTime*@
+                        @item.fEndTime.ToString("yyyy/MM/dd HH:mm:ss")
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.fPhoto0)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fPhoto1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fPhoto2)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fPhoto3)
+                        </td>*@
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fTransPerson)
+                    </td>
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fTransSeven)
+                    </td>
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fTransFami)
+                    </td>
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fTransLogi)
+                    </td>
+                    <td class="wid100">
+                        @Html.DisplayFor(modelItem => item.fUserInfo)
+                    </td>
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fBidCount)
+                    </td>
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fClick)
+                    </td>
+                    <td class="wid50">
+                        @Html.DisplayFor(modelItem => item.fReport)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.fDelete)
+                    </td>*@
+                    <td class="wid100">
+                        @*@Html.ActionLink("編輯", "Edit", new { id = item.fItemId }) |*@
+                        @Html.ActionLink("刪除", "Delete", new { id = item.fItemId })
+                    </td>
+                </tr>
+            }
+
+        }
+    </table>
+
+</div>
+
+
+@section styles{
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            margin: 50px 0px 0px 0px;
+        }
+ 
+        td a, p a, td, th {
+            color: #1f3344;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 400;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        th {
+            text-align: center;
+            vertical-align: middle !important;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 10px 0 !important;
+        }
+
+        td {
+            margin: 0px;
+            padding: 0px;
+            text-align: center;
+            vertical-align: middle !important;
+        }
+
+        .padbottom {
+
+            padding-bottom: 200px;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #dcdcdc;
+        }
+
+        .textModify {
+            color: #1f3344;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 600;
+            font-family: 'Noto Sans', sans-serif;
+            text-align: center;
+            padding-left: 30px;
+        }
+
+        .fontM {
+            font-size: 20px;
+            font-weight: 400;
+            padding-left: 40px;
+        }
+
+
+        .text-align-center {
+            text-align: center;
+        }
+
+        .nohover {
+            pointer-events: none;
+        }
+        .wid100 {
+            width: 100px;
+        }
+        .wid50 {
+            width: 50px;
+        }
+    </style>
+
+
+}
+
+
+
+

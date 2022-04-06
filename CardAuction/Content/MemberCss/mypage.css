@@ -3,6 +3,7 @@
     padding: 0;
     list-style: none;
 }
+
 #menu_control{
     position: absolute;
     opacity: 0;
@@ -290,11 +291,17 @@ input{
     display: flex;
 }
 
-.info-top h5{
-    width: 50%;
-    overflow:hidden;
-    white-space:nowrap;
-    text-overflow:ellipsis;
+.info-top h5 {
+    width: 80%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.page2 a {
+    text-decoration: none;
+    color: #1f3344;
 }
 
 .info-top a{
@@ -344,11 +351,12 @@ input{
     font-size: 20px;
 }
 
-.info-price h4{
+.info-price h4 {
     font-size: 20px;
     font-weight: bolder;
     color: #ab8f4e;
-    margin:0;
+    margin: 0;
+    white-space: nowrap;
 }
 
 .info-price h6{

@@ -96,12 +96,19 @@ namespace CardAuction.Controllers
         //ProductsManage //ProdManage //商品管理
         public ActionResult ProdManage()
         {
-            return View();
+            var Products = db.tAuctionItem.OrderBy(m => m.fItemId).ToList();
+            return View(Products);
         }
 
-        //AdvertiseManage //AdManage //廣告管理
-   
+        public ActionResult AuctManage()
+        {
+            var Products = db.tAuctionItem.OrderBy(m => m.fItemId).ToList();
+            return View(Products);
+        }
 
+
+
+        //AdvertiseManage //AdManage //廣告管理
         public ActionResult AdvManage()
         {
             //var datas = from Ad in db.tAdminAd select Ad;

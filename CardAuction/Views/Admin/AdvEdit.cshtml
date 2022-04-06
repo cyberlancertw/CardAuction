@@ -1,10 +1,10 @@
 ﻿<!-- CSS -->
-<link rel="stylesheet" href="~/Content/AdminCss/cssPsnEdit.css" />
+@*<link rel="stylesheet" href="~/Content/AdminCss/cssPsnEdit.css" />*@
 
 @model CardAuction.Models.tAdminAd
 
 @{
-    ViewBag.Title = "AdvEdit";
+    ViewBag.Title = "Advert Edit";
     //string ImgPath1 = Model.fAdFileName;
     //string ImgPath2 = Model.fAdFileName;
     //string ImgPath3 = Model.fAdFileName;
@@ -12,71 +12,183 @@
 
 
 
+<div class="container ctnM">
+    @using (Html.BeginForm("AdvEdit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>廣告編輯</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.fAdId)
 
 
-@using (Html.BeginForm("AdvEdit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Advert Edit</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.fAdId)
-
-
-
-        <div class="form-group">
-            Advert
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fAdName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fAdName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            Note
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fAdNote, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fAdNote, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-                File Name
+            <div class="form-group">
+                廣告位置
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.fAdFileName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.fAdFileName, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.fAdName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fAdName, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
-
-
-
-
-
-        <div class="form-group">
-            <div class="col-md-10">
-                Image
-                <input type="file" name="photo" />
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="form-group">
+                廣告名稱
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fAdNote, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fAdNote, "", new { @class = "text-danger" })
+                </div>
             </div>
+
+            @*<div class="form-group">
+                    File Name
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fAdFileName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.fAdFileName, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+
+
+
+
+            <div class="form-group modi">
+                <div class="col-md-10 ">
+                    廣告圖片
+                    <input type="file" name="photo" class="inputt"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="存檔" class="btn btn-outline-secondary btn-sm submitt"   />
+                </div>
+            </div>
+
+
         </div>
+    }
 
-
+    <div class="padbottom">
+        @Html.ActionLink("返回", "/AdvManage", null, new { @class = "btn btn-outline-secondary btn-sm " })
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
-
-
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+
+@section styles{
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            width: 600px;
+            margin: 50px auto;
+            padding-top: 5px;
+            border: 1px solid;
+            border-color: #1f3344;
+            border-radius: 30px
+        }
+
+
+        .form-horizontal {
+            width: 500px;
+            height: 700px;
+            margin: 10px auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            width: 100% ;
+            font-size: 16px;
+            margin: 15px auto;
+            padding: 5px;
+            text-align:center;
+        }
+
+
+        .col-md-10 {
+            width: auto;
+            display: inline-block;
+            margin: 3px auto;
+            margin-left: 10px;
+            padding: 3px;
+        }
+
+
+            .col-md-10 > input {
+                width: 250px;
+            }
+
+
+        #EditBtn {
+            background-color: #1f3344;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            font-size: 20px;
+            margin: 4px 2px;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+            #EditBtn:hover {
+                opacity: 2;
+            }
+
+        .form-control {
+            margin: 0px;
+            padding: 2px 0 2px 10px;
+            font-size: 16px;
+        }
+
+        hr {
+            margin-bottom:50px !important;
+        }
+
+        .inputt {
+            margin-left:20px;
+        }
+        h4 {
+            margin-top: 30px;
+            font-size: 28px;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .btn-sm {
+            padding: 30px 30px 30px 30px;
+          /*  margin-bottom:100px;*/
+        }
+
+
+            .btn-sm:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
+
+
+        .submitt {
+            width:100px !important;
+            padding: 30px 30px 30px 30px;
+            margin-top:50px;
+        }
+
+            .submitt:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
+
+        .padbottom {
+            padding-bottom: 100px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #dcdcdc;
+        }
+
+    </style>
+    }

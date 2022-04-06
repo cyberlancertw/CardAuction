@@ -160,59 +160,6 @@
                 <div class="divTitle">
                     交換資訊
                 </div>
-                <!-- <div class="row divContent" id="divMoneyStart">
-                    <div class="contentHead col-12 col-md-3">
-                        <label for="MoneyStart">*起標價格</label>
-                    </div>
-                    <div class="content col-12 col-md-9">
-                        <input type="number" name="fMoneyStart" id="MoneyStart" min="1" value="1" required />
-                    </div>
-                </div>
-
-                <div class="row divContent">
-                    <div class="contentHead col-12 col-md-3">
-                        <label class="fomr-check-label" for="BuyPrice">是否直購價</label>
-                    </div>
-                    <div class="form-check form-switch offset-1 offset-md-1 col-3 col-md-2">
-                        <input type="checkbox" class="form-check-input" id="BuyPrice" name="isBuy" value="true" />
-                        <input type="hidden" name="isBuy" value="false" />
-                    </div>
-                    <div class="col-8 col-md-6">
-                        <input type="number" name="fBuyPrice" id="txtBuy" min="1" value="1" disabled />
-                    </div>
-                </div>
-
-                <div class="row divContent" id="divMoneyStep">
-                    <div class="contentHead col-12 col-md-3">
-                        <label for="MoneyStep">*出價增額</label>
-                    </div>
-                    <div class="content col-12 col-md-9">
-                        <input type="number" name="fMoneyStep" id="MoneyStep" min="1" value="1" required />
-                    </div>
-                </div> -->
-
-                @*<div class="row divContent" id="divGrading">
-                    <div class="contentHead col-12 col-md-3">
-                        <label for="Sort">*鑑定級別</label>
-                    </div>
-                    <div class="content col-12 col-md-9">
-                        <select name="fItemLevel" id="seleGrading">
-                            <option value="none">沒有鑑定</option>
-                            <option value="鑑定GEM MT 10 (Gem Mint)">GEM MT 10 (Gem Mint)</option>
-                            <option value="鑑定Mint 9 (Mint)">Mint 9 (Mint)</option>
-                            <option value="鑑定NM-MT 8 (Near Mint-Mint)">NM-MT 8 (Near Mint-Mint)</option>
-                            <option value="鑑定NM 7 (Near Mint)">NM 7 (Near Mint)</option>
-                            <option value="鑑定EX-MT 6 (Excellent-Mint)">EX-MT 6 (Excellent-Mint)</option>
-                            <option value="鑑定EX 5 (Excellent)">EX 5 (Excellent)</option>
-                            <option value="鑑定VG-EX 4 (Very Good-Excellent)">VG-EX 4 (Very Good-Excellent)</option>
-                            <option value="鑑定VG 3 (Very Good)">VG 3 (Very Good)</option>
-                            <option value="鑑定Good 2 (Good)">Good 2 (Good)</option>
-                            <option value="鑑定Fr 1.5 (Fair)">Fr 1.5 (Fair)</option>
-                            <option value="鑑定PR 1 (Poor)">PR 1 (Poor)</option>
-                        </select>
-                    </div>
-                </div>*@
-
                 <div class="row divContent" id="divSort">
                     <div class="contentHead col-12 col-md-3">
                         <label for="Sort">*希望交換分類</label>
@@ -379,11 +326,6 @@
         function addPicture(i, a) {
 
         }
-        // var domItemName = document.getElementById('ItemName');
-        // var countName = document.getElementById('countItemName');
-        // domItemName.addEventListener('keyup', function () {
-        //     countName.textContent = `${domItemName.value.length}/60`;
-        // });
         var domItemDescription = document.getElementById('ItemDescription');
         var countDescription = document.getElementById('countDescription');
         domItemDescription.addEventListener('keyup', function () {
@@ -395,17 +337,6 @@
          domUserInfo.addEventListener('keyup', function () {
              countUserInfo.textContent = `${domUserInfo.value.length}/300`;
         });
-
-
-        // let arySwitch = ['BuyPrice','chkPerson','chkSeven','chkFami','chkLogi'];
-        // let aryTxt = ['txtBuy', 'txtPerson', 'txtSeven', 'txtFami', 'txtLogi'];
-        // for (let i = 0; i < arySwitch.length; i++) {
-        //     let domSwitch = document.getElementById(arySwitch[i])
-        //     let domTxt = document.getElementById(aryTxt[i]);
-        //     domSwitch.addEventListener('change', function () {
-        //         domTxt.disabled = !domSwitch.checked;
-        //     });
-        // }
 
         document.getElementById('btnCancel').addEventListener('click', function (event) {
             event.preventDefault();
