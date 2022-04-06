@@ -25,7 +25,7 @@
         <div class="mb-3" id="divSort">
             交換 / @Model.fSort
         </div>
-        <div class="mb-4 ">ID：@ViewBag.PostUserAccount</div>
+        <div class="mb-4 ">帳號：@ViewBag.PostUserAccount</div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6" id="divItemName">
                 @Model.fItemName
@@ -422,14 +422,18 @@
                     }
                 });
 
+                let EIBName = document.createElement('div');
+                EIBName.className = 'col-sm-12 col-md-12';
+                let EIBAccountH4 = document.createElement('h6');
+                EIBAccountH4.textContent = `帳號:${comment.postAcc}`;
+                EIBName.appendChild(EIBAccountH4);
 
+                let EIBNameH2 = document.createElement('h2');
+                EIBNameH2.textContent = comment.fItemName;
+                EIBName.appendChild(EIBNameH2);
 
                 let EIBAccount = document.createElement('div');
                 EIBAccount.className = ' col-sm-3 col-md-2 ';
-                let EIBAccountH4 = document.createElement('h4');
-                EIBAccountH4.textContent = `帳號:${comment.postAcc}`;
-                EIBAccount.appendChild(EIBAccountH4);
-
                 let dompMsg = document.createElement('p');
                 //dompMsg.className = 'col-sm-2 col-md-2 ';
                 dompMsg.textContent = `商品敘述:${comment.ItemDescription}`;
@@ -458,6 +462,7 @@
                 AWantExchange.className = ' btnSize btn-dark floatR btncheng';
                 AWantExchange.textContent = "確定交換";
                 AWantExchangediv.appendChild(AWantExchange);
+                EIBRow.appendChild(EIBName);
                 EIBRow.appendChild(EIBContent);  //照片
                 EIBRow.appendChild(EIBAccount);  //ID
                 //EIBRow.appendChild(dompMsg);  //商品敘述
@@ -474,6 +479,7 @@
                 else
                 {
                 <text>
+                EIBRow.appendChild(EIBName);
                 EIBRow.appendChild(EIBContent);  //照片
                 EIBRow.appendChild(EIBAccount);  //ID
                 //EIBRow.appendChild(dompMsg);  //商品敘述
