@@ -441,7 +441,10 @@
         function sendBid(amount) {
             let para = `?itemId=${itemId}&amount=${amount}`;
             fetch('@Url.Content("~/Auction/Bid")' + para, { method: 'GET' })
-                .then(checkFinish);
+                .then(() => {
+                    receiveBidRecords();
+                    checkFinish();
+                });
         }
 
         function receiveBidRecords() {

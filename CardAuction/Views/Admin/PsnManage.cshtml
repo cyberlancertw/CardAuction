@@ -4,90 +4,214 @@
 @model IEnumerable<CardAuction.Models.tMember>
 
 @{
-    ViewBag.Title = "人員管理";
+    ViewBag.Title = "Memberes";
+    var footerText = DateTime.Now.Year + "年 / " + DateTime.Now.Month + "月 / " + DateTime.Now.Day + "日 ";
 }
 
 
+<div class="container-fluid padbottom">
 
-<div>
-    <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("新增人員", "PsnCreate", "Admin", null, new { @class = "btn btn-primary" })</li>
-        @*<li>@Html.ActionLink("會員管理", "會員管理", "Admin")*@
-        <li />
-    </ul>
-</div>
+    <br />
+    <div class="jumbotron">
+        <h4 class="textModify">人員管理 Members </h4>
+        <br />
+        <div class="textModify fontM">@footerText</div>
+    </div>
 
-<table class="table">
-    <tr>
-        <th>編號</th>
-        <th>帳號</th>
-        <th>密碼</th>
-        <th>姓名</th>
-        <th>信箱</th>
-        <th>地址</th>
-        <th>電話</th>
-        <th>生日</th>
-        <th>訂閱</th>
-        <th>權限</th>
-        <th>驗證</th>
-        <th>刪除</th>
-        <th>管理</th>
-        @*<th>
+    <table class=" table table-hover">
+        <tr class="nohover">
+            <th>編號</th>
+            <th>ID</th>
+            <th>帳號</th>
+            <th>密碼</th>
+            <th>姓名</th>
+            <th>信箱</th>
+            <th>地址</th>
+            <th>電話</th>
+            <th>生日</th>
+            <th>訂閱</th>
+            <th>權限</th>
+            <th>驗證</th>
+            @*<th>刪除</th>*@
+            <th>管理</th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.fActive)
             </th>*@
 
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.fUserId</td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fAccount)
-            </td>
-            <td>
-                ********
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fBirthday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fSubscribe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fManager)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fDelete)
-            </td>
-            <td>
-                <a href="@Url.Action("PsnEdit")?fAccount=@item.fAccount" class="btn btn-warning">編輯</a>
-                <a href="@Url.Action("PsnDelete")?fAccount=@item.fAccount" class="btn btn-danger"
-                   onclick="return confirm(' 確定要刪除 @item.fAccount 帳號嘛 ? ');">刪除</a>
-
-
-                @*@Html.ActionLink("Edit", "Edit", new { id=item.fUserId }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.fUserId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.fUserId })*@
-            </td>
         </tr>
-    }
 
-</table>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                <tr >
+                    <td class="text-align-center">@count</td>
+                    <td>@item.fUserId</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fAccount)
+                    </td>
+                    <td>
+                        ********
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fPhone)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.fBirthday)*@
+                        @item.fBirthday.ToString("yyyy/MM/dd")
+                    </td>
+                    <td class="text-align-center">
+                        @Html.DisplayFor(modelItem => item.fSubscribe)
+                    </td>
+                    <td class="text-align-center">
+                        @Html.DisplayFor(modelItem => item.fManager)
+                    </td>
+                    <td class="text-align-center">
+                        @Html.DisplayFor(modelItem => item.fActive)
+                    </td>
+                    @*<td>
+            @Html.DisplayFor(modelItem => item.fDelete)
+        </td>*@
+                <td class="wid100">
+                    <a href="@Url.Action("PsnEdit")?fAccount=@item.fAccount" class="btn btn-outline-secondary  btn-sm circleS">編輯</a> 
+                    <a href="@Url.Action("PsnDelete")?fAccount=@item.fAccount" class="btn btn-outline-secondary  btn-sm circleS "
+                       onclick="return confirm(' 確定要刪除 @item.fAccount 帳號嘛 ? ');">刪除</a>
+                </td>
+                </tr>
+            }
+        }
+
+    </table>
+
+    <div>
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("新增人員", "PsnCreate", "Admin", null, new { @class = "btn btn-outline-secondary btn-sm circleB marginUD100" })</li>
+            @*<li>@Html.ActionLink("會員管理", "會員管理", "Admin")*@
+            <li />
+        </ul>
+    </div>
+
+</div>
 
 
+
+
+@section styles{
+    <style>
+        td a, p a, td, th {
+            color: #1f3344;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        th {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+
+        th {
+            font-weight: 700;
+            padding: 25px !important;
+        }
+
+        td {
+            vertical-align: middle !important;
+        }
+
+        .padbottom {
+            padding:20px 100px 100px 100px;
+            padding-bottom: 100px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #dcdcdc;
+        }
+
+        .maginM {
+            margin-bottom: 50px;
+        }
+
+        .textModify {
+            color: #1f3344;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 600;
+            font-family: 'Noto Sans', sans-serif;
+            text-align: left;
+            padding-left: 30px;
+        }
+
+        .fontM {
+            font-size: 20px;
+            font-weight: 400;
+            padding-left: 40px;
+        }
+
+        .marginUD100 {
+            margin: 100px 0 100px 0;
+        }
+
+        a:hover {
+            color: #1f3344;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .circleB {
+            padding: 50px 28.125px 50px 28.125px;
+            border-radius: 999em;
+            border: 2px solid;
+            font-weight: 600;
+            margin-left: 100px;
+        }
+            .circleB:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
+
+        .circleS {
+            padding: 14px 10px 14px 10px;
+            margin: 0 5px;
+            border-radius: 999em;
+            border: 1px solid;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+            .circleS:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
+
+        .wid100 {
+            width: auto;
+            text-align: center;
+
+        }
+
+        .table {
+            margin:70px 0px 0px 0px;
+        }
+
+        .text-align-center {
+            text-align: center;
+        }
+
+        .nohover {
+            pointer-events: none;
+        }
+
+    </style>
+
+
+}

@@ -226,6 +226,11 @@
     <Content Include="Images\Admin\Icon_廣告.png" />
     <Content Include="Images\Admin\Icon_數據.png" />
     <Content Include="Images\Admin\Icon_會員.png" />
+    <Content Include="Images\Admin\logo.png" />
+    <Content Include="Images\Admin\logo2.png" />
+    <Content Include="Images\Admin\logo3.png" />
+    <Content Include="Images\Admin\logo4.png" />
+    <Content Include="Images\Admin\logo5.png" />
     <Content Include="Images\AuctionItemImages\202203142230357637420.jpg" />
     <Content Include="Images\AuctionItemImages\202203142231211914140.png" />
     <Content Include="Images\AuctionItemImages\202203142232161428260.png" />
@@ -501,8 +506,10 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Colors.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jsMemberRegister.js" />
+    <Content Include="Scripts\Utility.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -681,6 +688,8 @@
     <Content Include="Views\Admin\DataPercent.cshtml" />
     <Content Include="Views\Admin\DataRadar.cshtml" />
     <Content Include="Views\Admin\DataTopTen.cshtml" />
+    <Content Include="Views\Admin\ProdManage.cshtml" />
+    <Content Include="Views\Admin\AuctManage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -372,6 +372,10 @@ input{
     padding: 20px 50px ;
 }
 
+.ptable td a{
+    font-size:xx-small;
+}
+
 .page4{
     position: relative;
     display: flex;
@@ -458,7 +462,7 @@ table input{
     text-align: center;
     font-size: x-small;
     font-weight: bolder;
-
+    word-break:keep-all;
 }
 
 .ptable td img{

@@ -7,133 +7,249 @@
 @model IEnumerable<CardAuction.Models.tAdminAd>
 
 @{
-    ViewBag.Title = "AdvManage";
+    ViewBag.Title = "Advert";
+    var footerText = DateTime.Now.Year + "年 / " + DateTime.Now.Month + "月 / " + DateTime.Now.Day + "日 ";
 }
 
-<div class="slideshow-container">
-
-    <div class="mySlides">
-        <div class="numbertext">1 / 3</div>
-        <img src="~/images/User/Index/SlideShowAD/1.jpg" style="width:100%">
-        <div class="text">Caption Text</div>
+<div class="container padbottom">
+    <br />
+    <div class="jumbotron">
+        <h4 class="textModify">廣告圖片管理 Advert </h4>
+        <br />
+        <div class="textModify fontM">@footerText</div>
     </div>
 
-    <div class="mySlides">
-        <div class="numbertext">2 / 3</div>
-        <img src="~/images/User/Index/SlideShowAD/2.jpg" style="width:100%">
-        <div class="text">Caption Two</div>
+    <div class="slideshow-container">
+
+        <div class="mySlides">
+            <div class="numbertext">1 / 5</div>
+            <img src="~/images/User/Index/SlideShowAD/1.jpg" style="width:100%">
+            <div class="text">One</div>
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">2 / 5</div>
+            <img src="~/images/User/Index/SlideShowAD/2.jpg" style="width:100%">
+            <div class="text">Two</div>
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">3 / 5</div>
+            <img src="~/images/User/Index/SlideShowAD/3.jpg" style="width:100%">
+            <div class="text">Three</div>
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">4 / 5</div>
+            <img src="~/images/User/Index/SlideShowAD/4.jpg" style="width:100%">
+            <div class="text">Four</div>
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">5 / 5</div>
+            <img src="~/images/User/Index/SlideShowAD/5.jpg" style="width:100%">
+            <div class="text">Five</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+
     </div>
-
-    <div class="mySlides">
-        <div class="numbertext">3 / 3</div>
-        <img src="~/images/User/Index/SlideShowAD/3.jpg" style="width:100%">
-        <div class="text">Caption Three</div>
+    <br>
+    <div class="maginM" style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
     </div>
-
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-</div>
-
-<br>
-
-<div style="text-align:center">
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
-</div>
+    <br>
 
 
 
-@*@using (Html.BeginForm())
-{
-    <p>
-        Adver Name
-        <input type="text" name="txtKeyword" />
-        <input type="submit" value="查詢" />
-    </p>
-}*@
 
-<p>
-    @Html.ActionLink("新增廣告", "AdvCreate")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            No.
-        </th>
-        <th>
-            Image
-        </th>
-        <th>
-            Advert
-        </th>
-        <th>
-            Note
-        </th>
-        <th>
-            File Name
-        </th>
-        <th>
-            Manage
-        </th>
-    </tr>
-
-    @{
-        int count = 0;
-        foreach (var item in Model)
+    @*@using (Html.BeginForm())
         {
-            count++;
-            <tr>
-                <td>
-                    @count
-                </td>
-                <td>
-                    <img src="~/Images/User/Index/SlideShowAD/@item.fAdFileName" width="500" height="100" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fAdName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fAdNote)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fAdFileName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "AdvEdit", new { id = item.fAdId }) |
-                    @Html.ActionLink("Delete", "AdvDelete", "Admin", new { id = item.fAdId }, new { onclick = "return confirm('確定要刪除嗎?')" })
-                </td>
-            </tr>
+            <p>
+                Adver Name
+                <input type="text" name="txtKeyword" />
+                <input type="submit" value="查詢" />
+            </p>
+        }*@
+
+
+    <table class="table table-hover">
+        <tr class="nohover">
+            <th>
+                編號
+            </th>
+            <th>
+                圖片預覽
+            </th>
+            <th>
+                廣告位置
+            </th>
+            <th>
+                廣告名稱
+            </th>
+            @*<th>
+                    檔名
+                </th>*@
+            <th>
+                管理
+            </th>
+        </tr>
+
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>
+                        @count
+                    </td>
+                    <td>
+                        <img class="imgWH" src="~/Images/User/Index/SlideShowAD/@item.fAdFileName" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fAdName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fAdNote)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.fAdFileName)
+                        </td>*@
+                    <td>
+                        @Html.ActionLink("編輯", "AdvEdit", new { id = item.fAdId }) |
+                        @Html.ActionLink("刪除", "AdvDelete", "Admin", new { id = item.fAdId}, new { onclick = "return confirm('確定要刪除嗎?')" })
+                    </td>
+                </tr>
+            }
         }
-    }
 
-</table>
+    </table>
+
+    <div class="modif ">
+        <p>
+            @Html.ActionLink("新增廣告", "AdvCreate",null, new { @class= "btn btn-outline-secondary btn-sm" })
+        </p>       
+    </div>
+
+</div>
 
 
-<!-- 首頁幻燈片廣告圖片功能 JS -->
-<script>
-    var slideIndex = 1;
-    showSlides(slideIndex);
+@section scripts{
+    <!-- 首頁幻燈片廣告圖片功能 JS -->
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
 
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-    function showSlides(n) {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
         }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
         }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-    }
-</script>
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+
+}
+
+@section styles{
+    <style>
+        td a, p a, td, th{
+            color: #1f3344;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            font-family: 標楷體;
+            font-family: 'Noto Sans', sans-serif;
+        }
+        td, th {
+            text-align: center;
+            vertical-align: middle !important;
+            
+        }
+        th {
+            font-weight: 700;
+            padding:25px !important;
+
+        }
+        td {
+            padding: 30px !important;
+
+        }
+
+        .imgWH {
+            width:400px ;
+            height:150px;
+        }
+
+        .padbottom {
+            padding-bottom:100px;
+            margin-bottom:30px;
+            border-bottom: 2px solid #dcdcdc;
+        }
+        .maginM {
+            margin-bottom:50px;
+        }
+        .textModify {
+            color: #1f3344;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 600;
+            font-family: 'Noto Sans', sans-serif;
+            text-align:right;
+            padding-right:60px;
+        }
+        .fontM {
+            /*color: red;*/
+            font-size: 20px;
+            font-weight: 400;
+            padding-right: 70px;
+        }
+        .modif {
+            margin:100px 0 100px 0;        
+        }
+
+        a:hover {
+            color: #1f3344;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .btn-sm {
+            padding:30px 100px 30px 100px;
+            border:2px solid ;
+        }
+            .btn-sm:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
+
+        .nohover {
+            pointer-events: none;
+        }
+
+    </style>
+
+
+}
+
+
