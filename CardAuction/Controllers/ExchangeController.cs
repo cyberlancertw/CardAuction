@@ -392,6 +392,7 @@ namespace CardAuction.Controllers
                           m => m.fUserId,
                           (c, m) => new
                           {
+                              fItemName = c.fItemName,
                               fItemTableId = c.fItemTableId,
                               postAcc = m.fAccount,   //帳戶
                               ItemDescription = c.fItemDescription,   //內容
