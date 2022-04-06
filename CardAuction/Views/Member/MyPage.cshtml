@@ -409,7 +409,7 @@
         var btn4 = document.getElementById('btn4'); var pa4 = document.getElementById('pages4');
         var btn5 = document.getElementById('btn5'); var pa5 = document.getElementById('pages5');
         var btn6 = document.getElementById('btn6'); var pa5 = document.getElementById('pages6');
-
+        var dropdownbtn = document.querySelector('.dropdown-btn');
         document.querySelectorAll('[id^="btn"]').forEach(function (dom) {
             dom.addEventListener('click', function () {
                 let thisId = dom.id.slice(-1);
@@ -433,24 +433,17 @@
                 });
             }
         }
-
         function drop() {
-            var dropdown = document.getElementsByClassName("dropdown-btn");
-            var i;
-
-            for (i = 0; i < dropdown.length; i++) {
-                dropdown[i].addEventListener("click", function () {
-                    this.classList.toggle("active");
-                    var dropdownContent = this.nextElementSibling;
-                    if (dropdownContent.style.display === "block") {
-                        dropdownContent.style.display = "none";
-                    }
-                    else {
-                        dropdownContent.style.display = "block"
-                    }
-                });
+            dropdownbtn.classList.toggle("active");
+            var dropdownContent = dropdownbtn.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            }
+            else {
+                dropdownContent.style.display = "block"
             }
         }
+        
 
         /*var tab2 = documet.getElementById('tab2');*/
 
