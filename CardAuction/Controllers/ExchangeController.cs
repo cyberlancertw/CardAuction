@@ -169,7 +169,7 @@ namespace CardAuction.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Couple(CExchangePostViewModel vModel)
+        public ActionResult Couple(CExchangePostViewModel vModel,tExchangeItem item)
         {
             
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
