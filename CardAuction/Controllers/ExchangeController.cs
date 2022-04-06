@@ -169,7 +169,7 @@ namespace CardAuction.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Couple(CExchangePostViewModel vModel,tExchangeItem item)
+        public ActionResult Couple(CExchangePostViewModel vModel)
         {
             
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
@@ -237,6 +237,11 @@ namespace CardAuction.Controllers
             createItem.fDelete = false;
             createItem.fReport = 0;
 
+            //提出交換數值遞增
+            tExchangeItem PostUserItem = db.tExchangeItem.Find(vModel.itemId);
+            PostUserItem.fChangeCount++;
+
+
             db.tExchangeItemTable.Add(createItem);
             try
             {
@@ -285,7 +290,7 @@ namespace CardAuction.Controllers
                     {
                         var queryResult = db.tExchangeItem
                             .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
-                            .OrderBy(p => p.fClick).ThenBy(q => q.fEndTime)
+                            .OrderByDescending(p => p.fChangeCount)
                             .Skip(page * 12)
                             .Take(12)
                             .Select(n => new QueryResult 
