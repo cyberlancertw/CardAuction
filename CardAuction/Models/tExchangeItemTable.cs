@@ -27,7 +27,7 @@ namespace CardAuction.Models
         public string fItemLocation { get; set; }
         public string fItemLevel { get; set; }
         public string fUserInfo { get; set; }
-        public Nullable<int> fReport { get; set; }
-        public Nullable<bool> fDelete { get; set; }
+        public int fReport { get; set; }
+        public bool fDelete { get; set; }
     }
 }

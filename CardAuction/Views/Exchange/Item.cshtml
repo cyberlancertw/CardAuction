@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="col-4">
-                        <button class="notFollowing" id="btnFavorite"><i id="iconFavorite" class="fa-solid fa-heart-circle-plus"></i> <span id="txtFavorite">加入追蹤</span></button>
+                        <button class="notFollowing" id="btnFavorite"><i id="iconFavorite" class="fa-solid fa-heart-circle-plus"></i> <span id="txtFavorite">加入收藏</span></button>
                     </div>
 
                     <div class="col-4">
@@ -242,11 +242,6 @@
             });
         });//照片效果
 
-        //txtComment.addEventListener('keyup', function () {
-        //    let letters = txtComment.value;
-        //    countComment.textContent = `${letters.length}/100`;
-        //});//評論字數不超過100字
-
         refreshStampTime(secondRemain);
         @if(Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString().Equals(Model.fPostUserId))
         {
@@ -296,7 +291,6 @@
             @:    sendComment(content);
             @:}
             @:txtComment.value = '';
-            @*@:countComment.textContent = '0/100';*@
             @:txtComment.focus();
         @:});
         }
@@ -306,7 +300,6 @@
         checkFavorite();
         receiveComments();
         receiveEIB();
-        //ExchangeResult();
 
         document.getElementById('btnComment').addEventListener('click', function () {
             location.href += '#divComment';
@@ -377,18 +370,16 @@
 
         function toggleFavorite(isFavorite) {
             if (isFavorite == 'True') {
-
-                txtFavorite.textContent = '已追蹤';
+                txtFavorite.textContent = '已收藏';
                 iconFavorite.classList.add('fa-heart-circle-check');
                 iconFavorite.classList.remove('fa-heart-circle-plus');
                 btnFavorite.classList.add('following');
                 btnFavorite.classList.remove('notFollowing');
             }
             else {
-                txtFavorite.textContent = '加入追蹤';
+                txtFavorite.textContent = '加入收藏';
                 iconFavorite.classList.add('fa-heart-circle-plus');
                 iconFavorite.classList.remove('fa-heart-circle-check');
-
                 btnFavorite.classList.remove('following');
                 btnFavorite.classList.add('notFollowing');
             }
@@ -401,7 +392,6 @@
             let docFrag = document.createDocumentFragment();
             console.log(datas);
             for (let comment of datas) {
-                //let commentTime = new Date(parseInt(comment.postTime.substr(6))).toLocaleString();
                 let EIBRow = document.createElement('div');
                 EIBRow.className = 'row eibrow';
 
@@ -409,8 +399,6 @@
 
                 let EIBContent = document.createElement('div');
                 EIBContent.className = ' col-sm-6 col-md-7 IMG100';
-                //let IMGROW = document.createElement('div');
-                //IMGROW.className = 'row';
                 [comment.fPhoto0, comment.fPhoto1, comment.fPhoto2, comment.fPhoto3].forEach(dom => {
                     if (dom != null) {
                         let IMGDIV = document.createElement('div');
@@ -435,7 +423,6 @@
                 let EIBAccount = document.createElement('div');
                 EIBAccount.className = ' col-sm-3 col-md-2 ';
                 let dompMsg = document.createElement('p');
-                //dompMsg.className = 'col-sm-2 col-md-2 ';
                 dompMsg.textContent = `商品敘述:${comment.ItemDescription}`;
                 EIBAccount.appendChild(dompMsg);
 
