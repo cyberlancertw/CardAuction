@@ -108,27 +108,26 @@
                     string resetday = $"{day}天{hour}時{min}分";
 
 
-
-                    <div class="block">
-                        <img src="~/images/AuctionItemImages/@favoritem.fPhoto0">
-                        <div class="card-info">
-                            <div class="info-top">
-                                <h5>@favoritem.fItemId</h5>
-                                <a href="@Url.Content("~/Auction/Item/" + favoritem.fItemId)">聯絡買家</a>
+            <a href="@Url.Content("~/Auction/Item/" + favoritem.fItemId)">
+                <div class="block">
+                    <img src="~/images/AuctionItemImages/@favoritem.fPhoto0">
+                    <div class="card-info">
+                        <div class="info-top">
+                            <h5>@favoritem.fItemId</h5>
+                        </div>
+                        <hr>
+                        <div class="info-bottom">
+                            <h5>@favoritem.fItemName</h5>
+                            <div class="info-price">
+                                <h4>$ @favoritem.fMoneyNow 元</h4> <p>/</p> <h6>出價 @favoritem.fBidCount 次</h6>
                             </div>
-                            <hr>
-                            <div class="info-bottom">
-                                <h5>@favoritem.fItemName</h5>
-                                <div class="info-price">
-                                    <h4>$@favoritem.fMoneyNow 元</h4> <p>/</p> <h6>出價 @favoritem.fBidCount 次</h6>
-                                </div>
-                                <div class="info-time">
-                                    <h6>@resetday</h6>
-                                </div>
+                            <div class="info-time">
+                                <h6>@resetday</h6>
                             </div>
                         </div>
                     </div>
-
+                </div>
+            </a>
                 }
                 @Html.PagedListPager(Model.MyAuctionFavorite, page => Url.Action("MyPage", new { page, lead = "auctionfavorite" }))
                 
@@ -152,26 +151,26 @@
                     int min = secondTotalRemain / 60;
                     string resetday = $"{day}天{hour}時{min}分";
 
-
-                    <div class="block">
-                        <img src="~/images/ExchangeItemImages/@favorexitem.fPhoto0">
-                        <div class="card-info">
-                            <div class="info-top">
-                                <h5>@favorexitem.fItemId</h5>
-                                <a href="@Url.Content("~/Exchange/Item/" + favorexitem.fItemId)">聯絡買家</a>
-                            </div>
-                            <hr>
-                            <div class="info-bottom">
-                                <h5>@favorexitem.fItemName</h5>
-                                <div class="info-price">
-                                    <h4>留言數量</h4> <p>/</p> <h6>XX則</h6>
+                    <a href="@Url.Content("~/Exchange/Item/" + favorexitem.fItemId)">
+                        <div class="block">
+                            <img src="~/images/ExchangeItemImages/@favorexitem.fPhoto0">
+                            <div class="card-info">
+                                <div class="info-top">
+                                    <h5>@favorexitem.fItemId</h5>
                                 </div>
-                                <div class="info-time">
-                                    <h6>@resetday</h6>
+                                <hr>
+                                <div class="info-bottom">
+                                    <h5>@favorexitem.fItemName</h5>
+                                    <div class="info-price">
+                                        <h4>留言數量</h4> <p>/</p> <h6>XX則</h6>
+                                    </div>
+                                    <div class="info-time">
+                                        <h6>@resetday</h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 }
                 @Html.PagedListPager(Model.MyExchangeFavorite, page => Url.Action("MyPage", new { page, lead = "exchangefavorite" }))
             </div>
@@ -205,7 +204,7 @@
                             <td>@myaitem.fItemName</td>
                             <td>$ @myaitem.fMoneyNow 元</td>
                             <td>@resetday</td>
-                            @if (myaitem.fFinish)
+                            @if (myaitem.fFinish) 
                             {
                             <td><a href="#" class="infoWinner" data-infoitemid="@myaitem.fItemId" data-itemtype="auction">通知買家</a></td>
                             }
