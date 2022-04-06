@@ -499,32 +499,5 @@
             xhr.send();
         }
 
-        //btnResult.addEventListener('click', function () {
-        //    alert('yes');
-
-            
-        //});
-
-        @*function ExchangeResult() {
-            let xhr = new XMLHttpRequest();
-            xhr.addEventListener('load', function () {
-                //console.log(this.responseText);
-                if (this.responseText != '') {
-                    let datas = JSON.parse(this.responseText);
-                    refreshEIB(datas);
-                }
-                //if (btnResult) {
-                //    btnResult.addEventListener('click', function () {
-                //        alert("成功");
-                //        Finish();
-                //    });
-                //}
-            });
-            let para = `?itemId=${fItemId}`;
-            xhr.open('GET', '@Url.Content("~/Exchange/btnSureResult")' + para);
-            xhr.send();
-        }*@
-
-
     </script>
 }
