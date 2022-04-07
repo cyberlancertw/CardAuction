@@ -35,7 +35,7 @@
 }
 
 #divResult{
-    width: 80%;
+    width: 100%;
 }
 #divResult>div{
     display: flex;
@@ -43,19 +43,47 @@
 #divResult>div>div{
     font-size: 1.6rem;
 }
-.divTitle{
-    width:20%;
+.divTitle {
+    display: flex;
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+    font-family: "Noto Sans CJK TC";
+    font-weight: bold;
+    color: #1f3344;
 }
 #tableHistory{
-    width: 80%;
+    background-color:#ccc;
+    color:black;
+    width: 100%;
     font-size: 1.6rem;
 }
+
 .bidAcc{
-    width: 20%;
+    /*width: 20%;*/
 }
 .bidMoney{
-    width: 30%
+    /*width: 30%*/
 }
 .bidTime{
-    width: auto;
+    /*width: auto;*/
+}
+
+td {
+    justify-content: space-between;
+    width: 300px;
+    text-align:center;
+}
+
+img{
+    width:120px;
+    margin:20px 10px; 
+}
+
+.divContent{
+    margin:10px 0px;
+    font-family:"Noto Sans CJK TC";
+    font-weight:normal;
+    color:#1f3344;
 }

@@ -271,7 +271,7 @@ namespace CardAuction.Controllers
                 case "EndTime":
                     {
                         var queryResult = db.tExchangeItem
-                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName) && !m.fDelete)
                             .OrderBy(p => p.fEndTime)
                             .Skip(page * 12)
                             .Take(12)
@@ -289,7 +289,7 @@ namespace CardAuction.Controllers
                 case "HotClick":
                     {
                         var queryResult = db.tExchangeItem
-                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName) && !m.fDelete)
                             .OrderByDescending(p => p.fChangeCount)
                             .Skip(page * 12)
                             .Take(12)
@@ -307,7 +307,7 @@ namespace CardAuction.Controllers
                 case "JustPost":
                     {
                         var queryResult = db.tExchangeItem
-                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName) && !m.fDelete)
                             .OrderByDescending(p => p.fCreateTime)
                             .Skip(page * 12)
                             .Take(12)
@@ -442,15 +442,116 @@ namespace CardAuction.Controllers
                     fCoupleAccount = UserB.fAccount,
                     fSubmitTime = DateTime.Now,
                     fEndTime = itemA.fEndTime,
-                    fStatus = "交易成功"
-
-                    
+                    fStatus = "交易成功"   
                 };
                 db.tExchangeResult.Add(btnSureResult);
                 db.SaveChanges();
             }
-            
+            tExchangeResult item = db.tExchangeResult.Find(itemIdB);
+            tMember MatchUserA = db.tMember.Find(item.fPostUserId);
+            tMember MatchUserB = db.tMember.Find(item.fCoupleUserId);
+            string postUserId = item.fPostUserId;
+            string postAcc = db.tMember.Find(postUserId).fAccount;
+            string userAccA = MatchUserA.fAccount;
+            string userAccB = MatchUserB.fAccount;
+            string userEmailA = MatchUserA.fEmail;
+            string userEmailB = MatchUserB.fEmail;
+            string subject = "交換通知";
+            string linkTo = CDictionary.WebHost + "Exchange/Result/" + item.fItemIdA;
+            string contentA = $"<h1>{userAccA}您好，您的「{item.fItemNameA}」與{MatchUserB}的「{item.fItemNameB}」已確定交換，請儘速登入個人頁面，或利用以下連結填寫運送資訊：</h1>"
+                + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+            string contentB = $"<h1>{userAccB}您好，您的「{item.fItemNameB}」與{MatchUserA}的「{item.fItemNameA}」已確定交換，請儘速登入個人頁面，或利用以下連結填寫運送資訊：</h1>"
+                + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+            //Service.SendEmail(userEmailA, subject, contentA );
+
+            //Service.SendEmail(userEmailB, subject, contentB );
+
+
             return View();
+        }
+        public void DeleteItem(string itemIdA , string itemIdB)
+        {
+            if (itemIdA == null)                              // 無arguement
+            {
+                return;
+            }
+
+            tExchangeItem itemA = db.tExchangeItem.Find(itemIdA);
+
+            if (itemA == null || itemA.fDelete)                // 查無交換商品 或 已結束
+            {
+                return;
+            }
+
+            itemA.fDelete = true;                            // 結束此交換商品
+            tExchangeItemTable itemB = db.tExchangeItemTable.Find(itemIdB);
+            string UserAId = itemA.fPostUserId;
+            string UserBId = itemB.fPostUserId;
+            tMember UserA = db.tMember.Find(UserAId);
+            tMember UserB = db.tMember.Find(UserBId);
+            tExchangeResult newResult = new tExchangeResult   // 新增 result 紀錄
+            {
+                fItemIdA = itemA.fItemId,
+                fItemIdB = itemB.fItemId,
+                fItemNameA = itemIdA,
+                fItemNameB = itemIdB,
+                fAPhoto0 = itemA.fPhoto0,
+                fBPhoto0 = itemB.fPhoto0,
+                fPostUserId = itemA.fPostUserId,
+                fPostAccount = UserA.fAccount,
+                fCoupleUserId = itemB.fPostUserId,
+                fCoupleAccount = UserB.fAccount,
+                fSubmitTime = DateTime.Now,
+                fEndTime = itemA.fEndTime
+            };
+            db.tExchangeResult.Add(newResult);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return;
+            }
+        }
+        public void InfoMatchUser(string itemId)
+        {
+            if (string.IsNullOrEmpty(itemId))
+            {
+                return;
+            }
+            tExchangeResult item = db.tExchangeResult.Find(itemId);
+            if (item == null)
+            {
+                return;
+            }
+            tMember MatchUser = db.tMember.Find(item.fCoupleUserId);
+            if (item == null || MatchUser == null)
+            {
+                return;
+            }
+            string postUserId = item.fPostUserId;
+            if (Session[CDictionary.SK_UserUserId] == null || Session[CDictionary.SK_UserUserId].ToString() != postUserId)
+            {
+                return;
+            }
+            string postAcc = db.tMember.Find(postUserId).fAccount;
+            string userAcc = MatchUser.fAccount;
+            string userEmail = MatchUser.fEmail;
+            string subject = "交換通知";
+            string linkTo = CDictionary.WebHost + "Exchange/Item/" + item.fItemIdA;
+            string content = $"<h1>{userAcc}您好，您得標了{postAcc}的競標商品「{item.fItemNameA}」，請儘速登入個人頁面，或利用以下連結填寫運送資訊：</h1>"
+                + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+            Service.SendEmail(userEmail, subject, content);
+
+            return;
         }
     }
 }
