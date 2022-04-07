@@ -271,7 +271,7 @@ namespace CardAuction.Controllers
                 case "EndTime":
                     {
                         var queryResult = db.tExchangeItem
-                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName) && !m.fDelete)
                             .OrderBy(p => p.fEndTime)
                             .Skip(page * 12)
                             .Take(12)
@@ -289,7 +289,7 @@ namespace CardAuction.Controllers
                 case "HotClick":
                     {
                         var queryResult = db.tExchangeItem
-                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName) && !m.fDelete)
                             .OrderByDescending(p => p.fChangeCount)
                             .Skip(page * 12)
                             .Take(12)
@@ -307,7 +307,7 @@ namespace CardAuction.Controllers
                 case "JustPost":
                     {
                         var queryResult = db.tExchangeItem
-                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName))
+                            .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName) && !m.fDelete)
                             .OrderByDescending(p => p.fCreateTime)
                             .Skip(page * 12)
                             .Take(12)
@@ -447,7 +447,26 @@ namespace CardAuction.Controllers
                 db.tExchangeResult.Add(btnSureResult);
                 db.SaveChanges();
             }
-            
+            tExchangeResult item = db.tExchangeResult.Find(itemIdB);
+            tMember MatchUserA = db.tMember.Find(item.fPostUserId);
+            tMember MatchUserB = db.tMember.Find(item.fCoupleUserId);
+            string postUserId = item.fPostUserId;
+            string postAcc = db.tMember.Find(postUserId).fAccount;
+            string userAccA = MatchUserA.fAccount;
+            string userAccB = MatchUserB.fAccount;
+            string userEmailA = MatchUserA.fEmail;
+            string userEmailB = MatchUserB.fEmail;
+            string subject = "交換通知";
+            string linkTo = CDictionary.WebHost + "Exchange/Result/" + item.fItemIdA;
+            string contentA = $"<h1>{userAccA}您好，您的「{item.fItemNameA}」與{MatchUserB}的「{item.fItemNameB}」已確定交換，請儘速登入個人頁面，或利用以下連結填寫運送資訊：</h1>"
+                + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+            string contentB = $"<h1>{userAccB}您好，您的「{item.fItemNameB}」與{MatchUserA}的「{item.fItemNameA}」已確定交換，請儘速登入個人頁面，或利用以下連結填寫運送資訊：</h1>"
+                + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+            //Service.SendEmail(userEmailA, subject, contentA );
+
+            //Service.SendEmail(userEmailB, subject, contentB );
+
+
             return View();
         }
         public void DeleteItem(string itemIdA , string itemIdB)
