@@ -374,10 +374,7 @@ namespace CardAuction.Controllers
             item.fBidCount++;
             item.fTopBidUserId = userId;
 
-            if(item.fBuyPrice > 0 && amount >= item.fBuyPrice)
-            {
-                item.fFinish = true;
-            }
+            
             tAuctionBid newBid = new tAuctionBid
             {
                 fItemId = item.fItemId,
@@ -385,6 +382,14 @@ namespace CardAuction.Controllers
                 fUserId = userId,
                 fMoney = amount
             };
+            if (item.fBuyPrice > 0 && amount >= item.fBuyPrice)
+            {
+                item.fFinish = true;
+
+                DeleteItem(item.fItemId );
+
+
+            }
 
             db.tAuctionBid.Add(newBid);
             try
@@ -625,6 +630,10 @@ namespace CardAuction.Controllers
                 fResultId = itemId,
                 fPostUserId = item.fPostUserId,
                 fWinUserId = item.fTopBidUserId,
+                fPhoto0 = item.fPhoto0,
+                fPhoto1 = item.fPhoto1,
+                fPhoto2 = item.fPhoto2,
+                fPhoto3 = item.fPhoto3,
                 fTotalMoney = item.fMoneyNow,
                 fBidCount = item.fBidCount,
                 fWinTime = item.fEndTime,

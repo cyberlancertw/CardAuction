@@ -12,7 +12,6 @@ namespace CardAuction.Models
     using System;
     using System.Collections.Generic;
     using System.Web;
-
     public partial class tAdminAd
     {
         public int fAdId { get; set; }
@@ -20,6 +19,5 @@ namespace CardAuction.Models
         public string fAdNote { get; set; }
         public string fAdFileName { get; set; }
         public HttpPostedFileBase photo { get; set; }
-
     }
 }

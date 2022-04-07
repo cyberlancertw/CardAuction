@@ -46,7 +46,8 @@ namespace CardAuction.Controllers
 
             MyInfo.MyAccount = db.tMember.Find(userId);
 
-            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId && !m.fDelete).ToList().ToPagedList(currentPage,pageSize);
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).OrderByDescending(m => (m.fFinish || m.fDelete))
+            .ThenBy(m => m.fEndTime).ToList().ToPagedList(currentPage, pageSize);
 
             MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 
@@ -56,7 +57,9 @@ namespace CardAuction.Controllers
             List<string> tempExchangeFavorite = db.tExchangeFavorite.Where(m => m.fFromUserId == userId).Select(m => m.fToItemId).ToList();
             MyInfo.MyExchangeFavorite = db.tExchangeItem.Where(m => tempExchangeFavorite.Contains(m.fItemId)).ToList().ToPagedList(currentPage, pageSize);
 
+            MyInfo.myAuctionResult = db.tAuctionResult.Where(m => m.fWinUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 
+            MyInfo.myExchangeResult = db.tExchangeResult.Where(m => m.fCoupleUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 
             return View(MyInfo);          // Member / Index 要有 View 嗎? 取代 mypage?
         }
@@ -88,7 +91,8 @@ namespace CardAuction.Controllers
 
             MyInfo.MyAccount = db.tMember.Find(userId);
 
-            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId && !m.fDelete).ToList().ToPagedList(currentPage, pageSize);
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).OrderByDescending(m => (m.fFinish || m.fDelete))
+            .ThenBy(m => m.fEndTime).ToList().ToPagedList(currentPage, pageSize);
 
             MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 
@@ -97,6 +101,10 @@ namespace CardAuction.Controllers
 
             List<string> tempExchangeFavorite = db.tExchangeFavorite.Where(m => m.fFromUserId == userId).Select(m => m.fToItemId).ToList();
             MyInfo.MyExchangeFavorite = db.tExchangeItem.Where(m => tempExchangeFavorite.Contains(m.fItemId)).ToList().ToPagedList(currentPage, pageSize);
+
+            MyInfo.myAuctionResult = db.tAuctionResult.Where(m => m.fWinUserId == userId).ToList().ToPagedList(currentPage, pageSize);
+
+            MyInfo.myExchangeResult = db.tExchangeResult.Where(m => m.fCoupleUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 
             return View(MyInfo);
         }
