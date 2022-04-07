@@ -60,9 +60,8 @@ namespace CardAuction.Controllers
                     return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "List" });
                 }
             }
-            Session[CDictionary.SK_BackToController] = "Auction";
-            Session[CDictionary.SK_BackToAction] = "Item";
-            Session[CDictionary.SK_BackToId] = id;
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "Item", id);
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "Item", id);
             return View(result);
         }
 
@@ -87,9 +86,8 @@ namespace CardAuction.Controllers
             
             if (Session[CDictionary.SK_UserUserId] == null)
             {
-                Session[CDictionary.SK_RedirectToController] = "Auction";
-                Session[CDictionary.SK_RedirectToAction] = "List";
-                Session[CDictionary.SK_RedirectToId] = string.Empty;
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "List");
+                
                 return RedirectToAction("Login", "Member");
             }
             string loginUserId = Session[CDictionary.SK_UserUserId].ToString();
@@ -122,17 +120,12 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                Session[CDictionary.SK_RedirectToController] = "Auction";
-                Session[CDictionary.SK_RedirectToAction] = "Post";
-                Session[CDictionary.SK_RedirectToId] = string.Empty;
-
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "Post");
                 return RedirectToAction("Login", "Member");
             }
             else
             {
-                Session[CDictionary.SK_BackToController] = "Auction";
-                Session[CDictionary.SK_BackToAction] = "Post";
-                Session[CDictionary.SK_BackToId] = string.Empty;
+                Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "Post");
                 return View();
             }
         }
@@ -141,9 +134,7 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                Session[CDictionary.SK_RedirectToController] = "Auction";
-                Session[CDictionary.SK_RedirectToAction] = "Post";
-                Session[CDictionary.SK_RedirectToId] = string.Empty;
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "Post");
                 return RedirectToAction("Login", "Member");
             }
 
@@ -222,21 +213,15 @@ namespace CardAuction.Controllers
             {
                 return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "Post" });
             }
-            Session[CDictionary.SK_BackToController] = "Auction";
-            Session[CDictionary.SK_BackToAction] = "List";
-            Session[CDictionary.SK_BackToId] = string.Empty;
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "List");
             return RedirectToAction("List");
         }
 
         [HttpGet]
         public ActionResult List()
         {
-            Session[CDictionary.SK_RedirectToController] = "Auction";
-            Session[CDictionary.SK_RedirectToAction] = "List";
-            Session[CDictionary.SK_RedirectToId] = string.Empty;
-            Session[CDictionary.SK_BackToController] = "Auction";
-            Session[CDictionary.SK_BackToAction] = "List";
-            Session[CDictionary.SK_BackToId] = string.Empty;
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "List");
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "List");
             return View();
         }
 
@@ -583,8 +568,12 @@ namespace CardAuction.Controllers
             {
                 return Json(new { statusMessage = "NoTopFinish"}, JsonRequestBehavior.AllowGet);        // 時間到，無人得標的結束
             }
-
-            string winUserAcc = db.tMember.Find(item.fTopBidUserId).fAccount;
+            tMember topUser = db.tMember.Find(item.fTopBidUserId);
+            if(topUser == null)
+            {
+                return Json(new { statusMessage = "NoTopNotFinish" }, JsonRequestBehavior.AllowGet);       // 時間到，無人得標的結束
+            }
+            string winUserAcc = topUser.fAccount;
             string statusMessage = "EndTimeFinish";                                                     // 時間到，有人得標的結束
 
             if (item.fBuyPrice > 0 && item.fMoneyNow >= item.fBuyPrice)

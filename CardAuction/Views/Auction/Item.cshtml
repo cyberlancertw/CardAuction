@@ -273,12 +273,11 @@
         var MoneyNow = document.getElementById('MoneyNow');
         @if (Session[CDictionary.SK_UserAccount] == null)
     {
-        @:var userAcc = '', userId = '';
+        @:var userAcc = '';
     }
     else
     {
         @:var userAcc = '@Session[CDictionary.SK_UserAccount].ToString()';
-        @:var userId = '@Session[CDictionary.SK_UserUserId]';
     }
         var itemId = '@Model.fItemId';
 
@@ -371,7 +370,11 @@
         if (btnBid) {
             btnBid.addEventListener('click', function () {
                 let amount = parseInt(txtBid.value);
-
+                if (amount >= 2147483647) {
+                    btnBid.textContent = '太大';
+                    window.setTimeout(() => btnBid.textContent = '出價', 2000);
+                    return;
+                }
                 if (amount >= leastBid) {
                     sendBid(amount);
                 }

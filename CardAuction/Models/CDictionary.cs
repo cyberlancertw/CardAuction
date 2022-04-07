@@ -12,6 +12,8 @@ namespace CardAuction.Models
         public const string SK_RedirectToId = "SK_RedirectToId";
         public const string SK_RedirectToAction = "SK_RedirectToAction";
         public const string SK_RedirectToController = "SK_RedirectToController";
+        public const string SK_RedirectTo = "SK_RedirectTo";
+        public const string SK_BackTo = "SK_BackTo";
         public const string SK_BackToId = "SK_BackToId";
         public const string SK_BackToAction = "SK_BackToAction";
         public const string SK_BackToController = "SK_BackToController";

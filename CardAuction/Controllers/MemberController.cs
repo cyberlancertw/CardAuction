@@ -24,8 +24,7 @@ namespace CardAuction.Controllers
             {
                 return RedirectToAction("Login");
             }
-
-            return RedirectToAction("MyPage");          // Member / Index 要有 View 嗎? 取代 mypage?
+            return RedirectToAction("MyPage");
         }
 
         int pageSize = 5;
@@ -58,7 +57,7 @@ namespace CardAuction.Controllers
 
 
 
-            return View(MyInfo);          // Member / Index 要有 View 嗎? 取代 mypage?
+            return View(MyInfo);
         }
         [HttpPost]
         public ActionResult MyPage(CRegisterViewModel vModel,int page= 1)
@@ -128,7 +127,7 @@ namespace CardAuction.Controllers
                 return View();
             }
             string cypher = Service.getCypher(vModel.Password);
-            Console.WriteLine(cypher);
+            //Console.WriteLine(cypher);
             tMember queryResult = db.tMember
                 .Where(m => m.fAccount == vModel.Account && m.fPassword == cypher)
                 .FirstOrDefault();
@@ -143,22 +142,21 @@ namespace CardAuction.Controllers
                     return RedirectToAction("Index", "Admin");
                 }
 
-                if(Session[CDictionary.SK_RedirectToAction] == null)
+                if(Session[CDictionary.SK_RedirectTo] == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    string redirectToAction = Session[CDictionary.SK_RedirectToAction].ToString();
-                    string redirectToController = Session[CDictionary.SK_RedirectToController].ToString();
-                    if (Session[CDictionary.SK_RedirectToId] == null)
+                    CLinkTo linkTo = Session[CDictionary.SK_RedirectTo] as CLinkTo;
+
+                    if (string.IsNullOrEmpty(linkTo.ToId))
                     {
-                        return RedirectToAction(redirectToAction, redirectToController);
+                        return RedirectToAction(linkTo.ToAction, linkTo.ToController);
                     }
                     else
                     {
-                        string redirectToId = Session[CDictionary.SK_RedirectToId].ToString();
-                        return RedirectToAction(redirectToAction, redirectToController, new { id = redirectToId });
+                        return RedirectToAction(linkTo.ToAction, linkTo.ToController, new { id = linkTo.ToId });
                     }
                 }
             }
@@ -323,7 +321,6 @@ namespace CardAuction.Controllers
                 ViewData["errorMsg"] = "驗証碼輸入有誤";
                 return View();
             }
-            
         }
 
         public ActionResult Activate()
