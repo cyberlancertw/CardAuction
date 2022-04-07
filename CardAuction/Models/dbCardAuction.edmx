@@ -56,6 +56,8 @@
           <Property Name="fTransPerson" Type="int" Nullable="false" />
           <Property Name="fTransSeven" Type="int" Nullable="false" />
           <Property Name="fTransFami" Type="int" Nullable="false" />
+          <Property Name="fTransOk" Type="int" />
+          <Property Name="fTransLife" Type="int" />
           <Property Name="fTransLogi" Type="int" Nullable="false" />
           <Property Name="fUserInfo" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="fBidCount" Type="int" Nullable="false" />
@@ -107,7 +109,7 @@
           </Key>
           <Property Name="fDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fItemId" Type="int" />
-          <Property Name="fResponseUserId" Type="int" />
+          <Property Name="fResponseUserId" Type="varchar" MaxLength="20" />
           <Property Name="fContent" Type="nvarchar" MaxLength="50" />
           <Property Name="fPostTime" Type="datetime" />
         </EntityType>
@@ -290,6 +292,8 @@
           <Property Name="fTransPerson" Type="Int32" Nullable="false" />
           <Property Name="fTransSeven" Type="Int32" Nullable="false" />
           <Property Name="fTransFami" Type="Int32" Nullable="false" />
+          <Property Name="fTransOk" Type="Int32" />
+          <Property Name="fTransLife" Type="Int32" />
           <Property Name="fTransLogi" Type="Int32" Nullable="false" />
           <Property Name="fUserInfo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fBidCount" Type="Int32" Nullable="false" />
@@ -341,7 +345,7 @@
           </Key>
           <Property Name="fDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fItemId" Type="Int32" />
-          <Property Name="fResponseUserId" Type="Int32" />
+          <Property Name="fResponseUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="fContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="fPostTime" Type="DateTime" Precision="3" />
         </EntityType>
@@ -527,6 +531,8 @@
                 <ScalarProperty Name="fTransPerson" ColumnName="fTransPerson" />
                 <ScalarProperty Name="fTransSeven" ColumnName="fTransSeven" />
                 <ScalarProperty Name="fTransFami" ColumnName="fTransFami" />
+                <ScalarProperty Name="fTransOk" ColumnName="fTransOk" />
+                <ScalarProperty Name="fTransLife" ColumnName="fTransLife" />
                 <ScalarProperty Name="fTransLogi" ColumnName="fTransLogi" />
                 <ScalarProperty Name="fUserInfo" ColumnName="fUserInfo" />
                 <ScalarProperty Name="fBidCount" ColumnName="fBidCount" />

@@ -358,7 +358,7 @@ namespace CardAuction.Controllers
             item.fMoneyNow = amount;
             item.fBidCount++;
             item.fTopBidUserId = userId;
-
+            
             
             tAuctionBid newBid = new tAuctionBid
             {
@@ -367,16 +367,12 @@ namespace CardAuction.Controllers
                 fUserId = userId,
                 fMoney = amount
             };
-            if (item.fBuyPrice > 0 && amount >= item.fBuyPrice)
+            db.tAuctionBid.Add(newBid);
+
+            if (item.fBuyPrice > 0 && amount >= item.fBuyPrice)         // 有直購且出大於等於直購價
             {
                 item.fFinish = true;
-
-                DeleteItem(item.fItemId );
-
-
             }
-
-            db.tAuctionBid.Add(newBid);
             try
             {
                 db.SaveChanges();
@@ -682,6 +678,23 @@ namespace CardAuction.Controllers
                 fBidCount = item.fBidCount,
                 fBidMoney = item.fMoneyNow,
             };
+            if (!string.IsNullOrEmpty(item.fPhoto0))
+            {
+                newResult.fPhoto0 = item.fPhoto0;
+            }
+            if (!string.IsNullOrEmpty(item.fPhoto1))
+            {
+                newResult.fPhoto2 = item.fPhoto2;
+            }
+            if (!string.IsNullOrEmpty(item.fPhoto2))
+            {
+                newResult.fPhoto2 = item.fPhoto2;
+            }
+            if (!string.IsNullOrEmpty(item.fPhoto3))
+            {
+                newResult.fPhoto3 = item.fPhoto3;
+            }
+
             tMember postUser = db.tMember.Find(item.fPostUserId);
             string postUserAcc = postUser.fAccount;
             string postUserEmail = postUser.fEmail;

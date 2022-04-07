@@ -199,7 +199,16 @@ namespace CardAuction.Controllers
 
             return Json(queryResult, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult About()
+        {
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Home", "About");
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Home", "About");
+            return View();
+        }
     }
+
+
 
     public class QueryNewestList
     {

@@ -761,7 +761,6 @@
                 fetch('@Url.Content("~/Auction/GetEndInfo")' + para, { method: 'GET' })
                     .then(response => response.json())
                     .then(response => {
-                        //console.log(response);
                         let totalMoney = parseInt(response.topMoney);           // 最高價
                         totalMoney += parseInt(selectTrans.value);              // 運費
                         let deliveryInfo = response.postUserInfo;
@@ -794,8 +793,6 @@
                                 break;
                         }
 
-                        console.log(deliveryInfo);
-                        console.log(totalMoney);
                         let resultPara = `?itemId=${itemId}&totalMoney=${totalMoney}&deliveryInfo=${deliveryInfo}`;
                         fetch('@Url.Content("~/Auction/GenerateResult")' + resultPara, { method: 'GET' })
                             .then(() => {

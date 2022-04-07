@@ -178,6 +178,7 @@
     <Content Include="Content\ExchangeCss\cssExchangeItemTable.css" />
     <Content Include="Content\ExchangeCss\cssExchangeList.css" />
     <Content Include="Content\ExchangeCss\cssExchange.css" />
+    <Content Include="Content\HomeCss\cssHomeAbout.css" />
     <Content Include="Content\HomeCss\cssHomePost.css" />
     <Content Include="Content\HomeCss\cssHomeSearch.css" />
     <Content Include="Content\HomeCss\cssUserIndexAD.css" />
@@ -218,6 +219,18 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\About\02_c.png" />
+    <Content Include="Images\About\02_r.jpg" />
+    <Content Include="Images\About\14_c.png" />
+    <Content Include="Images\About\14_r.jpg" />
+    <Content Include="Images\About\16_c.png" />
+    <Content Include="Images\About\16_r.jpg" />
+    <Content Include="Images\About\19_c.png" />
+    <Content Include="Images\About\19_r.jpg" />
+    <Content Include="Images\About\26_c.png" />
+    <Content Include="Images\About\26_r.jpg" />
+    <Content Include="Images\About\29_c.png" />
+    <Content Include="Images\About\29_r.jpg" />
     <Content Include="Images\Admin\DataAnalyze\bar-chart.png" />
     <Content Include="Images\Admin\DataAnalyze\line-chart.png" />
     <Content Include="Images\Admin\DataAnalyze\pie-chart.png" />
@@ -438,10 +451,6 @@
     <Content Include="Images\ExchangeItemImages\icon\heart 24px.png" />
     <Content Include="Images\ExchangeItemImages\icon\heart.png" />
     <Content Include="Images\ExchangeItemImages\icon\talk.png" />
-    <Content Include="Images\site\cat0.jpg" />
-    <Content Include="Images\site\cat1.jpg" />
-    <Content Include="Images\site\cat2.jpg" />
-    <Content Include="Images\site\cat3.jpg" />
     <Content Include="Images\site\iconArrowLeft.png" />
     <Content Include="Images\site\iconArrowRight.png" />
     <Content Include="Images\site\iconCart.jpg" />
@@ -663,6 +672,7 @@
     <Content Include="Views\Admin\DataTopTen.cshtml" />
     <Content Include="Views\Admin\ProdManage.cshtml" />
     <Content Include="Views\Admin\AuctManage.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
