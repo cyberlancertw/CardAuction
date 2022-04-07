@@ -2,14 +2,12 @@
 @{
     Layout = null;
     string BackToController = string.Empty, BackToAction = string.Empty, BackToId = string.Empty;
-    if(Session[CDictionary.SK_BackToController] != null)
+    if(Session[CDictionary.SK_BackTo] != null)
     {
-        BackToController = Session[CDictionary.SK_BackToController].ToString();
-        BackToAction = Session[CDictionary.SK_BackToAction].ToString();
-        if (Session[CDictionary.SK_BackToId] != null)
-        {
-            BackToId = Session[CDictionary.SK_BackToId].ToString();
-        }
+        CLinkTo backTo = Session[CDictionary.SK_BackTo] as CLinkTo;
+        BackToController = backTo.ToController;
+        BackToAction = backTo.ToAction;
+        BackToId = backTo.ToId;
     }
 
 }

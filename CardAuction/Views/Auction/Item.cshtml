@@ -273,12 +273,11 @@
         var MoneyNow = document.getElementById('MoneyNow');
         @if (Session[CDictionary.SK_UserAccount] == null)
     {
-        @:var userAcc = '', userId = '';
+        @:var userAcc = '';
     }
     else
     {
         @:var userAcc = '@Session[CDictionary.SK_UserAccount].ToString()';
-        @:var userId = '@Session[CDictionary.SK_UserUserId]';
     }
         var itemId = '@Model.fItemId';
 
@@ -371,7 +370,11 @@
         if (btnBid) {
             btnBid.addEventListener('click', function () {
                 let amount = parseInt(txtBid.value);
-
+                if (amount >= 2147483647) {
+                    btnBid.textContent = '太大';
+                    window.setTimeout(() => btnBid.textContent = '出價', 2000);
+                    return;
+                }
                 if (amount >= leastBid) {
                     sendBid(amount);
                 }
@@ -758,7 +761,6 @@
                 fetch('@Url.Content("~/Auction/GetEndInfo")' + para, { method: 'GET' })
                     .then(response => response.json())
                     .then(response => {
-                        //console.log(response);
                         let totalMoney = parseInt(response.topMoney);           // 最高價
                         totalMoney += parseInt(selectTrans.value);              // 運費
                         let deliveryInfo = response.postUserInfo;
@@ -791,8 +793,6 @@
                                 break;
                         }
 
-                        console.log(deliveryInfo);
-                        console.log(totalMoney);
                         let resultPara = `?itemId=${itemId}&totalMoney=${totalMoney}&deliveryInfo=${deliveryInfo}`;
                         fetch('@Url.Content("~/Auction/GenerateResult")' + resultPara, { method: 'GET' })
                             .then(() => {

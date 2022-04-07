@@ -9,396 +9,329 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的帳戶</title>
+@*<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>我的帳戶</title>
+    </head>
+    <body>*@
+@section styles{
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/MemberCss/mypage.css">
-</head>
-<body>
-    <input type="checkbox" name="" id="menu_control">
+}
 
-    <div class="header">
+<input type="checkbox" name="" id="menu_control">
 
-        <label for="menu_control" class="menu_btn">
-            <span>選單</span>
-        </label>
-        <nav>
-            <a href="#" id="btn1">我的帳戶</a>
-            <a href="#" id="btn2">我的收藏</a>
-            <button class="dropdown-btn" onclick="drop()">
-                <a href="#">我的管理<i class="fa-solid fa-caret-down"></i></a>
-            </button>
-            <div class="dropdown-container">
-                <a href="#" id="btn3">·我的競標</a>
-                <a href="#" id="btn4">·我的交換</a>
-                <a href="#" id="btn5">·競標紀錄</a>
-                <a href="#" id="btn6">.交換紀錄</a>
-            </div>
-        </nav>
+<div class="header">
 
-        <div class="page1" id="pages1">
-            <form action="" method="post" class="form1">
-                <div class="top1">
-                    <h1>帳戶檔案</h1>
-                    <h6>管理您的檔案以保護您的帳戶</h6>
-                </div>
-                <hr>
-                <div class="middle1">
-                    <img src="https://picsum.photos/50/50?random=2">
-                    <div class="name-info">
-                        <h5>@Model.MyAccount.fName</h5>
-                        <p>@Model.MyAccount.fAddress</p>
-                    </div>
-                </div>
-                <div class="bottomleft">
-                    <p>
-                        <label for="uaccount">使用者帳號</label>
-                        <input type="text" name="account" id="uaccount" disabled value="@Model.MyAccount.fAccount">
-                    </p>
-                    <p>
-                        <label for="uname">姓名</label>
-                        <input type="text" id="uname" value="@Model.MyAccount.fName" name="Name">
-                    </p>
-                    <p>
-                        <label for="uemail">Email帳號</label>
-                        <input type="email" id="uemail" value="@Model.MyAccount.fEmail" name="Email">
-                    </p>
-                </div>
-                <div class="bottomright">
-                    <p>
-                        <label for="fnumber">手機號碼</label>
-                        <input type="tel" id="fnumber" value="@Model.MyAccount.fPhone" name="Phone">
-                    </p>
-                    <p>
-                        <label for="fbirth">生日</label>
-                        <input type="text" disabled id="fbirth" value="@Model.MyAccount.fBirthday.ToShortDateString()">
-                    </p>
-                    <p>
-                        <label for="flive">居住地</label>
-                        <input type="text" id="flive" value="@Model.MyAccount.fAddress" name="Address">
-                    </p>
-                </div>
-                <input type="submit" value="儲存" class="btn">
-            </form>
+    <label for="menu_control" class="menu_btn">
+        <span>選單</span>
+    </label>
+    <nav>
+        <a href="#" id="btn1">我的帳戶</a>
+        <a href="#" id="btn2">我的收藏</a>
+        <button class="dropdown-btn" onclick="drop()">
+            <a href="#">我的管理<i class="fa-solid fa-caret-down"></i></a>
+        </button>
+        <div class="dropdown-container">
+            <a href="#" id="btn3">·我的競標</a>
+            <a href="#" id="btn4">·我的交換</a>
+            <a href="#" id="btn5">·競標紀錄</a>
+            <a href="#" id="btn6">.交換紀錄</a>
         </div>
+    </nav>
 
-        <div class="page2" id="pages2" style="display:none">
-            <input type="radio" id="tabone" name="mytabs" checked="checked">
-            <label for="tabone">競標商品收藏</label>
-            <div class="tab">
-                <div class="searchbar">
-                    <i class="fa-solid fa-magnifying-glass">
-                    </i>
-                    <input type="text" placeholder="您可以透過商品名稱，商品編號搜尋">
-                </div>
-                @foreach (tAuctionItem favoritem in Model.MyAuctionFavorite)
-                {
-                    int secondTotalRemain = Convert.ToInt32((favoritem.fEndTime - DateTime.Now).TotalSeconds);
-                    int day = secondTotalRemain / 86400;
-                    secondTotalRemain = secondTotalRemain % 86400;
-                    int hour = secondTotalRemain / 3600;
-                    secondTotalRemain = secondTotalRemain % 3600;
-                    int min = secondTotalRemain / 60;
-                    string resetday = $"{day}天{hour}時{min}分";
-
-
-            <a href="@Url.Content("~/Auction/Item/" + favoritem.fItemId)">
-                <div class="block">
-                    <img src="~/images/AuctionItemImages/@favoritem.fPhoto0">
-                    <div class="card-info">
-                        <div class="info-top">
-                            <h5>@favoritem.fItemId</h5>
-                        </div>
-                        <hr>
-                        <div class="info-bottom">
-                            <h5>@favoritem.fItemName</h5>
-                            <div class="info-price">
-                                <h4>$ @favoritem.fMoneyNow 元</h4> <p>/</p> <h6>出價 @favoritem.fBidCount 次</h6>
-                            </div>
-                            <div class="info-time">
-                                <h6>@resetday</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-                }
-                @Html.PagedListPager(Model.MyAuctionFavorite, page => Url.Action("MyPage", new { page, lead = "auctionfavorite" }))
-                
+    <div class="page1" id="pages1">
+        <form action="" method="post" class="form1">
+            <div class="top1">
+                <h1>帳戶檔案</h1>
+                <h6>管理您的檔案以保護您的帳戶</h6>
             </div>
-
-            <input type="radio" id="tabtwo" name="mytabs">
-            <label for="tabtwo">交換商品收藏</label>
-            <div class="tab">
-                <div class="searchbar">
-                    <i class="fa-solid fa-magnifying-glass">
-                    </i>
-                    <input type="text" placeholder="您可以透過商品名稱，商品編號搜尋">
+            <hr>
+            <div class="middle1">
+                <img src="https://picsum.photos/50/50?random=2">
+                <div class="name-info">
+                    <h5>@Model.MyAccount.fName</h5>
+                    <p>@Model.MyAccount.fAddress</p>
                 </div>
-                @foreach (tExchangeItem favorexitem in Model.MyExchangeFavorite)
-                {
-                    int secondTotalRemain = Convert.ToInt32((favorexitem.fEndTime - DateTime.Now).TotalSeconds);
-                    int day = secondTotalRemain / 86400;
-                    secondTotalRemain = secondTotalRemain % 86400;
-                    int hour = secondTotalRemain / 3600;
-                    secondTotalRemain = secondTotalRemain % 3600;
-                    int min = secondTotalRemain / 60;
-                    string resetday = $"{day}天{hour}時{min}分";
+            </div>
+            <div class="bottomleft">
+                <p>
+                    <label for="uaccount">使用者帳號</label>
+                    <input type="text" name="account" id="uaccount" disabled value="@Model.MyAccount.fAccount">
+                </p>
+                <p>
+                    <label for="uname">姓名</label>
+                    <input type="text" id="uname" value="@Model.MyAccount.fName" name="Name">
+                </p>
+                <p>
+                    <label for="uemail">Email帳號</label>
+                    <input type="email" id="uemail" value="@Model.MyAccount.fEmail" name="Email">
+                </p>
+            </div>
+            <div class="bottomright">
+                <p>
+                    <label for="fnumber">手機號碼</label>
+                    <input type="tel" id="fnumber" value="@Model.MyAccount.fPhone" name="Phone">
+                </p>
+                <p>
+                    <label for="fbirth">生日</label>
+                    <input type="text" disabled id="fbirth" value="@Model.MyAccount.fBirthday.ToShortDateString()">
+                </p>
+                <p>
+                    <label for="flive">居住地</label>
+                    <input type="text" id="flive" value="@Model.MyAccount.fAddress" name="Address">
+                </p>
+            </div>
+            <input type="submit" value="儲存" class="btn">
+        </form>
+    </div>
 
-                    <a href="@Url.Content("~/Exchange/Item/" + favorexitem.fItemId)">
-                        <div class="block">
-                            <img src="~/images/ExchangeItemImages/@favorexitem.fPhoto0">
-                            <div class="card-info">
-                                <div class="info-top">
-                                    <h5>@favorexitem.fItemId</h5>
+    <div class="page2" id="pages2" style="display:none">
+        <input type="radio" id="tabone" name="mytabs" checked="checked">
+        <label for="tabone">競標商品收藏</label>
+        <div class="tab">
+            <div class="searchbar">
+                <i class="fa-solid fa-magnifying-glass">
+                </i>
+                <input type="text" placeholder="您可以透過商品名稱，商品編號搜尋">
+            </div>
+            @foreach (tAuctionItem favoritem in Model.MyAuctionFavorite)
+            {
+                int secondTotalRemain = Convert.ToInt32((favoritem.fEndTime - DateTime.Now).TotalSeconds);
+                int day = secondTotalRemain / 86400;
+                secondTotalRemain = secondTotalRemain % 86400;
+                int hour = secondTotalRemain / 3600;
+                secondTotalRemain = secondTotalRemain % 3600;
+                int min = secondTotalRemain / 60;
+                string resetday = $"{day}天{hour}時{min}分";
+
+
+                <a href="@Url.Content("~/Auction/Item/" + favoritem.fItemId)">
+                    <div class="block">
+                        <img src="~/images/AuctionItemImages/@favoritem.fPhoto0">
+                        <div class="card-info">
+                            <div class="info-top">
+                                <h5>@favoritem.fItemId</h5>
+                            </div>
+                            <hr>
+                            <div class="info-bottom">
+                                <h5>@favoritem.fItemName</h5>
+                                <div class="info-price">
+                                    <h4>$ @favoritem.fMoneyNow 元</h4> <p>/</p> <h6>出價 @favoritem.fBidCount 次</h6>
                                 </div>
-                                <hr>
-                                <div class="info-bottom">
-                                    <h5>@favorexitem.fItemName</h5>
-                                    <div class="info-price">
-                                        <h4>留言數量</h4> <p>/</p> <h6>XX則</h6>
-                                    </div>
-                                    <div class="info-time">
-                                        <h6>@resetday</h6>
-                                    </div>
+                                <div class="info-time">
+                                    <h6>@resetday</h6>
                                 </div>
                             </div>
                         </div>
-                    </a>
-                }
-                @Html.PagedListPager(Model.MyExchangeFavorite, page => Url.Action("MyPage", new { page, lead = "exchangefavorite" }))
-            </div>
+                    </div>
+                </a>
+            }
+            @Html.PagedListPager(Model.MyAuctionFavorite, page => Url.Action("MyPage", new { page, lead = "auctionfavorite" }))
+
         </div>
 
-        <div class="page3" id="pages3" style="display:none">
-            <div class="ptable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th colspan="1">商品</th>
-                            <th colspan="1">卡牌名稱</th>
-                            <th colspan="1">競標價格</th>
-                            <th colspan="1">剩餘時間</th>
-                            <th colspan="1">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (tAuctionItem myaitem in Model.myAuctionItem)
-                        {
-                            int secondTotalRemain = Convert.ToInt32((myaitem.fEndTime - DateTime.Now).TotalSeconds);
-                            int day = secondTotalRemain / 86400;
-                            secondTotalRemain = secondTotalRemain % 86400;
-                            int hour = secondTotalRemain / 3600;
-                            secondTotalRemain = secondTotalRemain % 3600;
-                            int min = secondTotalRemain / 60;
-                            string resetday = $"{day}天{hour}時{min}分";
-
-                        <tr>
-                            <td><img src="~/images/AuctionItemImages/@myaitem.fPhoto0"></td>
-                            <td>@myaitem.fItemName</td>
-                            <td>$ @myaitem.fMoneyNow 元</td>
-                            <td>@resetday</td>
-                            @if (myaitem.fFinish) 
-                            {
-                            <td><a href="#" class="infoWinner" data-infoitemid="@myaitem.fItemId" data-itemtype="auction">通知買家</a></td>
-                            }
-                            else
-                            {
-                            <td></td>
-                            }
-                        </tr>
-                        }
-                    </tbody>
-                    <hr>
-                    <tfoot>
-                        <tr>
-                            <td colspan="5">
-                                @Html.PagedListPager(Model.myAuctionItem, page => Url.Action("MyPage", new { page, lead = "auctionitem" }))
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
+        <input type="radio" id="tabtwo" name="mytabs">
+        <label for="tabtwo">交換商品收藏</label>
+        <div class="tab">
+            <div class="searchbar">
+                <i class="fa-solid fa-magnifying-glass">
+                </i>
+                <input type="text" placeholder="您可以透過商品名稱，商品編號搜尋">
             </div>
-        </div>
+            @foreach (tExchangeItem favorexitem in Model.MyExchangeFavorite)
+            {
+                int secondTotalRemain = Convert.ToInt32((favorexitem.fEndTime - DateTime.Now).TotalSeconds);
+                int day = secondTotalRemain / 86400;
+                secondTotalRemain = secondTotalRemain % 86400;
+                int hour = secondTotalRemain / 3600;
+                secondTotalRemain = secondTotalRemain % 3600;
+                int min = secondTotalRemain / 60;
+                string resetday = $"{day}天{hour}時{min}分";
 
-
-
-        <div class="page4" id="pages4" style="display:none">
-            <div class="ptable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th colspan="1">商品</th>
-                            <th colspan="1">卡牌名稱</th>
-                            <th colspan="1">留言數量</th>
-                            <th colspan="1">剩餘時間</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (tExchangeItem myeitem in Model.myExchangeItem)
-                        {
-                            int secondTotalRemain = Convert.ToInt32((myeitem.fEndTime - DateTime.Now).TotalSeconds);
-                            int day = secondTotalRemain / 86400;
-                            secondTotalRemain = secondTotalRemain % 86400;
-                            int hour = secondTotalRemain / 3600;
-                            secondTotalRemain = secondTotalRemain % 3600;
-                            int min = secondTotalRemain / 60;
-                            string resetday = $"{day}天{hour}時{min}分";
-
-                            <tr>
-                                <td><img src="~/images/ExchangeItemImages/@myeitem.fPhoto0"></td>
-                                <td>@myeitem.fItemName</td>
-                                <td>@myeitem.fChangeCount 則</td>
-                                <td>@resetday</td>
-                            </tr>
-                        }
-                    </tbody>
-                    <hr>
-                    <tfoot>
-                        <tr>
-                            <td colspan="5">
-                                @Html.PagedListPager(Model.myExchangeItem, page => Url.Action("MyPage", new { page, lead = "exchangeitem" }))
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-
-        <div class="page5" id="pages5" style="display:none">
-            <div class="ptable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th colspan="1">商品</th>
-                            <th colspan="1">商品名稱</th>
-                            <th colspan="1">結標日期</th>
-                            <th colspan="1">結標價格</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>商品名稱</td>
-                            <td>結標日期</td>
-                            <td>結標價格</td>
-                        </tr>
-                        <tr>
-                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>商品名稱</td>
-                            <td>結標日期</td>
-                            <td>結標價格</td>
-                        </tr>
-                        <tr>
-                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>商品名稱</td>
-                            <td>結標日期</td>
-                            <td>結標價格</td>
-                        </tr>
-                        <tr>
-                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>商品名稱</td>
-                            <td>結標日期</td>
-                            <td>結標價格</td>
-                        </tr>
-                    </tbody>
-                    <hr>
-                    <tfoot>
-                        <tr>
-                            <td colspan="4">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-
-        <div class="page6" id="pages6" style="display:none">
-            <div class="ptable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th colspan="1">商品</th>
-                            <th colspan="1">商品名稱</th>
-                            <th colspan="1">交換日期</th>
-                            <th colspan="1">交換狀態</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>商品名稱</td>
-                            <td>交換日期</td>
-                            <td>交換狀態</td>
-                        </tr>
-                        <tr>
-                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>商品名稱</td>
-                            <td>交換日期</td>
-                            <td>交換狀態</td>
-                        </tr>
-                        <tr>
-                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>商品名稱</td>
-                            <td>交換日期</td>
-                            <td>交換狀態</td>
-                        </tr>
-                        <tr>
-                            <td><img src="https://fakeimg.pl/65x90/?text=Card"></td>
-                            <td>商品名稱</td>
-                            <td>交換日期</td>
-                            <td>交換狀態</td>
-                        </tr>
-                    </tbody>
-                    <hr>
-                    <tfoot>
-                        <tr>
-                            <td colspan="4">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+                <a href="@Url.Content("~/Exchange/Item/" + favorexitem.fItemId)">
+                    <div class="block">
+                        <img src="~/images/ExchangeItemImages/@favorexitem.fPhoto0">
+                        <div class="card-info">
+                            <div class="info-top">
+                                <h5>@favorexitem.fItemId</h5>
+                            </div>
+                            <hr>
+                            <div class="info-bottom">
+                                <h5>@favorexitem.fItemName</h5>
+                                <div class="info-price">
+                                    <h4>留言數量</h4> <p>/</p> <h6>XX則</h6>
+                                </div>
+                                <div class="info-time">
+                                    <h6>@resetday</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+            @Html.PagedListPager(Model.MyExchangeFavorite, page => Url.Action("MyPage", new { page, lead = "exchangefavorite" }))
         </div>
     </div>
 
-    <script>
+    <div class="page3" id="pages3" style="display:none">
+        <div class="ptable">
+            <div class="thead">
+                <ul>
+                    <li>商品</li>
+                    <li>卡牌名稱</li>
+                    <li>競標價格</li>
+                    <li>剩餘時間</li>
+                    <li>操作</li>
+                </ul>
+            </div>
+
+            @foreach (tAuctionItem myaitem in Model.myAuctionItem)
+            {
+                int secondTotalRemain = Convert.ToInt32((myaitem.fEndTime - DateTime.Now).TotalSeconds);
+                int day = secondTotalRemain / 86400;
+                secondTotalRemain = secondTotalRemain % 86400;
+                int hour = secondTotalRemain / 3600;
+                secondTotalRemain = secondTotalRemain % 3600;
+                int min = secondTotalRemain / 60;
+                string resetday = $"{day}天{hour}時{min}分";
+                <a href="@Url.Content("~/Auction/Item/" + myaitem.fItemId)">
+                    <div class="zone">
+                        <img src="~/images/AuctionItemImages/@myaitem.fPhoto0" />
+                        <h5>@myaitem.fItemName</h5>
+                        <h5>$ @myaitem.fMoneyNow 元</h5>
+                        @if (myaitem.fEndTime < DateTime.Now || myaitem.fFinish)
+                        {
+                            <h5>已結束</h5>
+                        }
+                        else
+                        {
+                            <h5>@resetday</h5>
+                        }
+                        <div class="button-area">
+                            @if (myaitem.fFinish)
+                            {
+                                <button class="infoWinner" data-infoitemid="@myaitem.fItemId" data-itemtype="auction">通知買家</button>
+                            }
+                            else
+                            {
+
+                            }
+                        </div>
+                    </div>
+                </a>
+            }
+            @Html.PagedListPager(Model.myAuctionItem, page => Url.Action("MyPage", new { page, lead = "auctionitem" }))
+        </div>
+    </div>
+
+
+
+    <div class="page4" id="pages4" style="display:none">
+        <div class="ptable">
+            <div class="thead">
+                <ul>
+                    <li>商品</li>
+                    <li>卡牌名稱</li>
+                    <li>留言數量</li>
+                    <li>剩餘時間</li>
+                    <li>操作</li>
+                </ul>
+            </div>
+            @foreach (tExchangeItem myeitem in Model.myExchangeItem)
+            {
+                int secondTotalRemain = Convert.ToInt32((myeitem.fEndTime - DateTime.Now).TotalSeconds);
+                int day = secondTotalRemain / 86400;
+                secondTotalRemain = secondTotalRemain % 86400;
+                int hour = secondTotalRemain / 3600;
+                secondTotalRemain = secondTotalRemain % 3600;
+                int min = secondTotalRemain / 60;
+                string resetday = $"{day}天{hour}時{min}分";
+                <a href="@Url.Content("~/Exchange/Item/" + myeitem.fItemId)">
+                    <div class="zone">
+                        <img src="~/images/ExchangeItemImages/@myeitem.fPhoto0">
+                        <h5>@myeitem.fItemName</h5>
+                        <h5>@myeitem.fChangeCount 則</h5>
+                        @if (myeitem.fEndTime < DateTime.Now || myeitem.fDelete)
+                        {
+                            <h5>已結束</h5>
+                        }
+                        else
+                        {
+                            <h5>@resetday</h5>
+                        }
+                        <div class="button-area">
+                            @if (myeitem.fEndTime < DateTime.Now || myeitem.fDelete)
+                            {
+                                <button class="infoWinner" data-infoitemid="@myeitem.fItemId" data-itemtype="auction">通知買家</button>
+                            }
+                            else
+                            {
+
+                            }
+                        </div>
+                    </div>
+                </a>
+            }
+            @Html.PagedListPager(Model.myExchangeItem, page => Url.Action("MyPage", new { page, lead = "exchangeitem" }))
+        </div>
+    </div>
+
+    <div class="page5" id="pages5" style="display:none">
+        <div class="ptable">
+            <div class="thead">
+                <ul>
+                    <li>商品</li>
+                    <li>商品編號</li>
+                    <li>結標日期</li>
+                    <li>結標價格</li>
+                </ul>
+            </div>
+            @foreach (tAuctionResult myaresult in Model.myAuctionResult)
+            {
+                DateTime endTime = (DateTime)myaresult.fWinTime;
+                <div class="zone">
+                    <img src="~/images/AuctionItemImages/@myaresult.fPhoto0">
+                    <h6>@myaresult.fResultId</h6>
+                    <h5>@endTime.ToShortDateString()</h5>
+                    <h5>$ @myaresult.fTotalMoney 元</h5>
+                </div>
+            }
+            @Html.PagedListPager(Model.myAuctionResult, page => Url.Action("MyPage", new { page, lead = "auctionresult" }))
+        </div>
+    </div>
+
+    <div class="page6" id="pages6" style="display:none">
+        <div class="ptable">
+            <div class="thead">
+                <ul>
+                    <li>商品</li>
+                    <li>商品編號</li>
+                    <li>交換日期</li>
+                    <li>交換狀態</li>
+                </ul>
+            </div>
+            @foreach (tExchangeResult myeresult in Model.myExchangeResult)
+            {
+                DateTime endTime1 = (DateTime)myeresult.fSubmitTime;
+                <div class="zone">
+                    <img src="~/images/ExchangeItemImages/@myeresult.fAPhoto0">
+                    <h6>@myeresult.fCoupleUserId</h6>
+                    <h5>@endTime1.ToShortDateString()</h5>
+                    <h5>@myeresult.fStatus</h5>
+                </div>
+            }
+            @Html.PagedListPager(Model.myExchangeResult, page => Url.Action("MyPage", new { page, lead = "exchangeresult" }))
+        </div>
+    </div>
+</div>
+
+<script>
 
         var lead = '@ViewBag.lead'
 
@@ -442,7 +375,7 @@
                 dropdownContent.style.display = "block"
             }
         }
-        
+
 
         /*var tab2 = documet.getElementById('tab2');*/
 
@@ -461,13 +394,19 @@
             case "exchangeitem":
                 btn4.click();
                 break;
+            case "auctionresult":
+                btn5.click();
+                break;
+            case "exchangeresult":
+                btn6.click();
+                break;
 
         }
         document.querySelectorAll('.infoWinner').forEach(dom => {
-            dom.addEventListener('click', (event) => {
+            dom.addEventListener('click', () => {
                 dom.disabled = true;
                 dom.textContent = '作業中…';
-                event.preventDefault();
+                /*event.preventDefault();*/
                 let para = `?itemId=${dom.dataset.infoitemid}`;
 
                 if (dom.dataset.itemtype == 'auction') {
@@ -489,8 +428,8 @@
             })
         })
 
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-</body>
-</html>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+@*</body>
+    </html>*@

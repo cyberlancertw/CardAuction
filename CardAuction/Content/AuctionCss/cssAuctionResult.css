@@ -35,7 +35,7 @@
 }
 
 #divResult{
-    width: 80%;
+    width: 100%;
 }
 #divResult>div{
     display: flex;
@@ -43,19 +43,157 @@
 #divResult>div>div{
     font-size: 1.6rem;
 }
-.divTitle{
-    width:20%;
+
+#postPicture > .divTitle {
+    width:100%;
 }
-#tableHistory{
-    width: 80%;
+
+#postPicture > .divContent {
+    display:flex;
+    width:25%;
+}
+
+.historyHeader {
+    border:solid 1px gray;
+    border-radius:5px;
+    color: black;
+    width: 100%;
     font-size: 1.6rem;
+    justify-content: space-around;
+    padding: 25px 0px;
+    font-family: 'Noto Sans TC';
+    font-weight: bold;
 }
-.bidAcc{
-    width: 20%;
+
+.img-zone img{
+    height:180px;
+    margin:20px;
 }
-.bidMoney{
-    width: 30%
+
+.history1{
+    display:flex;
 }
-.bidTime{
-    width: auto;
+
+.history2{
+    display:flex;
+}
+
+.history3{
+    display:flex;
+}
+
+
+.divTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Noto Sans CJK TC";
+    font-weight: bold;
+    color: #1f3344;
+    background-color: #ccc;
+}
+
+.img-zone {
+    display: flex;
+    justify-content: space-around;
+}
+
+#postPicture {
+    margin: 20px 0px 0px;
+    border-radius: 5px;
+    flex-direction: column;
+    border: gray 1px solid;
+}
+
+#postUser {
+    width: 45%;
+    float: left;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+#winUser {
+    width: 45%;
+    float: right;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+#winMoney {
+    width: 45%;
+    float: left;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+#totalMoney {
+    width: 45%;
+    float: right;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+#bidCount {
+    width: 45%;
+    float: left;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+#winTime {
+    width: 45%;
+    float: right;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+#deliveryInfo {
+    width: 45%;
+    float: left;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+td {
+    justify-content: space-between;
+    width: 300px;
+    text-align:center;
+}
+
+.divContent{
+    margin:10px 0px;
+    font-family:"Noto Sans CJK TC";
+    font-weight:normal;
+    color:#1f3344;
+}
+
+#postUser > .divContent,
+#winUser > .divContent,
+#winMoney > .divContent,
+#totalMoney > .divContent,
+#bidCount > .divContent,
+#winTime > .divContent,
+#deliveryInfo > .divContent{
+    padding:20px 0px;
 }

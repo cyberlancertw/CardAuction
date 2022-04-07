@@ -94,8 +94,15 @@
                             <h4>希望的交換物:  @Model.fHopeItemName</h4>
                             <h4>希望交換地點:  @Model.fHopeItemLocation</h4>
                             <hr />
+                            @if (Model.fDelete)
+                            {
+                                <h1>交換已結束</h1>
+                            }
+                            else
+                            {
                             <p>開始時間:@Model.fCreateTime</p>
                             <p>結束時間:@Model.fEndTime</p>
+                            }
                         </div>
                         <div class="col-sm-12">
                             <button id="IWantExchange" class="btnSize btn-dark floatR btncheng">我要交換</button>
@@ -243,7 +250,7 @@
         });//照片效果
 
         refreshStampTime(secondRemain);
-        @if(Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString().Equals(Model.fPostUserId))
+        @if(Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString().Equals(Model.fPostUserId) || Model.fDelete)
         {
         <text>
         btnFavorite.disabled = true;                                          // 有登入而且就是上架者自己
@@ -440,7 +447,7 @@
                 domH3.appendChild(domh303);
 
 
-                @if (Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString() == Model.fPostUserId) {
+                @if (Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString() == Model.fPostUserId  && !Model.fDelete ) {
                     <text>
                 let AWantExchangediv = document.createElement('div');
                 AWantExchangediv.className = 'col-sm-12 col-md-1 '
@@ -475,6 +482,12 @@
                 docFrag.appendChild(EIBRow);
                 </text>
                 }
+                //if (btnResult != null) {
+                //    btnResult.hidden = True;
+                //}
+                //else {
+                //    btnResult.disabled = True;
+                //}
             }
             EIB.appendChild(docFrag);
         }

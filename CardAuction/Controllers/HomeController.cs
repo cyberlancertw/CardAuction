@@ -16,9 +16,7 @@ namespace CardAuction.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            Session[CDictionary.SK_BackToController] = "Home";
-            Session[CDictionary.SK_BackToAction] = "Index";
-            Session[CDictionary.SK_BackToId] = string.Empty;
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Home", "Index");
             return View();
         }
 
@@ -30,18 +28,14 @@ namespace CardAuction.Controllers
             TempData["ToController"] = ToController;
             TempData["ToAction"] = ToAction;
             TempData["ToId"] = ToId;
-            Session[CDictionary.SK_BackToController] = ToController;
-            Session[CDictionary.SK_BackToAction] = ToAction;
-            Session[CDictionary.SK_BackToId] = ToId;
+            Session[CDictionary.SK_BackTo] = new CLinkTo(ToController, ToAction, ToId);
             return View();
         }
         [HttpGet]
         public ActionResult Search(string id)
         {
-            Session[CDictionary.SK_BackToController] = "Home";
-            Session[CDictionary.SK_BackToAction] = "Search";
-            Session[CDictionary.SK_BackToId] = string.Empty;
-
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Home", "Search", id);
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Home", "Search", id);
             CHomeSearchViewModel vModel = new CHomeSearchViewModel();
             vModel.keyword = id;
             if (string.IsNullOrEmpty(id))                               // 空的
@@ -167,9 +161,8 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult Post()
         {
-            Session[CDictionary.SK_BackToController] = "Home";
-            Session[CDictionary.SK_BackToAction] = "Post";
-            Session[CDictionary.SK_BackToId] = string.Empty;
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Home", "Post");
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Home", "Post");
             return View();
         }
 
@@ -206,7 +199,16 @@ namespace CardAuction.Controllers
 
             return Json(queryResult, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult About()
+        {
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Home", "About");
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Home", "About");
+            return View();
+        }
     }
+
+
 
     public class QueryNewestList
     {

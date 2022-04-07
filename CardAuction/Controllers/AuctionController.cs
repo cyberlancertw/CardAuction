@@ -60,9 +60,8 @@ namespace CardAuction.Controllers
                     return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "List" });
                 }
             }
-            Session[CDictionary.SK_BackToController] = "Auction";
-            Session[CDictionary.SK_BackToAction] = "Item";
-            Session[CDictionary.SK_BackToId] = id;
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "Item", id);
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "Item", id);
             return View(result);
         }
 
@@ -87,9 +86,8 @@ namespace CardAuction.Controllers
             
             if (Session[CDictionary.SK_UserUserId] == null)
             {
-                Session[CDictionary.SK_RedirectToController] = "Auction";
-                Session[CDictionary.SK_RedirectToAction] = "List";
-                Session[CDictionary.SK_RedirectToId] = string.Empty;
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "List");
+                
                 return RedirectToAction("Login", "Member");
             }
             string loginUserId = Session[CDictionary.SK_UserUserId].ToString();
@@ -122,17 +120,12 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                Session[CDictionary.SK_RedirectToController] = "Auction";
-                Session[CDictionary.SK_RedirectToAction] = "Post";
-                Session[CDictionary.SK_RedirectToId] = string.Empty;
-
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "Post");
                 return RedirectToAction("Login", "Member");
             }
             else
             {
-                Session[CDictionary.SK_BackToController] = "Auction";
-                Session[CDictionary.SK_BackToAction] = "Post";
-                Session[CDictionary.SK_BackToId] = string.Empty;
+                Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "Post");
                 return View();
             }
         }
@@ -141,9 +134,7 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                Session[CDictionary.SK_RedirectToController] = "Auction";
-                Session[CDictionary.SK_RedirectToAction] = "Post";
-                Session[CDictionary.SK_RedirectToId] = string.Empty;
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "Post");
                 return RedirectToAction("Login", "Member");
             }
 
@@ -222,21 +213,15 @@ namespace CardAuction.Controllers
             {
                 return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "Post" });
             }
-            Session[CDictionary.SK_BackToController] = "Auction";
-            Session[CDictionary.SK_BackToAction] = "List";
-            Session[CDictionary.SK_BackToId] = string.Empty;
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "List");
             return RedirectToAction("List");
         }
 
         [HttpGet]
         public ActionResult List()
         {
-            Session[CDictionary.SK_RedirectToController] = "Auction";
-            Session[CDictionary.SK_RedirectToAction] = "List";
-            Session[CDictionary.SK_RedirectToId] = string.Empty;
-            Session[CDictionary.SK_BackToController] = "Auction";
-            Session[CDictionary.SK_BackToAction] = "List";
-            Session[CDictionary.SK_BackToId] = string.Empty;
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "List");
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "List");
             return View();
         }
 
@@ -373,11 +358,8 @@ namespace CardAuction.Controllers
             item.fMoneyNow = amount;
             item.fBidCount++;
             item.fTopBidUserId = userId;
-
-            if(item.fBuyPrice > 0 && amount >= item.fBuyPrice)
-            {
-                item.fFinish = true;
-            }
+            
+            
             tAuctionBid newBid = new tAuctionBid
             {
                 fItemId = item.fItemId,
@@ -385,8 +367,12 @@ namespace CardAuction.Controllers
                 fUserId = userId,
                 fMoney = amount
             };
-
             db.tAuctionBid.Add(newBid);
+
+            if (item.fBuyPrice > 0 && amount >= item.fBuyPrice)         // 有直購且出大於等於直購價
+            {
+                item.fFinish = true;
+            }
             try
             {
                 db.SaveChanges();
@@ -583,8 +569,12 @@ namespace CardAuction.Controllers
             {
                 return Json(new { statusMessage = "NoTopFinish"}, JsonRequestBehavior.AllowGet);        // 時間到，無人得標的結束
             }
-
-            string winUserAcc = db.tMember.Find(item.fTopBidUserId).fAccount;
+            tMember topUser = db.tMember.Find(item.fTopBidUserId);
+            if(topUser == null)
+            {
+                return Json(new { statusMessage = "NoTopNotFinish" }, JsonRequestBehavior.AllowGet);       // 時間到，無人得標的結束
+            }
+            string winUserAcc = topUser.fAccount;
             string statusMessage = "EndTimeFinish";                                                     // 時間到，有人得標的結束
 
             if (item.fBuyPrice > 0 && item.fMoneyNow >= item.fBuyPrice)
@@ -625,6 +615,10 @@ namespace CardAuction.Controllers
                 fResultId = itemId,
                 fPostUserId = item.fPostUserId,
                 fWinUserId = item.fTopBidUserId,
+                fPhoto0 = item.fPhoto0,
+                fPhoto1 = item.fPhoto1,
+                fPhoto2 = item.fPhoto2,
+                fPhoto3 = item.fPhoto3,
                 fTotalMoney = item.fMoneyNow,
                 fBidCount = item.fBidCount,
                 fWinTime = item.fEndTime,
@@ -684,6 +678,23 @@ namespace CardAuction.Controllers
                 fBidCount = item.fBidCount,
                 fBidMoney = item.fMoneyNow,
             };
+            if (!string.IsNullOrEmpty(item.fPhoto0))
+            {
+                newResult.fPhoto0 = item.fPhoto0;
+            }
+            if (!string.IsNullOrEmpty(item.fPhoto1))
+            {
+                newResult.fPhoto2 = item.fPhoto2;
+            }
+            if (!string.IsNullOrEmpty(item.fPhoto2))
+            {
+                newResult.fPhoto2 = item.fPhoto2;
+            }
+            if (!string.IsNullOrEmpty(item.fPhoto3))
+            {
+                newResult.fPhoto3 = item.fPhoto3;
+            }
+
             tMember postUser = db.tMember.Find(item.fPostUserId);
             string postUserAcc = postUser.fAccount;
             string postUserEmail = postUser.fEmail;

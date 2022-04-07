@@ -19,6 +19,10 @@ namespace CardAuction.ViewModels
         public IPagedList<tAuctionItem> myAuctionItem { get; set; }
 
         public IPagedList<tExchangeItem> myExchangeItem { get; set; }
+
+        public IPagedList<tAuctionResult> myAuctionResult { get; set; }
+
+        public IPagedList<tExchangeResult> myExchangeResult { get; set; }
         //public List<tItem> myAuctionItem { get;set }
     }
 }

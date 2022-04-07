@@ -17,6 +17,10 @@ namespace CardAuction.Models
         public string fResultId { get; set; }
         public string fPostUserId { get; set; }
         public string fWinUserId { get; set; }
+        public string fPhoto0 { get; set; }
+        public string fPhoto1 { get; set; }
+        public string fPhoto2 { get; set; }
+        public string fPhoto3 { get; set; }
         public Nullable<int> fBidMoney { get; set; }
         public Nullable<int> fTotalMoney { get; set; }
         public Nullable<System.DateTime> fWinTime { get; set; }
