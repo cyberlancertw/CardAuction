@@ -11,6 +11,39 @@
 }
 
 <div id="divResult">
+    <table id="tableHistory">
+        <tr id="historyHeader">
+            <td class="bidAcc">帳號</td>
+            <td class="bidMoney">出價</td>
+            <td class="bidTime">時間</td>
+        </tr>
+        @foreach (BidDetail bid in Model.history)
+        {
+        <tr class="history">
+            <td class="bidAcc">@bid.bidAccount</td>
+            <td class="bidMoney">@bid.bidMoney 元</td>
+            <td class="bidTime">@bid.bidTime.ToString()</td>
+        </tr>
+        }
+        
+    </table>
+
+
+    <div id="postPicture">
+        <div class="divTitle">競標商品照片</div>
+        @if (!string.IsNullOrEmpty(Model.result.fPhoto0)){
+            <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto0" /></div>
+        }
+        @if (!string.IsNullOrEmpty(Model.result.fPhoto1)){
+            <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto1" /></div>
+        }
+        @if (!string.IsNullOrEmpty(Model.result.fPhoto2)){
+            <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto2" /></div>
+        }
+        @if (!string.IsNullOrEmpty(Model.result.fPhoto3)){
+            <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto3" /></div>
+        }
+    </div>
     <div id="postUser">
         <div class="divTitle">競標商品上架者</div>
         <div class="divContent">@Model.postUserAccount</div>
@@ -39,21 +72,6 @@
         <div class="divTitle">運送資訊</div>
         <div class="divContent">@Model.result.fDeliveryInfo</div>
     </div>
-    <table id="tableHistory">
-        <tr id="historyHeader">
-            <td class="bidAcc">帳號</td>
-            <td class="bidMoney">出價</td>
-            <td class="bidTime">時間</td>
-        </tr>
-        @foreach (BidDetail bid in Model.history)
-        {
-        <tr class="history">
-            <td class="bidAcc">@bid.bidAccount</td>
-            <td class="bidMoney">@bid.bidMoney 元</td>
-            <td class="bidTime">@bid.bidTime.ToString()</td>
-        </tr>
-        }
-        
-    </table>
+    
 </div>
 
