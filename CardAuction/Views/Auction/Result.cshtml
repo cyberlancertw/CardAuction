@@ -11,7 +11,27 @@
 }
 
 <div id="divResult">
-    <table id="tableHistory">
+    <div class="historyHeader">
+        @foreach (BidDetail bid in Model.history)
+        {
+            <div class="history1">
+                <div class="bidAcc">帳號:</div>
+                <div class="bidAcc">@bid.bidAccount</div>
+            </div>
+            <div class="history2">
+                <div class="bidMoney">出價:</div>
+                <div class="bidMoney">@bid.bidMoney 元</div>
+            </div>
+            <div class="history3">
+                <div class="bidTime">時間:</div>
+                <div class="bidTime">@bid.bidTime.ToString()</div>
+            </div>
+        }
+
+    </div>
+
+
+    @*<table id="tableHistory">
         <tr id="historyHeader">
             <td class="bidAcc">帳號</td>
             <td class="bidMoney">出價</td>
@@ -26,52 +46,60 @@
         </tr>
         }
         
-    </table>
+    </table>*@
 
 
     <div id="postPicture">
         <div class="divTitle">競標商品照片</div>
-        @if (!string.IsNullOrEmpty(Model.result.fPhoto0)){
-            <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto0" /></div>
-        }
-        @if (!string.IsNullOrEmpty(Model.result.fPhoto1)){
-            <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto1" /></div>
-        }
-        @if (!string.IsNullOrEmpty(Model.result.fPhoto2)){
-            <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto2" /></div>
-        }
-        @if (!string.IsNullOrEmpty(Model.result.fPhoto3)){
-            <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto3" /></div>
-        }
+        <div class="img-zone">
+            @if (!string.IsNullOrEmpty(Model.result.fPhoto0))
+            {
+                <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto0" /></div>
+            }
+            @if (!string.IsNullOrEmpty(Model.result.fPhoto1))
+            {
+                <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto1" /></div>
+            }
+            @if (!string.IsNullOrEmpty(Model.result.fPhoto2))
+            {
+                <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto2" /></div>
+            }
+            @if (!string.IsNullOrEmpty(Model.result.fPhoto3))
+            {
+                <div class="divContent"><img src="~/images/AuctionItemImages/@Model.result.fPhoto3" /></div>
+            }
+        </div>
     </div>
-    <div id="postUser">
-        <div class="divTitle">競標商品上架者</div>
-        <div class="divContent">@Model.postUserAccount</div>
-    </div>
-    <div id="winUser">
-        <div class="divTitle">競標商品得標者</div>
-        <div class="divContent">@Model.winUserAccount</div>
-    </div>
-    <div id="winMoney">
-        <div class="divTitle">得標價</div>
-        <div class="divContent">$ @Model.result.fBidMoney 元</div>
-    </div>
-    <div id="totalMoney">
-        <div class="divTitle">含運費總價</div>
-        <div class="divContent">$ @Model.result.fTotalMoney 元</div>
-    </div>
-    <div id="bidCount">
-        <div class="divTitle">出價次數</div>
-        <div class="divContent">@Model.result.fBidCount</div>
-    </div>
-    <div id="winTime">
-        <div class="divTitle">得標時間</div>
-        <div class="divContent">@Model.result.fWinTime</div>
-    </div>
-    <div id="deliveryInfo">
-        <div class="divTitle">運送資訊</div>
-        <div class="divContent">@Model.result.fDeliveryInfo</div>
-    </div>
+    
+        <div id="postUser">
+            <div class="divTitle">競標商品上架者</div>
+            <div class="divContent">@Model.postUserAccount</div>
+        </div>
+        <div id="winUser">
+            <div class="divTitle">競標商品得標者</div>
+            <div class="divContent">@Model.winUserAccount</div>
+        </div>
+        <div id="winMoney">
+            <div class="divTitle">得標價</div>
+            <div class="divContent">$ @Model.result.fBidMoney 元</div>
+        </div>
+        <div id="totalMoney">
+            <div class="divTitle">含運費總價</div>
+            <div class="divContent">$ @Model.result.fTotalMoney 元</div>
+        </div>
+        <div id="bidCount">
+            <div class="divTitle">出價次數</div>
+            <div class="divContent">@Model.result.fBidCount</div>
+        </div>
+        <div id="winTime">
+            <div class="divTitle">得標時間</div>
+            <div class="divContent">@Model.result.fWinTime</div>
+        </div>
+        <div id="deliveryInfo">
+            <div class="divTitle">運送資訊</div>
+            <div class="divContent">@Model.result.fDeliveryInfo</div>
+        </div>
+    
     
 </div>
 
