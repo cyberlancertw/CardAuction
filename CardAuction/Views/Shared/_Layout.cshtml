@@ -17,6 +17,7 @@
 <body>
     <div class="container">
         <div id="header">
+            <div id="divBell"><i class="fa-solid fa-bell" id="iconBell"></i></div>
             <div id="divLogin">
                 @{
                     var userAcc = Session[CDictionary.SK_UserAccount];
@@ -74,9 +75,31 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script>
         var txtSearch = document.getElementById('txtSearch');
+        var divBell = document.getElementById('divBell');
+
+        @if (Session[CDictionary.SK_UserUserId] != null)
+        {
+    <text>
+        let xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', () => {
+            if (xhr.responseText == 'True') {
+                window.setInterval(() => {
+                    if (divBell.style.visibility == 'hidden') {
+                        divBell.style.visibility = 'visible';
+                    }
+                    else {
+                        divBell.style.visibility = 'hidden';
+                    }
+                }, 500);
+            }
+        });
+        xhr.open('GET', '@Url.Content("~/Home/FindFinishAuctionItem")');
+        xhr.send();
+        </text>
+        }
 
         txtSearch.addEventListener('keypress', event => {
-            if (event.code == 'Enter' || event.code == 'NumpadEnter') {
+                if (event.code == 'Enter' || event.code == 'NumpadEnter') {
                 searchBy(event.target.value);
             }
         });
@@ -85,6 +108,8 @@
         function searchBy(keyword) {
             location.href = '@Url.Content("~/Home/Search/")' + keyword;
         }
+
+
     </script>
     @RenderSection("scripts", required: false)
 </body>

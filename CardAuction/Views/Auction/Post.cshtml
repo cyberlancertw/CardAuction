@@ -210,6 +210,28 @@
                             </div>
 
                             <div class="col-4">
+                                <label class="fomr-check-label" for="chkOk">OK</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="number" name="fTransOk" id="txtOk" min="0" value="0" disabled />
+                            </div>
+                            <div class="form-check form-switch col-4 col-md-3">
+                                <input type="checkbox" class="form-check-input" id="chkOk" name="isOk" value="true" />
+                                <input type="hidden" name="isOk" value="false" />
+                            </div>
+
+                            <div class="col-4">
+                                <label class="fomr-check-label" for="chkLife">萊爾富</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="number" name="fTransLife" id="txtLife" min="0" value="0" disabled />
+                            </div>
+                            <div class="form-check form-switch col-4 col-md-3">
+                                <input type="checkbox" class="form-check-input" id="chkLife" name="isLife" value="true" />
+                                <input type="hidden" name="isLife" value="false" />
+                            </div>
+
+                            <div class="col-4">
                                 <label class="fomr-check-label" for="chkLogi">物流</label>
                             </div>
                             <div class="col-4">
@@ -311,8 +333,8 @@
             countUserInfo.textContent = `${domUserInfo.value.length}/300`;
         });
 
-        let arySwitch = ['BuyPrice','chkPerson','chkSeven','chkFami','chkLogi'];
-        let aryTxt = ['txtBuy', 'txtPerson', 'txtSeven', 'txtFami', 'txtLogi'];
+        let arySwitch = ['BuyPrice', 'chkPerson', 'chkSeven', 'chkFami', 'chkOk', 'chkLife', 'chkLogi'];
+        let aryTxt = ['txtBuy', 'txtPerson', 'txtSeven', 'txtFami', 'txtOk', 'txtLife', 'txtLogi'];
         for (let i = 0; i < arySwitch.length; i++) {
             let domSwitch = document.getElementById(arySwitch[i])
             let domTxt = document.getElementById(aryTxt[i]);

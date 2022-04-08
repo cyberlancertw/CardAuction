@@ -58,7 +58,7 @@
         width: 62%;
         font-size: 1.6rem;
     }
-    #transInputSeven > label, #transInputFami > label, #transInputLogi > label{
+    #transInputSeven > label, #transInputFami > label, #transInputOk > label, #transInputLife > label, #transInputLogi > label {
         width: 25%;
         font-size: 1.6rem;
         margin: 0.5rem 0.5rem;

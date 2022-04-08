@@ -80,8 +80,9 @@ h2 {
     display:flex;
     justify-content:space-around;
     align-items:center;
-    height: 250px;
-    padding-top:30px;
+    height: 17rem;
+    margin-top:20px;
+    padding-top:10px;
     background-color: #ced3d7;
 }
 

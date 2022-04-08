@@ -104,6 +104,7 @@ body {
 
 #header {
     display: flex;
+    align-items: center;
     background-color: #ffffff;
     padding: 4px;
     border-bottom: 3px solid #ebebeb;
@@ -117,6 +118,12 @@ body {
 }
 #aLogout{
     text-decoration: none;
+}
+#divBell {
+    vertical-align: central;
+    visibility: hidden;
+    font-size: 1.4rem;
+    color: #ab8f4e;
 }
 #divLogin,#divAbout, #divContact{
     margin: 0rem 2.4rem;

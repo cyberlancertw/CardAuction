@@ -34,8 +34,8 @@ namespace CardAuction.Models
         public int fTransPerson { get; set; }
         public int fTransSeven { get; set; }
         public int fTransFami { get; set; }
-        public Nullable<int> fTransOk { get; set; }
-        public Nullable<int> fTransLife { get; set; }
+        public int fTransOk { get; set; }
+        public int fTransLife { get; set; }
         public int fTransLogi { get; set; }
         public string fUserInfo { get; set; }
         public int fBidCount { get; set; }

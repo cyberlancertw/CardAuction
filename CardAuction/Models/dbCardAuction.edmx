@@ -56,8 +56,8 @@
           <Property Name="fTransPerson" Type="int" Nullable="false" />
           <Property Name="fTransSeven" Type="int" Nullable="false" />
           <Property Name="fTransFami" Type="int" Nullable="false" />
-          <Property Name="fTransOk" Type="int" />
-          <Property Name="fTransLife" Type="int" />
+          <Property Name="fTransOk" Type="int" Nullable="false" />
+          <Property Name="fTransLife" Type="int" Nullable="false" />
           <Property Name="fTransLogi" Type="int" Nullable="false" />
           <Property Name="fUserInfo" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="fBidCount" Type="int" Nullable="false" />
@@ -292,8 +292,8 @@
           <Property Name="fTransPerson" Type="Int32" Nullable="false" />
           <Property Name="fTransSeven" Type="Int32" Nullable="false" />
           <Property Name="fTransFami" Type="Int32" Nullable="false" />
-          <Property Name="fTransOk" Type="Int32" />
-          <Property Name="fTransLife" Type="Int32" />
+          <Property Name="fTransOk" Type="Int32" Nullable="false" />
+          <Property Name="fTransLife" Type="Int32" Nullable="false" />
           <Property Name="fTransLogi" Type="Int32" Nullable="false" />
           <Property Name="fUserInfo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fBidCount" Type="Int32" Nullable="false" />
