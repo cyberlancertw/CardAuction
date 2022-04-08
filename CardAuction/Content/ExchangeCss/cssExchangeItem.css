@@ -392,7 +392,7 @@ body {
 }
 
 #btnCommentSend {
-    background-color: #ab8f4e;
+    background-color: #1f3344;
     color: #ffffff;
     border-radius: 4px;
     width: 100%;
@@ -469,7 +469,7 @@ body {
     border-bottom: 1px solid #ced3d8;
 }
 .floatR {
-    margin-left: 10px;
+    text-align:center;
     /*margin-inline: auto;*/
 }
 .avatar {
@@ -480,9 +480,11 @@ body {
 }
 
 .btncheng {
-
+    width:200px;
+    height:50px;
+    font-size:30px;
     margin-top: 10%;
-    margin-bottom:10px;
+    margin-bottom:5px;
 }
 
 .btnright {
@@ -495,9 +497,7 @@ body {
     margin-left: 5%;
 }
 /*商品敘述*/
-.floatR {
-    float: right;
-}
+
 
 .pmsg2 {
     margin: auto;

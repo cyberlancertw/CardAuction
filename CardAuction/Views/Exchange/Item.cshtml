@@ -25,7 +25,7 @@
         <div class="mb-3" id="divSort">
             交換 / @Model.fSort
         </div>
-        <div class="mb-4 ">帳號：@ViewBag.PostUserAccount</div>
+        <div class="mb-4 "><h4> 帳號：@ViewBag.PostUserAccount</h4></div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6" id="divItemName">
                 @Model.fItemName
@@ -88,24 +88,26 @@
                     </div>
                     <div class="container" id="divItemMsg">
                         <div class="col-sm-12 ">
-                            <h4>物品所在地: @Model.fItemLocation</h4>
-                            <h4>鑑定級別:  @Model.fItemLevel</h4>
-                            <h4>希望交換分類:  @Model.fSort</h4>
-                            <h4>希望的交換物:  @Model.fHopeItemName</h4>
-                            <h4>希望交換地點:  @Model.fHopeItemLocation</h4>
+                            <h4>物品所在地: @Model.fItemLocation</h4><br />
+                            <h4>鑑定級別:  @Model.fItemLevel</h4><br />
+                            <h4>希望交換分類:  @Model.fSort</h4><br />
+                            <h4>希望的交換物:  @Model.fHopeItemName</h4><br />
+                            <h4>希望交換地點:  @Model.fHopeItemLocation</h4><br />
                             <hr />
                             @if (Model.fDelete)
                             {
+                                <br />
                                 <h1>交換已結束</h1>
                             }
                             else
                             {
-                            <p>開始時間:@Model.fCreateTime</p>
-                            <p>結束時間:@Model.fEndTime</p>
+                                <br />
+                                <h4>開始時間:@Model.fCreateTime</h4><br />
+                                <h4>結束時間:@Model.fEndTime</h4>
                             }
                         </div>
-                        <div class="col-sm-12">
-                            <button id="IWantExchange" class="btnSize btn-dark floatR btncheng">我要交換</button>
+                        <div class="col-sm-12 floatR">
+                            <button id="IWantExchange" class="btnSize btn-dark  btncheng">我  要  交  換</button>
                         </div>
                     </div>
                 </div>
@@ -119,7 +121,7 @@
                         <div class="mt-2 mb-4">結束時間:@Model.fEndTime</div>*@
                         <div class="mb-4">@*提出交換者：@ViewBag.PostUserAccount*@</div>
                         <div class="mb-4">
-                            @Model.fItemDescription
+                            <h4>@Model.fItemDescription</h4> 
                         </div>
                     </div>
                 </div>
@@ -161,7 +163,7 @@
                     </div>
                 </div>
                 <div class="row" id="divComment">
-                    <div class="col-6 col-sm-5 col-md-3 titleTopicGold ">
+                    <div class="col-6 col-sm-5 col-md-3 titleTopic ">
                         問與答
                     </div>
                     <div id="divCommentContent">
@@ -419,7 +421,7 @@
 
                 let EIBName = document.createElement('div');
                 EIBName.className = 'col-sm-12 col-md-12';
-                let EIBAccountH4 = document.createElement('h6');
+                let EIBAccountH4 = document.createElement('h2');
                 EIBAccountH4.textContent = `帳號:${comment.postAcc}`;
                 EIBName.appendChild(EIBAccountH4);
 
