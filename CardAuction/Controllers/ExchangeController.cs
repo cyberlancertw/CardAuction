@@ -48,6 +48,9 @@ namespace CardAuction.Controllers
                     return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {e.ToString()}", ToController = "Auction", ToAction = "List" });
                 }
             }
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Exchange", "Item", id);
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Exchange", "Item", id);
+
             return View(result);
         }
 
@@ -260,6 +263,8 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult List()
         {
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Exchange", "List");
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Exchange", "List");
             return View();
             
         }
@@ -418,6 +423,10 @@ namespace CardAuction.Controllers
 
         public ActionResult btnSureResult(string itemIdA ,string itemIdB)
         {
+            if(db.tExchangeResult.Find(itemIdB) != null)
+            {
+                return View();
+            }
             bool isExist = db.tExchangeItemTable.Any(m => m.fItemId == itemIdA && m.fItemTableId == itemIdB);
             if (isExist)
             {
