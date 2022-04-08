@@ -469,7 +469,7 @@ body {
     border-bottom: 1px solid #ced3d8;
 }
 .floatR {
-    text-align:center;
+    text-align:right;
     /*margin-inline: auto;*/
 }
 .avatar {
@@ -480,11 +480,12 @@ body {
 }
 
 .btncheng {
-    width:200px;
-    height:50px;
-    font-size:30px;
+    width:150px;
+    height:40px;
+    font-size:1.5rem;
     margin-top: 10%;
     margin-bottom:5px;
+    border-radius:10px;
 }
 
 .btnright {
@@ -517,3 +518,9 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+.timestyle{
+    font-size:1rem;
+}
+
+
