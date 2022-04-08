@@ -471,9 +471,9 @@ namespace CardAuction.Controllers
                 + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
             string contentB = $"<h1>{userAccB}您好，您的「{item.fItemNameB}」與{MatchUserA}的「{item.fItemNameA}」已確定交換，請儘速登入個人頁面，或利用以下連結填寫運送資訊：</h1>"
                 + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
-            //Service.SendEmail(userEmailA, subject, contentA );
+            Service.SendEmail(userEmailA, subject, contentA );
 
-            //Service.SendEmail(userEmailB, subject, contentB );
+            Service.SendEmail(userEmailB, subject, contentB );
 
 
             return View();
