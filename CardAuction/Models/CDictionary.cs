@@ -21,6 +21,10 @@ namespace CardAuction.Models
         public const string SK_ValidationAccount = "SK_ValidationAccount";
         public const string SK_ValidationEmail = "SK_ValidationEmail";
         public const string SK_ValidationSuccess = "SK_ValidationSuccess";
-        public const string WebHost = "http://127.0.0.1/";
+        public const string SK_BellFinishItems = "SK_BellFinishItems";
+        public const string SK_BellInfoItems = "SK_BellInfoItems";
+        public const string WebHost = "https://cardauction.azurewebsites.net/";
+
+
     }
 }

@@ -228,7 +228,19 @@ namespace CardAuction.Controllers
             Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "List");
             Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "List");
 
-            RefreshFinishItem();
+            var itemFinish = db.tAuctionItem.Where(m => m.fEndTime < DateTime.Now && !m.fFinish);
+            foreach (var item in itemFinish)
+            {
+                item.fFinish = true;
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
 
             return View();
         }
@@ -468,50 +480,16 @@ namespace CardAuction.Controllers
             {
                 db.SaveChanges();
             }
+            catch(DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
             return;
         }
-
-        public void WinBid(tAuctionItem item, int amount, string userId, string itemId)
-        {
-            tAuctionResult query = db.tAuctionResult.Find(itemId);
-            if(query != null)               // 已有結果，什麼都不做
-            {
-                return;
-            }
-            tAuctionResult newResult = new tAuctionResult
-            {
-                fResultId = itemId,
-                fPostUserId = item.fPostUserId,
-                fWinUserId = userId,
-                fTotalMoney = amount,
-                fBidCount = item.fBidCount,
-                fWinTime = DateTime.Now,
-                fBidMoney = item.fMoneyNow,
-                fDeliveryInfo = string.Empty
-            };
-
-            db.tAuctionResult.Add(newResult);              // 結果存入 tAuctionResult
-            item.fDelete = true;                           // tAuctionItem 設為結束
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch(DbEntityValidationException ex)
-            {
-                Console.WriteLine(ex.StackTrace.ToString());
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            return;
-        }
-
         
         public ActionResult GetEndInfo(string itemId)
         {
@@ -835,22 +813,6 @@ namespace CardAuction.Controllers
             return;
         }
 
-        public void RefreshFinishItem()
-        {
-            var itemFinish = db.tAuctionItem.Where(m => m.fEndTime < DateTime.Now && !m.fFinish);
-            foreach (var item in itemFinish)
-            {
-                item.fFinish = true;
-            }
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-        }
     }
 
 }

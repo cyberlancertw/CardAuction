@@ -76,25 +76,28 @@
     <script>
         var txtSearch = document.getElementById('txtSearch');
         var divBell = document.getElementById('divBell');
+        var finishItemList = [], infoItemList = [];
 
         @if (Session[CDictionary.SK_UserUserId] != null)
         {
     <text>
-        let xhr = new XMLHttpRequest();
-        xhr.addEventListener('load', () => {
-            if (xhr.responseText == 'True') {
-                window.setInterval(() => {
-                    if (divBell.style.visibility == 'hidden') {
-                        divBell.style.visibility = 'visible';
-                    }
-                    else {
-                        divBell.style.visibility = 'hidden';
-                    }
-                }, 500);
-            }
+    fetch('@Url.Content("~/Home/FindFinishAuctionItem")', { method: 'GET' })
+        .then(response => response.json())
+        .then(hasNewItem => {
+            finishItemList = [];
+            hasNewItem.forEach(obj => finishItemList.push(obj.itemId));
+            console.log(finishItemList);
+            //if (hasNewItem == 'True') {
+            //    window.setInterval(() => {
+            //        if (divBell.style.visibility == 'hidden') {
+            //            divBell.style.visibility = 'visible';
+            //        }
+            //        else {
+            //            divBell.style.visibility = 'hidden';
+            //        }
+            //    }, 500);
+            //}
         });
-        xhr.open('GET', '@Url.Content("~/Home/FindFinishAuctionItem")');
-        xhr.send();
         </text>
         }
 

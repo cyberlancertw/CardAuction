@@ -61,8 +61,14 @@ namespace CardAuction.Models
                 NetworkCredential networkCred = new NetworkCredential(secObj.Network.UserName, secObj.Network.Password);
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = networkCred;
-
-                smtp.Send(mailMsg);
+                try
+                {
+                    smtp.Send(mailMsg);
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
             }
         }
 

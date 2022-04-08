@@ -284,6 +284,7 @@
 
         var secondRemain = @secondTotalRemain ;
         var leastBid = @leastBid;
+        var btnBuyConfirm = false;
         var domTime = document.getElementById('stampTime');
         var btnReport = document.getElementById('btnReport');
         var btnBuy = document.getElementById('btnBuy');
@@ -363,36 +364,24 @@
             Session[CDictionary.SK_RedirectToController] = "Auction";
             Session[CDictionary.SK_RedirectToId] = Model.fItemId;
         <text>
-        let btns = [btnFavorite, btnReport, btnBid, btnCommentSend];                   // 無登入者，若點擊這些按鈕，送去登入頁
+        let btns = [btnFavorite, btnReport, btnBid, btnCommentSend, btnBuy];    // 無登入者，若點擊這些按鈕，送去登入頁
         btns.forEach(dom => {
             if (dom) {
-                dom.addEventListener('click', event => {
-                    event.preventDefault();
+                dom.addEventListener('click', () => {
                     location.href = '@Url.Content("~/Member/Login")';
                 });
             }
         });
-        if (btnBuy) {                                                                   // 購買鍵可能不存在，另外處理
-            btnBuy.addEventListener('click', event => {
-                event.preventDefault();
-                location.href = '@Url.Content("~/Member/Login")';
-            });
-        }
         </text>
         }
         else
         {
         <text>
-        btnFavorite.addEventListener('click', function (event) {                // 無登入者，或非主人的帳號登入，可按功能
-            event.preventDefault();                                             // 有追蹤、出價
-            let xhr = new XMLHttpRequest();
-                xhr.addEventListener('load', function() {
-                    let isFavorite = xhr.response;
-                    toggleFavorite(isFavorite);
-                });
-            let para = `?ItemId=${itemId}`;
-            xhr.open('GET', '@Url.Content("~/Member/FavoriteAuction")' + para);
-            xhr.send();
+        btnFavorite.addEventListener('click', () => {                           // 有登入者，或非主人的帳號登入，可按功能
+            let para = `?itemId=${itemId}`;                                     // 有追蹤、出價
+            fetch('@Url.Content("~/Member/FavoriteAuction")' + para, { method: 'GET' })
+                .then(response => response.text())
+                .then(isFavorite => toggleFavorite(isFavorite));
         });
 
         if (btnBid) {
@@ -422,8 +411,19 @@
         });
 
         if (btnBuy) {
-          btnBuy.addEventListener('click', function () {
-                sendBid(@Model.fBuyPrice);          // 直購
+            btnBuy.addEventListener('click', function () {
+                if (btnBuyConfirm) {
+                    sendBid(@Model.fBuyPrice);          // 直購
+                    btnBuyConfirm = false;
+                }
+                else {
+                    btnBuyConfirm = true;
+                    btnBuy.textContent = '確認';
+                    window.setTimeout(() => {
+                        btnBuy.textContent = '購買';
+                        btnBuyConfirm = false;
+                    }, 3000);
+                }
             });
         }
 
@@ -585,7 +585,6 @@
 
         function toggleFavorite(isFavorite) {
             if (isFavorite == 'True') {
-
                 txtFavorite.textContent = '已追蹤';
                 iconFavorite.classList.add('fa-heart-circle-check');
                 iconFavorite.classList.remove('fa-heart-circle-plus');
@@ -797,41 +796,41 @@
                         switch (optId) {
                             case "Person":
                                 let txtPerson = document.getElementById('txtPerson').value;
-                                deliveryInfo = `面交\n賣家提供訊息：${deliveryInfo} \n買家提供訊息：${txtPerson}`;
+                                deliveryInfo = `選擇方式：「面交」。賣家提供訊息：「${deliveryInfo}」。買家提供訊息：「${txtPerson}」。`;
                                 break;
                             case "Seven":
                                 let sevenStoreId = document.getElementById('sevenStoreId').value;
                                 let sevenStoreName = document.getElementById('sevenStoreName').value;
                                 let sevenUserName = document.getElementById('sevenUserName').value;
                                 let sevenUserPhone = document.getElementById('sevenUserPhone').value;
-                                deliveryInfo = `7-11 交貨便\n7-11門市店號：${sevenStoreId}\n7-11門市店名：${sevenStoreName}\n買家姓名：${sevenUserName}\n買家電話：${sevenUserPhone}`;
+                                deliveryInfo = `選擇方式：「7-11 交貨便」。7-11門市店號：「${sevenStoreId}」。7-11門市店名：「${sevenStoreName}」。買家姓名：「${sevenUserName}」。買家電話：「${sevenUserPhone}」。`;
                                 break;
                             case "Fami":
                                 let famiStoreId = document.getElementById('famiStoreId').value;
                                 let famiStoreName = document.getElementById('famiStoreName').value;
                                 let famiUserName = document.getElementById('famiUserName').value;
                                 let famiUserPhone = document.getElementById('famiUserPhone').value;
-                                deliveryInfo = `全家店到店\n全家門市店號：${famiStoreId}\n全家門市店名：${famiStoreName}\n買家姓名：${famiUserName}\n買家電話：${famiUserPhone}`;
+                                deliveryInfo = `選擇方式：「全家店到店」。全家門市店號：「${famiStoreId}」。全家門市店名：「${famiStoreName}」。買家姓名：「${famiUserName}」。買家電話：「${famiUserPhone}」。`;
                                 break;
                             case "Ok":
                                 let okStoreId = document.getElementById('okStoreId').value;
                                 let okStoreName = document.getElementById('okStoreName').value;
                                 let okUserName = document.getElementById('okUserName').value;
                                 let okUserPhone = document.getElementById('okUserPhone').value;
-                                deliveryInfo = `OK mart 店到店\nOK門市店號：${okStoreId}\nOK門市店名：${okStoreName}\n買家姓名：${okUserName}\n買家電話：${okUserPhone}`;
+                                deliveryInfo = `選擇方式：「OK mart 店到店」。OK門市店號：「${okStoreId}」。OK門市店名：「${okStoreName}」。買家姓名：「${okUserName}」。買家電話：「${okUserPhone}」。`;
                                 break;
                             case "Life":
                                 let lifeStoreId = document.getElementById('lifeStoreId').value;
                                 let lifeStoreName = document.getElementById('lifeStoreName').value;
                                 let lifeUserName = document.getElementById('lifeUserName').value;
                                 let lifeUserPhone = document.getElementById('lifeUserPhone').value;
-                                deliveryInfo = `萊爾富店到店\n萊爾富門市店號：${lifeStoreId}\n萊爾富門市店名：${lifeStoreName}\n買家姓名：${lifeUserName}\n買家電話：${lifeUserPhone}`;
+                                deliveryInfo = `選擇方式：「萊爾富店到店」。萊爾富門市店號：「${lifeStoreId}」。萊爾富門市店名：「${lifeStoreName}」。買家姓名：「${lifeUserName}」。買家電話：「${lifeUserPhone}」。`;
                                 break;
                             case "Logi":
                                 let logiUserAddress = document.getElementById('logiUserAddress').value;
                                 let logiUserName = document.getElementById('logiUserName').value;
                                 let logiUserPhone = document.getElementById('logiUserPhone').value;
-                                deliveryInfo = `物流\n送達地址：${logiUserAddress}\n買家姓名：${logiUserName}\n買家電話：${logiUserPhone}`;
+                                deliveryInfo = `選擇方式：「物流」。送達地址：「${logiUserAddress}」。買家姓名：「${logiUserName}」。買家電話：「${logiUserPhone}」。`;
                                 break;
                             default:
                                 break;
@@ -866,10 +865,6 @@
                     document.querySelectorAll('[id$="UserAddress"]').forEach(dom => dom.value = datas.address);
                     document.querySelectorAll('[id$="UserPhone"]').forEach(dom => dom.value = datas.phone);
                 });
-        }
-
-        function finishCheck() {
-            fetch('@Url.Content("~/Auction/")', {})
         }
     </script>
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,6 +18,20 @@ namespace CardAuction.Controllers
         public ActionResult Index()
         {
             Session[CDictionary.SK_BackTo] = new CLinkTo("Home", "Index");
+
+            var itemFinish = db.tAuctionItem.Where(m => m.fEndTime < DateTime.Now && !m.fFinish);       // 幫掃
+            foreach (var item in itemFinish)
+            {
+                item.fFinish = true;
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
             return View();
         }
 
@@ -215,13 +230,39 @@ namespace CardAuction.Controllers
             }
             string userId = Session[CDictionary.SK_UserUserId].ToString();
 
-            bool itemFinish = db.tAuctionItem.Any(m => (m.fPostUserId == userId || m.fTopBidUserId == userId)
-                                                    && (m.fEndTime < DateTime.Now)
-                                                     && m.fFinish && !m.fDelete);
-            return itemFinish.ToString();
+            List<string> finishItems = db.tAuctionItem
+                .Where(m => (m.fPostUserId == userId || m.fTopBidUserId == userId)
+                         && (m.fEndTime < DateTime.Now)
+                         && m.fFinish && !m.fDelete)
+                .Select(m => m.fItemId).ToList();
+            if(finishItems.Count == 0)
+            {
+                return false.ToString();
+            }
+            List<string> infoItems = Session[CDictionary.SK_BellInfoItems] as List<string>;
+            if(infoItems == null || infoItems.Count == 0)
+            {
+                return true.ToString();
+            }
+            List<string> substractionItems = finishItems.Except(infoItems).ToList();
+            return (substractionItems.Count > 0).ToString();
+        }
+
+        public void InfoItem(string itemId)
+        {
+            if (Session[CDictionary.SK_UserUserId] == null)
+            {
+                return;
+            }
+            List<string> infoItems = Session[CDictionary.SK_BellInfoItems] as List<string>;
+            if(infoItems == null)
+            {
+                infoItems = new List<string>();
+            }
+            infoItems.Add(itemId);
+            return;
         }
     }
-
 
 
     public class QueryNewestList
