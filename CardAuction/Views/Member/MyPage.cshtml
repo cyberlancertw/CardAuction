@@ -295,12 +295,14 @@
             @foreach (tAuctionResult myaresult in Model.myAuctionResult)
             {
                 DateTime endTime = (DateTime)myaresult.fWinTime;
-                <div class="zone">
-                    <img src="~/images/AuctionItemImages/@myaresult.fPhoto0">
-                    <h6>@myaresult.fResultId</h6>
-                    <h5>@endTime.ToShortDateString()</h5>
-                    <h5>$ @myaresult.fTotalMoney 元</h5>
-                </div>
+                <a href="@Url.Content("~/Auction/result/" + myaresult.fResultId)">
+                    <div class="zone">
+                        <img src="~/images/AuctionItemImages/@myaresult.fPhoto0">
+                        <h6>@myaresult.fResultId</h6>
+                        <h5>@endTime.ToShortDateString()</h5>
+                        <h5>$ @myaresult.fTotalMoney 元</h5>
+                    </div>
+                </a>
             }
             @Html.PagedListPager(Model.myAuctionResult, page => Url.Action("MyPage", new { page, lead = "auctionresult" }))
         </div>
@@ -318,16 +320,19 @@
             </div>
             @foreach (tExchangeResult myeresult in Model.myExchangeResult)
             {
+                
                 DateTime endTime1 = (DateTime)myeresult.fSubmitTime;
-                <div class="zone">
-                    <img src="~/images/ExchangeItemImages/@myeresult.fAPhoto0">
-                    <h6>@myeresult.fCoupleUserId</h6>
-                    <h5>@endTime1.ToShortDateString()</h5>
-                    <h5>@myeresult.fStatus</h5>
-                </div>
+                <a href="@Url.Content("~/exchange/item/" + myeresult.fItemIdA)">
+                    <div class="zone">
+                        <img src="~/images/ExchangeItemImages/@myeresult.fAPhoto0">
+                        <h6>@myeresult.fCoupleUserId</h6>
+                        <h5>@endTime1.ToShortDateString()</h5>
+                        <h5>@myeresult.fStatus</h5>
+                    </div>
+                </a>
             }
             @Html.PagedListPager(Model.myExchangeResult, page => Url.Action("MyPage", new { page, lead = "exchangeresult" }))
-        </div>
+            </div>
     </div>
 </div>
 

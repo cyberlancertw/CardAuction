@@ -45,7 +45,7 @@ namespace CardAuction.Controllers
 
             MyInfo.MyAccount = db.tMember.Find(userId);
 
-            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).OrderByDescending(m => (m.fFinish || m.fDelete))
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId || (m.fTopBidUserId == userId && m.fFinish && !m.fDelete)).OrderByDescending(m => (m.fFinish || m.fDelete))
             .ThenBy(m => m.fEndTime).ToList().ToPagedList(currentPage, pageSize);
 
             MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
@@ -90,7 +90,7 @@ namespace CardAuction.Controllers
 
             MyInfo.MyAccount = db.tMember.Find(userId);
 
-            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId).OrderByDescending(m => (m.fFinish || m.fDelete))
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId || (m.fTopBidUserId == userId && m.fFinish && !m.fDelete)).OrderByDescending(m => (m.fFinish || m.fDelete))
             .ThenBy(m => m.fEndTime).ToList().ToPagedList(currentPage, pageSize);
 
             MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
