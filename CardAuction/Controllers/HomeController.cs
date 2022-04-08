@@ -206,6 +206,20 @@ namespace CardAuction.Controllers
             Session[CDictionary.SK_BackTo] = new CLinkTo("Home", "About");
             return View();
         }
+
+        public string FindFinishAuctionItem()
+        {
+            if(Session[CDictionary.SK_UserUserId] == null)
+            {
+                return false.ToString();
+            }
+            string userId = Session[CDictionary.SK_UserUserId].ToString();
+
+            bool itemFinish = db.tAuctionItem.Any(m => (m.fPostUserId == userId || m.fTopBidUserId == userId)
+                                                    && (m.fEndTime < DateTime.Now)
+                                                     && m.fFinish && !m.fDelete);
+            return itemFinish.ToString();
+        }
     }
 
 
@@ -221,4 +235,6 @@ namespace CardAuction.Controllers
         public string itemId { get; set; }
         public string information { get; set; }
     }
+
+
 }

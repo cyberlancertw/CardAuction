@@ -86,7 +86,8 @@ namespace CardAuction.Controllers
             
             if (Session[CDictionary.SK_UserUserId] == null)
             {
-                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "List");
+                Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "List");
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "Result", id);
                 
                 return RedirectToAction("Login", "Member");
             }
@@ -98,7 +99,8 @@ namespace CardAuction.Controllers
 
             VMAuctionResult vModel = new VMAuctionResult();
             vModel.postUserAccount = db.tMember.Find(postUserId).fAccount;
-            vModel.winUserAccount = db.tMember.Find(winUserId).fAccount;
+
+            vModel.winUserAccount = string.IsNullOrEmpty(winUserId) ? "無人得標" : db.tMember.Find(winUserId).fAccount;
             vModel.result = result;
             vModel.history = db.tAuctionBid
                 .Where(m=>m.fItemId == id)
@@ -192,7 +194,10 @@ namespace CardAuction.Controllers
             createItem.fTransPerson = vModel.isPerson ? vModel.fTransPerson : -1;                   // 以負數表示不提供此運送選項
             createItem.fTransSeven = vModel.isSeven ? vModel.fTransSeven : -1;
             createItem.fTransFami = vModel.isFami ? vModel.fTransFami : -1;
+            createItem.fTransOk = vModel.isOk ? vModel.fTransOk : -1;
+            createItem.fTransLife = vModel.isLife ? vModel.fTransLife : -1;
             createItem.fTransLogi = vModel.isLogi ? vModel.fTransLogi : -1;
+
             createItem.fUserInfo = vModel.fUserInfo;
 
             createItem.fEndTime = vModel.fEndTimeDate.Date.Add(vModel.fEndTimeTime.TimeOfDay);      // 由選擇的日期和時間合併成結標時間
@@ -222,6 +227,9 @@ namespace CardAuction.Controllers
         {
             Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "List");
             Session[CDictionary.SK_BackTo] = new CLinkTo("Auction", "List");
+
+            RefreshFinishItem();
+
             return View();
         }
 
@@ -589,6 +597,8 @@ namespace CardAuction.Controllers
                 transPerson = item.fTransPerson,
                 transSeven = item.fTransSeven,
                 transFami = item.fTransFami,
+                transOk = item.fTransOk,
+                transLife = item.fTransLife,
                 transLogi = item.fTransLogi
             }, JsonRequestBehavior.AllowGet);
 
@@ -768,6 +778,7 @@ namespace CardAuction.Controllers
                 Service.SendEmail(postUserEmail, "商品標出通知", content);
                 content = $"<h2>您好，您在 {bidTime.ToString()} 對 {postUserAcc} 上架的商品「{item.fItemName}」以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{item.fUserInfo}</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
                 Service.SendEmail(bidUserEmail, "商品得標通知", content);
+                newResult.fWinUserId = item.fTopBidUserId;
                 newResult.fWinTime = item.fEndTime;
                 newResult.fDeliveryInfo = deliveryInfo;
                 newResult.fTotalMoney = totalMoney;
@@ -822,6 +833,23 @@ namespace CardAuction.Controllers
             Service.SendEmail(userEmail, subject, content);
 
             return;
+        }
+
+        public void RefreshFinishItem()
+        {
+            var itemFinish = db.tAuctionItem.Where(m => m.fEndTime < DateTime.Now && !m.fFinish);
+            foreach (var item in itemFinish)
+            {
+                item.fFinish = true;
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 

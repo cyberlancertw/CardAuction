@@ -31,6 +31,10 @@ namespace CardAuction.ViewModels
         public int fTransFami { get; set; }
         public bool isLogi { get; set; }
         public int fTransLogi { get; set; }
+        public bool isOk { get; set; }
+        public int fTransOk { get; set; }
+        public bool isLife { get; set; }
+        public int fTransLife { get; set; }
         public string fUserInfo { get; set; }
         public int fClick { get; set; }
         public int fReport { get; set; }

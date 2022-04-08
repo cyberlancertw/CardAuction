@@ -136,7 +136,7 @@
                                 <span>7-11 交貨便：</span>
                                 <a href="https://www.ibon.com.tw/retail_inquiry.aspx" target="_blank">ibon 便利生活站</a>
                             </p>
-                            <label for="sevenStoreId">*店號：</label>
+                            <label for="sevenStoreId">*門市店號：</label>
                             <input type="number" id="sevenStoreId" />
                             <label for="sevenStoreName">*店名：</label>
                             <input type="text" id="sevenStoreName" />
@@ -150,7 +150,7 @@
                                 <span>全家店到店：</span>
                                 <a href="https://www.famiport.com.tw/Web_Famiport/page/ShopQuery.aspx" target="_blank">Fami Port</a>
                             </p>
-                            <label for="famiStoreId">*店號：</label>
+                            <label for="famiStoreId">*門市店號：</label>
                             <input type="number" id="famiStoreId" />
                             <label for="famiStoreName">*店名：</label>
                             <input type="text" id="famiStoreName" />
@@ -158,6 +158,34 @@
                             <input type="text" id="famiUserName" />
                             <label for="famiUserPhone">*電話：</label>
                             <input type="tel" id="famiUserPhone" />
+                        </div>
+                        <div id="transInputOk" hidden>
+                            <p>
+                                <span>OK mart 店到店寄件：</span>
+                                <a href="https://www.okmart.com.tw/convenient_shopSearch" target="_blank">OK mart</a>
+                            </p>
+                            <label for="okStoreId">*門市店號：</label>
+                            <input type="number" id="okStoreId" />
+                            <label for="okStoreName">*店名：</label>
+                            <input type="text" id="okStoreName" />
+                            <label for="okUserName">*姓名：</label>
+                            <input type="text" id="okUserName" />
+                            <label for="okUserPhone">*電話：</label>
+                            <input type="tel" id="okUserPhone" />
+                        </div>
+                        <div id="transInputLife" hidden>
+                            <p>
+                                <span>萊爾富 店到店寄件：</span>
+                                <a href="https://www.hilife.com.tw/storeInquiry_street.aspx" target="_blank">Hi-Life 店面查詢</a>
+                            </p>
+                            <label for="lifeStoreId">*門市店號：</label>
+                            <input type="number" id="lifeStoreId" />
+                            <label for="lifeStoreName">*店名：</label>
+                            <input type="text" id="lifeStoreName" />
+                            <label for="lifeUserName">*姓名：</label>
+                            <input type="text" id="lifeUserName" />
+                            <label for="lifeUserPhone">*電話：</label>
+                            <input type="tel" id="lifeUserPhone" />
                         </div>
                         <div id="transInputLogi" hidden>
                             <p>物流：</p>
@@ -592,6 +620,8 @@
                                 response.transPerson,
                                 response.transSeven,
                                 response.transFami,
+                                response.transOk,
+                                response.transLife,
                                 response.transLogi);
                         }
                         else {
@@ -679,7 +709,7 @@
         }
 
 
-        function GenerateFinishlUI(acc,money,person,seven,fami,logi) {
+        function GenerateFinishlUI(acc, money, person, seven, fami, ok, life, logi) {
             let area = document.getElementById('divMoney');
 
             let docFrag = document.createDocumentFragment();
@@ -708,9 +738,9 @@
             let selectTrans = document.createElement('select');
             selectTrans.id = 'selectTrans';
             selectTrans.className = 'selectTrans finishTitle';
-            let transName = ['面交', '7-11', '全家', '物流'];
-            let transId = ['Person', 'Seven', 'Fami', 'Logi'];
-            let transMoney = [person, seven, fami, logi];
+            let transName = ['面交', '7-11', '全家', 'OK', '萊爾富', '物流'];
+            let transId = ['Person', 'Seven', 'Fami', 'Ok', 'Life', 'Logi'];
+            let transMoney = [person, seven, fami, ok, life, logi];
             for (let i in transName) {
                 if (transMoney[i] > -1) {
                     let opt = document.createElement('option');
@@ -782,6 +812,20 @@
                                 let famiUserName = document.getElementById('famiUserName').value;
                                 let famiUserPhone = document.getElementById('famiUserPhone').value;
                                 deliveryInfo = `全家店到店\n全家門市店號：${famiStoreId}\n全家門市店名：${famiStoreName}\n買家姓名：${famiUserName}\n買家電話：${famiUserPhone}`;
+                                break;
+                            case "Ok":
+                                let okStoreId = document.getElementById('okStoreId').value;
+                                let okStoreName = document.getElementById('okStoreName').value;
+                                let okUserName = document.getElementById('okUserName').value;
+                                let okUserPhone = document.getElementById('okUserPhone').value;
+                                deliveryInfo = `OK mart 店到店\nOK門市店號：${okStoreId}\nOK門市店名：${okStoreName}\n買家姓名：${okUserName}\n買家電話：${okUserPhone}`;
+                                break;
+                            case "Life":
+                                let lifeStoreId = document.getElementById('lifeStoreId').value;
+                                let lifeStoreName = document.getElementById('lifeStoreName').value;
+                                let lifeUserName = document.getElementById('lifeUserName').value;
+                                let lifeUserPhone = document.getElementById('lifeUserPhone').value;
+                                deliveryInfo = `萊爾富店到店\n萊爾富門市店號：${lifeStoreId}\n萊爾富門市店名：${lifeStoreName}\n買家姓名：${lifeUserName}\n買家電話：${lifeUserPhone}`;
                                 break;
                             case "Logi":
                                 let logiUserAddress = document.getElementById('logiUserAddress').value;
