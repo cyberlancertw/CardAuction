@@ -4,7 +4,7 @@
     藏青 1f3444    
     金  ab8f4e    
     白ffffff */
-@media (max-width: 575px) {
+/*@media (max-width: 575px) {
     html {
         font-size: 10px;
     }
@@ -12,7 +12,7 @@
 
 @media (min-width: 576px) and (max-width: 767px) {
     html {
-        font-size: 11px;
+        font-size: 10px;
     }
 }
 
@@ -33,48 +33,82 @@
         font-size: 14px;
     }
 }
-
+*/
 
 h2 {
-    font-size: 24px;
+    margin-top: 5px;
+    padding-left:25px;
     background-color: #1f3344;
+    font-size: 24px;
     color: aliceblue;
     font-family: 'Noto Sans TC', sans-serif;
-    margin-top: 1px;
-    margin-left: 1px;
-    margin-right: 1px;
+    line-height:3.5rem;
 }
 
-body {
+/*body {
     width: 80%;
     margin: auto;
 }
-
-.captin {
-    border-radius: 50%;
-    width: 110%;
-}
-
-.name {
-    text-align: center;
-    font-size: 12px;
-    font-family: 'Noto Sans TC', sans-serif;
-}
-
+*/
 .cards {
-    height: 150px;
+    height: 200px;
+    display:flex;
+    align-items:center;
+}
+
+.divLogo{
+    width:500px;
+    height:150px;
+}
+.divLogo>img{
+    width:100%;
+    height:100%;
 }
 
 .websiteprofolio {
-    margin-top: 20px;
-    font-family: 'Noto Sans TC', sans-serif;
+    display:flex;
+    align-items:center;
 }
+
+.websiteprofolio p {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size:1.3rem;
+}
+
 
 .membersphoto {
-    height: 200px;
-    background-color: rgb(226, 228, 228);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    height: 250px;
+    padding-top:30px;
+    background-color: #ced3d7;
 }
 
+.name .photo {
+    width: 170px;
+    height: 170px;
+}
+
+.name .photo > img {
+    width: 100%;
+    height: 100%;
+}
+
+    .name .photo > img:hover {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        box-shadow: 1px 1px 5px 3px gray;
+    }
+
+.name > p {
+    font-weight: 600;
+    font-size: 1.3rem;
+    text-align: center;
+    padding-top: 10px;
+    color: #1f3444;
+}
 .mainphoto {
     width: 90%;
     margin-left: 5px;

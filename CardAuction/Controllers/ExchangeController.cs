@@ -264,7 +264,7 @@ namespace CardAuction.Controllers
             
         }
 
-        public ActionResult QueryBySort(string sortName, string filter = "EndTime", int page = 0)
+        public ActionResult QueryBySort(string sortName, string filter = "JustPost", int page = 0)
         {
             switch (filter) 
             {
