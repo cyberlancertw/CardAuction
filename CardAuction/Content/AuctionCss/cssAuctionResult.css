@@ -38,10 +38,6 @@
     width: 100%;
 }
 
-.aRecord{
-    display:flex;
-}
-
 #divResult>div{
     display: flex;
 }
@@ -58,34 +54,14 @@
     width:25%;
 }
 
-.historyHeader {
-    border-bottom: solid 1px gray;
-    border-top: solid 1px gray;
-    color: black;
-    width: 100%;
-    font-size: 1.6rem;
-    justify-content: space-around;
-    padding: 25px 0px;
-    font-family: 'Noto Sans TC';
-    font-weight: bold;
-}
+
 
 .img-zone img{
     height:180px;
     margin:20px;
 }
 
-.history1{
-    display:flex;
-}
 
-.history2{
-    display:flex;
-}
-
-.history3{
-    display:flex;
-}
 
 
 .divTitle {
@@ -187,7 +163,6 @@ td {
 }
 
 .divContent {
-    margin: 10px 0px;
     font-family: "Noto Sans CJK TC";
     font-weight: normal;
     color: #1f3344;
@@ -202,4 +177,41 @@ td {
 #winTime > .divContent,
 #deliveryInfo > .divContent{
     padding:20px 0px;
+}
+
+#historyRecord{
+    width:100%;
+    flex-direction:column;
+}
+
+#historyRecord>.divTitle{
+    width:100%;
+}
+
+.historyHeader {
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+#historyRecord .info {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+}
+
+.infotatal {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 5px 30px;
+}
+
+.info{
+    width:30%;
+}
+
+.info1{
+    width:30%;
+    text-align:center
 }

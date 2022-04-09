@@ -30,7 +30,6 @@
 
 .nav-middle {
     text-align: center;
-
 }
 
 .nav-right {
@@ -59,7 +58,7 @@
     cursor: pointer;
     margin: 0 16px;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 600;
     color: #1f3344;
     width: 60px;
     font-family: 'Noto Sans', sans-serif;
@@ -74,7 +73,7 @@
 /* footer */
 .footer {
     padding-bottom: 0 !important;
-    padding-top:60px !important;
+    padding-top: 60px !important;
 }
 
 .row-div {
@@ -89,6 +88,6 @@
 }
 
 .imgcss {
-    text-align:center;
-    margin-bottom:100px;
+    text-align: center;
+    margin: 100px;
 }
