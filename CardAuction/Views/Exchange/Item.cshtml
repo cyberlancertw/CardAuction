@@ -265,10 +265,8 @@
 
         @if (Session[CDictionary.SK_UserUserId] == null)
         {
-            TempData[CDictionary.SK_RedirectToAction] = "Item";
-            TempData[CDictionary.SK_RedirectToController] = "Exchange";
-            TempData[CDictionary.SK_RedirectToId] = Model.fItemId;
-
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Exchange", "Item", Model.fItemId);
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Exchange", "item", Model.fItemId);
         @:btnFavorite.addEventListener('click', function (event) {
             @:event.preventDefault();
             @:location.href = '@Url.Content("~/Member/Login")';
