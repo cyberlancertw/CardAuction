@@ -558,7 +558,7 @@ namespace CardAuction.Controllers
             tMember topUser = db.tMember.Find(item.fTopBidUserId);
             if(topUser == null)
             {
-                return Json(new { statusMessage = "NoTopNotFinish" }, JsonRequestBehavior.AllowGet);       // 時間到，無人得標的結束
+                return Json(new { statusMessage = "NoTopNotFinish" }, JsonRequestBehavior.AllowGet);    // 時間到，無人得標的結束
             }
             string winUserAcc = topUser.fAccount;
             string statusMessage = "EndTimeFinish";                                                     // 時間到，有人得標的結束
@@ -690,8 +690,8 @@ namespace CardAuction.Controllers
             if(item.fEndTime < DateTime.Now && item.fBidCount == 0)
             {
                 newResult.fDeliveryInfo = "無人競標。流標。";
-                string content = $"<h2>您好，您在 {item.fCreateTime.ToString()} 上架的商品「{item.fItemName}」在 {item.fEndTime.ToString()} 時間結束時無人參與競標，故已下架</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
-                Service.SendEmail(postUserEmail, "商品流標通知", content);
+                string content = $"<h2>您好，您在 {item.fCreateTime.ToString()} 上架的商品「{item.fItemName}」在 {item.fEndTime.ToString()} 時間結束時無人參與競標，故已下架</h2><h3>系統信件請勿回信。by <a href=\"${CDictionary.WebHost}\">CARDs.卡市</a> 團隊</h3>";
+                Service.SendEmail(postUserEmail, "CARDs.卡市 - 商品流標通知", content);
                 newResult.fWinTime = item.fEndTime;
                 db.tAuctionResult.Add(newResult);
                 try
@@ -718,10 +718,10 @@ namespace CardAuction.Controllers
                 }
                 string buyUserAcc = buyUser.fAccount;
                 string buyUserEmail = buyUser.fEmail;
-                string content = $"<h2>您好，您在 {item.fCreateTime.ToString()} 上架的商品「{item.fItemName}」在 {buyTime.ToString()} 時由 {buyUserAcc} 以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{deliveryInfo}</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
-                Service.SendEmail(postUserEmail, "商品標出通知", content);
-                content = $"<h2>您好，您在 {buyTime.ToString()} 對 {postUserAcc} 上架的商品「{item.fItemName}」以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{item.fUserInfo}</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
-                Service.SendEmail(buyUserEmail, "商品得標通知", content);
+                string content = $"<h2>您好，您在 {item.fCreateTime.ToString()} 上架的商品「{item.fItemName}」在 {buyTime.ToString()} 時由 {buyUserAcc} 以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{deliveryInfo}</h2><h3>系統信件請勿回信。by <a href=\"${CDictionary.WebHost}\">CARDs.卡市</a> 團隊</h3>";
+                Service.SendEmail(postUserEmail, "CARDs.卡市 - 商品標出通知", content);
+                content = $"<h2>您好，您在 {buyTime.ToString()} 對 {postUserAcc} 上架的商品「{item.fItemName}」以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{item.fUserInfo}</h2><h3>系統信件請勿回信。by <a href=\"${CDictionary.WebHost}\">CARDs.卡市</a> 團隊</h3>";
+                Service.SendEmail(buyUserEmail, "CARDs.卡市 - 商品得標通知", content);
                 newResult.fWinUserId = item.fTopBidUserId;
                 newResult.fWinTime = buyTime;
                 newResult.fDeliveryInfo = deliveryInfo;
@@ -752,10 +752,10 @@ namespace CardAuction.Controllers
                 }
                 string bidUserAcc = bidUser.fAccount;
                 string bidUserEmail = bidUser.fEmail;
-                string content = $"<h2>您好，您在 {item.fCreateTime.ToString()} 上架的商品「{item.fItemName}」在 {bidTime.ToString()} 時由 {bidUserAcc} 以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{deliveryInfo}</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
-                Service.SendEmail(postUserEmail, "商品標出通知", content);
-                content = $"<h2>您好，您在 {bidTime.ToString()} 對 {postUserAcc} 上架的商品「{item.fItemName}」以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{item.fUserInfo}</h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
-                Service.SendEmail(bidUserEmail, "商品得標通知", content);
+                string content = $"<h2>您好，您在 {item.fCreateTime.ToString()} 上架的商品「{item.fItemName}」在 {bidTime.ToString()} 時由 {bidUserAcc} 以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{deliveryInfo}</h2><h3>系統信件請勿回信。by <a href=\"${CDictionary.WebHost}\">CARDs.卡市</a> 團隊</h3>";
+                Service.SendEmail(postUserEmail, "CARDs.卡市 - 商品標出通知", content);
+                content = $"<h2>您好，您在 {bidTime.ToString()} 對 {postUserAcc} 上架的商品「{item.fItemName}」以 {item.fMoneyNow} 元價格標下，恭喜您。以下是對方的聯絡運送資訊：</h2><h2>{item.fUserInfo}</h2><h3>系統信件請勿回信。by <a href=\"${CDictionary.WebHost}\">CARDs.卡市</a> 團隊</h3>";
+                Service.SendEmail(bidUserEmail, "CARDs.卡市 - 商品得標通知", content);
                 newResult.fWinUserId = item.fTopBidUserId;
                 newResult.fWinTime = item.fEndTime;
                 newResult.fDeliveryInfo = deliveryInfo;
@@ -800,10 +800,10 @@ namespace CardAuction.Controllers
             string postAcc = db.tMember.Find(postUserId).fAccount;
             string userAcc = topUser.fAccount;
             string userEmail = topUser.fEmail;
-            string subject = "得標通知";
+            string subject = "CARDs.卡市 - 得標通知";
             string linkTo = CDictionary.WebHost + "Auction/Item/" + item.fItemId;
             string content = $"<h1>{userAcc}您好，您得標了{postAcc}的競標商品「{item.fItemName}」，請儘速登入個人頁面，或利用以下連結填寫運送資訊：</h1>"
-                + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
+                + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by <a href=\"${CDictionary.WebHost}\">CARDs.卡市</a> 團隊</h3>";
             Service.SendEmail(userEmail, subject, content);
 
 

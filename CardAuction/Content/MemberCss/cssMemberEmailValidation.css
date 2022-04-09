@@ -1,0 +1,56 @@
+﻿/*  淡灰 ced3d8   ebebeb    
+    深灰 6b6b6b   
+    黑 333333    
+    藏青 1f3444    
+    金  ab8f4e    
+    白ffffff */
+@media (max-width: 575px) {
+    html{
+        font-size: 10px;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+    html {
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 992px) and (max-width:1199px) {
+    html {
+        font-size: 13px;
+    }
+}
+@media (min-width: 1200px){
+    html {
+        font-size: 14px;
+    }
+}
+
+#validationNumber{
+    font-size: 2rem;
+    width: 12rem;
+}
+p{
+    margin-top: 1.4rem;
+    font-size: 1.4rem;
+}
+#divRefill{
+    font-size: 1.4rem;
+}
+#spanInfo {
+    margin-left: 1rem;
+    font-size: 1.4rem;
+    color: #ab8f4e;
+}
+#btnRefill {
+    border-radius: 0.8rem;
+    padding: 0.4rem 1rem;
+    color: #ffffff;
+    background-color: #1f3444;
+}

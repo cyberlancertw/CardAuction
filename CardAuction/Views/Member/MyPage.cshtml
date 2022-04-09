@@ -63,13 +63,15 @@
             <div class="bottomleft">
                 <p>
                     <label for="uaccount">使用者帳號</label>
-                    <input type="text" name="account" id="uaccount" disabled value="@Model.MyAccount.fAccount">
+                    <input type="text" name="Account" id="uaccount" disabled value="@Model.MyAccount.fAccount">
                 </p>
                 <p>
                     <label for="uname">姓名</label>
                     <input type="text" id="uname" value="@Model.MyAccount.fName" name="Name">
                 </p>
                 <p>
+                    <input type="hidden" value="@Model.MyAccount.fAccount" name="Account" />
+                    <input type="hidden" value="@Model.MyAccount.fEmail" name="oldEmail" />
                     <label for="uemail">Email帳號</label>
                     <input type="email" id="uemail" value="@Model.MyAccount.fEmail" name="Email">
                 </p>
@@ -215,7 +217,10 @@
                             <h5>@resetday</h5>
                         }
                         <div class="button-area">
-                            @if (myaitem.fFinish && !myaitem.fDelete && myaitem.fPostUserId == userId)
+                            @if (myaitem.fFinish 
+                                && !myaitem.fDelete 
+                                && myaitem.fPostUserId == userId 
+                                && myaitem.fTopBidUserId != null)
                             {
                                 <button class="infoWinner" data-infoitemid="@myaitem.fItemId" data-itemtype="auction">通知買家</button>
                             }

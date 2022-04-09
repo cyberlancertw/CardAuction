@@ -1,34 +1,58 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section styles{
+    <link rel="stylesheet" href="~/Content/MemberCss/cssMemberEmailValidation.css" type="text/css" />
+}
+<div>
+    <p>
+        請至您填的 Email 信箱收信，取得驗証碼。
+    </p>
+    <p>
+        <label for="validationNumber">輸入驗証碼：</label>
+        <input type="number" id="validationNumber" maxlength="6" />
+        <span id="spanInfo"></span>
+    </p>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>EmailValidation</title>
-</head>
-<body>
-    <div>
-        <p>請至您填的 Email 信箱收信，取得驗証碼。</p>
-        <form action="#" method="post">
-            <label for="validationNumber">輸入驗証碼：</label>
-            <input type="text" name="validationNumber" id="validationNumber" maxlength="6" required />
-            <input type="submit" value="送出" />
-        </form>
-        <span style="color: red;">@ViewData["errorMsg"]</span>
-        <br />
-        <br />
-        <br />
-        <!--  <button id="btnRefill">重新填寫Email</button>  -->
-        若要重新重新填寫 Email ，請登入會員至會員中心修改。
+    <div id="divRefill">
+        若要重新重新填寫 Email ，請登入會員至個人頁面修改。
+        <button id="btnRefill">個人頁面</button>
     </div>
+</div>
+@section scripts{
     <script>
-        @*document.getElementById('btnRefill').addEventListener('click', function () {
-            location.href = '@Url.Action("RefillEmail")';
-        });*@
+        var validationNumber = document.getElementById('validationNumber');
+        var spanInfo = document.getElementById('spanInfo');
+
+        validationNumber.addEventListener('keyup', () => {
+            let num = validationNumber.value;
+            if (num.length >= 6) {
+                validationNumber.disabled = true;
+                spanInfo.textContent = '處理中……';
+                fetch('@Url.Content("~/Member/EmailValify/")' + num, { method: 'GET' })
+                    .then(response => response.text())
+                    .then(isSuccess => {
+                        console.log(isSuccess);
+                        if (isSuccess == 'True') {
+                            spanInfo.textContent = '輸入成功！信箱通過驗證，頁面將轉向…';
+                            window.setTimeout(() => {
+                                location.href = '@Url.Content("~/Member/MyPage")';
+                            }, 2000);
+                        }
+                        else {
+                            validationNumber.disabled = false;
+                            validationNumber.value = '';
+                            spanInfo.textContent = '輸入錯誤';
+                            window.setTimeout(() => {
+                                spanInfo.textContent = '';
+                            }, 2000);
+                        }
+                    })
+            }
+        });
+        document.getElementById('btnRefill').addEventListener('click', function () {
+            location.href = '@Url.Content("~/Member/MyPage")';
+        });
     </script>
-</body>
-</html>
+}

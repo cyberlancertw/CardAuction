@@ -215,6 +215,7 @@
     <Content Include="Content\LayoutCss\cssUserLayout.css" />
     <Content Include="Content\MemberCss\cssMemberLogin.css" />
     <Content Include="Content\MemberCss\cssMemberRegister.css" />
+    <Content Include="Content\MemberCss\cssMemberEmailValidation.css" />
     <Content Include="Content\MemberCss\mypage.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
