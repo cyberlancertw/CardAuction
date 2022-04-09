@@ -377,7 +377,36 @@ namespace CardAuction.Controllers
             }
         }
 
+        public ActionResult RandomPassword(string acc, string email)
+        {
 
+            tMember user = db.tMember.Where(m => m.fAccount == acc && m.fEmail == email).FirstOrDefault();
+            if(user == null)
+            {
+                return Json(new { status = "比對不存在", isSuccess = false }, JsonRequestBehavior.AllowGet);
+            }
+            int newPassword = Service.GetRandomNumber();
+            user.fPassword = Service.getCypher(newPassword.ToString());
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(DbEntityValidationException ex)
+            {
+                Service.ExceptionEmail(ex, "Member/RandomPassword");
+            }
+            catch(Exception e)
+            {
+                Service.ExceptionEmail(e, "Member/RandomPassword");
+            }
+
+            string emailSubject = "CARDs.卡市 - 重發密碼信件";
+            string accMask = acc.Substring(0, 3) + new string('*', acc.Length - 3);
+            string emailContent = $"<h2>Card.卡牌競標網站會員 {accMask} 您的新密碼為：</h2><h3>{newPassword}</h3><h3>請盡速至網站更新您的密碼</h3><br /><br /><h3 style=\"color: red\">若非您本人註冊，請不要理會本信件。<h3>系統信件請勿回信。by <a href=\"${CDictionary.WebHost}\">CARDs.卡市</a> 團隊</h3>";
+            Service.SendEmail(email, emailSubject, emailContent);
+
+            return Json(new { status = "新密碼已發送，網頁將轉向…", isSuccess = true }, JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public ActionResult PasswordForget()
         {
@@ -418,12 +447,52 @@ namespace CardAuction.Controllers
 
             return RedirectToAction("PasswordChanged");
         }
-
-        public ActionResult PasswordChanged()
+        [HttpGet]
+        public ActionResult PasswordChange()
         {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult PasswordChange(string oPassword, string nPassword, string cPassword)
+        {
+            if(Session[CDictionary.SK_UserUserId] == null)
+            {
+                return View();
+            }
+            string userId = Session[CDictionary.SK_UserUserId].ToString();
+            tMember user = db.tMember.Find(userId);
+            if(user == null)
+            {
+                Session[CDictionary.SK_BackTo] = new CLinkTo("Member", "PasswordChanged");
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Member", "PasswordChanged");
+                return RedirectToAction("Login", "Member");
+            }
+            if(Service.getCypher(oPassword) != user.fPassword)
+            {
+                ViewBag.ErrorMessage = "原密碼錯誤！請重新輸入";
+                return View();
+            }
+            if(nPassword != cPassword)
+            {
+                ViewBag.ErrorMessage = "確認密碼需相同";
+                return View();
+            }
+            user.fPassword = Service.getCypher(nPassword);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(DbEntityValidationException ex)
+            {
+                Service.ExceptionEmail(ex, "Member/PasswordChanged");
+            }
+            catch(Exception e)
+            {
+                Service.ExceptionEmail(e, "Member/PasswordChanged");
+            }
+            return RedirectToAction("MyPage");
+        }
         public ActionResult IsFavorite(string ItemId)
         {
             string UserId = string.Empty;

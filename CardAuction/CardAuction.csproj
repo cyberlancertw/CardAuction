@@ -213,10 +213,11 @@
     <Content Include="Content\HomeCss\cssHomeIndex.css" />
     <Content Include="Content\LayoutCss\cssShortLayout.css" />
     <Content Include="Content\LayoutCss\cssUserLayout.css" />
+    <Content Include="Content\MemberCss\cssMemberForget.css" />
     <Content Include="Content\MemberCss\cssMemberLogin.css" />
     <Content Include="Content\MemberCss\cssMemberRegister.css" />
     <Content Include="Content\MemberCss\cssMemberEmailValidation.css" />
-    <Content Include="Content\MemberCss\forgot.css" />
+    <Content Include="Content\MemberCss\cssMemberChange.css" />
     <Content Include="Content\MemberCss\mypage.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
@@ -649,7 +650,7 @@
     <Content Include="Views\Member\EmailValidation.cshtml" />
     <Content Include="Views\Member\Activate.cshtml" />
     <Content Include="Views\Member\PasswordForget.cshtml" />
-    <Content Include="Views\Member\PasswordChanged.cshtml" />
+    <Content Include="Views\Member\PasswordChange.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\PsnManage.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
