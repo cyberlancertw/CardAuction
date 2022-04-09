@@ -76,6 +76,25 @@ nav a {
     font-weight: bold;
 }
 
+.forget-password {
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    position: relative;
+}
+
+
+.forget-password a {
+    text-decoration: none;
+    color: #1f3344;
+    font-size: medium;
+    float: right;
+    display: inline-block;
+    padding: 10px 0px;
+}
+
+
+
 .dropdown-btn{
     width: 100%;
    border: none;
@@ -634,7 +653,7 @@ table input {
    .page1{
        width: 50%;
        height: 700px;
-       margin: auto 20px;
+       margin: 50px auto;
    }
 
     .btn {
@@ -800,6 +819,6 @@ color: #1f3344;
     .page1 {
         width: 50%;
         height: 700px;
-        margin: auto 20px;
+        margin: 50px auto;
     } 
 }
