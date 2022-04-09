@@ -291,7 +291,7 @@ namespace CardAuction.Controllers
                     {
                         var queryResult = db.tExchangeItem
                             .Where(m => m.fEndTime > DateTime.Now && m.fSort.Contains(sortName) && !m.fDelete)
-                            .OrderByDescending(p => p.fChangeCount)
+                            .OrderByDescending(p => p.fChangeCount).ThenBy(t => t.fEndTime)
                             .Skip(page * 12)
                             .Take(12)
                             .Select(n => new QueryResult 
