@@ -71,6 +71,15 @@ namespace CardAuction.Models
                 }
             }
         }
+        public static void ExceptionEmail(Exception e, string infomation)
+        {
+            string timeId = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            string subject = "CARDs. 卡市 - 例外發生" + timeId;
+            string content = $"Infomation:{infomation} \n" + e.ToString();
+            Service.SendEmail("tainanfuen2@gmail.com", subject, content);
+
+            return;
+        }
 
         public static int GetRandomNumber()
         {

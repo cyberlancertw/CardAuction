@@ -239,7 +239,11 @@ namespace CardAuction.Controllers
             }
             catch (DbEntityValidationException ex)
             {
-                Console.WriteLine(ex.ToString());
+                Service.ExceptionEmail(ex, "Auction/List");
+            }
+            catch(Exception e)
+            {
+                Service.ExceptionEmail(e, "Auction/List");
             }
 
             return View();
@@ -399,11 +403,11 @@ namespace CardAuction.Controllers
             }
             catch (DbEntityValidationException ex)
             {
-                Console.WriteLine(ex.ToString());
+                Service.ExceptionEmail(ex, "Auction/Item/UpdateBid");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Service.ExceptionEmail(e, "Auction/Item/UpdateBid");
             }
             return;
         }
@@ -482,11 +486,11 @@ namespace CardAuction.Controllers
             }
             catch(DbEntityValidationException ex)
             {
-                Console.WriteLine(ex.ToString());
+                Service.ExceptionEmail(ex, "Auction/Item/WriteComment");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Service.ExceptionEmail(e, "Auction/Item/WriteComment");
             }
             return;
         }
@@ -621,13 +625,11 @@ namespace CardAuction.Controllers
             }
             catch(DbEntityValidationException ex)
             {
-                Console.WriteLine(ex.ToString());
-                return;
+                Service.ExceptionEmail(ex, "Auction/Item/DeleteItem");
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return;
+                Service.ExceptionEmail(e, "Auction/Item/DeleteItem");
             }
         }
 
@@ -700,11 +702,11 @@ namespace CardAuction.Controllers
                 }
                 catch(DbEntityValidationException ex)
                 {
-                    Console.WriteLine(ex.ToString());
+                    Service.ExceptionEmail(ex, "Auction/Item/GenerateResult/item.fEndTime<Date.Time.Now && item.fBidCount==0");
                 }
                 catch(Exception e)
                 {
-                    Console.WriteLine(e.ToString());
+                    Service.ExceptionEmail(e, "Auction/Item/GenerateResult/item.fEndTime<Date.Time.Now && item.fBidCount==0");
                 }
                 return;
             }
@@ -734,11 +736,11 @@ namespace CardAuction.Controllers
                 }
                 catch (DbEntityValidationException ex)
                 {
-                    Console.WriteLine(ex.ToString());
+                    Service.ExceptionEmail(ex, "Auction/Item/GenerateResult/item.fBuyPrice > 0 && item.fBuyPrice <= item.fMoneyNow");
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.ToString());
+                    Service.ExceptionEmail(e, "Auction/Item/GenerateResult/item.fBuyPrice > 0 && item.fBuyPrice <= item.fMoneyNow");
                 }
                 return;
             }
@@ -768,11 +770,11 @@ namespace CardAuction.Controllers
                 }
                 catch (DbEntityValidationException ex)
                 {
-                    Console.WriteLine(ex.ToString());
+                    Service.ExceptionEmail(ex, "Auction/Item/GenerateResult/item.fEndTime < DateTime.Now && item.fBidCount > 0");
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.ToString());
+                    Service.ExceptionEmail(e, "Auction/Item/GenerateResult/item.fEndTime < DateTime.Now && item.fBidCount > 0");
                 }
                 return;
             }

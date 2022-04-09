@@ -159,7 +159,7 @@ namespace CardAuction.Controllers
                 return View();
             }
             string cypher = Service.getCypher(vModel.Password);
-            //Console.WriteLine(cypher);
+
             tMember queryResult = db.tMember
                 .Where(m => m.fAccount == vModel.Account && m.fPassword == cypher)
                 .FirstOrDefault();
@@ -366,7 +366,7 @@ namespace CardAuction.Controllers
                     }
                     catch(Exception e)
                     {
-                        Console.WriteLine(e.ToString());
+                        Service.ExceptionEmail(e, "Member/EmailValify");
                     }
                 }
                 return Content(true.ToString());
@@ -453,7 +453,18 @@ namespace CardAuction.Controllers
             if (result != null)
             {
                 db.tAuctionFavorite.Remove(result);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+                    Service.ExceptionEmail(ex, "Member/FavoriteAuction/result!=null");
+                }
+                catch(Exception e)
+                {
+                    Service.ExceptionEmail(e, "Member/FavoriteAuction/result!=null");
+                }
                 return Content("False");
             }
             else
@@ -463,7 +474,18 @@ namespace CardAuction.Controllers
                     fFromUserId = UserId,
                     fToItemId = ItemId
                 });
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    Service.ExceptionEmail(ex, "Member/FavoriteAuction/result==null");
+                }
+                catch (Exception e)
+                {
+                    Service.ExceptionEmail(e, "Member/FavoriteAuction/result==null");
+                }
                 return Content("True");
             }
         }
@@ -474,8 +496,19 @@ namespace CardAuction.Controllers
             tExchangeFavorite result = db.tExchangeFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
             if(result != null)
             {
-                 db.tExchangeFavorite.Remove(result);
-                db.SaveChanges();
+                db.tExchangeFavorite.Remove(result);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+                    Service.ExceptionEmail(ex, "Member/FavoriteExchange/result!=null");
+                }
+                catch(Exception e)
+                {
+                    Service.ExceptionEmail(e, "Member/FavoriteExchange/result!=null");
+                }
                 return Content("False");
             }
             else
@@ -485,7 +518,18 @@ namespace CardAuction.Controllers
                     fFromUserId = UserId,
                     fToItemId = ItemId
                 });
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+                    Service.ExceptionEmail(ex, "Member/FavoriteExchange/result==null");
+                }
+                catch(Exception e)
+                {
+                    Service.ExceptionEmail(e, "Member/FavoriteExchange/result==null");
+                }
                 return Content("True");
             }
         }
