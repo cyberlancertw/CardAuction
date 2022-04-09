@@ -191,6 +191,11 @@ namespace CardAuction.Controllers
         {
             Session[CDictionary.SK_UserAccount] = null;
             Session[CDictionary.SK_UserUserId] = null;
+            Session[CDictionary.SK_BackTo] = null;
+            Session[CDictionary.SK_RedirectTo] = null;
+            Session[CDictionary.SK_BellFinishItems] = null;
+            Session[CDictionary.SK_BellInfoItems] = null;
+
             return RedirectToAction("Index","Home");
         }
         [HttpGet]

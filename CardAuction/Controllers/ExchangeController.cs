@@ -59,9 +59,8 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                Session[CDictionary.SK_RedirectToController] = "Exchange";
-                Session[CDictionary.SK_RedirectToAction] = "Post";
-                Session[CDictionary.SK_RedirectToId] = string.Empty;
+                Session[CDictionary.SK_BackTo] = new CLinkTo("Home", "Post");
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Exchange", "Post");
                 return RedirectToAction("Login", "Member");
             }
             else
@@ -75,9 +74,8 @@ namespace CardAuction.Controllers
         {
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                Session[CDictionary.SK_RedirectToController] = "Exchange";
-                Session[CDictionary.SK_RedirectToAction] = "Post";
-                Session[CDictionary.SK_RedirectToId] = string.Empty;
+                Session[CDictionary.SK_BackTo] = new CLinkTo("Home", "Post");
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Exchange", "Post");
                 return RedirectToAction("Login", "Member");
             }
 
@@ -160,9 +158,8 @@ namespace CardAuction.Controllers
             ViewBag.itemId = id;
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                Session[CDictionary.SK_RedirectToController] = "Exchange";
-                Session[CDictionary.SK_RedirectToAction] = "Couple";
-                Session[CDictionary.SK_RedirectToId] = id;
+                Session[CDictionary.SK_BackTo] = new CLinkTo("Exchange", "Item", id);
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Exchange", "Couple", id);
                 return RedirectToAction("Login", "Member");
             }
             else
@@ -177,9 +174,8 @@ namespace CardAuction.Controllers
             
             if (Session[CDictionary.SK_UserAccount] == null)             // 沒登入不給上架，送去登入頁
             {
-                Session[CDictionary.SK_RedirectToController] = "Exchange";
-                Session[CDictionary.SK_RedirectToAction] = "Couple";
-                Session[CDictionary.SK_RedirectToId] = string.Empty;
+                Session[CDictionary.SK_BackTo] = new CLinkTo("Exchange", "Item", vModel.itemId);
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Exchange", "Couple", vModel.itemId);
                 return RedirectToAction("Login", "Member");
             }
 

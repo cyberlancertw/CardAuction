@@ -360,9 +360,7 @@
 
         @if (Session[CDictionary.SK_UserUserId] == null)
         {
-            Session[CDictionary.SK_RedirectToAction] = "Item";
-            Session[CDictionary.SK_RedirectToController] = "Auction";
-            Session[CDictionary.SK_RedirectToId] = Model.fItemId;
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Auction", "Item", Model.fItemId);
         <text>
         let btns = [btnFavorite, btnReport, btnBid, btnCommentSend, btnBuy];    // 無登入者，若點擊這些按鈕，送去登入頁
         btns.forEach(dom => {

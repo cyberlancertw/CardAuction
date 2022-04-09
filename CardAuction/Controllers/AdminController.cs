@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CardAuction.Models;
 using System.IO;
-
+using System.Data.Entity.Validation;
 
 namespace CardAuction.Controllers
 {
@@ -43,6 +43,10 @@ namespace CardAuction.Controllers
                     ViewBag.Error = true;
                     return View(member);
                 }
+                Random rnd = new Random();
+                int rndNum = rnd.Next(10);
+                member.fUserId = Guid.NewGuid().GetHashCode().ToString().Replace("-", rndNum.ToString()).Substring(0, 8) + rnd.Next(1000, 10000).ToString();
+
                 db.tMember.Add(member);
                 db.SaveChanges();
                 return RedirectToAction("PsnManage");
@@ -169,7 +173,7 @@ namespace CardAuction.Controllers
                 if (editAd.photo != null)
                 {
                     //string name = Guid.NewGuid().ToString() + ".jpg";
-                    string name = editAd.fAdId.ToString() + ".jpg";
+                    string name = editAd.fAdId.ToString() + ".png";
                     editAd.photo.SaveAs(Server.MapPath("~/Images/User/Index/SlideShowAD/") + name);
                     Adv.fAdFileName = name;
                 }

@@ -1,10 +1,17 @@
 ﻿
 @{
     ViewBag.Title = "DataAnalyze";
+    var footerText = DateTime.Now.Year + "年 / " + DateTime.Now.Month + "月 / " + DateTime.Now.Day + "日 ";
 }
 
 <main>
     <div class="container padding paddingModify">
+        <div class="jumbotron">
+            <h4 class="textModify">資料數據 Data</h4>
+            <br />
+            <div class="textModify fontM">@footerText</div>
+        </div>
+
         <div class="row icon-wrap">
 
             <div class="card-deck">
@@ -57,7 +64,7 @@
     <style>
         /*cssAdminIndex.css*/
         .padding {
-            padding: 160px 10px 180px 10px;
+            padding: 30px 10px 180px 10px;
         }
 
         .position-width {
@@ -139,6 +146,22 @@
             font-size: 20px;
             font-weight: 600;
             color: #1f3344;
+        }
+
+        .textModify {
+            color: #1f3344;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 600;
+            font-family: 'Noto Sans', sans-serif;
+            text-align: center;
+            padding-left: 30px;
+        }
+
+        .fontM {
+            font-size: 20px;
+            font-weight: 400;
+            padding-left: 40px;
         }
 
     </style>
