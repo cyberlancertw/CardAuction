@@ -16,17 +16,18 @@
     position: relative;
 }
 
-.menu_btn{
+.menu_btn {
     z-index: 1;
-    width: 40px;
+    width: 100%;
     height: 40px;
-    background-color:#fff;
+    background-color: #fff;
     /* border: 1px solid gray; */
     display: block;
     border-radius: 5px;
-    position: absolute;
-    top: -5px;
-    right: 10px;
+    position: relative;
+    left: 90%;
+    /* float: left; */
+    margin-right: 40px;
 }
 
 .menu_btn span{
@@ -103,7 +104,6 @@ nav a:hover,.dropdown-btn:hover a,.fa-caret-down:hover{
 }
 
 .page1{
-    position: relative;
     top: 50px;
     height:800px;
     border: 1px solid gray;
@@ -206,7 +206,6 @@ input{
 }
 
 .page2{
-    position: relative;
     top: 30px;
     display: flex;
     flex-wrap: wrap;
@@ -376,14 +375,7 @@ text-align: center;
     box-shadow: 1px 1px 20px 1px gray;
 }
 
-.page3{
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    /* max-width: 600px; */
-    margin:auto;
-    padding: 20px 50px ;
-}
+
 
 .thead{
     display:flex;
@@ -420,6 +412,7 @@ text-align: center;
     margin:10px 1px;
     align-items:center;
     justify-content:space-between;
+    height:120px;
 }
 
 .button-area{
@@ -446,8 +439,16 @@ text-align: center;
     font-size:xx-small;
 }
 
+.page3 {
+    display: flex;
+    flex-wrap: wrap;
+    /* max-width: 600px; */
+    margin: auto;
+    padding: 10px 50px;
+}
+
 .page4{
-    position: relative;
+    
     display: flex;
     flex-wrap: wrap;
     /* max-width: 600px; */
@@ -485,7 +486,7 @@ text-align: center;
 }
 
 .ptable{
-    margin: 50px auto 0px;
+    margin: 0px auto 0px;
     border: 1px solid gray;
     border-radius: 10px;
     overflow: hidden;
@@ -632,7 +633,7 @@ table input {
    }
    .page1{
        width: 50%;
-       height: 750px;
+       height: 700px;
        margin: auto 20px;
    }
 
@@ -640,7 +641,7 @@ table input {
         display: flex;
         align-items: center;
         padding: 0px 70px;
-        margin: 20px auto;
+        margin: 10px auto;
         text-align: center;
         background-color: #1f3344;
         color: #fff;
@@ -798,7 +799,7 @@ color: #1f3344;
 @media (min-width: 1200px) {
     .page1 {
         width: 50%;
-        height: 750px;
+        height: 700px;
         margin: auto 20px;
     } 
 }
