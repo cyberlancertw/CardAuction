@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="col-4">
-                        <button class="notFollowing" id="btnFavorite"><i id="iconFavorite" class="fa-solid fa-heart-circle-plus"></i> <span id="txtFavorite">加入追蹤</span></button>
+                        <button class="notFollowing" id="btnFavorite"><i id="iconFavorite" class="fa-solid fa-heart-circle-plus"></i> <span id="txtFavorite">加入收藏</span></button>
                     </div>
 
                     <div class="col-4">
@@ -164,7 +164,7 @@
                                 <span>OK mart 店到店寄件：</span>
                                 <a href="https://www.okmart.com.tw/convenient_shopSearch" target="_blank">OK mart</a>
                             </p>
-                            <label for="okStoreId">*門市店號：</label>
+                            <label for="okStoreId">*服務代號：</label>
                             <input type="number" id="okStoreId" />
                             <label for="okStoreName">*店名：</label>
                             <input type="text" id="okStoreName" />
@@ -583,14 +583,14 @@
 
         function toggleFavorite(isFavorite) {
             if (isFavorite == 'True') {
-                txtFavorite.textContent = '已追蹤';
+                txtFavorite.textContent = '已收藏';
                 iconFavorite.classList.add('fa-heart-circle-check');
                 iconFavorite.classList.remove('fa-heart-circle-plus');
                 btnFavorite.classList.add('following');
                 btnFavorite.classList.remove('notFollowing');
             }
             else {
-                txtFavorite.textContent = '加入追蹤';
+                txtFavorite.textContent = '加入收藏';
                 iconFavorite.classList.add('fa-heart-circle-plus');
                 iconFavorite.classList.remove('fa-heart-circle-check');
 

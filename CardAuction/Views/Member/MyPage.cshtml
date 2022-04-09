@@ -10,17 +10,8 @@
     string userId = Session[CDictionary.SK_UserUserId].ToString();
 }
 
-@*<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>我的帳戶</title>
-    </head>
-    <body>*@
 @section styles{
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/MemberCss/mypage.css">
 }
@@ -42,7 +33,7 @@
             <a href="#" id="btn3">·我的競標</a>
             <a href="#" id="btn4">·我的交換</a>
             <a href="#" id="btn5">·競標紀錄</a>
-            <a href="#" id="btn6">.交換紀錄</a>
+            <a href="#" id="btn6">·交換紀錄</a>
         </div>
     </nav>
 
@@ -63,13 +54,15 @@
             <div class="bottomleft">
                 <p>
                     <label for="uaccount">使用者帳號</label>
-                    <input type="text" name="account" id="uaccount" disabled value="@Model.MyAccount.fAccount">
+                    <input type="text" name="Account" id="uaccount" disabled value="@Model.MyAccount.fAccount">
                 </p>
                 <p>
                     <label for="uname">姓名</label>
                     <input type="text" id="uname" value="@Model.MyAccount.fName" name="Name">
                 </p>
                 <p>
+                    <input type="hidden" value="@Model.MyAccount.fAccount" name="Account" />
+                    <input type="hidden" value="@Model.MyAccount.fEmail" name="oldEmail" />
                     <label for="uemail">Email帳號</label>
                     <input type="email" id="uemail" value="@Model.MyAccount.fEmail" name="Email">
                 </p>
@@ -90,6 +83,9 @@
             </div>
             <input type="submit" value="儲存" class="btn">
         </form>
+        <div class="forget-password">
+            <a href="#">忘記密碼</a>
+        </div>
     </div>
 
     <div class="page2" id="pages2" style="display:none">
@@ -215,7 +211,10 @@
                             <h5>@resetday</h5>
                         }
                         <div class="button-area">
-                            @if (myaitem.fFinish && !myaitem.fDelete && myaitem.fPostUserId == userId)
+                            @if (myaitem.fFinish 
+                                && !myaitem.fDelete 
+                                && myaitem.fPostUserId == userId 
+                                && myaitem.fTopBidUserId != null)
                             {
                                 <button class="infoWinner" data-infoitemid="@myaitem.fItemId" data-itemtype="auction">通知買家</button>
                             }

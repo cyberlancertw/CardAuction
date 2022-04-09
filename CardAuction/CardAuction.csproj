@@ -215,6 +215,8 @@
     <Content Include="Content\LayoutCss\cssUserLayout.css" />
     <Content Include="Content\MemberCss\cssMemberLogin.css" />
     <Content Include="Content\MemberCss\cssMemberRegister.css" />
+    <Content Include="Content\MemberCss\cssMemberEmailValidation.css" />
+    <Content Include="Content\MemberCss\forgot.css" />
     <Content Include="Content\MemberCss\mypage.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
@@ -231,6 +233,11 @@
     <Content Include="Images\About\26_r.jpg" />
     <Content Include="Images\About\29_c.png" />
     <Content Include="Images\About\29_r.jpg" />
+    <Content Include="Images\Admin\1.png" />
+    <Content Include="Images\Admin\2.png" />
+    <Content Include="Images\Admin\3.png" />
+    <Content Include="Images\Admin\4.png" />
+    <Content Include="Images\Admin\5.png" />
     <Content Include="Images\Admin\DataAnalyze\bar-chart.png" />
     <Content Include="Images\Admin\DataAnalyze\line-chart.png" />
     <Content Include="Images\Admin\DataAnalyze\pie-chart.png" />

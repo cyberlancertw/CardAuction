@@ -480,12 +480,13 @@ body {
 }
 
 .btncheng {
-    width:150px;
-    height:40px;
-    font-size:1.5rem;
+    width: 150px;
+    height: 40px;
+    font-size: 1.5rem;
     margin-top: 10%;
-    margin-bottom:5px;
-    border-radius:10px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .btnright {

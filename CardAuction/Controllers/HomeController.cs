@@ -30,7 +30,11 @@ namespace CardAuction.Controllers
             }
             catch (DbEntityValidationException ex)
             {
-                Console.WriteLine(ex.ToString());
+                Service.ExceptionEmail(ex, "Home/Index");
+            }
+            catch(Exception e)
+            {
+                Service.ExceptionEmail(e, "Home/Index");
             }
             return View();
         }

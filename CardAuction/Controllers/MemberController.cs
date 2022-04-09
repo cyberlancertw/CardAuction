@@ -36,6 +36,8 @@ namespace CardAuction.Controllers
 
             if (Session[CDictionary.SK_UserAccount] == null)
             {
+                Session[CDictionary.SK_BackTo] = new CLinkTo("Member", "MyPage");
+                Session[CDictionary.SK_RedirectTo] = new CLinkTo("Member", "MyPage");
                 return RedirectToAction("Login");
             }
 
@@ -76,7 +78,7 @@ namespace CardAuction.Controllers
             return View(MyInfo);
         }
         [HttpPost]
-        public ActionResult MyPage(CRegisterViewModel vModel,int page= 1)
+        public ActionResult MyPage(CRegisterViewModel vModel, string oldEmail, int page= 1)
         {
             int currentPage = page < 1 ? 1 : page;
             string userId = Session[CDictionary.SK_UserUserId].ToString();
@@ -85,7 +87,11 @@ namespace CardAuction.Controllers
             member.fPhone = vModel.Phone;
             member.fAddress = vModel.Address;
             member.fEmail = vModel.Email;
-            try
+            if (vModel.Email != oldEmail)
+            {
+                member.fActive = false;
+            }
+                try
             {
                 db.SaveChanges();
             }
@@ -97,8 +103,13 @@ namespace CardAuction.Controllers
             {
                 return RedirectToAction("Error", "Home", new { ErrorMessage = $"糟糕！發生某些狀況…… {ex.ToString()}", ToController = "Member", ToAction = "MyPage" });
             }
-
-
+            
+            if(vModel.Email != oldEmail)
+            {
+                Session[CDictionary.SK_ValidationAccount] = vModel.Account; 
+                Session[CDictionary.SK_ValidationEmail] = vModel.Email;
+                return RedirectToAction("EmailValidation");
+            }
             CMemberMypageViewModel MyInfo = new CMemberMypageViewModel();
 
             MyInfo.MyAccount = db.tMember.Find(userId);
@@ -148,7 +159,7 @@ namespace CardAuction.Controllers
                 return View();
             }
             string cypher = Service.getCypher(vModel.Password);
-            //Console.WriteLine(cypher);
+
             tMember queryResult = db.tMember
                 .Where(m => m.fAccount == vModel.Account && m.fPassword == cypher)
                 .FirstOrDefault();
@@ -224,7 +235,7 @@ namespace CardAuction.Controllers
                 return View();
             }
 
-            if (CMemberFactory.QueryByAccount(vModel.Account) != 0)
+            if (db.tMember.Any(m => m.fAccount == vModel.Account))
             {
                 ViewBag.errAcc = "帳號已存在";
                 return View();
@@ -306,8 +317,8 @@ namespace CardAuction.Controllers
             Session[CDictionary.SK_ValidationAccount] = vModel.Account;
             Session[CDictionary.SK_ValidationEmail] = vModel.Email;
 
-            return RedirectToAction("Index", "Home");
-            //return RedirectToAction("EmailValidation");
+            //return RedirectToAction("Index", "Home");
+            return RedirectToAction("EmailValidation");
 
         }
 
@@ -321,44 +332,51 @@ namespace CardAuction.Controllers
         [HttpGet]
         public ActionResult EmailValidation()
         {
+            if(Session[CDictionary.SK_ValidationAccount] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             int validateNum = Service.GetRandomNumber();
             string validateAccount = Session[CDictionary.SK_ValidationAccount].ToString();
             string accountMask = validateAccount.Substring(0, 3) + new string('*', validateAccount.Length - 3);
             Session[CDictionary.SK_ValidationNumber] = validateNum;
             string email = Session[CDictionary.SK_ValidationEmail].ToString();
-            string emailSubject = "Card.卡牌競標網站註冊驗証碼";
-            string emailContent = $"<h2>Card.卡牌競標網站，歡迎您的註冊</h2><h3>註冊帳號為：{accountMask}</h3><h3>這是您的驗證碼：{validateNum} </h3><br /><br /><h3 style=\"color: red\">若非您本人註冊，請不要理會本信件。</h3>";
-
+            string emailSubject = "CARDs.卡市 - 註冊驗証碼";
+            string emailContent = $"<h2>CARDs.卡市 - 卡牌競標交換網站，歡迎您的註冊</h2><h3>註冊帳號為：{accountMask}</h3><h3>這是您的驗證碼：{validateNum} </h3><br /><br /><h3 style=\"color: red\">若非您本人註冊，請不要理會本信件。</h3><h3>系統信件請勿回信。by <a href=\"${CDictionary.WebHost}\">CARDs.卡市</a> 團隊</h3>";
+            
             Service.SendEmail(email, emailSubject, emailContent);
+            
+            Session[CDictionary.SK_BackTo] = new CLinkTo("Member", "EmailValidation");
+            Session[CDictionary.SK_RedirectTo] = new CLinkTo("Member", "MyPage");
             return View();
         }
-        [HttpPost]
-        public ActionResult EmailValidation(string validationNumber)
+        public ActionResult EmailValify(int id)
         {
-            int sessionNumber = (int)Session[CDictionary.SK_ValidationNumber];
-            if(sessionNumber == Convert.ToInt32(validationNumber))
+            int validateNum = (int)Session[CDictionary.SK_ValidationNumber];
+            string validateAccount = Session[CDictionary.SK_ValidationAccount].ToString();
+            if (validateNum == id)
             {
-                Session[CDictionary.SK_ValidationSuccess] = true;
-                CMemberFactory.Activate(Session[CDictionary.SK_ValidationAccount].ToString());
-                return RedirectToAction("Activate");
+                tMember member = db.tMember.Where(m => m.fAccount == validateAccount).FirstOrDefault();
+                if(member != null)
+                {
+                    member.fActive = true;
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch(Exception e)
+                    {
+                        Service.ExceptionEmail(e, "Member/EmailValify");
+                    }
+                }
+                return Content(true.ToString());
             }
             else
             {
-                ViewData["errorMsg"] = "驗証碼輸入有誤";
-                return View();
+                return Content(false.ToString());
             }
         }
 
-        public ActionResult Activate()
-        {
-            bool isSuccess = (bool)Session[CDictionary.SK_ValidationSuccess];
-            if (isSuccess)
-            {
-                return View();
-            }
-            return RedirectToAction("Login");
-            
-        }
 
         [HttpGet]
         public ActionResult PasswordForget()
@@ -394,7 +412,7 @@ namespace CardAuction.Controllers
 
             string emailSubject = "Card.卡牌競標網站重發密碼信件";
             string accMask = account.Substring(0, 3) + new string('*', account.Length - 3);
-            string emailContent = $"<h2>Card.卡牌競標網站會員 {accMask} 您的新密碼為：</h2><h3>{newPassword}</h3><h3>請盡速至網站更新您的密碼</h3><br /><br /><h3 style=\"color: red\">若非您本人註冊，請不要理會本信件。</h3>";
+            string emailContent = $"<h2>Card.卡牌競標網站會員 {accMask} 您的新密碼為：</h2><h3>{newPassword}</h3><h3>請盡速至網站更新您的密碼</h3><br /><br /><h3 style=\"color: red\">若非您本人註冊，請不要理會本信件。<h3>系統信件請勿回信。by <a href=\"${CDictionary.WebHost}\">CARDs.卡市</a> 團隊</h3>";
 
             Service.SendEmail(email, emailSubject, emailContent);
 
@@ -435,7 +453,18 @@ namespace CardAuction.Controllers
             if (result != null)
             {
                 db.tAuctionFavorite.Remove(result);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+                    Service.ExceptionEmail(ex, "Member/FavoriteAuction/result!=null");
+                }
+                catch(Exception e)
+                {
+                    Service.ExceptionEmail(e, "Member/FavoriteAuction/result!=null");
+                }
                 return Content("False");
             }
             else
@@ -445,7 +474,18 @@ namespace CardAuction.Controllers
                     fFromUserId = UserId,
                     fToItemId = ItemId
                 });
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    Service.ExceptionEmail(ex, "Member/FavoriteAuction/result==null");
+                }
+                catch (Exception e)
+                {
+                    Service.ExceptionEmail(e, "Member/FavoriteAuction/result==null");
+                }
                 return Content("True");
             }
         }
@@ -456,8 +496,19 @@ namespace CardAuction.Controllers
             tExchangeFavorite result = db.tExchangeFavorite.Where(m => m.fFromUserId == UserId && m.fToItemId == ItemId).FirstOrDefault();
             if(result != null)
             {
-                 db.tExchangeFavorite.Remove(result);
-                db.SaveChanges();
+                db.tExchangeFavorite.Remove(result);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+                    Service.ExceptionEmail(ex, "Member/FavoriteExchange/result!=null");
+                }
+                catch(Exception e)
+                {
+                    Service.ExceptionEmail(e, "Member/FavoriteExchange/result!=null");
+                }
                 return Content("False");
             }
             else
@@ -467,7 +518,18 @@ namespace CardAuction.Controllers
                     fFromUserId = UserId,
                     fToItemId = ItemId
                 });
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+                    Service.ExceptionEmail(ex, "Member/FavoriteExchange/result==null");
+                }
+                catch(Exception e)
+                {
+                    Service.ExceptionEmail(e, "Member/FavoriteExchange/result==null");
+                }
                 return Content("True");
             }
         }

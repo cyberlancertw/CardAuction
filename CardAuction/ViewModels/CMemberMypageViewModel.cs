@@ -24,5 +24,6 @@ namespace CardAuction.ViewModels
 
         public IPagedList<tExchangeResult> myExchangeResult { get; set; }
         //public List<tItem> myAuctionItem { get;set }
+        public string oldEmail { get; set; }
     }
 }

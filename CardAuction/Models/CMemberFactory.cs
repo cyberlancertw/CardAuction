@@ -26,14 +26,6 @@ namespace CardAuction.Models
             Service.ExecuteSql(sql, paras);
         }
 
-        public static void Activate(string account)
-        {
-            string sqlStatement = "update tMember set fActive=@act where fAccount=@acc";
-            List<SqlParameter> paras = new List<SqlParameter>();
-            paras.Add(new SqlParameter("act", true));
-            paras.Add(new SqlParameter("acc", account));
-            Service.ExecuteSql(sqlStatement, paras);
-        }
 
         public static List<CMember> QueryBy(string sqlStatement, List<SqlParameter> parameterList)
         {
@@ -67,63 +59,6 @@ namespace CardAuction.Models
             connection.Close();
 
             return queryResult;
-        }
-        public static int QueryByAccount(string account)
-        {
-            string sql = "select * from tMember where fAccount=@acc";
-            List<SqlParameter> paras = new List<SqlParameter>();
-            paras.Add(new SqlParameter("acc", account));
-            List<CMember> queryResult = QueryBy(sql, paras);
-
-            return queryResult.Count;
-
-        }
-        public static CMember QueryById(int userId)
-        {
-            string sql = "select * from tMember where fUserId=@id";
-            List<SqlParameter> paras = new List<SqlParameter>();
-            paras.Add(new SqlParameter("id", userId));
-            List<CMember> queryResult = QueryBy(sql, paras);
-            if (queryResult.Count > 0)
-            {
-                return queryResult[0];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        // -------
-
-        
-        public void AddFavorite(int? id)
-        {
-
-        }
-
-        public void RemoveFavorite(int? id)
-        {
-
-        }
-
-        public void Update(CMember member)
-        {
-            string sql = "update tMember set fAccount=@acc, fPassword=@pwd, fName=@name, fEmail=@email, fAddress=@addr, fPhone=@phone, fBirthday=@birth, fSubscribe=@subs, fManager=@manag, fActive=@active where fUserId=@id)";
-            List<SqlParameter> paras = new List<SqlParameter>();
-            paras.Add(new SqlParameter("acc", member.Account));
-            paras.Add(new SqlParameter("pwd", Service.getCypher(member.Password)));         // 密碼做加密
-            paras.Add(new SqlParameter("name", member.Name));
-            paras.Add(new SqlParameter("email", member.Email));
-            paras.Add(new SqlParameter("addr", member.Address));
-            paras.Add(new SqlParameter("phone", member.Phone));
-            paras.Add(new SqlParameter("birth", member.Birthday));
-            paras.Add(new SqlParameter("subs", member.Subscribe));
-            paras.Add(new SqlParameter("manag", false));
-            paras.Add(new SqlParameter("active", true));
-            paras.Add(new SqlParameter("id", member.UserId));
-
-            Service.ExecuteSql(sql, paras);
         }
     }
 }

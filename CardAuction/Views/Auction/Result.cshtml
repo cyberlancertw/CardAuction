@@ -11,25 +11,7 @@
 }
 
 <div id="divResult">
-    <div class="historyHeader">
-        @foreach (BidDetail bid in Model.history)
-        {   <div class="aRecord">
-                <div class="history1">
-                    <div class="bidAcc">帳號:</div>
-                    <div class="bidAcc">@bid.bidAccount</div>
-                </div>
-                <div class="history2">
-                    <div class="bidMoney">出價:</div>
-                    <div class="bidMoney">@bid.bidMoney 元</div>
-                </div>
-                <div class="history3">
-                    <div class="bidTime">時間:</div>
-                    <div class="bidTime">@bid.bidTime.ToString()</div>
-                </div>
-            </div>
-        }
 
-    </div>
 
 
     @*<table id="tableHistory">
@@ -127,6 +109,27 @@
             <div class="divContent">@Model.result.fDeliveryInfo</div>
         </div>
     }
+
+
+    <div id="historyRecord">
+        <div class="divTitle">出價紀錄</div>
+        <div class="historyHeader">
+            @foreach (BidDetail bid in Model.history)
+            {
+            <div class="infotatal">
+                <div class="info">
+                    帳號: @bid.bidAccount
+                </div>
+                <div class="info1">
+                    出價: @bid.bidMoney 元
+                </div>
+                <div class="info2">
+                    時間: @bid.bidTime.ToString()
+                </div>
+            </div>
+            }
+        </div>
+    </div>
 
 </div>
 
