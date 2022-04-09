@@ -17,7 +17,7 @@
 <body>
     <div class="container">
         <div id="header">
-            <div id="divBell"><i class="fa-solid fa-bell" id="iconBell"></i></div>
+            <div id="divBell" title="新結束商品，請至我的競標查看"><i class="fa-solid fa-bell" id="iconBell"></i></div>
             <div id="divLogin">
                 @{
                     var userAcc = Session[CDictionary.SK_UserAccount];
@@ -76,28 +76,24 @@
     <script>
         var txtSearch = document.getElementById('txtSearch');
         var divBell = document.getElementById('divBell');
-        var finishItemList = [], infoItemList = [];
 
         @if (Session[CDictionary.SK_UserUserId] != null)
         {
     <text>
-    fetch('@Url.Content("~/Home/FindFinishAuctionItem")', { method: 'GET' })
-        .then(response => response.json())
-        .then(hasNewItem => {
-            finishItemList = [];
-            hasNewItem.forEach(obj => finishItemList.push(obj.itemId));
-            console.log(finishItemList);
-            //if (hasNewItem == 'True') {
-            //    window.setInterval(() => {
-            //        if (divBell.style.visibility == 'hidden') {
-            //            divBell.style.visibility = 'visible';
-            //        }
-            //        else {
-            //            divBell.style.visibility = 'hidden';
-            //        }
-            //    }, 500);
-            //}
-        });
+        fetch('@Url.Content("~/Home/FindFinishAuctionItem")', { method: 'GET' })
+            .then(response => response.text())
+            .then(hasNewItem => {
+                if (hasNewItem == 'True') {
+                    window.setInterval(() => {
+                        if (divBell.style.visibility == 'hidden') {
+                            divBell.style.visibility = 'visible';
+                        }
+                        else {
+                            divBell.style.visibility = 'hidden';
+                        }
+                    }, 500);
+                }
+            });
         </text>
         }
 

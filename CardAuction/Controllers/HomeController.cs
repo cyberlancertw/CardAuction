@@ -235,7 +235,8 @@ namespace CardAuction.Controllers
                          && (m.fEndTime < DateTime.Now)
                          && m.fFinish && !m.fDelete)
                 .Select(m => m.fItemId).ToList();
-            if(finishItems.Count == 0)
+            Session[CDictionary.SK_BellFinishItems] = finishItems;
+            if (finishItems.Count == 0)
             {
                 return false.ToString();
             }
@@ -245,23 +246,10 @@ namespace CardAuction.Controllers
                 return true.ToString();
             }
             List<string> substractionItems = finishItems.Except(infoItems).ToList();
+            
             return (substractionItems.Count > 0).ToString();
         }
 
-        public void InfoItem(string itemId)
-        {
-            if (Session[CDictionary.SK_UserUserId] == null)
-            {
-                return;
-            }
-            List<string> infoItems = Session[CDictionary.SK_BellInfoItems] as List<string>;
-            if(infoItems == null)
-            {
-                infoItems = new List<string>();
-            }
-            infoItems.Add(itemId);
-            return;
-        }
     }
 
 

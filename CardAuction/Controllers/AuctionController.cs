@@ -782,15 +782,11 @@ namespace CardAuction.Controllers
 
         public void InfoBidWinner(string itemId)
         {
-            if(string.IsNullOrEmpty(itemId))
+            if (string.IsNullOrEmpty(itemId) || Session[CDictionary.SK_UserUserId] == null)
             {
                 return;
             }
             tAuctionItem item = db.tAuctionItem.Find(itemId);
-            if(item == null)
-            {
-                return;
-            }
             tMember topUser = db.tMember.Find(item.fTopBidUserId);
             if (item == null || topUser == null)
             {
@@ -810,7 +806,19 @@ namespace CardAuction.Controllers
                 + $"<h2><a href=\"{linkTo}\">{linkTo}</a></h2><h3>系統信件請勿回信。by CARDs.卡市 團隊</h3>";
             Service.SendEmail(userEmail, subject, content);
 
+
+
+            List<string> infoItems = Session[CDictionary.SK_BellInfoItems] as List<string>;
+            if (infoItems == null)
+            {
+                infoItems = new List<string>();
+            }
+            if (!infoItems.Contains(itemId))
+            {
+                infoItems.Add(itemId);
+            }
             return;
+
         }
 
     }

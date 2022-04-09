@@ -120,6 +120,8 @@ body {
     text-decoration: none;
 }
 #divBell {
+    padding-left: 1rem;
+    padding-right: 1rem;
     vertical-align: central;
     visibility: hidden;
     font-size: 1.4rem;

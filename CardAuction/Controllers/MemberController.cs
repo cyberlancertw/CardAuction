@@ -45,7 +45,7 @@ namespace CardAuction.Controllers
 
             MyInfo.MyAccount = db.tMember.Find(userId);
 
-            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId || (m.fTopBidUserId == userId && m.fFinish && !m.fDelete)).OrderByDescending(m => (m.fFinish || m.fDelete))
+            MyInfo.myAuctionItem = db.tAuctionItem.Where(m => m.fPostUserId == userId || (m.fTopBidUserId == userId && m.fFinish && !m.fDelete)).OrderByDescending(m => (m.fFinish && !m.fDelete))
             .ThenBy(m => m.fEndTime).ToList().ToPagedList(currentPage, pageSize);
 
             MyInfo.myExchangeItem = db.tExchangeItem.Where(m => m.fPostUserId == userId).ToList().ToPagedList(currentPage, pageSize);
@@ -59,6 +59,19 @@ namespace CardAuction.Controllers
             MyInfo.myAuctionResult = db.tAuctionResult.Where(m => m.fWinUserId == userId).ToList().ToPagedList(currentPage, pageSize);
 
             MyInfo.myExchangeResult = db.tExchangeResult.Where(m => m.fCoupleUserId == userId).ToList().ToPagedList(currentPage, pageSize);
+
+            // 下面給鈴噹用的
+            List<string> infoItemsList = Session[CDictionary.SK_BellInfoItems] == null ? new List<string>() : Session[CDictionary.SK_BellInfoItems] as List<string>;
+            List<string> finishItemsList = Session[CDictionary.SK_BellFinishItems] == null ? new List<string>() : Session[CDictionary.SK_BellFinishItems] as List<string>;
+            foreach(string finishItemId in finishItemsList)
+            {
+                if (!infoItemsList.Contains(finishItemId))
+                {
+                    infoItemsList.Add(finishItemId);        // 有 HttpGet 點過 Member/MyPage，就把 Session 中 BellFinishItems 每個 itemId 字串給 BellInfoItems 當做使用者按過了
+                }
+            }
+            Session[CDictionary.SK_BellInfoItems] = infoItemsList;
+            Session[CDictionary.SK_BellFinishItems] = finishItemsList;
 
             return View(MyInfo);
         }

@@ -7,6 +7,7 @@
 @{
     ViewBag.Title = "MyPage";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string userId = Session[CDictionary.SK_UserUserId].ToString();
 }
 
 @*<!DOCTYPE html>
@@ -214,7 +215,7 @@
                             <h5>@resetday</h5>
                         }
                         <div class="button-area">
-                            @if (myaitem.fFinish)
+                            @if (myaitem.fFinish && !myaitem.fDelete && myaitem.fPostUserId == userId)
                             {
                                 <button class="infoWinner" data-infoitemid="@myaitem.fItemId" data-itemtype="auction">通知買家</button>
                             }
@@ -268,7 +269,7 @@
                         <div class="button-area">
                             @if (myeitem.fEndTime < DateTime.Now || myeitem.fDelete)
                             {
-                                <button class="infoWinner" data-infoitemid="@myeitem.fItemId" data-itemtype="auction">通知買家</button>
+                                <button class="infoWinner" data-infoitemid="@myeitem.fItemId" data-itemtype="exchange">通知對方</button>
                             }
                             else
                             {
@@ -417,9 +418,8 @@
                 if (dom.dataset.itemtype == 'auction') {
                     fetch('@Url.Content("~/Auction/InfoBidWinner")' + para, { method: 'GET' })
                         .then(() => {
-                            dom.disabled = false;
                             dom.textContent = '已通知';
-                            window.setTimeout(() => dom.textContent = '通知買家', 1000);
+                            window.setTimeout(() => dom.hidden = true, 2000);
                         });
                 }
                 else {
@@ -427,7 +427,7 @@
                     .then(() => {
                         dom.disabled = false;
                         dom.textContent = '已通知';
-                        window.setTimeout(() => dom.textContent = '通知對方', 1000);
+                        window.setTimeout(() => dom.textContent = '通知對方', 2000);
                     });
                 }
             })
