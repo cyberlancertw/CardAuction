@@ -171,6 +171,7 @@
     <Content Include="bin\zh-Hant\System.Web.Webpages.Razor.resources.dll" />
     <Content Include="bin\zh-Hant\System.Web.Webpages.resources.dll" />
     <Content Include="Content\AdminCss\cssAdManage.css" />
+    <Content Include="Content\AdminCss\cssAdvManage.css" />
     <Content Include="Content\AdminCss\cssPsnCreate.css" />
     <Content Include="Content\AdminCss\cssPsnEdit.css" />
     <Content Include="Content\AdminCss\cssPsnManage.css" />
