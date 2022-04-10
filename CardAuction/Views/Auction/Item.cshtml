@@ -47,8 +47,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-6" id="divPhoto">
-                    <div>
-                        <img src="~/Images/AuctionItemImages/@filepath0" id="imgShow" /><br />
+                    <div id="showWrap">
+                        <img src="~/Images/AuctionItemImages/@filepath0" id="imgShow" />
                     </div>
                     <div id="divSmallList">
                         @{
@@ -150,7 +150,7 @@
                                 <span>全家店到店：</span>
                                 <a href="https://www.famiport.com.tw/Web_Famiport/page/ShopQuery.aspx" target="_blank">Fami Port</a>
                             </p>
-                            <label for="famiStoreId">*門市店號：</label>
+                            <label for="famiStoreId">*服務代號：</label>
                             <input type="number" id="famiStoreId" />
                             <label for="famiStoreName">*店名：</label>
                             <input type="text" id="famiStoreName" />
@@ -164,7 +164,7 @@
                                 <span>OK mart 店到店寄件：</span>
                                 <a href="https://www.okmart.com.tw/convenient_shopSearch" target="_blank">OK mart</a>
                             </p>
-                            <label for="okStoreId">*服務代號：</label>
+                            <label for="okStoreId">*門市店號：</label>
                             <input type="number" id="okStoreId" />
                             <label for="okStoreName">*店名：</label>
                             <input type="text" id="okStoreName" />
@@ -808,7 +808,7 @@
                                 let famiStoreName = document.getElementById('famiStoreName').value;
                                 let famiUserName = document.getElementById('famiUserName').value;
                                 let famiUserPhone = document.getElementById('famiUserPhone').value;
-                                deliveryInfo = `選擇方式：「全家店到店」。全家門市店號：「${famiStoreId}」。全家門市店名：「${famiStoreName}」。買家姓名：「${famiUserName}」。買家電話：「${famiUserPhone}」。`;
+                                deliveryInfo = `選擇方式：「全家店到店」。全家服務代號：「${famiStoreId}」。全家門市店名：「${famiStoreName}」。買家姓名：「${famiUserName}」。買家電話：「${famiUserPhone}」。`;
                                 break;
                             case "Ok":
                                 let okStoreId = document.getElementById('okStoreId').value;

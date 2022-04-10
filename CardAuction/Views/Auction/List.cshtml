@@ -349,7 +349,7 @@
         }
         function GeneratePageButton(itemCount) {
             pageBtnRow.innerHTML = '';
-            pageCount = Math.floor(itemCount / 12) + 1;
+            pageCount = Math.ceil(itemCount / 12);
             console.log(pageCount);
             let docFrag = document.createDocumentFragment();
             for (let i = 0; i < pageCount; i++) {

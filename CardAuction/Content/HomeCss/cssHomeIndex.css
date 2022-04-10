@@ -9,13 +9,14 @@
         font-size: 10px;
     }
     #carouselArea {
-        height: 20rem;
+        width: 39.8rem;
+        height: 19.9rem;
     }
     #divLeft, #divRight {
         font-size: 2rem;
     }
     #divLeft, #divRight {
-        top: 9rem;
+        top: 8.95rem;
     }
     #divLeft{
         left: 1.2rem;
@@ -24,7 +25,7 @@
         right: 1.2rem;
     }
     #divCurrent {
-        width: 30%;
+        width: 40%;
         left: 35%;
         bottom: 5%;
         font-size: 0.2rem;
@@ -50,13 +51,14 @@
         font-size: 11px;
     }
     #carouselArea {
-        height: 24rem;
+        width: 47rem;
+        height: 23.5rem;
     }
     #divLeft, #divRight {
         font-size: 2rem;
     }
     #divLeft, #divRight {
-        top: 11rem;
+        top: 10.75rem;
     }
 
     #divLeft {
@@ -92,13 +94,14 @@
         font-size: 12px;
     }
     #carouselArea {
-        height: 28rem;
+        width: 58rem;
+        height: 29rem;
     }
     #divLeft, #divRight {
         font-size: 2.4rem;
     }
     #divLeft, #divRight {
-        top: 12.6rem;
+        top: 13.3rem;
     }
     #divLeft {
         left: 1.2rem;
@@ -131,15 +134,15 @@
         font-size: 13px;
     }
     #carouselArea {
-        height: 32rem;
+        width: 72rem;
+        height: 36rem;
     }
     #divLeft, #divRight {
         font-size: 3rem;
     }
     #divLeft, #divRight {
-        top: 14.5rem;
+        top: 16.5rem;
     }
-
     #divLeft {
         left: 1.6rem;
     }
@@ -173,13 +176,14 @@
         font-size: 14px;
     }
     #carouselArea {
-        height: 40rem;
+        width: 92.7rem;
+        height: 46.4rem;
     }
     #divLeft, #divRight {
         font-size: 4rem;
     }
     #divLeft, #divRight {
-        top: 18rem;
+        top: 21.2rem;
     }
 
     #divLeft {

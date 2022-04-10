@@ -29,6 +29,10 @@
         width: 50%;
         font-size: 1.4rem;
     }
+    #showWrap {
+        width: 38rem;
+        height: 55rem;
+    }
     .imgSmall {
         height: 100px;
     }
@@ -98,6 +102,10 @@
         width: 50%;
         font-size: 1.4rem;
     }
+    #showWrap {
+        width: 30rem;
+        height: 43.5rem;
+    }
     .imgSmall {
         height: 80px;
     }
@@ -166,6 +174,10 @@
         height: 40px;
         width: 50%;
         font-size: 1.4rem;
+    }
+    #showWrap {
+        width: 25rem;
+        height: 36.25rem;
     }
     .imgSmall {
         height: 60px;
@@ -248,6 +260,10 @@
     .commentContent {
         order: 1;
     }
+    #showWrap {
+        width: 32rem;
+        height: 46.4rem;
+    }
     .finishRow {
         padding-top: 1.4rem;
         padding-bottom: 1.4rem;
@@ -309,6 +325,10 @@
         height: 40px;
         width: 50%;
         font-size: 1.4rem;
+    }
+    #showWrap {
+        width: 36rem;
+        height: 52.2rem;
     }
     .imgSmall {
         height: 6rem;
@@ -372,22 +392,28 @@
     margin-bottom: 10px;
 }
 
-
 #divPhoto{
-    text-align: center;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
 
+}
+
+#divSmallList {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 #imgShow{
     object-fit: cover;
+    object-position: 50% 50%;
     width: 100%;
     height: 100%;
     
 }
 
-#divSmallList{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+
 
 #divTime{
     border: 2px solid #ced3d8;
