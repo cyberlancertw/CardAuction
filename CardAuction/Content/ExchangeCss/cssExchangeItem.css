@@ -270,8 +270,11 @@ body {
 
 #divCalender {
     width: 100px;
-    color: #ab8f4e;
     text-align: center;
+}
+#divCalender > a{
+    text-decoration: none;
+    color: #ab8f4e;
 }
 
 #divMoney {
