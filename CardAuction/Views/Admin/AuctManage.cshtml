@@ -39,10 +39,10 @@
                 <th>圖2</th>
                 <th>圖3</th>
                 <th>圖4</th>*@
-            <th>面交</th>
+            @*<th>面交</th>
             <th>7-11</th>
             <th>全家</th>
-            <th>物流</th>
+            <th>物流</th>*@
             <th>聯絡資訊</th>
             <th>投標次數</th>
             <th>點擊次數</th>
@@ -108,7 +108,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.fPhoto3)
                         </td>*@
-                    <td class="wid50">
+                    @*<td class="wid50">
                         @Html.DisplayFor(modelItem => item.fTransPerson)
                     </td>
                     <td class="wid50">
@@ -119,7 +119,7 @@
                     </td>
                     <td class="wid50">
                         @Html.DisplayFor(modelItem => item.fTransLogi)
-                    </td>
+                    </td>*@
                     <td class="wid100">
                         @Html.DisplayFor(modelItem => item.fUserInfo)
                     </td>
@@ -135,10 +135,12 @@
                     @*<td>
                         @Html.DisplayFor(modelItem => item.fDelete)
                     </td>*@
-                    <td class="wid100">
-                        @*@Html.ActionLink("編輯", "Edit", new { id = item.fItemId }) |*@
-                        @Html.ActionLink("刪除", "Delete", new { id = item.fItemId })
-                    </td>
+                <td class="wid100">
+                    @*@Html.ActionLink("編輯", "Edit", new { id = item.fItemId }) |*@
+                    @Html.ActionLink("刪除", "Delete", new { id = item.fItemId }, new { @class = "btn btn-outline-secondary  btn-sm circleS", onclick = "return confirm('確定要刪除嗎?')" })
+
+                    @*@Html.ActionLink("刪除", "AdvDelete", "Admin", new { id = item.fAdId }, new { @class = "btn btn-outline-secondary  btn-sm circleS ", onclick = "return confirm('確定要刪除嗎?')" })*@
+                </td>
                 </tr>
             }
 
@@ -219,6 +221,18 @@
         .wid50 {
             width: 50px;
         }
+        .circleS {
+            padding: 14px 10px 14px 10px;
+            margin: 0 0px;
+            border-radius: 999em;
+            border: 1px solid;
+            font-weight: 600;
+            font-size: 14px;
+        }
+            .circleS:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
     </style>
 
 

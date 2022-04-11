@@ -123,8 +123,9 @@
                             @Html.DisplayFor(modelItem => item.fAdFileName)
                         </td>*@
                     <td>
-                        @Html.ActionLink("編輯", "AdvEdit", new { id = item.fAdId }) |
-                        @Html.ActionLink("刪除", "AdvDelete", "Admin", new { id = item.fAdId}, new { onclick = "return confirm('確定要刪除嗎?')" })
+                        @Html.ActionLink("編輯", "AdvEdit", new { id = item.fAdId }, new { @class = "btn btn-outline-secondary btn-sm circleS" }) 
+                        
+                        @Html.ActionLink("刪除", "AdvDelete", "Admin", new { id = item.fAdId}, new { @class="btn btn-outline-secondary  btn-sm circleS ", onclick = "return confirm('確定要刪除嗎?')" })
                     </td>
                 </tr>
             }
@@ -197,6 +198,22 @@
 
         }
 
+/*            td a {
+                padding: 14px 10px 14px 10px;
+                margin: 0 5px;
+                border-radius: 999em;
+                border: 1px solid;
+                font-weight: 600;
+                font-size: 16px;
+            }
+
+                td a:hover {
+                    background-color: #1f3344;
+                    font-weight: 600;
+                }*/
+
+           
+
         .imgWH {
             width:400px ;
             height:150px;
@@ -246,6 +263,20 @@
         .nohover {
             pointer-events: none;
         }
+
+        .circleS {
+            padding: 14px 10px 14px 10px;
+            margin: 0 5px;
+            border-radius: 999em;
+            border: 1px solid;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+            .circleS:hover {
+                background-color: #1f3344;
+                font-weight: 600;
+            }
 
     </style>
 
