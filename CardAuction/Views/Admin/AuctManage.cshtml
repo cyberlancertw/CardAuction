@@ -137,7 +137,7 @@
                     </td>*@
                 <td class="wid100">
                     @*@Html.ActionLink("編輯", "Edit", new { id = item.fItemId }) |*@
-                    @Html.ActionLink("刪除", "Delete", new { id = item.fItemId }, new { @class = "btn btn-outline-secondary  btn-sm circleS", onclick = "return confirm('確定要刪除嗎?')" })
+                    @Html.ActionLink("下架", "AuctDelete","Admin", new { AuctItemID = item.fItemId }, new { @class = "btn btn-outline-secondary  btn-sm circleS", onclick = "return confirm('確定要下架此商品嗎?')" })
 
                     @*@Html.ActionLink("刪除", "AdvDelete", "Admin", new { id = item.fAdId }, new { @class = "btn btn-outline-secondary  btn-sm circleS ", onclick = "return confirm('確定要刪除嗎?')" })*@
                 </td>

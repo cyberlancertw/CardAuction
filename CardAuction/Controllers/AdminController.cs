@@ -110,6 +110,35 @@ namespace CardAuction.Controllers
             return View(Products);
         }
 
+        public ActionResult AuctDelete(string AuctItemID)
+        {
+            if (AuctItemID != null)
+            {
+                //tAdminAd Adv = db.tAdminAd.FirstOrDefault(A => A.fAdId == (int)id);
+                tAuctionItem Auct = db.tAuctionItem.FirstOrDefault(A => A.fItemId == AuctItemID);
+                if (Auct != null)
+                {
+                    db.tAuctionItem.Remove(Auct);
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("AuctManage");
+        }
+
+        //public ActionResult AdvDelete(int? id)
+        //{
+        //    if (id != null)
+        //    {
+        //        tAdminAd Adv = db.tAdminAd.FirstOrDefault(A => A.fAdId == (int)id);
+        //        if (Adv != null)
+        //        {
+        //            db.tAdminAd.Remove(Adv);
+        //            db.SaveChanges();
+        //        }
+        //    }
+        //    return RedirectToAction("AdvManage");
+        //}
+
 
 
         //AdvertiseManage //AdManage //廣告管理
