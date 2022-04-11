@@ -38,9 +38,10 @@
 
 }
 #banner{
-    height: 200px;
-    background-color: #ebebeb;
-    font-size: 50px;
+    
+}
+#banner > img{
+    width: 100%;
 }
 
 #mainContent{

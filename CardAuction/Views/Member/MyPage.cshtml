@@ -204,16 +204,24 @@
                         <h5>$ @myaitem.fMoneyNow 元</h5>
                         @if (myaitem.fEndTime < DateTime.Now || myaitem.fFinish)
                         {
-                            <h5>已結束</h5>
-                        }
-                        else
-                        {
-                            <h5>@resetday</h5>
-                        }
+                            if (myaitem.fBidCount == 0)
+                            {
+                        <h5>流標</h5>
+                            }
+                            else
+                            {
+                        <h5>已結束</h5>
+                            }
+
+                            }
+                            else
+                            {
+                        <h5>@resetday</h5>
+                            }
                         <div class="button-area">
-                            @if (myaitem.fFinish 
-                                && !myaitem.fDelete 
-                                && myaitem.fPostUserId == userId 
+                            @if (myaitem.fFinish
+                                && !myaitem.fDelete
+                                && myaitem.fPostUserId == userId
                                 && myaitem.fTopBidUserId != null)
                             {
                                 <button class="infoWinner" data-infoitemid="@myaitem.fItemId" data-itemtype="auction">通知買家</button>

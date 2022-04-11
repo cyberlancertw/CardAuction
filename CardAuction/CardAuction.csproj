@@ -460,6 +460,8 @@
     <Content Include="Images\ExchangeItemImages\icon\heart 24px.png" />
     <Content Include="Images\ExchangeItemImages\icon\heart.png" />
     <Content Include="Images\ExchangeItemImages\icon\talk.png" />
+    <Content Include="Images\site\bannerAuction.png" />
+    <Content Include="Images\site\bannerExchange.png" />
     <Content Include="Images\site\iconArrowLeft.png" />
     <Content Include="Images\site\iconArrowRight.png" />
     <Content Include="Images\site\iconCart.jpg" />

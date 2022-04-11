@@ -232,6 +232,8 @@ namespace CardAuction.Controllers
             foreach (var item in itemFinish)
             {
                 item.fFinish = true;
+
+                
             }
             try
             {

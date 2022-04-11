@@ -439,12 +439,16 @@
     border-right: 2px solid #ced3d8;
     flex: auto;
     text-align: center;
-    color: #ced3d8;
+    color: #1f3444;
 }
 #divCalender {
     width: 100px;
     color: #ab8f4e;
     text-align: center;
+}
+#divCalender > a{
+    text-decoration: none;
+    color: #ab8f4e;
 }
 
 #divMoney{

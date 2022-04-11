@@ -79,8 +79,23 @@
                         <div id="divStamp">
                             <span id="stampTime"></span>
                         </div>
+                        @{
+                            
+                            DateTime taipeiStartTime = Convert.ToDateTime(Model.fEndTime.Subtract(new TimeSpan(8, 30, 0)));
+                            DateTime taipeiEndTime = Convert.ToDateTime(Model.fEndTime.Subtract(new TimeSpan(8, 0, 0)));
+                            string startTime = taipeiStartTime.ToString("yyyyMMdd") + "T" + taipeiStartTime.ToString("HHmmss");
+                            string endTime = taipeiEndTime.ToString("yyyyMMdd") + "T" + taipeiEndTime.ToString("HHmmss");
+                            string calendarString = "https://calendar.google.com/calendar/u/0/r/eventedit" +
+                                                    "?text=%E5%95%86%E5%93%81%E7%B5%90%E6%A8%99" +
+                                                    "&details=CARDs.%E7%AB%B6%E6%A8%99%E5%95%86%E5%93%81%E3%80%8C" +
+                                                    $"{Model.fItemName}%E3%80%8D%E7%B5%90%E6%A8%99" +
+                                                    $"{CDictionary.WebHost}Auction/Item/{Model.fItemId}/" +
+                                                    "&location=CARDs%E5%8D%A1%E5%B8%82" +
+                                                    $"&dates={startTime}.000Z/{endTime}.000Z";
+
+                        }
                         <div id="divCalender">
-                            加入行事曆
+                            <a href="@calendarString" target="_blank">加入行事曆</a>
                         </div>
                     </div>
                     <div class="container" id="divMoney">

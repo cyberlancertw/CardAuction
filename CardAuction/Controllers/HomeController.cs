@@ -236,7 +236,7 @@ namespace CardAuction.Controllers
 
             List<string> finishItems = db.tAuctionItem
                 .Where(m => (m.fPostUserId == userId || m.fTopBidUserId == userId)
-                         && (m.fEndTime < DateTime.Now)
+                         && (m.fEndTime < DateTime.Now || (m.fBuyPrice > 0 && m.fMoneyNow >= m.fBuyPrice))
                          && m.fFinish && !m.fDelete)
                 .Select(m => m.fItemId).ToList();
             Session[CDictionary.SK_BellFinishItems] = finishItems;

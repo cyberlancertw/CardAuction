@@ -70,8 +70,13 @@ namespace CardAuction.Controllers
                 if (!infoItemsList.Contains(finishItemId))
                 {
                     infoItemsList.Add(finishItemId);        // 有 HttpGet 點過 Member/MyPage，就把 Session 中 BellFinishItems 每個 itemId 字串給 BellInfoItems 當做使用者按過了
+                    if(db.tAuctionItem.Find(finishItemId).fBidCount == 0)
+                    {
+                        AuctionItemFail(finishItemId);
+                    }
                 }
             }
+            
             Session[CDictionary.SK_BellInfoItems] = infoItemsList;
             Session[CDictionary.SK_BellFinishItems] = finishItemsList;
 
@@ -621,6 +626,64 @@ namespace CardAuction.Controllers
                 phone = member.fPhone,
                 address = member.fAddress
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public void AuctionItemFail(string itemId)
+        {
+            if (db.tAuctionResult.Find(itemId) != null)
+            {
+                return;
+            }
+            tAuctionItem item = db.tAuctionItem.Find(itemId);
+            if (item.fEndTime < DateTime.Now && item.fBidCount == 0)           // 流標處理
+            {
+                item.fDelete = true;
+                tAuctionResult newResult = new tAuctionResult
+                {
+                    fBidCount = 0,
+                    fResultId = item.fItemId,
+                    fPhoto0 = item.fPhoto0,
+                    fPhoto1 = item.fPhoto1,
+                    fPhoto2 = item.fPhoto2,
+                    fPhoto3 = item.fPhoto3,
+                    fPostUserId = item.fPostUserId,
+                    fTotalMoney = item.fMoneyNow,
+                    fBidMoney = item.fMoneyNow,
+                    fWinTime = item.fEndTime,
+                    fDeliveryInfo = "無人競標。流標。"
+                };
+                /*
+                if (!string.IsNullOrEmpty(item.fPhoto1))
+                {
+                    newResult.fPhoto1 = item.fPhoto1;
+                }
+                if (!string.IsNullOrEmpty(item.fPhoto2))
+                {
+                    newResult.fPhoto2 = item.fPhoto2;
+                }
+                if (!string.IsNullOrEmpty(item.fPhoto3))
+                {
+                    newResult.fPhoto3 = item.fPhoto3;
+                }
+                */
+                string postUserEmail = db.tMember.Find(item.fPostUserId).fEmail;
+                string content = $"<h2>您好，您在 {item.fCreateTime.ToString()} 上架的商品「{item.fItemName}」在 {item.fEndTime.ToString()} 時間結束時無人參與競標，故已下架</h2><h3>系統信件請勿回信。by <a href=\"${CDictionary.WebHost}\">CARDs.卡市</a> 團隊</h3>";
+                Service.SendEmail(postUserEmail, "CARDs.卡市 - 商品流標通知", content);
+
+                db.tAuctionResult.Add(newResult);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbEntityValidationException ex)
+                {
+
+                }
+                catch(Exception e)
+                {
+
+                }
+            }
         }
     }
 }

@@ -58,12 +58,12 @@
         <div class="divTitle">競標商品上架者</div>
         <div class="divContent">@Model.postUserAccount</div>
     </div>
-    <div id="winUser">
-        <div class="divTitle">競標商品得標者</div>
-        <div class="divContent">@Model.winUserAccount</div>
-    </div>
-    @if (string.IsNullOrEmpty(Model.result.fWinUserId))
+    @if (Model.result.fBidCount == 0)
     {
+        <div id="winUser">
+            <div class="divTitle">競標商品得標者</div>
+            <div class="divContent">無</div>
+        </div>
         <div id="winMoney">
             <div class="divTitle">得標價</div>
             <div class="divContent">無</div>
@@ -82,12 +82,16 @@
         </div>
         <div id="deliveryInfo">
             <div class="divTitle">運送資訊</div>
-            <div class="divContent">無</div>
+            <div class="divContent">流標</div>
         </div>
 
     }
     else
     {
+        <div id="winUser">
+            <div class="divTitle">競標商品得標者</div>
+            <div class="divContent">@Model.winUserAccount</div>
+        </div>
         <div id="winMoney">
             <div class="divTitle">得標價</div>
             <div class="divContent">$ @Model.result.fBidMoney 元</div>
@@ -98,7 +102,7 @@
         </div>
         <div id="bidCount">
             <div class="divTitle">出價次數</div>
-            <div class="divContent">@Model.result.fBidCount</div>
+            <div class="divContent">@Model.result.fBidCount 次</div>
         </div>
         <div id="winTime">
             <div class="divTitle">得標時間</div>
@@ -116,17 +120,17 @@
         <div class="historyHeader">
             @foreach (BidDetail bid in Model.history)
             {
-            <div class="infotatal">
-                <div class="info">
-                    帳號: @bid.bidAccount
+                <div class="infotatal">
+                    <div class="info">
+                        帳號: @bid.bidAccount
+                    </div>
+                    <div class="info1">
+                        出價: @bid.bidMoney 元
+                    </div>
+                    <div class="info2">
+                        時間: @bid.bidTime.ToString()
+                    </div>
                 </div>
-                <div class="info1">
-                    出價: @bid.bidMoney 元
-                </div>
-                <div class="info2">
-                    時間: @bid.bidTime.ToString()
-                </div>
-            </div>
             }
         </div>
     </div>
