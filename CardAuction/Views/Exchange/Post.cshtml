@@ -1,8 +1,8 @@
 ﻿@using CardAuction.Models
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "交換-商品上架";
-    ViewBag.pageTitle = "新增交換商品";
+    ViewBag.Title = "交換-物品上架";
+    ViewBag.pageTitle = "新增交換物品";
     string username = null;
     string userId = null;
     if (Session[CDictionary.SK_UserAccount] != null)
@@ -24,14 +24,14 @@
                 <input type="hidden" name="fPostUserId" value="@userId" />
                 <div class="row divContent" id="divImgSelect">
                     <div class="contentHead col-12 col-md-3">
-                        商品圖片
+                        物品圖片
                     </div>
                     <div class="content col-12 col-md-9">
                         <div class="row picBlockList">
                             <div class="col-12 col-sm-6 col-md-3">
                                 <div class="picBlock dragNone" id="picBlock0">
                                 </div>
-                                *商品圖片
+                                *物品圖片
                                 <input type="file" name="Photo0" id="inputFile0">
                             </div>
                             <div class="col-12 col-sm-6 col-md-3">
@@ -94,7 +94,7 @@
 
                 <div class="row divContent" id="divItemName">
                     <div class="contentHead col-12 col-md-3">
-                        <label for="ItemName">*商品名稱</label>
+                        <label for="ItemName">*物品名稱</label>
                     </div>
                     <div class="content col-12 col-md-9">
                         <input type="text" name="fItemName" id="ItemName" maxlength="60" required />
@@ -106,7 +106,7 @@
 
                 <div class="row divContent" id="divItemDescription">
                     <div class="contentHead col-12 col-md-3">
-                        <label for="ItemDescription">*商品描述</label>
+                        <label for="ItemDescription">*物品描述</label>
                     </div>
                     <div class="content col-12 col-md-9">
                         <textarea name="fItemDescription" id="ItemDescription" maxlength="800" required></textarea>
