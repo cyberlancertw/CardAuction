@@ -409,9 +409,7 @@ namespace CardAuction.Controllers
                               Sort = c.fSort,
                               ItemLevel = c.fItemLevel,
                               ItemLocation = c.fItemLocation
-                              //postTime = c.fPostTime  //發布時間
                           });
-                    //.OrderBy(n => n.postTime); ;
                 return Json(queryResult, JsonRequestBehavior.AllowGet);
             }
             return Json(null, JsonRequestBehavior.AllowGet);
