@@ -8,7 +8,6 @@
     string filepath1 = Model.fPhoto1;
     string filepath2 = Model.fPhoto2;
     string filepath3 = Model.fPhoto3;
-    //int leastBid = Model.fMoneyNow + Model.fMoneyStep;
     int secondTotalRemain = Convert.ToInt32((Model.fEndTime - DateTime.Now).TotalSeconds);
 
 }
@@ -270,8 +269,8 @@
         @if(Session[CDictionary.SK_UserUserId] != null && Session[CDictionary.SK_UserUserId].ToString().Equals(Model.fPostUserId) || Model.fDelete)
         {
         <text>
-        btnFavorite.disabled = true;                                          // 有登入而且就是上架者自己
-        IWantExchange.hidden = true;                                               // 則不給按追蹤、我要交換、檢舉
+        btnFavorite.disabled = true;                    // 有登入而且就是上架者自己
+        IWantExchange.hidden = true;                    // 則不給按追蹤、我要交換、檢舉
         btnReport.disabled = true;
         </text>
         }
