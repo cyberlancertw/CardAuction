@@ -84,6 +84,9 @@ a {
     color: #ab8f4e;
 }
 
+.pMoney > span{
+    color: #000000;
+}
 .pTime {
     font-size: 1.1rem;
 }

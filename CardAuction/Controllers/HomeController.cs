@@ -41,9 +41,13 @@ namespace CardAuction.Controllers
 
 
         [HttpGet]
-        public ActionResult Error(string ErrorMessage, string ToController, string ToAction, string ToId)
+        public ActionResult Error(string ErrorMessage, string ToController, string ToAction, string ToId, string aspxerrorpath = "")
         {
             TempData["ErrorMessage"] = ErrorMessage;
+            if (!string.IsNullOrEmpty(aspxerrorpath))
+            {
+                TempData["ErrorMessage"] = "錯誤連結：" + aspxerrorpath;
+            }
             TempData["ToController"] = ToController;
             TempData["ToAction"] = ToAction;
             TempData["ToId"] = ToId;
@@ -69,13 +73,15 @@ namespace CardAuction.Controllers
             string[] keywordList = id.Split(' ');
             int keywordCount = keywordList.Length;
 
-            IQueryable<QueryItem> auctionInformations = db.tAuctionItem        // 撈商品名、描述、分類、鑑定 成索引
+            IQueryable<QueryItem> auctionInformations = db.tAuctionItem          // 撈商品名、描述、分類、鑑定 成索引
+                .Where(m => m.fEndTime > DateTime.Now)
                 .Select(m => new QueryItem
                 {
                     itemId = m.fItemId,
                     information = m.fItemName + m.fItemDescription + m.fSort + m.fGrading
                 });
             IQueryable<QueryItem> exchangeInformations = db.tExchangeItem        // 撈商品名、描述、分類、鑑定 成索引
+                .Where(m => m.fEndTime > DateTime.Now)
                 .Select(m => new QueryItem
                 {
                     itemId = m.fItemId,
@@ -145,7 +151,7 @@ namespace CardAuction.Controllers
             }
             foreach (List<string> result in exchangeQueryResultItemId)
             {
-                List<string> temp = result.Except(exchangeAndResult).Except(exchangeOrResult).ToList();         // 差集掉交集結果和前面已蒐集的部分
+                List<string> temp = result.Except(exchangeAndResult).Except(exchangeOrResult).ToList();       // 差集掉交集結果和前面已蒐集的部分
                 exchangeOrResult.AddRange(temp);
             }
             foreach (string str in auctionOrResult)
@@ -253,7 +259,6 @@ namespace CardAuction.Controllers
             
             return (substractionItems.Count > 0).ToString();
         }
-
     }
 
 

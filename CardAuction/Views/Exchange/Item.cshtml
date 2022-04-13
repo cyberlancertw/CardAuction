@@ -88,13 +88,12 @@
                             string startTime = taipeiStartTime.ToString("yyyyMMdd") + "T" + taipeiStartTime.ToString("HHmmss");
                             string endTime = taipeiEndTime.ToString("yyyyMMdd") + "T" + taipeiEndTime.ToString("HHmmss");
                             string calendarString = "https://calendar.google.com/calendar/u/0/r/eventedit" +
-                                                    "?text=%E5%95%86%E5%93%81%E7%B5%90%E6%9D%9F" +
+                                                    "?text=%E7%89%A9%E5%93%81%E4%BA%A4%E6%8F%9B%E7%B5%90%E6%9D%9F" +
                                                     "&details=CARDs.%E4%BA%A4%E6%8F%9B%E5%95%86%E5%93%81%E3%80%8C" +
                                                     $"{Model.fItemName}%E3%80%8D%E7%B5%90%E6%9D%9F" +
                                                     $"{CDictionary.WebHost}Exchange/Item/{Model.fItemId}/" +
                                                     "&location=CARDs%E5%8D%A1%E5%B8%82" +
                                                     $"&dates={startTime}.000Z/{endTime}.000Z";
-
                         }
                         <div id="divCalender">
                             <a href="@calendarString" target="_blank">加入行事曆</a>

@@ -142,6 +142,24 @@ namespace CardAuction.Controllers
         {
             if(Session[CDictionary.SK_UserAccount] == null)        // 無登入，進登入頁
             {
+                var itemFinish = db.tAuctionItem.Where(m => m.fEndTime < DateTime.Now && !m.fFinish);       // 幫掃
+                foreach (var item in itemFinish)
+                {
+                    item.fFinish = true;
+                }
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    Service.ExceptionEmail(ex, "Home/Index");
+                }
+                catch (Exception e)
+                {
+                    Service.ExceptionEmail(e, "Home/Index");
+                }
+
                 return View();
             }
             else                                                   // 有登入，送進 Home/Index
